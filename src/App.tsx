@@ -1,6 +1,7 @@
 import FactoryBlockMagazine from "components/FactorySections/FactoryBlockMagazine";
 import FactoryBlockPostsGrid from "components/FactorySections/FactoryBlockPostsGrid";
 import FactoryBlockPostsSlider from "components/FactorySections/FactoryBlockPostsSlider";
+import FactoryBlockTermsSlider from "components/FactorySections/FactoryBlockTermsSlider";
 import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunningContainer";
 import React from "react";
 
@@ -29,16 +30,24 @@ const blockPostsGrid = Array.from(gutenbergDomNodes).filter(
     "block-posts-grid"
 );
 
+// =====================TERMS========================================
+// block-terms-slider
+const blockTermsSlider = Array.from(gutenbergDomNodes).filter(
+  (selector) =>
+    selector.getAttribute("data-nc-gutenberg-section-type") ===
+    "block-terms-slider"
+);
+
 export interface ApiParamPostByFilter {
   authors: string[];
-  categories: string[];
-  tags: string[];
+  categories: string[]; //IDs array
+  tags: string[]; //IDs array
   orderBy: string;
   order: string;
   per_page: number;
 }
 export interface ApiParamPostSpecific {
-  slug: string[];
+  slug: string[]; //SLUGs array
 }
 
 interface GutenbergAttr__BlockMagazine_BySpecific {
@@ -175,6 +184,41 @@ interface GutenbergAttr__BlockPostsGrid_ByFilter {
   };
 }
 
+// =========================_BlockPostsGrid============================================
+interface GutenbergAttr__BlockTermsSlider_BySpecific {
+  blockName: "nc-block-terms-slider";
+  option: "by_term_specific";
+  typeOfTerm: "tag" | "category";
+  params: {
+    termIds: string[]; //IDs array
+  };
+  settings: {
+    itemPerView: number;
+    termCardName: "card2" | "card3" | "card4" | "card5";
+    heading: string;
+    subHeading: string;
+    hasBackground: boolean;
+  };
+}
+
+interface GutenbergAttr__BlockTermsSlider_ByFilter {
+  blockName: "nc-block-terms-slider";
+  option: "by_filter";
+  typeOfTerm: "tag" | "category";
+  params: {
+    orderby: string;
+    order: string;
+    per_page: number;
+  };
+  settings: {
+    itemPerView: number;
+    termCardName: "card2" | "card3" | "card4" | "card5";
+    heading: string;
+    subHeading: string;
+    hasBackground: boolean;
+  };
+}
+
 export type NcGutenbergApiAttr_BlockMagazine =
   | GutenbergAttr__BlockMagazine_ByFilter
   | GutenbergAttr__BlockMagazine_BySpecific;
@@ -186,6 +230,10 @@ export type NcGutenbergApiAttr_BlockPostsSlider =
 export type NcGutenbergApiAttr_BlockPostsGrid =
   | GutenbergAttr__BlockPostsGrid_BySpecific
   | GutenbergAttr__BlockPostsGrid_ByFilter;
+
+export type NcGutenbergApiAttr_BlockTermSlider =
+  | GutenbergAttr__BlockTermsSlider_ByFilter
+  | GutenbergAttr__BlockTermsSlider_BySpecific;
 
 function App() {
   return (
@@ -234,6 +282,23 @@ function App() {
           JSON.parse(apiAttrStr);
         return (
           <FactoryBlockPostsGrid
+            key={index}
+            domNode={domNode}
+            apiSettings={apiAttr}
+          />
+        );
+      })}
+
+      {/* ----- RENDER BLOCK TERMS SLIDER ----- */}
+      {blockTermsSlider.map((domNode, index) => {
+        const apiAttrStr = domNode.getAttribute(
+          "data-nc-gutenberg-section-api"
+        );
+        if (!apiAttrStr) return null;
+        const apiAttr: NcGutenbergApiAttr_BlockTermSlider =
+          JSON.parse(apiAttrStr);
+        return (
+          <FactoryBlockTermsSlider
             key={index}
             domNode={domNode}
             apiSettings={apiAttr}

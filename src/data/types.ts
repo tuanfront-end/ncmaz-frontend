@@ -1,5 +1,5 @@
 //  ##########  PostDataType ######## //
-export interface TaxonomyType {
+export interface TaxonomyType__NOT_USE {
   id: string | number;
   name: string;
   href: string;
@@ -22,32 +22,6 @@ export interface PostAuthorType__NO_YET {
   desc: string;
   jobName: string;
   href: string;
-}
-
-export interface PostDataType__NOT_USE {
-  id: string | number;
-  author: PostAuthorType__NO_YET;
-  date: string;
-  href: string;
-  categories: TaxonomyType[];
-  title: string;
-  featuredImage: string;
-  desc?: string;
-  like: {
-    count: number;
-    isLiked: boolean;
-  };
-  bookmark: {
-    count: number;
-    isBookmarked: boolean;
-  };
-  commentCount: number;
-  viewdCount: number;
-  readingTime: number;
-  postType: "standard" | "video" | "gallery" | "audio";
-  videoUrl?: string;
-  audioUrl?: string;
-  galleryImgs?: string[];
 }
 
 export type TwMainColor =

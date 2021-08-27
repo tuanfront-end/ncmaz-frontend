@@ -75,16 +75,16 @@ interface Avatar {
 }
 
 interface Categories {
-  edges: Edge2[];
+  edges: CategoriesEdge2[];
   __typename: string;
 }
 
-interface Edge2 {
-  node: Node3;
+export interface CategoriesEdge2 {
+  node: CategoriesNode3;
   __typename: string;
 }
 
-interface Node3 {
+export interface CategoriesNode3 {
   id: string;
   link: string;
   name: string;
@@ -92,6 +92,14 @@ interface Node3 {
   slug: string;
   count: number;
   categoryId: number;
+  ncTaxonomyMeta: {
+    color?: string;
+    featuredImage?: {
+      id: string;
+      sourceUrl: string;
+    };
+    fieldGroupName: "ncTaxonomyMeta";
+  };
   __typename: string;
 }
 
