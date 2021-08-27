@@ -1,0 +1,25 @@
+/*  ---------body ------ */
+html body {
+  @apply font-body antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-display;
+}
+
+/* root */
+:root {
+  --font-display: Poppins;
+  --font-body: Poppins;
+}
+.theme-animals {
+  --font-display: Inter;
+  --font-body: Inter;
+}
+.theme-astronomy {
+  --font-display: BeVietnam;
+  --font-body: BeVietnam;
+}
