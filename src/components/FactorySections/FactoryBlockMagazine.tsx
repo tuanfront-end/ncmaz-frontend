@@ -5,8 +5,6 @@ import {
   POSTS_SECTION_BY_FILTER,
   POSTS_SECTION_SPECIFIC,
 } from "graphql/getPosts";
-import { NcGutenbergApiAttr_BlockMagazine } from "App";
-import { ListPosts } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
@@ -22,6 +20,7 @@ import SectionMagazine7 from "components/SectionMagazines/SectionMagazine7";
 import SectionMagazine8 from "components/SectionMagazines/SectionMagazine8";
 import SectionMagazine9 from "components/SectionMagazines/SectionMagazine9";
 import SectionLargeSlider from "components/SectionMagazines/SectionLargeSlider";
+import { NcGutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
 
 export interface FactoryBlockMagazineProps {
   className?: string;

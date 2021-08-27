@@ -67,7 +67,9 @@ const CardCategory4: FC<CardCategory4Props> = ({
       </div>
 
       <div className="flex items-center mt-5">
-        <div className={`w-10 h-10 ${getColorClass()} rounded-full`}></div>
+        <div
+          className={`flex-shrink-0 w-10 h-10 ${getColorClass()} rounded-full`}
+        ></div>
         <div className="ml-3 truncate">
           <h2
             className={`text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-medium truncate`}

@@ -5,7 +5,6 @@ import {
   POSTS_SECTION_BY_FILTER,
   POSTS_SECTION_SPECIFIC,
 } from "graphql/getPosts";
-import { NcGutenbergApiAttr_BlockPostsSlider } from "App";
 import { ListPosts, PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -22,6 +21,7 @@ import Card10V2 from "components/Card10/Card10V2";
 import Card11 from "components/Card11/Card11";
 import NextPrev from "components/NextPrev/NextPrev";
 import Card14 from "components/Card14/Card14";
+import { NcGutenbergApiAttr_BlockPostsSlider } from "data/gutenbergAttrType";
 
 export interface FactoryBlockPostsSliderProps {
   className?: string;

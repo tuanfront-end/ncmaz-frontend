@@ -5,7 +5,6 @@ import {
   POSTS_SECTION_BY_FILTER,
   POSTS_SECTION_SPECIFIC,
 } from "graphql/getPosts";
-import { NcGutenbergApiAttr_BlockPostsGrid } from "App";
 import { ListPosts, PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -22,6 +21,7 @@ import Card14 from "components/Card14/Card14";
 import Card15Podcast from "components/Card15Podcast/Card15Podcast";
 import Card3 from "components/Card3/Card3";
 import ButtonPrimary from "components/Button/ButtonPrimary";
+import { NcGutenbergApiAttr_BlockPostsGrid } from "data/gutenbergAttrType";
 
 export interface FactoryBlockPostsGridProps {
   className?: string;

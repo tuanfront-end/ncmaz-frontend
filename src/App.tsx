@@ -2,7 +2,15 @@ import FactoryBlockMagazine from "components/FactorySections/FactoryBlockMagazin
 import FactoryBlockPostsGrid from "components/FactorySections/FactoryBlockPostsGrid";
 import FactoryBlockPostsSlider from "components/FactorySections/FactoryBlockPostsSlider";
 import FactoryBlockTermsSlider from "components/FactorySections/FactoryBlockTermsSlider";
+import FactoryBlockTermsGrid from "components/FactorySections/FactoryBlockTermsGrid";
 import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunningContainer";
+import {
+  NcGutenbergApiAttr_BlockMagazine,
+  NcGutenbergApiAttr_BlockPostsGrid,
+  NcGutenbergApiAttr_BlockPostsSlider,
+  NcGutenbergApiAttr_BlockTermGrid,
+  NcGutenbergApiAttr_BlockTermSlider,
+} from "data/gutenbergAttrType";
 import React from "react";
 
 // DOMS
@@ -37,203 +45,12 @@ const blockTermsSlider = Array.from(gutenbergDomNodes).filter(
     selector.getAttribute("data-nc-gutenberg-section-type") ===
     "block-terms-slider"
 );
-
-export interface ApiParamPostByFilter {
-  authors: string[];
-  categories: string[]; //IDs array
-  tags: string[]; //IDs array
-  orderBy: string;
-  order: string;
-  per_page: number;
-}
-export interface ApiParamPostSpecific {
-  slug: string[]; //SLUGs array
-}
-
-interface GutenbergAttr__BlockMagazine_BySpecific {
-  blockName: "nc-block-magazine";
-  endpoint: string;
-  params: ApiParamPostSpecific;
-  option: "by_post_specific";
-  settings: {
-    sectionName: string;
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-  };
-}
-
-interface GutenbergAttr__BlockMagazine_ByFilter {
-  blockName: "nc-block-magazine";
-  endpoint: string;
-  params: ApiParamPostByFilter;
-  option: "by_filter";
-  settings: {
-    sectionName: string;
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-    showFilterTab: boolean;
-    viewMoreHref: string;
-    categoriesFilter: {
-      count: number;
-      id: number;
-      link: string;
-      name: string;
-      slug: string;
-    }[];
-  };
-}
-
-// =========================_BlockPostsSlider============================================
-interface GutenbergAttr__BlockPostsSlider_BySpecific {
-  blockName: "nc-block-posts-slider";
-  endpoint: string;
-  params: ApiParamPostSpecific;
-  option: "by_post_specific";
-  settings: {
-    itemPerView: number;
-    postCardName: string;
-    blockLayoutType: "type-1" | "type-2";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-  };
-}
-
-interface GutenbergAttr__BlockPostsSlider_ByFilter {
-  blockName: "nc-block-posts-slider";
-  endpoint: string;
-  params: ApiParamPostByFilter;
-  option: "by_filter";
-  settings: {
-    itemPerView: number;
-    postCardName: string;
-    blockLayoutType: "type-1" | "type-2";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-    showFilterTab: boolean;
-    viewMoreHref: string;
-    categoriesFilter: {
-      count: number;
-      id: number;
-      link: string;
-      name: string;
-      slug: string;
-    }[];
-  };
-}
-
-// =========================_BlockPostsGrid============================================
-interface GutenbergAttr__BlockPostsGrid_BySpecific {
-  blockName: "nc-block-posts-grid";
-  endpoint: string;
-  params: ApiParamPostSpecific;
-  option: "by_post_specific";
-  settings: {
-    gridClass: string;
-    postCardName:
-      | "card3"
-      | "card4"
-      | "card7"
-      | "card9"
-      | "card10"
-      | "card10V2"
-      | "card11"
-      | "card14"
-      | "card15Podcast";
-    blockLayoutType: "type-1" | "type-2";
-    heading: string;
-    subHeading: string;
-    viewMoreHref: string;
-    hasBackground: boolean;
-  };
-}
-
-interface GutenbergAttr__BlockPostsGrid_ByFilter {
-  blockName: "nc-block-posts-grid";
-  endpoint: string;
-  params: ApiParamPostByFilter;
-  option: "by_filter";
-  settings: {
-    gridClass: string;
-    postCardName:
-      | "card3"
-      | "card4"
-      | "card7"
-      | "card9"
-      | "card10"
-      | "card10V2"
-      | "card11"
-      | "card14"
-      | "card15Podcast";
-    blockLayoutType: "type-1" | "type-2";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-    showFilterTab: boolean;
-    viewMoreHref: string;
-    categoriesFilter: {
-      count: number;
-      id: number;
-      link: string;
-      name: string;
-      slug: string;
-    }[];
-  };
-}
-
-// =========================_BlockPostsGrid============================================
-interface GutenbergAttr__BlockTermsSlider_BySpecific {
-  blockName: "nc-block-terms-slider";
-  option: "by_term_specific";
-  typeOfTerm: "tag" | "category";
-  params: {
-    termIds: string[]; //IDs array
-  };
-  settings: {
-    itemPerView: number;
-    termCardName: "card2" | "card3" | "card4" | "card5";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-  };
-}
-
-interface GutenbergAttr__BlockTermsSlider_ByFilter {
-  blockName: "nc-block-terms-slider";
-  option: "by_filter";
-  typeOfTerm: "tag" | "category";
-  params: {
-    orderby: string;
-    order: string;
-    per_page: number;
-  };
-  settings: {
-    itemPerView: number;
-    termCardName: "card2" | "card3" | "card4" | "card5";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-  };
-}
-
-export type NcGutenbergApiAttr_BlockMagazine =
-  | GutenbergAttr__BlockMagazine_ByFilter
-  | GutenbergAttr__BlockMagazine_BySpecific;
-
-export type NcGutenbergApiAttr_BlockPostsSlider =
-  | GutenbergAttr__BlockPostsSlider_BySpecific
-  | GutenbergAttr__BlockPostsSlider_ByFilter;
-
-export type NcGutenbergApiAttr_BlockPostsGrid =
-  | GutenbergAttr__BlockPostsGrid_BySpecific
-  | GutenbergAttr__BlockPostsGrid_ByFilter;
-
-export type NcGutenbergApiAttr_BlockTermSlider =
-  | GutenbergAttr__BlockTermsSlider_ByFilter
-  | GutenbergAttr__BlockTermsSlider_BySpecific;
+// block-terms-grid
+const blockTermsGrid = Array.from(gutenbergDomNodes).filter(
+  (selector) =>
+    selector.getAttribute("data-nc-gutenberg-section-type") ===
+    "block-terms-grid"
+);
 
 function App() {
   return (
@@ -299,6 +116,23 @@ function App() {
           JSON.parse(apiAttrStr);
         return (
           <FactoryBlockTermsSlider
+            key={index}
+            domNode={domNode}
+            apiSettings={apiAttr}
+          />
+        );
+      })}
+
+      {/* ----- RENDER BLOCK TERMS GRID ----- */}
+      {blockTermsGrid.map((domNode, index) => {
+        const apiAttrStr = domNode.getAttribute(
+          "data-nc-gutenberg-section-api"
+        );
+        if (!apiAttrStr) return null;
+        const apiAttr: NcGutenbergApiAttr_BlockTermGrid =
+          JSON.parse(apiAttrStr);
+        return (
+          <FactoryBlockTermsGrid
             key={index}
             domNode={domNode}
             apiSettings={apiAttr}

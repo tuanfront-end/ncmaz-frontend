@@ -8,13 +8,13 @@ import {
   TERMSQUERY_SPECIFIC,
   TERMSQUERY_SPECIFIC_TAGS,
 } from "graphql/termQuery";
-import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
-import { NcGutenbergApiAttr_BlockTermSlider } from "data/gutenbergAttrType";
+import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
+import { NcGutenbergApiAttr_BlockTermGrid } from "data/gutenbergAttrType";
 
 export interface FactoryBlockTermsSliderProps {
   className?: string;
   domNode: Element;
-  apiSettings: NcGutenbergApiAttr_BlockTermSlider;
+  apiSettings: NcGutenbergApiAttr_BlockTermGrid;
 }
 
 const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
@@ -64,8 +64,15 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
 
   const termsLists = data?.tags?.edges || data?.categories?.edges || [];
   const renderContent = () => {
-    const { hasBackground, subHeading, heading, termCardName, itemPerView } =
-      apiSettings.settings;
+    const {
+      hasBackground,
+      subHeading,
+      heading,
+      termCardName,
+      gridClass,
+      gridClassCustom,
+      blockLayoutType,
+    } = apiSettings.settings;
     const isBg = hasBackground;
 
     return (
@@ -92,12 +99,13 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
         {/* ------------ */}
 
         {termsLists.length && (
-          <SectionSliderNewCategories
+          <SectionGridCategoryBox
             categories={termsLists}
             heading={heading}
             subHeading={subHeading}
+            headingCenter={blockLayoutType === "type-2"}
             categoryCardType={termCardName}
-            itemPerRow={itemPerView}
+            gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
           />
         )}
       </div>

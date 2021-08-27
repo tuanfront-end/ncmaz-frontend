@@ -14,16 +14,60 @@ function customColors(cssVar) {
   };
 }
 
+const safelist = [
+  "grid-cols-4",
+  "grid-cols-5",
+  "grid-cols-6",
+  "grid-cols-7",
+  "grid-cols-8",
+  //
+  "sm:grid-cols-4",
+  "sm:grid-cols-5",
+  "sm:grid-cols-6",
+  "sm:grid-cols-7",
+  "sm:grid-cols-8",
+  //
+  "md:grid-cols-4",
+  "md:grid-cols-5",
+  "md:grid-cols-6",
+  "md:grid-cols-7",
+  "md:grid-cols-8",
+  //
+  "lg:grid-cols-4",
+  "lg:grid-cols-5",
+  "lg:grid-cols-6",
+  "lg:grid-cols-7",
+  "lg:grid-cols-8",
+  //
+  "xl:grid-cols-4",
+  "xl:grid-cols-5",
+  "xl:grid-cols-6",
+  "xl:grid-cols-7",
+  "xl:grid-cols-8",
+  //
+  "2xl:grid-cols-4",
+  "2xl:grid-cols-5",
+  "2xl:grid-cols-6",
+  "2xl:grid-cols-7",
+  "2xl:grid-cols-8",
+];
+
 module.exports = {
+  important: "[data-type^=ncmaz-core]",
   mode: "jit",
-  purge: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./index.html",
-    "../*.php",
-    "../**/*.php",
-    //
-    "../../plugins/ncmaz-core/**/*.php",
-  ],
+  purge: {
+    content: [
+      "./index.html",
+      "./src/**/*.{js,jsx,ts,tsx}",
+      //
+      "./*.php",
+      "./**/*.php",
+      //
+      "../ncmaz-core/**/*.php",
+      "../ncmaz-core/**/*.{js,jsx,ts,tsx}",
+    ],
+    safelist,
+  },
   darkMode: "class", // or 'media' or 'class',
   theme: {
     container: {
