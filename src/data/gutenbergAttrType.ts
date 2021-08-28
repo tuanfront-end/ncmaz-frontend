@@ -146,81 +146,39 @@ export interface GutenbergAttr__BlockPostsGrid_ByFilter {
   };
 }
 
-// =========================_BlockTermSlider============================================
-export interface GutenbergAttr__BlockTermsSlider_BySpecific {
-  blockName: "nc-block-terms-slider";
-  option: "by_term_specific";
-  typeOfTerm: "tag" | "category";
-  params: {
-    termIds: string[]; //IDs array
+// =========================_Block TERM SLider============================================
+export interface GutenbergApiAttr_BlockTermSlider {
+  graphQLvariables: {
+    variables: Object;
+    queryString: string;
   };
   settings: {
-    itemPerView: number;
+    blockLayoutStyle: "layout-1" | "layout-2";
     termCardName: "card2" | "card3" | "card4" | "card5";
     heading: string;
     subHeading: string;
     hasBackground: boolean;
+    itemPerView: number;
   };
 }
-
-export interface GutenbergAttr__BlockTermsSlider_ByFilter {
-  blockName: "nc-block-terms-slider";
-  option: "by_filter";
-  typeOfTerm: "tag" | "category";
-  params: {
-    orderby: string;
-    order: string;
-    per_page: number;
+// =========================_Block TERM SLider============================================
+export interface GutenbergApiAttr_BlockTermGrid {
+  graphQLvariables: {
+    variables: Object;
+    queryString: string;
   };
   settings: {
-    itemPerView: number;
+    blockLayoutStyle: "layout-1" | "layout-2";
     termCardName: "card2" | "card3" | "card4" | "card5";
     heading: string;
     subHeading: string;
     hasBackground: boolean;
-  };
-}
-
-// =========================_BlockTermsGrid============================================
-export interface GutenbergAttr__BlockTermsGrid_BySpecific {
-  blockName: "nc-block-terms-grid";
-  option: "by_term_specific";
-  typeOfTerm: "tag" | "category";
-  params: {
-    termIds: string[]; //IDs array
-  };
-  settings: {
-    termCardName: "card2" | "card3" | "card4" | "card5";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-    blockLayoutType: "type-1" | "type-2";
     gridClass: string;
     gridClassCustom: string;
   };
 }
 
-export interface GutenbergAttr__BlockTermsGrid_ByFilter {
-  blockName: "nc-block-terms-grid";
-  option: "by_filter";
-  typeOfTerm: "tag" | "category";
-  params: {
-    orderby: string;
-    order: string;
-    per_page: number;
-  };
-  settings: {
-    termCardName: "card2" | "card3" | "card4" | "card5";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-    blockLayoutType: "type-1" | "type-2";
-    gridClass: string;
-    gridClassCustom: string;
-  };
-}
-
-// =========================_BlockTermsGrid============================================
+// =========================_Block User SLider============================================
 export interface GutenbergAttr__BlockUsersSlider {
   graphQLvariables: {
     variables: Object;
@@ -229,6 +187,22 @@ export interface GutenbergAttr__BlockUsersSlider {
   settings: {
     userCardName: SectionSliderNewAuthorsProps["authorCardName"];
     itemPerView: number;
+    heading: string;
+    blockLayoutStyle: "layout-1" | "layout-2";
+    subHeading: string;
+    hasBackground: boolean;
+  };
+}
+// =========================_Block User Grid============================================
+export interface GutenbergAttr__BlockUsersGrid {
+  graphQLvariables: {
+    variables: Object;
+    queryString: string;
+  };
+  settings: {
+    userCardName: SectionSliderNewAuthorsProps["authorCardName"];
+    gridClass: string;
+    gridClassCustom: string;
     heading: string;
     blockLayoutStyle: "layout-1" | "layout-2";
     subHeading: string;
@@ -247,11 +221,3 @@ export type NcGutenbergApiAttr_BlockPostsSlider =
 export type NcGutenbergApiAttr_BlockPostsGrid =
   | GutenbergAttr__BlockPostsGrid_BySpecific
   | GutenbergAttr__BlockPostsGrid_ByFilter;
-
-export type NcGutenbergApiAttr_BlockTermSlider =
-  | GutenbergAttr__BlockTermsSlider_ByFilter
-  | GutenbergAttr__BlockTermsSlider_BySpecific;
-
-export type NcGutenbergApiAttr_BlockTermGrid =
-  | GutenbergAttr__BlockTermsGrid_ByFilter
-  | GutenbergAttr__BlockTermsGrid_BySpecific;

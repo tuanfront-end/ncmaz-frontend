@@ -1,68 +1,32 @@
 import React, { FC } from "react";
 import ReactDOM from "react-dom";
-import { DocumentNode, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
-import {
-  TERMSQUERY_FILTER,
-  TERMSQUERY_FILTER_TAGS,
-  TERMSQUERY_SPECIFIC,
-  TERMSQUERY_SPECIFIC_TAGS,
-} from "graphql/termQuery";
 import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
-import { NcGutenbergApiAttr_BlockTermGrid } from "data/gutenbergAttrType";
+import { GutenbergApiAttr_BlockTermGrid } from "data/gutenbergAttrType";
 
-export interface FactoryBlockTermsSliderProps {
+export interface FactoryBlockTermsGridProps {
   className?: string;
   domNode: Element;
-  apiSettings: NcGutenbergApiAttr_BlockTermGrid;
+  apiSettings: GutenbergApiAttr_BlockTermGrid;
 }
 
-const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
+const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
   className = "",
   domNode,
   apiSettings,
 }) => {
-  let variables = {};
-  let TERMSQUERY: DocumentNode;
+  const { graphQLvariables, settings } = apiSettings;
 
-  const { typeOfTerm } = apiSettings;
-
-  // CATEGORIES
-  if (typeOfTerm === "category") {
-    if (apiSettings.option === "by_filter") {
-      variables = {
-        order: apiSettings.params.order,
-        orderby: apiSettings.params.orderby,
-        first: Number(apiSettings.params.per_page),
-      };
-      TERMSQUERY = TERMSQUERY_FILTER;
-    } else {
-      variables = {
-        termTaxonomId: apiSettings.params.termIds,
-      };
-      TERMSQUERY = TERMSQUERY_SPECIFIC;
-    }
-  }
-
-  // TAGS;
-  if (typeOfTerm === "tag") {
-    if (apiSettings.option === "by_filter") {
-      variables = {
-        order: apiSettings.params.order,
-        orderby: apiSettings.params.orderby,
-        first: Number(apiSettings.params.per_page),
-      };
-      TERMSQUERY = TERMSQUERY_FILTER_TAGS;
-    } else {
-      variables = { termTaxonomId: apiSettings.params.termIds };
-      TERMSQUERY = TERMSQUERY_SPECIFIC_TAGS;
-    }
-  }
-
-  // @ts-ignore
-  const { loading, error, data } = useQuery(TERMSQUERY, { variables });
+  const queryGql = gql`
+    ${graphQLvariables.queryString}
+  `;
+  const { loading, error, data } = useQuery(queryGql, {
+    variables: graphQLvariables.variables,
+  });
 
   const termsLists = data?.tags?.edges || data?.categories?.edges || [];
+
   const renderContent = () => {
     const {
       hasBackground,
@@ -71,13 +35,13 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
       termCardName,
       gridClass,
       gridClassCustom,
-      blockLayoutType,
-    } = apiSettings.settings;
+      blockLayoutStyle,
+    } = settings;
     const isBg = hasBackground;
 
     return (
       <div
-        className={`nc-FactoryBlockTermsSlider relative container ${
+        className={`nc-FactoryBlockTermsGrid relative container ${
           isBg ? "py-16" : ""
         }  ${className}`}
       >
@@ -103,7 +67,7 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
             categories={termsLists}
             heading={heading}
             subHeading={subHeading}
-            headingCenter={blockLayoutType === "type-2"}
+            headingCenter={blockLayoutStyle === "layout-1"}
             categoryCardType={termCardName}
             gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
           />
@@ -115,4 +79,4 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
   return ReactDOM.createPortal(renderContent(), domNode);
 };
 
-export default FactoryBlockTermsSlider;
+export default FactoryBlockTermsGrid;

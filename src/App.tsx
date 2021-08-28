@@ -5,15 +5,17 @@ import FactoryBlockTermsSlider from "components/FactorySections/FactoryBlockTerm
 import FactoryBlockTermsGrid from "components/FactorySections/FactoryBlockTermsGrid";
 import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunningContainer";
 import {
+  GutenbergApiAttr_BlockTermGrid,
+  GutenbergApiAttr_BlockTermSlider,
+  GutenbergAttr__BlockUsersGrid,
   GutenbergAttr__BlockUsersSlider,
   NcGutenbergApiAttr_BlockMagazine,
   NcGutenbergApiAttr_BlockPostsGrid,
   NcGutenbergApiAttr_BlockPostsSlider,
-  NcGutenbergApiAttr_BlockTermGrid,
-  NcGutenbergApiAttr_BlockTermSlider,
 } from "data/gutenbergAttrType";
 import React from "react";
 import FactoryBlockUsersSlider from "components/FactorySections/FactoryBlockUsersSlider";
+import FactoryBlockUsersGrid from "components/FactorySections/FactoryBlockUsersGrid";
 
 // DOMS
 const gutenbergDomNodes = document.querySelectorAll(
@@ -56,11 +58,17 @@ const blockTermsGrid = Array.from(gutenbergDomNodes).filter(
 
 //
 // =====================USERS========================================
-// block-terms-grid
+// block-use slider
 const blockUserSlider = Array.from(gutenbergDomNodes).filter(
   (selector) =>
     selector.getAttribute("data-nc-gutenberg-section-type") ===
     "block-users-slider"
+);
+// block-user grid
+const blockUserGrid = Array.from(gutenbergDomNodes).filter(
+  (selector) =>
+    selector.getAttribute("data-nc-gutenberg-section-type") ===
+    "block-users-grid"
 );
 
 function App() {
@@ -123,7 +131,7 @@ function App() {
           "data-nc-gutenberg-section-api"
         );
         if (!apiAttrStr) return null;
-        const apiAttr: NcGutenbergApiAttr_BlockTermSlider =
+        const apiAttr: GutenbergApiAttr_BlockTermSlider =
           JSON.parse(apiAttrStr);
         return (
           <FactoryBlockTermsSlider
@@ -140,8 +148,7 @@ function App() {
           "data-nc-gutenberg-section-api"
         );
         if (!apiAttrStr) return null;
-        const apiAttr: NcGutenbergApiAttr_BlockTermGrid =
-          JSON.parse(apiAttrStr);
+        const apiAttr: GutenbergApiAttr_BlockTermGrid = JSON.parse(apiAttrStr);
         return (
           <FactoryBlockTermsGrid
             key={index}
@@ -160,6 +167,22 @@ function App() {
         const apiAttr: GutenbergAttr__BlockUsersSlider = JSON.parse(apiAttrStr);
         return (
           <FactoryBlockUsersSlider
+            key={index}
+            domNode={domNode}
+            apiSettings={apiAttr}
+          />
+        );
+      })}
+
+      {/* ----- RENDER BLOCK USERS GRID ----- */}
+      {blockUserGrid.map((domNode, index) => {
+        const apiAttrStr = domNode.getAttribute(
+          "data-nc-gutenberg-section-api"
+        );
+        if (!apiAttrStr) return null;
+        const apiAttr: GutenbergAttr__BlockUsersGrid = JSON.parse(apiAttrStr);
+        return (
+          <FactoryBlockUsersGrid
             key={index}
             domNode={domNode}
             apiSettings={apiAttr}

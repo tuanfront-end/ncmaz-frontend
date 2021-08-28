@@ -30,8 +30,14 @@ const FactoryBlockUsersSlider: FC<FactoryBlockTermsSliderProps> = ({
   //
 
   const renderContent = () => {
-    const { hasBackground, subHeading, heading, itemPerView, userCardName, blockLayoutStyle } =
-      settings;
+    const {
+      hasBackground,
+      subHeading,
+      heading,
+      itemPerView,
+      userCardName,
+      blockLayoutStyle,
+    } = settings;
 
     return (
       <div
@@ -58,10 +64,8 @@ const FactoryBlockUsersSlider: FC<FactoryBlockTermsSliderProps> = ({
 
         {dataLists.length && (
           <SectionSliderNewAuthors
-            authorCardName={
-              userCardName as SectionSliderNewAuthorsProps["authorCardName"]
-            }
-            blockLayoutStyle={ blockLayoutStyle}
+            authorCardName={userCardName}
+            blockLayoutStyle={blockLayoutStyle}
             itemPerView={itemPerView}
             authorNodes={dataLists}
             heading={heading}
