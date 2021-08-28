@@ -26,7 +26,7 @@ const NcImage: FC<NcImageProps> = ({
   let isMounted = false;
   const _containerRef = useRef(null);
   let _imageEl: HTMLImageElement | null = null;
-  const darkmodeState = useAppSelector(selectDarkmodeState);
+  // const darkmodeState = useAppSelector(selectDarkmodeState);
 
   const placeholderImage = window.frontendObject.placeholderImg;
 
@@ -74,11 +74,11 @@ const NcImage: FC<NcImageProps> = ({
     };
   }, [src]);
 
-  useEffect(() => {
-    if (!imageLoaded) {
-      set__src(placeholderImage);
-    }
-  }, [darkmodeState]);
+  // useEffect(() => {
+  //   if (!imageLoaded) {
+  //     set__src(placeholderImage);
+  //   }
+  // }, [darkmodeState]);
 
   return (
     <div

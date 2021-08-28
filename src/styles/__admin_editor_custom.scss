@@ -1,0 +1,34 @@
+.block-editor__container {
+  .block-editor-block-list__layout {
+    overflow: hidden;
+  }
+
+  .wp-block {
+    @apply max-w-7xl p-2 mx-auto #{!important};
+  }
+
+  [data-type^="ncmaz-core"] {
+    img {
+      @apply border-0 border-none;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        list-style: none;
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      &:not([class*="m-"]) {
+        @apply my-0 #{!important};
+      }
+    }
+  }
+}

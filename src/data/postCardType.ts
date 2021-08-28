@@ -62,6 +62,26 @@ interface AuthorNode2 {
   __typename: string;
 }
 
+export interface AuthorNode {
+  id: string;
+  name: string;
+  avatar: Avatar;
+  ncUserMeta: NcUserMeta;
+  url: string;
+  uri: string;
+  username: string;
+  userId: number;
+}
+
+export interface NcUserMeta {
+  color?: string;
+  ncBio?: string;
+  featuredImage?: {
+    id: string;
+    sourceUrl: string;
+  };
+}
+
 interface Avatar {
   default: string;
   extraAttr: any;

@@ -1,3 +1,5 @@
+import { SectionSliderNewAuthorsProps } from "components/SectionSliderNewAuthors/SectionSliderNewAuthors";
+
 export interface ApiParamPostByFilter {
   authors: string[];
   categories: string[]; //IDs array
@@ -215,6 +217,22 @@ export interface GutenbergAttr__BlockTermsGrid_ByFilter {
     blockLayoutType: "type-1" | "type-2";
     gridClass: string;
     gridClassCustom: string;
+  };
+}
+
+// =========================_BlockTermsGrid============================================
+export interface GutenbergAttr__BlockUsersSlider {
+  graphQLvariables: {
+    variables: Object;
+    queryString: string;
+  };
+  settings: {
+    userCardName: SectionSliderNewAuthorsProps["authorCardName"];
+    itemPerView: number;
+    heading: string;
+    blockLayoutStyle: "layout-1" | "layout-2";
+    subHeading: string;
+    hasBackground: boolean;
   };
 }
 
