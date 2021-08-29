@@ -7,8 +7,9 @@ import { ReactNode } from "react";
 
 export interface HeaderSectionFilterTabItem {
   id: number;
+  value: string;
+  label: string;
   name: string;
-  slug: string;
 }
 
 export interface HeaderSectionFilterProps {

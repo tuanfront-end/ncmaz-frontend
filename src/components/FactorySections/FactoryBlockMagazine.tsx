@@ -1,10 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { useQuery } from "@apollo/client";
-import {
-  POSTS_SECTION_BY_FILTER,
-  POSTS_SECTION_SPECIFIC,
-} from "graphql/getPosts";
+import { gql, useQuery } from "@apollo/client";
+
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
@@ -20,59 +17,55 @@ import SectionMagazine7 from "components/SectionMagazines/SectionMagazine7";
 import SectionMagazine8 from "components/SectionMagazines/SectionMagazine8";
 import SectionMagazine9 from "components/SectionMagazines/SectionMagazine9";
 import SectionLargeSlider from "components/SectionMagazines/SectionLargeSlider";
-import { NcGutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
+import { GutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
+import { ListPosts } from "data/postCardType";
 
 export interface FactoryBlockMagazineProps {
   className?: string;
   domNode: Element;
-  apiSettings: NcGutenbergApiAttr_BlockMagazine;
+  apiSettings: GutenbergApiAttr_BlockMagazine;
 }
-
-//
-let listPosts = {
-  edges: [],
-};
 
 const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   className = "",
   domNode,
   apiSettings,
 }) => {
-  if (apiSettings.blockName !== "nc-block-magazine") return null;
+  const { graphQLvariables, settings } = apiSettings;
 
   const [tabActiveId, setTabActiveId] = useState<number>(-1);
-  const [variablesFilter, setVariablesFilter] = useState({});
+  const [variablesFilter, setVariablesFilter] = useState(
+    graphQLvariables.variables || {}
+  );
+
+  //
+  useEffect(() => {
+    setVariablesFilter(graphQLvariables.variables);
+  }, [graphQLvariables]);
+
+  const queryGql = gql`
+    ${graphQLvariables.queryString}
+  `;
 
   useEffect(() => {
-    const variables =
-      apiSettings.option === "by_post_specific"
-        ? { nameIn: apiSettings.params.slug }
-        : {
-            categoryIn: apiSettings.params.categories || [],
-            tagIn: apiSettings.params?.tags || [],
-            authorIn: apiSettings.params?.authors || [],
-            order: apiSettings.params?.order,
-            field: apiSettings.params?.orderBy,
-            last: null,
-            first: apiSettings.params.per_page,
-            before: null,
-            after: null,
-          };
-    setVariablesFilter(variables);
-  }, []);
-
-  useEffect(() => {
-    if (apiSettings.option === "by_post_specific") {
-      return;
-    }
     setVariablesFilter((variables) => {
       return {
         ...variables,
         categoryIn:
-          tabActiveId === -1 ? apiSettings.params.categories : [tabActiveId],
+          tabActiveId === -1
+            ? graphQLvariables.variables?.categoryIn
+            : [tabActiveId],
       };
     });
   }, [tabActiveId]);
+
+  const { loading, error, data } = useQuery(queryGql, {
+    variables: variablesFilter,
+  });
+
+  const listPosts: ListPosts = data?.posts || {
+    edges: [],
+  };
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -84,20 +77,6 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     }
     setTabActiveId(item.id);
   };
-
-  const { loading, error, data } = useQuery(
-    apiSettings.option === "by_post_specific"
-      ? POSTS_SECTION_SPECIFIC
-      : POSTS_SECTION_BY_FILTER,
-    {
-      variables: variablesFilter,
-    }
-  );
-
-  //
-  if (data) {
-    listPosts = data?.posts;
-  }
 
   const renderLayoutType = () => {
     switch (apiSettings.settings.sectionName) {
@@ -153,7 +132,16 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   };
 
   const renderContent = () => {
-    const isBg = apiSettings.settings.hasBackground;
+    const {
+      hasBackground,
+      showFilterTab,
+      categories,
+      viewMoreHref,
+      heading,
+      subHeading,
+    } = settings;
+    const isBg = hasBackground;
+    console.log(22, categories);
     return (
       <div
         className={`nc-FactoryBlockMagazine relative container ${
@@ -162,20 +150,17 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
       >
         {isBg && <BackgroundSection />}
 
-        {apiSettings.option === "by_filter" &&
-        apiSettings.settings.showFilterTab ? (
+        {showFilterTab ? (
           <HeaderSectionFilter
             tabActiveId={tabActiveId}
-            tabs={apiSettings.settings.categoriesFilter}
-            viewMoreHref={apiSettings.settings.viewMoreHref}
-            heading={apiSettings.settings.heading}
-            subHeading={apiSettings.settings.subHeading}
+            tabs={categories}
+            viewMoreHref={viewMoreHref}
+            heading={heading}
+            subHeading={subHeading}
             onClickTab={handleClickTab}
           />
         ) : (
-          <Heading desc={apiSettings.settings.subHeading}>
-            {apiSettings.settings.heading}
-          </Heading>
+          <Heading desc={subHeading}>{heading}</Heading>
         )}
 
         {loading && !listPosts.edges.length && (

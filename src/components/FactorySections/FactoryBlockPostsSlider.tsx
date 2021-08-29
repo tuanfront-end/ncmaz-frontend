@@ -1,10 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { useQuery } from "@apollo/client";
-import {
-  POSTS_SECTION_BY_FILTER,
-  POSTS_SECTION_SPECIFIC,
-} from "graphql/getPosts";
+import { gql, useQuery } from "@apollo/client";
 import { ListPosts, PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -21,12 +17,12 @@ import Card10V2 from "components/Card10/Card10V2";
 import Card11 from "components/Card11/Card11";
 import NextPrev from "components/NextPrev/NextPrev";
 import Card14 from "components/Card14/Card14";
-import { NcGutenbergApiAttr_BlockPostsSlider } from "data/gutenbergAttrType";
+import { GutenbergApiAttr_BlockPostsSlider } from "data/gutenbergAttrType";
 
 export interface FactoryBlockPostsSliderProps {
   className?: string;
   domNode: Element;
-  apiSettings: NcGutenbergApiAttr_BlockPostsSlider;
+  apiSettings: GutenbergApiAttr_BlockPostsSlider;
 }
 
 const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
@@ -34,61 +30,59 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   domNode,
   apiSettings,
 }) => {
-  const [tabActiveId, setTabActiveId] = useState<number>(-1);
-
-  const [variablesFilter, setVariablesFilter] = useState({});
-
   const UNIQUE_CLASS = "glide_" + ncNanoId();
 
+  const { graphQLvariables, settings } = apiSettings;
+
+  const [tabActiveId, setTabActiveId] = useState<number>(-1);
+  const [variablesFilter, setVariablesFilter] = useState(
+    graphQLvariables.variables || {}
+  );
+
+  //
   useEffect(() => {
-    const variables =
-      apiSettings.option === "by_post_specific"
-        ? { nameIn: apiSettings.params.slug }
-        : {
-            categoryIn: apiSettings.params.categories || [],
-            tagIn: apiSettings.params?.tags || [],
-            authorIn: apiSettings.params?.authors || [],
-            order: apiSettings.params?.order,
-            field: apiSettings.params?.orderBy,
-            last: null,
-            first: apiSettings.params.per_page,
-            before: null,
-            after: null,
-          };
-    setVariablesFilter(variables);
-  }, []);
+    setVariablesFilter(graphQLvariables.variables);
+  }, [graphQLvariables]);
+
+  const queryGql = gql`
+    ${graphQLvariables.queryString}
+  `;
 
   useEffect(() => {
-    if (apiSettings.option === "by_post_specific") {
-      return;
-    }
     setVariablesFilter((variables) => {
       return {
         ...variables,
         categoryIn:
-          tabActiveId === -1 ? apiSettings.params.categories : [tabActiveId],
+          tabActiveId === -1
+            ? graphQLvariables.variables?.categoryIn
+            : [tabActiveId],
       };
     });
   }, [tabActiveId]);
 
-  const { loading, error, data } = useQuery(
-    apiSettings.option === "by_post_specific"
-      ? POSTS_SECTION_SPECIFIC
-      : POSTS_SECTION_BY_FILTER,
-    {
-      variables: variablesFilter,
-    }
-  );
+  const { loading, error, data } = useQuery(queryGql, {
+    variables: variablesFilter,
+  });
 
   const listPosts: ListPosts = data?.posts || {
     edges: [],
   };
 
-  const enableNexPrevOnFoot =
-    apiSettings.settings.blockLayoutType === "type-2" ||
-    (apiSettings.option === "by_filter" && apiSettings.settings.showFilterTab);
+  const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
+    if (item === -1) {
+      setTabActiveId(item);
+      return;
+    }
+    if (item.id === tabActiveId) {
+      return;
+    }
+    setTabActiveId(item.id);
+  };
 
-  const perView = apiSettings.settings.itemPerView;
+  const enableNexPrevOnFoot =
+    settings.blockLayoutStyle === "layout-2" || settings.showFilterTab;
+
+  const perView = settings.itemPerView;
 
   useEffect(() => {
     if (!data) return;
@@ -119,17 +113,6 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       },
     }).mount();
   }, [data]);
-
-  const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
-    if (item === -1) {
-      setTabActiveId(item);
-      return;
-    }
-    if (item.id === tabActiveId) {
-      return;
-    }
-    setTabActiveId(item.id);
-  };
 
   const renderPostComponent = (post: PostNode) => {
     switch (apiSettings.settings.postCardName) {
@@ -163,8 +146,8 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   };
 
   const renderHeading = () => {
-    const { heading, subHeading, blockLayoutType } = apiSettings.settings;
-    if (blockLayoutType === "type-1") {
+    const { heading, subHeading, blockLayoutStyle } = apiSettings.settings;
+    if (blockLayoutStyle === "layout-1") {
       return (
         <Heading desc={subHeading} hasNextPrev>
           {heading}
@@ -179,7 +162,14 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   };
 
   const renderContent = () => {
-    const { hasBackground, subHeading, heading } = apiSettings.settings;
+    const {
+      hasBackground,
+      subHeading,
+      heading,
+      showFilterTab,
+      categories,
+      viewMoreHref,
+    } = settings;
     const isBg = hasBackground;
 
     return (
@@ -191,12 +181,11 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
         {isBg && <BackgroundSection />}
 
         <div className={`${UNIQUE_CLASS}`}>
-          {apiSettings.option === "by_filter" &&
-          apiSettings.settings.showFilterTab ? (
+          {showFilterTab ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}
-              tabs={apiSettings.settings.categoriesFilter}
-              viewMoreHref={apiSettings.settings.viewMoreHref}
+              tabs={categories}
+              viewMoreHref={viewMoreHref}
               heading={heading}
               subHeading={subHeading}
               onClickTab={handleClickTab}

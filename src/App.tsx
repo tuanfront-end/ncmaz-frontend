@@ -9,9 +9,9 @@ import {
   GutenbergApiAttr_BlockTermSlider,
   GutenbergAttr__BlockUsersGrid,
   GutenbergAttr__BlockUsersSlider,
-  NcGutenbergApiAttr_BlockMagazine,
-  NcGutenbergApiAttr_BlockPostsGrid,
-  NcGutenbergApiAttr_BlockPostsSlider,
+  GutenbergApiAttr_BlockMagazine,
+  GutenbergApiAttr_BlockPostsGrid,
+  GutenbergApiAttr_BlockPostsSlider,
 } from "data/gutenbergAttrType";
 import React from "react";
 import FactoryBlockUsersSlider from "components/FactorySections/FactoryBlockUsersSlider";
@@ -80,8 +80,7 @@ function App() {
           "data-nc-gutenberg-section-api"
         );
         if (!apiAttrStr) return null;
-        const apiAttr: NcGutenbergApiAttr_BlockMagazine =
-          JSON.parse(apiAttrStr);
+        const apiAttr: GutenbergApiAttr_BlockMagazine = JSON.parse(apiAttrStr);
         return (
           <FactoryBlockMagazine
             key={index}
@@ -97,7 +96,7 @@ function App() {
           "data-nc-gutenberg-section-api"
         );
         if (!apiAttrStr) return null;
-        const apiAttr: NcGutenbergApiAttr_BlockPostsSlider =
+        const apiAttr: GutenbergApiAttr_BlockPostsSlider =
           JSON.parse(apiAttrStr);
         return (
           <FactoryBlockPostsSlider
@@ -114,8 +113,7 @@ function App() {
           "data-nc-gutenberg-section-api"
         );
         if (!apiAttrStr) return null;
-        const apiAttr: NcGutenbergApiAttr_BlockPostsGrid =
-          JSON.parse(apiAttrStr);
+        const apiAttr: GutenbergApiAttr_BlockPostsGrid = JSON.parse(apiAttrStr);
         return (
           <FactoryBlockPostsGrid
             key={index}

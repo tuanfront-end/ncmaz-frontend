@@ -1,10 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { useQuery } from "@apollo/client";
-import {
-  POSTS_SECTION_BY_FILTER,
-  POSTS_SECTION_SPECIFIC,
-} from "graphql/getPosts";
+import { gql, useQuery } from "@apollo/client";
 import { ListPosts, PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -21,12 +17,12 @@ import Card14 from "components/Card14/Card14";
 import Card15Podcast from "components/Card15Podcast/Card15Podcast";
 import Card3 from "components/Card3/Card3";
 import ButtonPrimary from "components/Button/ButtonPrimary";
-import { NcGutenbergApiAttr_BlockPostsGrid } from "data/gutenbergAttrType";
+import { GutenbergApiAttr_BlockPostsGrid } from "data/gutenbergAttrType";
 
 export interface FactoryBlockPostsGridProps {
   className?: string;
   domNode: Element;
-  apiSettings: NcGutenbergApiAttr_BlockPostsGrid;
+  apiSettings: GutenbergApiAttr_BlockPostsGrid;
 }
 
 const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
@@ -34,57 +30,41 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   domNode,
   apiSettings,
 }) => {
+  const { graphQLvariables, settings } = apiSettings;
+
   const [tabActiveId, setTabActiveId] = useState<number>(-1);
+  const [variablesFilter, setVariablesFilter] = useState(
+    graphQLvariables.variables || {}
+  );
 
-  const [variablesFilter, setVariablesFilter] = useState({});
+  //
+  useEffect(() => {
+    setVariablesFilter(graphQLvariables.variables);
+  }, [graphQLvariables]);
+
+  const queryGql = gql`
+    ${graphQLvariables.queryString}
+  `;
 
   useEffect(() => {
-    const variables =
-      apiSettings.option === "by_post_specific"
-        ? { nameIn: apiSettings.params.slug }
-        : {
-            categoryIn: apiSettings.params.categories || [],
-            tagIn: apiSettings.params?.tags || [],
-            authorIn: apiSettings.params?.authors || [],
-            order: apiSettings.params?.order,
-            field: apiSettings.params?.orderBy,
-            last: null,
-            first: apiSettings.params.per_page,
-            before: null,
-            after: null,
-          };
-    setVariablesFilter(variables);
-  }, []);
-
-  useEffect(() => {
-    if (apiSettings.option === "by_post_specific") {
-      return;
-    }
     setVariablesFilter((variables) => {
       return {
         ...variables,
         categoryIn:
-          tabActiveId === -1 ? apiSettings.params.categories : [tabActiveId],
+          tabActiveId === -1
+            ? graphQLvariables.variables?.categoryIn
+            : [tabActiveId],
       };
     });
   }, [tabActiveId]);
 
-  const { loading, error, data } = useQuery(
-    apiSettings.option === "by_post_specific"
-      ? POSTS_SECTION_SPECIFIC
-      : POSTS_SECTION_BY_FILTER,
-    {
-      variables: variablesFilter,
-    }
-  );
+  const { loading, error, data } = useQuery(queryGql, {
+    variables: variablesFilter,
+  });
 
   const listPosts: ListPosts = data?.posts || {
     edges: [],
   };
-
-  const enableNexPrevOnFoot =
-    apiSettings.settings.blockLayoutType === "type-2" ||
-    (apiSettings.option === "by_filter" && apiSettings.settings.showFilterTab);
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -131,8 +111,8 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   };
 
   const renderHeading = () => {
-    const { heading, subHeading, blockLayoutType } = apiSettings.settings;
-    if (blockLayoutType === "type-1") {
+    const { heading, subHeading, blockLayoutStyle } = settings;
+    if (blockLayoutStyle === "layout-1") {
       return <Heading desc={subHeading}>{heading}</Heading>;
     }
     return (
@@ -143,14 +123,18 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   };
 
   const renderContent = () => {
-    const { hasBackground, heading, subHeading, viewMoreHref, gridClass } =
-      apiSettings.settings;
+    const {
+      hasBackground,
+      heading,
+      subHeading,
+      viewMoreHref,
+      gridClass,
+      gridClassCustom,
+      showFilterTab,
+    } = settings;
     const isBg = hasBackground;
 
-    const showViewMoreBtn =
-      (apiSettings.option !== "by_filter" ||
-        !apiSettings.settings.showFilterTab) &&
-      viewMoreHref;
+    const showViewMoreBtn = !showFilterTab && viewMoreHref;
 
     return (
       <div
@@ -161,11 +145,10 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
         {isBg && <BackgroundSection />}
 
         <div className="">
-          {apiSettings.option === "by_filter" &&
-          apiSettings.settings.showFilterTab ? (
+          {showFilterTab ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}
-              tabs={apiSettings.settings.categoriesFilter || []}
+              tabs={settings.categories}
               viewMoreHref={viewMoreHref}
               heading={heading}
               subHeading={subHeading}
@@ -174,7 +157,11 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
           ) : (
             renderHeading()
           )}
-          <div className={`grid gap-6 md:gap-8 ${gridClass}`}>
+          <div
+            className={`grid gap-6 md:gap-8 ${
+              !!gridClassCustom ? gridClassCustom : gridClass
+            }`}
+          >
             {listPosts.edges.map((post) => renderCard(post.node))}
           </div>
 

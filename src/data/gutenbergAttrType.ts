@@ -1,3 +1,4 @@
+import { HeaderSectionFilterTabItem } from "components/HeaderSectionFilter/HeaderSectionFilter";
 import { SectionSliderNewAuthorsProps } from "components/SectionSliderNewAuthors/SectionSliderNewAuthors";
 
 export interface ApiParamPostByFilter {
@@ -10,140 +11,6 @@ export interface ApiParamPostByFilter {
 }
 export interface ApiParamPostSpecific {
   slug: string[]; //SLUGs array
-}
-
-export interface GutenbergAttr__BlockMagazine_BySpecific {
-  blockName: "nc-block-magazine";
-  endpoint: string;
-  params: ApiParamPostSpecific;
-  option: "by_post_specific";
-  settings: {
-    sectionName: string;
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-  };
-}
-
-export interface GutenbergAttr__BlockMagazine_ByFilter {
-  blockName: "nc-block-magazine";
-  endpoint: string;
-  params: ApiParamPostByFilter;
-  option: "by_filter";
-  settings: {
-    sectionName: string;
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-    showFilterTab: boolean;
-    viewMoreHref: string;
-    categoriesFilter: {
-      count: number;
-      id: number;
-      link: string;
-      name: string;
-      slug: string;
-    }[];
-  };
-}
-
-// =========================_BlockPostsSlider============================================
-export interface GutenbergAttr__BlockPostsSlider_BySpecific {
-  blockName: "nc-block-posts-slider";
-  endpoint: string;
-  params: ApiParamPostSpecific;
-  option: "by_post_specific";
-  settings: {
-    itemPerView: number;
-    postCardName: string;
-    blockLayoutType: "type-1" | "type-2";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-  };
-}
-
-export interface GutenbergAttr__BlockPostsSlider_ByFilter {
-  blockName: "nc-block-posts-slider";
-  endpoint: string;
-  params: ApiParamPostByFilter;
-  option: "by_filter";
-  settings: {
-    itemPerView: number;
-    postCardName: string;
-    blockLayoutType: "type-1" | "type-2";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-    showFilterTab: boolean;
-    viewMoreHref: string;
-    categoriesFilter: {
-      count: number;
-      id: number;
-      link: string;
-      name: string;
-      slug: string;
-    }[];
-  };
-}
-
-// =========================_BlockPostsGrid============================================
-export interface GutenbergAttr__BlockPostsGrid_BySpecific {
-  blockName: "nc-block-posts-grid";
-  endpoint: string;
-  params: ApiParamPostSpecific;
-  option: "by_post_specific";
-  settings: {
-    gridClass: string;
-    postCardName:
-      | "card3"
-      | "card4"
-      | "card7"
-      | "card9"
-      | "card10"
-      | "card10V2"
-      | "card11"
-      | "card14"
-      | "card15Podcast";
-    blockLayoutType: "type-1" | "type-2";
-    heading: string;
-    subHeading: string;
-    viewMoreHref: string;
-    hasBackground: boolean;
-  };
-}
-
-export interface GutenbergAttr__BlockPostsGrid_ByFilter {
-  blockName: "nc-block-posts-grid";
-  endpoint: string;
-  params: ApiParamPostByFilter;
-  option: "by_filter";
-  settings: {
-    gridClass: string;
-    postCardName:
-      | "card3"
-      | "card4"
-      | "card7"
-      | "card9"
-      | "card10"
-      | "card10V2"
-      | "card11"
-      | "card14"
-      | "card15Podcast";
-    blockLayoutType: "type-1" | "type-2";
-    heading: string;
-    subHeading: string;
-    hasBackground: boolean;
-    showFilterTab: boolean;
-    viewMoreHref: string;
-    categoriesFilter: {
-      count: number;
-      id: number;
-      link: string;
-      name: string;
-      slug: string;
-    }[];
-  };
 }
 
 // =========================_Block TERM SLider============================================
@@ -185,7 +52,7 @@ export interface GutenbergAttr__BlockUsersSlider {
     queryString: string;
   };
   settings: {
-    userCardName: SectionSliderNewAuthorsProps["authorCardName"];
+    userCardName: "card1" | "card2";
     itemPerView: number;
     heading: string;
     blockLayoutStyle: "layout-1" | "layout-2";
@@ -193,6 +60,7 @@ export interface GutenbergAttr__BlockUsersSlider {
     hasBackground: boolean;
   };
 }
+
 // =========================_Block User Grid============================================
 export interface GutenbergAttr__BlockUsersGrid {
   graphQLvariables: {
@@ -200,7 +68,7 @@ export interface GutenbergAttr__BlockUsersGrid {
     queryString: string;
   };
   settings: {
-    userCardName: SectionSliderNewAuthorsProps["authorCardName"];
+    userCardName: "card1" | "card2";
     gridClass: string;
     gridClassCustom: string;
     heading: string;
@@ -210,14 +78,79 @@ export interface GutenbergAttr__BlockUsersGrid {
   };
 }
 
-export type NcGutenbergApiAttr_BlockMagazine =
-  | GutenbergAttr__BlockMagazine_ByFilter
-  | GutenbergAttr__BlockMagazine_BySpecific;
+// =========================_Block User Grid============================================
+export interface GutenbergApiAttr_BlockPostsGrid {
+  graphQLvariables: {
+    variables: {
+      authorIn: number[];
+      categoryIn: number[];
+      field: string;
+      first: number;
+      order: string;
+      tagIn: number[];
+    };
+    queryString: string;
+  };
+  settings: {
+    blockLayoutStyle: "layout-1" | "layout-2";
+    postCardName: string;
+    gridClass: string;
+    gridClassCustom: string;
+    showFilterTab: boolean;
+    viewMoreHref: string;
+    heading: string;
+    subHeading: string;
+    hasBackground: boolean;
+    categories: HeaderSectionFilterTabItem[];
+  };
+}
 
-export type NcGutenbergApiAttr_BlockPostsSlider =
-  | GutenbergAttr__BlockPostsSlider_BySpecific
-  | GutenbergAttr__BlockPostsSlider_ByFilter;
+// =========================_Block User Grid============================================
+export interface GutenbergApiAttr_BlockPostsSlider {
+  graphQLvariables: {
+    variables: {
+      authorIn: number[];
+      categoryIn: number[];
+      field: string;
+      first: number;
+      order: string;
+      tagIn: number[];
+    };
+    queryString: string;
+  };
+  settings: {
+    blockLayoutStyle: "layout-1" | "layout-2";
+    postCardName: string;
+    itemPerView: number;
+    showFilterTab: boolean;
+    viewMoreHref: string;
+    heading: string;
+    subHeading: string;
+    hasBackground: boolean;
+    categories: HeaderSectionFilterTabItem[];
+  };
+}
 
-export type NcGutenbergApiAttr_BlockPostsGrid =
-  | GutenbergAttr__BlockPostsGrid_BySpecific
-  | GutenbergAttr__BlockPostsGrid_ByFilter;
+// =========================_Block User Grid============================================
+export interface GutenbergApiAttr_BlockMagazine {
+  graphQLvariables: {
+    variables: {
+      authorIn: number[];
+      categoryIn: number[];
+      field: string;
+      first: number;
+      order: string;
+      tagIn: number[];
+    };
+    queryString: string;
+  };
+  settings: {
+    sectionName: string;
+    showFilterTab: boolean;
+    viewMoreHref: string;
+    heading: string;
+    subHeading: string;
+    hasBackground: boolean;
+    categories: HeaderSectionFilterTabItem[];
+  };
+}
