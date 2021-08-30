@@ -12,10 +12,12 @@ import {
   GutenbergApiAttr_BlockMagazine,
   GutenbergApiAttr_BlockPostsGrid,
   GutenbergApiAttr_BlockPostsSlider,
+  GutenbergApiAttr_BlockVideos,
 } from "data/gutenbergAttrType";
 import React from "react";
 import FactoryBlockUsersSlider from "components/FactorySections/FactoryBlockUsersSlider";
 import FactoryBlockUsersGrid from "components/FactorySections/FactoryBlockUsersGrid";
+import FactoryBlockVideos from "components/FactorySections/FactoryBlockVideos";
 
 // DOMS
 const gutenbergDomNodes = document.querySelectorAll(
@@ -69,6 +71,14 @@ const blockUserGrid = Array.from(gutenbergDomNodes).filter(
   (selector) =>
     selector.getAttribute("data-nc-gutenberg-section-type") ===
     "block-users-grid"
+);
+//
+
+// =====================VIDEOS========================================
+// block-use slider
+const blockVideos = Array.from(gutenbergDomNodes).filter(
+  (selector) =>
+    selector.getAttribute("data-nc-gutenberg-section-type") === "block-videos"
 );
 
 function App() {
@@ -181,6 +191,22 @@ function App() {
         const apiAttr: GutenbergAttr__BlockUsersGrid = JSON.parse(apiAttrStr);
         return (
           <FactoryBlockUsersGrid
+            key={index}
+            domNode={domNode}
+            apiSettings={apiAttr}
+          />
+        );
+      })}
+
+      {/* ----- RENDER BLOCK USERS GRID ----- */}
+      {blockVideos.map((domNode, index) => {
+        const apiAttrStr = domNode.getAttribute(
+          "data-nc-gutenberg-section-api"
+        );
+        if (!apiAttrStr) return null;
+        const apiAttr: GutenbergApiAttr_BlockVideos = JSON.parse(apiAttrStr);
+        return (
+          <FactoryBlockVideos
             key={index}
             domNode={domNode}
             apiSettings={apiAttr}

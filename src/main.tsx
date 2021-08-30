@@ -17,6 +17,10 @@ declare global {
     placeholderImg: string;
     graphQLBasePath: string;
   };
+
+  var ncmazFrontendVariables: {
+    emptyStatePng: string;
+  };
 }
 
 if (

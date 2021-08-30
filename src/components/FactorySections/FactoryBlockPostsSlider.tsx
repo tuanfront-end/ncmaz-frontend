@@ -18,12 +18,17 @@ import Card11 from "components/Card11/Card11";
 import NextPrev from "components/NextPrev/NextPrev";
 import Card14 from "components/Card14/Card14";
 import { GutenbergApiAttr_BlockPostsSlider } from "data/gutenbergAttrType";
+import EmptyState from "components/EmptyState/EmptyState";
 
 export interface FactoryBlockPostsSliderProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockPostsSlider;
 }
+
+let LISTS_POSTS: ListPosts = {
+  edges: [],
+};
 
 const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   className = "",
@@ -64,9 +69,10 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
     variables: variablesFilter,
   });
 
-  const listPosts: ListPosts = data?.posts || {
-    edges: [],
-  };
+  //
+  if (data) {
+    LISTS_POSTS = data?.posts;
+  }
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -86,7 +92,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
 
   useEffect(() => {
     if (!data) return;
-    if (!listPosts.edges.length) {
+    if (!LISTS_POSTS.edges.length) {
       return;
     }
 
@@ -120,20 +126,22 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
         return (
           <Card4
             post={post}
+            isSkeleton={loading}
             className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
           />
         );
       case "card7":
         return <Card7 post={post} />;
       case "card9":
-        return <Card9 post={post} />;
+        return <Card9 isSkeleton={loading} post={post} />;
       case "card10":
-        return <Card10 post={post} />;
+        return <Card10 isSkeleton={loading} post={post} />;
       case "card10V2":
-        return <Card10V2 post={post} />;
+        return <Card10V2 isSkeleton={loading} post={post} />;
       case "card11":
         return (
           <Card11
+            isSkeleton={loading}
             post={post}
             className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
           />
@@ -141,7 +149,13 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       case "card14":
         return <Card14 post={post} />;
       default:
-        return <Card4 post={post} />;
+        return (
+          <Card4
+            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
+            post={post}
+            isSkeleton={loading}
+          />
+        );
     }
   };
 
@@ -195,7 +209,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
           )}
           <div className="glide__track" data-glide-el="track">
             <ul className="glide__slides">
-              {listPosts.edges.map((item, index) => (
+              {LISTS_POSTS.edges.map((item, index) => (
                 <li
                   key={index}
                   className={`glide__slide ${
@@ -209,7 +223,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
           </div>
 
           {/* ------------ */}
-          {loading && !listPosts.edges.length && (
+          {loading && !LISTS_POSTS.edges.length && (
             <span className="text-lg"> LOADING .............</span>
           )}
           {error && (
@@ -218,9 +232,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
             </pre>
           )}
 
-          {!listPosts.edges.length && !loading && (
-            <span className="text-lg block">Nothing we found!</span>
-          )}
+          {!LISTS_POSTS.edges.length && !loading && <EmptyState />}
           {/* ------------ */}
 
           {enableNexPrevOnFoot && (

@@ -78,7 +78,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     >
       <NcImage
         containerClassName="absolute inset-0"
-        src={featuredImage?.node.sourceUrl}
+        src={featuredImage?.node.sourceUrl || "."}
       />
       {renderContent()}
     </div>

@@ -154,3 +154,12 @@ export interface GutenbergApiAttr_BlockMagazine {
     categories: HeaderSectionFilterTabItem[];
   };
 }
+// =========================_Block User Grid============================================
+export interface GutenbergApiAttr_BlockVideos {
+  settings: {
+    heading: string;
+    subHeading: string;
+    videoIds: string[];
+    hasBackground: boolean;
+  };
+}

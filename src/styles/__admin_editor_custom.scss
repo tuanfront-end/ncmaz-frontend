@@ -27,7 +27,7 @@
     h4,
     h5 {
       &:not([class*="m-"]) {
-        @apply my-0 #{!important};
+        @apply my-0;
       }
     }
   }

@@ -1,12 +1,10 @@
 export interface ListPosts {
   edges: Post[];
   pageInfo?: PageInfo;
-  __typename: string;
 }
 
 interface Post {
   node: PostNode;
-  __typename: string;
 }
 
 export interface PostNode {

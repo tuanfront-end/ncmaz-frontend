@@ -18,12 +18,17 @@ import Card15Podcast from "components/Card15Podcast/Card15Podcast";
 import Card3 from "components/Card3/Card3";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import { GutenbergApiAttr_BlockPostsGrid } from "data/gutenbergAttrType";
+import EmptyState from "components/EmptyState/EmptyState";
 
 export interface FactoryBlockPostsGridProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockPostsGrid;
 }
+
+let LISTS_POSTS: ListPosts = {
+  edges: [],
+};
 
 const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   className = "",
@@ -62,9 +67,10 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     variables: variablesFilter,
   });
 
-  const listPosts: ListPosts = data?.posts || {
-    edges: [],
-  };
+  //
+  if (data) {
+    LISTS_POSTS = data?.posts;
+  }
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -83,28 +89,34 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
         return (
           <Card3
             key={post.id}
+            isSkeleton={loading}
             className="p-3 sm:p-5 2xl:p-6 [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ]"
             post={post}
           />
         );
       case "card4":
-        return <Card4 key={post.id} post={post} />;
+        return <Card4 key={post.id} isSkeleton={loading} post={post} />;
       case "card7":
         return (
-          <Card7 key={post.id} post={post} ratio="aspect-w-5 aspect-h-5" />
+          <Card7
+            key={post.id}
+            post={post}
+            isSkeleton={loading}
+            ratio="aspect-w-5 aspect-h-5"
+          />
         );
       case "card9":
-        return <Card9 key={post.id} post={post} />;
+        return <Card9 key={post.id} isSkeleton={loading} post={post} />;
       case "card10":
-        return <Card10 key={post.id} post={post} />;
+        return <Card10 key={post.id} isSkeleton={loading} post={post} />;
       case "card10V2":
-        return <Card10V2 key={post.id} post={post} />;
+        return <Card10V2 key={post.id} isSkeleton={loading} post={post} />;
       case "card11":
-        return <Card11 key={post.id} post={post} />;
+        return <Card11 key={post.id} isSkeleton={loading} post={post} />;
       case "card14":
-        return <Card14 key={post.id} post={post} />;
+        return <Card14 key={post.id} isSkeleton={loading} post={post} />;
       case "card15Podcast":
-        return <Card15Podcast key={post.id} post={post} />;
+        return <Card15Podcast key={post.id} isSkeleton={loading} post={post} />;
       default:
         return null;
     }
@@ -162,11 +174,11 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
               !!gridClassCustom ? gridClassCustom : gridClass
             }`}
           >
-            {listPosts.edges.map((post) => renderCard(post.node))}
+            {LISTS_POSTS.edges.map((post) => renderCard(post.node))}
           </div>
 
           {/* ------------ */}
-          {loading && !listPosts.edges.length && (
+          {loading && !LISTS_POSTS.edges.length && (
             <span className="text-lg"> LOADING .............</span>
           )}
           {error && (
@@ -175,9 +187,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
             </pre>
           )}
 
-          {!listPosts.edges.length && !loading && (
-            <span className="text-lg block">Nothing we found!</span>
-          )}
+          {!LISTS_POSTS.edges.length && !loading && <EmptyState />}
           {/* ------------ */}
 
           {showViewMoreBtn && (

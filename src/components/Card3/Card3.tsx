@@ -11,12 +11,14 @@ export interface Card3Props {
   className?: string;
   post: PostNode;
   size?: "normal" | "large";
+  isSkeleton?: boolean;
 }
 
 const Card3: FC<Card3Props> = ({
   className = "h-full",
   size = "large",
   post,
+  isSkeleton,
 }) => {
   const { title, link, featuredImage, excerpt, categories, postFormats } = post;
 
@@ -68,7 +70,7 @@ const Card3: FC<Card3Props> = ({
         <div className={`w-full h-0 aspect-h-9 sm:aspect-h-16 aspect-w-16 `}>
           <NcImage
             containerClassName="absolute inset-0"
-            src={featuredImage?.node.sourceUrl}
+            src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
             alt={title}
           />
           <span>

@@ -57,16 +57,16 @@ const Card9: FC<Card9Props> = ({
         <PostCardSaveAction className="relative" postData={post} />
       </div>
       <div className={`flex items-start relative w-full ${ratio}`}></div>
-      {"audio" === "audio" ? (
+      {postFormats.edges[0]?.node.name === "Audio" ? (
         <div className="absolute inset-0">
-          {isSkeleton ? <NcImage src="," /> : <PostFeaturedMedia post={post} />}
+          {isSkeleton ? <NcImage src="." /> : <PostFeaturedMedia post={post} />}
         </div>
       ) : (
         <a href={link}>
           <NcImage
             containerClassName="absolute inset-0 rounded-3xl"
             className="object-cover w-full h-full rounded-3xl"
-            src={featuredImage?.node.sourceUrl}
+            src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
           />
           <PostTypeFeaturedIcon
             className="absolute top-3 left-3 group-hover:hidden"

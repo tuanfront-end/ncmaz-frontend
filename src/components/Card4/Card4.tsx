@@ -8,9 +8,10 @@ import { PostNode } from "data/postCardType";
 export interface Card4Props {
   className?: string;
   post: PostNode;
+  isSkeleton?: boolean;
 }
 
-const Card4: FC<Card4Props> = ({ className = "h-full", post }) => {
+const Card4: FC<Card4Props> = ({ className = "h-full", post, isSkeleton }) => {
   const { title, link, featuredImage, categories, author, date } = post;
 
   return (
@@ -21,7 +22,7 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post }) => {
       <span className="block flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 rounded-t-xl overflow-hidden">
         <NcImage
           containerClassName="absolute inset-0"
-          src={featuredImage?.node.sourceUrl}
+          src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
         />
       </span>
 

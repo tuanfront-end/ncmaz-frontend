@@ -27,7 +27,7 @@ const Card8: FC<Card8Props> = ({ className = "h-full", post, isSkeleton }) => {
         <NcImage
           prevImageHorizontal
           containerClassName="absolute inset-0"
-          src={isSkeleton ? "." : featuredImage?.node.sourceUrl}
+          src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
           alt={title}
         />
         <PostTypeFeaturedIcon

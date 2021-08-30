@@ -19,12 +19,17 @@ import SectionMagazine9 from "components/SectionMagazines/SectionMagazine9";
 import SectionLargeSlider from "components/SectionMagazines/SectionLargeSlider";
 import { GutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
 import { ListPosts } from "data/postCardType";
+import EmptyState from "components/EmptyState/EmptyState";
 
 export interface FactoryBlockMagazineProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockMagazine;
 }
+
+let LISTS_POSTS: ListPosts = {
+  edges: [],
+};
 
 const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   className = "",
@@ -63,9 +68,10 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     variables: variablesFilter,
   });
 
-  const listPosts: ListPosts = data?.posts || {
-    edges: [],
-  };
+  //
+  if (data) {
+    LISTS_POSTS = data?.posts;
+  }
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -82,51 +88,81 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     switch (apiSettings.settings.sectionName) {
       case "magazine-1":
         return (
-          <SectionMagazine1 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine1
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "magazine-2":
         return (
-          <SectionMagazine2 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine2
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "magazine-3":
         return (
-          <SectionMagazine3 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine3
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "magazine-4":
         return (
-          <SectionMagazine4 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine4
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "magazine-5":
         return (
-          <SectionMagazine5 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine5
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "magazine-6":
         return (
-          <SectionMagazine6 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine6
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "magazine-7":
         return (
-          <SectionMagazine7 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine7
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "magazine-8":
         return (
-          <SectionMagazine8 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine8
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "magazine-9":
         return (
-          <SectionMagazine9 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine9
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
       case "large-slider":
         return (
           <SectionLargeSlider
             isLoading={loading}
-            activePosts={listPosts.edges}
+            activePosts={LISTS_POSTS.edges}
           />
         );
 
       default:
         return (
-          <SectionMagazine1 isLoading={loading} activePosts={listPosts.edges} />
+          <SectionMagazine1
+            isLoading={loading}
+            activePosts={LISTS_POSTS.edges}
+          />
         );
     }
   };
@@ -141,7 +177,6 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
       subHeading,
     } = settings;
     const isBg = hasBackground;
-    console.log(22, categories);
     return (
       <div
         className={`nc-FactoryBlockMagazine relative container ${
@@ -163,7 +198,7 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
           <Heading desc={subHeading}>{heading}</Heading>
         )}
 
-        {loading && !listPosts.edges.length && (
+        {loading && !LISTS_POSTS.edges.length && (
           <span className="text-lg"> LOADING .............</span>
         )}
         {error && (
@@ -172,9 +207,7 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
           </pre>
         )}
 
-        {!listPosts.edges.length && !loading && (
-          <span className="text-lg block">Nothing we found!</span>
-        )}
+        {!LISTS_POSTS.edges.length && !loading && <EmptyState />}
 
         {renderLayoutType()}
       </div>

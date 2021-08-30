@@ -13,6 +13,10 @@
  *
  */
 
+define('_NCMAZ_FRONTEND_VERSION', '1.0.0');
+
+
+
 $script = 'script';
 $tag = '_loader_tag';
 add_filter(
@@ -49,3 +53,15 @@ function wpdocs_selectively_enqueue_admin_script($hook)
     wp_enqueue_script('src-maint-js', 'http://localhost:3000/src/main.tsx', [], null);
 }
 add_action('admin_enqueue_scripts', 'wpdocs_selectively_enqueue_admin_script');
+
+
+// JAVASCRIPT
+wp_enqueue_script('ncmaz-frontend-js', get_template_directory_uri() . '/public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
+wp_localize_script(
+    'ncmaz-frontend-js',
+    'ncmazFrontendVariables',
+    array(
+        'pluginDir' => plugin_dir_url(__FILE__),
+        'emptyStatePng' => plugin_dir_url(__FILE__) . 'public/images/empty.png'
+    )
+);
