@@ -6,6 +6,7 @@ import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLi
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface Card3Props {
   className?: string;
@@ -43,11 +44,12 @@ const Card3: FC<Card3Props> = ({
                 {title}
               </a>
             </h2>
-            {size === "large" && (
+            {size === "large" && !!excerpt && (
               <div className="hidden sm:block sm:mt-2">
-                <span className="text-neutral-500 dark:text-neutral-400 text-base line-clamp-1">
-                  {excerpt}
-                </span>
+                <span
+                  className="text-neutral-500 dark:text-neutral-400 text-base line-clamp-1"
+                  dangerouslySetInnerHTML={{ __html: excerpt }}
+                />
               </div>
             )}
           </div>
@@ -56,7 +58,8 @@ const Card3: FC<Card3Props> = ({
         </div>
         <div className="flex items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment postData={post} />
-          <PostCardSaveAction postData={post} readingTime={999} />
+          {/* <PostCardSaveAction postData={post} readingTime={999} /> */}
+          <PostCardDropdownShare />
         </div>
       </div>
 
@@ -67,7 +70,10 @@ const Card3: FC<Card3Props> = ({
             : "sm:w-40 sm:ml-5 rounded-2xl"
         } overflow-hidden mb-5 sm:mb-0`}
       >
-        <div className={`w-full h-0 aspect-h-9 sm:aspect-h-16 aspect-w-16 `}>
+        <a
+          href={link}
+          className={`w-full block h-0 aspect-h-9 sm:aspect-h-16 aspect-w-16 `}
+        >
           <NcImage
             containerClassName="absolute inset-0"
             src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
@@ -81,8 +87,8 @@ const Card3: FC<Card3Props> = ({
               iconSize="w-4 h-4"
             />
           </span>
-        </div>
-        <a href={link} className="absolute inset-0"></a>
+        </a>
+        {/* <a href={link} className="absolute inset-0"></a> */}
       </div>
     </div>
   );

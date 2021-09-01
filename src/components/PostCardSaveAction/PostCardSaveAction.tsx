@@ -19,6 +19,8 @@ const PostCardSaveAction: FC<PostCardSaveActionProps> = ({
 }) => {
   const { postId } = postData;
 
+  return <span>XXX</span>;
+
   return (
     <div
       className={`nc-PostCardSaveAction flex items-center space-x-2 text-xs text-neutral-700 dark:text-neutral-300 ${className}`}

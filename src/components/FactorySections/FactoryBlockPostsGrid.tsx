@@ -150,7 +150,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
 
     return (
       <div
-        className={`nc-FactoryBlockPostsGrid relative container ${
+        className={`nc-FactoryBlockPostsGrid relative ${
           isBg ? "py-16" : ""
         }  ${className}`}
       >

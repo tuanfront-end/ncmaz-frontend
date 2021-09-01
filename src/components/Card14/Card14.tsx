@@ -4,6 +4,7 @@ import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import Avatar from "components/Avatar/Avatar";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
+import ncFormatDate from "utils/formatDate";
 
 export interface Card14Props {
   className?: string;
@@ -74,7 +75,7 @@ const Card14: FC<Card14Props> = ({
           </a>
           <>
             <span className=" mx-[6px]">·</span>
-            <span className=" font-normal truncate">{date}</span>
+            <span className=" font-normal truncate">{ncFormatDate(date)}</span>
           </>
         </div>
       </div>

@@ -37,7 +37,7 @@ function addModuleTypeForScripts($tag, $handle, $src)
 
 function wpdocs_selectively_enqueue_admin_script($hook)
 {
-    if ('edit.php' !== $hook && 'post.php' !== $hook) {
+    if ('edit.php' !== $hook && 'post.php' !== $hook && 'widgets.php' !== $hook) {
         return;
     }
 

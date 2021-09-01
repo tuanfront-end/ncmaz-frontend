@@ -13,11 +13,17 @@ import {
   GutenbergApiAttr_BlockPostsGrid,
   GutenbergApiAttr_BlockPostsSlider,
   GutenbergApiAttr_BlockVideos,
+  GutenbergApiAttr_BlockWidgetPots,
+  GutenbergApiAttr_BlockWidgetUsers,
+  GutenbergApiAttr_BlockWidgetTerms,
 } from "data/gutenbergAttrType";
 import React from "react";
 import FactoryBlockUsersSlider from "components/FactorySections/FactoryBlockUsersSlider";
 import FactoryBlockUsersGrid from "components/FactorySections/FactoryBlockUsersGrid";
 import FactoryBlockVideos from "components/FactorySections/FactoryBlockVideos";
+import FactoryBlockWidgetPosts from "components/FactorySections/FactoryBlockWidgetPosts";
+import FactoryBlockWidgetUsers from "components/FactorySections/FactoryBlockWidgetUsers";
+import FactoryBlockWidgetTerms from "components/FactorySections/FactoryBlockWidgetTerms";
 
 // DOMS
 const gutenbergDomNodes = document.querySelectorAll(
@@ -79,6 +85,26 @@ const blockUserGrid = Array.from(gutenbergDomNodes).filter(
 const blockVideos = Array.from(gutenbergDomNodes).filter(
   (selector) =>
     selector.getAttribute("data-nc-gutenberg-section-type") === "block-videos"
+);
+
+// =====================WIDGETS========================================
+// block-use slider
+const blockWidgetPosts = Array.from(gutenbergDomNodes).filter(
+  (selector) =>
+    selector.getAttribute("data-nc-gutenberg-section-type") ===
+    "block-widget-posts"
+);
+// block-use slider
+const blockWidgetUsers = Array.from(gutenbergDomNodes).filter(
+  (selector) =>
+    selector.getAttribute("data-nc-gutenberg-section-type") ===
+    "block-widget-users"
+);
+// block-use slider
+const blockWidgetTerms = Array.from(gutenbergDomNodes).filter(
+  (selector) =>
+    selector.getAttribute("data-nc-gutenberg-section-type") ===
+    "block-widget-terms"
 );
 
 function App() {
@@ -207,6 +233,56 @@ function App() {
         const apiAttr: GutenbergApiAttr_BlockVideos = JSON.parse(apiAttrStr);
         return (
           <FactoryBlockVideos
+            key={index}
+            domNode={domNode}
+            apiSettings={apiAttr}
+          />
+        );
+      })}
+
+      {/* ----- RENDER BLOCK WIDGET POSTS ----- */}
+      {blockWidgetPosts.map((domNode, index) => {
+        const apiAttrStr = domNode.getAttribute(
+          "data-nc-gutenberg-section-api"
+        );
+        if (!apiAttrStr) return null;
+        const apiAttr: GutenbergApiAttr_BlockWidgetPots =
+          JSON.parse(apiAttrStr);
+        return (
+          <FactoryBlockWidgetPosts
+            key={index}
+            domNode={domNode}
+            apiSettings={apiAttr}
+          />
+        );
+      })}
+
+      {/* ----- RENDER BLOCK WIDGET USERS ----- */}
+      {blockWidgetUsers.map((domNode, index) => {
+        const apiAttrStr = domNode.getAttribute(
+          "data-nc-gutenberg-section-api"
+        );
+        if (!apiAttrStr) return null;
+        const apiAttr: GutenbergApiAttr_BlockWidgetUsers =
+          JSON.parse(apiAttrStr);
+        return (
+          <FactoryBlockWidgetUsers
+            key={index}
+            domNode={domNode}
+            apiSettings={apiAttr}
+          />
+        );
+      })}
+      {/* ----- RENDER BLOCK WIDGET USERS ----- */}
+      {blockWidgetTerms.map((domNode, index) => {
+        const apiAttrStr = domNode.getAttribute(
+          "data-nc-gutenberg-section-api"
+        );
+        if (!apiAttrStr) return null;
+        const apiAttr: GutenbergApiAttr_BlockWidgetTerms =
+          JSON.parse(apiAttrStr);
+        return (
+          <FactoryBlockWidgetTerms
             key={index}
             domNode={domNode}
             apiSettings={apiAttr}

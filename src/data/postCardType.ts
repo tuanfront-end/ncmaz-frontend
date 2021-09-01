@@ -28,6 +28,9 @@ export interface PostNode {
     fieldGroupName: string;
     audioUrl?: string;
   };
+  ncPostFavorites: {
+    favoriteButton: string;
+  };
   ncmazGalleryImgs: {
     fieldGroupName: string;
     image1?: { id: string; sourceUrl: string };

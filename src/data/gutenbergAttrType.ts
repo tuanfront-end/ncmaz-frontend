@@ -163,3 +163,57 @@ export interface GutenbergApiAttr_BlockVideos {
     hasBackground: boolean;
   };
 }
+
+// =========================_Block Widget Posts============================================
+export interface GutenbergApiAttr_BlockWidgetPots {
+  graphQLvariables: {
+    variables: {
+      authorIn: number[];
+      categoryIn: number[];
+      field: string;
+      first: number;
+      order: string;
+      tagIn: number[];
+    };
+    queryString: string;
+  };
+  settings: {
+    postCardName: string;
+    heading: string;
+  };
+}
+// =========================_Block Widget Users============================================
+export interface GutenbergApiAttr_BlockWidgetUsers {
+  graphQLvariables: {
+    variables: {
+      authorIn: number[];
+      categoryIn: number[];
+      field: string;
+      first: number;
+      order: string;
+      tagIn: number[];
+    };
+    queryString: string;
+  };
+  settings: {
+    heading: string;
+  };
+}
+// =========================_Block Widget Users============================================
+export interface GutenbergApiAttr_BlockWidgetTerms {
+  graphQLvariables: {
+    variables: {
+      authorIn: number[];
+      categoryIn: number[];
+      field: string;
+      first: number;
+      order: string;
+      tagIn: number[];
+    };
+    queryString: string;
+  };
+  settings: {
+    heading: string;
+    termCardName?: "card1" | "tag-card";
+  };
+}
