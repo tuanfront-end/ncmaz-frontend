@@ -55,7 +55,10 @@ const Card12: FC<Card12Props> = ({
         </h2>
         {excerpt && (
           <span className="hidden sm:block mt-4 text-neutral-500 dark:text-neutral-400">
-            <span className="line-clamp-2"> {excerpt}</span>
+            <span
+              className="line-clamp-2"
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+            />
           </span>
         )}
         <PostCardMeta className="mt-5" meta={post} />

@@ -9,7 +9,7 @@ export interface PostCardLikeAndCommentProps {
   itemClass?: string;
   postData: Pick<
     PostNode,
-    "postId" | "link" | "commentCount" | "ncPostFavorites"
+    "postId" | "link" | "commentCount" | "ncPostMetaData"
   >;
   hiddenCommentOnMobile?: boolean;
   onClickLike?: (id: number) => void;
@@ -29,7 +29,7 @@ const PostCardLikeAndComment: FC<PostCardLikeAndCommentProps> = ({
     >
       <div
         dangerouslySetInnerHTML={{
-          __html: postData?.ncPostFavorites?.favoriteButton,
+          __html: postData?.ncPostMetaData?.favoriteButtonShortcode || "",
         }}
       />
       {/* <button

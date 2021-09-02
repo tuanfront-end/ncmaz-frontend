@@ -56,7 +56,20 @@ add_action('admin_enqueue_scripts', 'wpdocs_selectively_enqueue_admin_script');
 
 
 // JAVASCRIPT
-wp_enqueue_script('ncmaz-frontend-js', get_template_directory_uri() . '/public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
+wp_enqueue_script('ncmaz-frontend-js', plugin_dir_url(__FILE__) . 'public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
+wp_localize_script(
+    'ncmaz-frontend-js',
+    'frontendObject',
+    array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'stylesheetDirectory' => get_template_directory_uri(),
+        // 'restUrl' => get_rest_url(),
+        'dateFormat' => get_option('date_format'),
+        'placeholderImg' => get_template_directory_uri() . '/placeholder-small.png',
+        'graphQLBasePath' => get_site_url(null, '/graphql'),
+        'value2' => 'value 2',
+    )
+);
 wp_localize_script(
     'ncmaz-frontend-js',
     'ncmazFrontendVariables',

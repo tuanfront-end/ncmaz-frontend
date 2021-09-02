@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import Avatar from "components/Avatar/Avatar";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import PostCardMeta from "components/PostCardMeta/PostCardMeta";
 import { PostNode } from "data/postCardType";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface Card1Props {
   className?: string;
@@ -38,12 +38,7 @@ const Card1: FC<Card1Props> = ({ className = "", post }) => {
       </div>
 
       {/* ACTIONS */}
-      <PostCardSaveAction
-        className="absolute z-10 hidden group-hover:flex dark:text-neutral-300 pl-3 bg-neutral-100 dark:bg-neutral-800 bottom-2 right-2.5 rounded-lg"
-        postData={post}
-        readingTime={999}
-        classBgIcon="h-8 w-8 bg-neutral-200 dark:bg-neutral-700"
-      />
+      <PostCardDropdownShare />
     </div>
   );
 };

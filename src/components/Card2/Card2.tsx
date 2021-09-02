@@ -7,6 +7,7 @@ import CardAuthor2 from "components/CardAuthor2/CardAuthor2";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface Card2Props {
   className?: string;
@@ -30,6 +31,7 @@ const Card2: FC<Card2Props> = ({
     excerpt,
     author,
     postFormats,
+    ncPostMetaData,
   } = post;
 
   return (
@@ -77,15 +79,13 @@ const Card2: FC<Card2Props> = ({
           className="relative my-4"
           date={date}
           author={author}
+          readingTimeShortcode={ncPostMetaData.readingTimeShortcode}
           hoverReadingTime={false}
         />
         <div className="flex items-center justify-between mt-auto">
           <PostCardLikeAndComment className="relative" postData={post} />
-          <PostCardSaveAction
-            className="relative"
-            postData={post}
-            readingTime={99}
-          />
+
+          <PostCardDropdownShare />
         </div>
       </div>
     </div>

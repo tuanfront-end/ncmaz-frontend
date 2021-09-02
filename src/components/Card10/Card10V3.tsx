@@ -6,6 +6,7 @@ import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import CardAuthor2 from "components/CardAuthor2/CardAuthor2";
 import { PostNode } from "data/postCardType";
 import getImgsFromNcmazGalleryImgs from "utils/getImgsFromNcmazGalleryImgs";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface Card10V3Props {
   className?: string;
@@ -28,6 +29,7 @@ const Card10V3: FC<Card10V3Props> = ({
     ncmazGalleryImgs,
     author,
     date,
+    ncPostMetaData,
   } = post;
 
   const galleryImgs = getImgsFromNcmazGalleryImgs(ncmazGalleryImgs);
@@ -130,7 +132,7 @@ const Card10V3: FC<Card10V3Props> = ({
       </div>
       <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4">
         <CategoryBadgeList categories={categories} />
-        <PostCardSaveAction postData={post} />
+        <PostCardDropdownShare panelMenusClass="w-52 right-0 top-0 origin-top-right" />
       </div>
 
       <div className="space-y-2.5 mt-4 px-4">
@@ -144,7 +146,7 @@ const Card10V3: FC<Card10V3Props> = ({
           author={author}
           hoverReadingTime={false}
           date={date}
-          readingTime={99}
+          readingTimeShortcode={ncPostMetaData.readingTimeShortcode}
         />
       </div>
     </div>

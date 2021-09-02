@@ -11,12 +11,12 @@ export interface AvatarProps {
 
 const Avatar: FC<AvatarProps> = ({
   containerClassName = "ring-1 ring-white dark:ring-neutral-900",
-  sizeClass = "h-6 w-6 text-sm",
+  sizeClass = "h-6 w-6 text-base",
   radius = "rounded-md",
   imgUrl,
   userName,
 }) => {
-  const url = imgUrl || "";
+  const url = imgUrl && !imgUrl.includes("gravatar.com/avatar/") ? imgUrl : "";
   const name = userName || "John Doe";
   const _setBgColor = (name: string) => {
     const backgroundIndex = Math.floor(

@@ -90,7 +90,7 @@ const Card17Podcast: FC<Card17PodcastProps> = ({
           <NcImage
             containerClassName="absolute inset-0"
             className="object-cover w-full h-full "
-            src={isSkeleton ? "." : featuredImage?.node.sourceUrl}
+            src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
             alt={title}
           />
         </div>

@@ -6,6 +6,8 @@ import PostCardMeta from "components/PostCardMeta/PostCardMeta";
 import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import { PostNode } from "data/postCardType";
 import NcImage from "components/NcImage/NcImage";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
+import PostCardReadingTime from "components/PostCardReadingTime/PostCardReadingTime";
 
 export interface Card11Props {
   className?: string;
@@ -22,7 +24,7 @@ const Card11: FC<Card11Props> = ({
   ratio = "aspect-w-4 aspect-h-3",
   isSkeleton,
 }) => {
-  const { title, link, categories, date } = post;
+  const { title, link, categories, date, ncPostMetaData } = post;
 
   const [isHover, setIsHover] = useState(false);
 
@@ -49,20 +51,20 @@ const Card11: FC<Card11Props> = ({
         <CategoryBadgeList categories={categories} />
       </span>
 
-      <div className="p-4 flex flex-col flex-grow space-y-3">
+      <div className="p-4 h-full flex flex-col flex-grow">
         {!hiddenAuthor ? (
           <PostCardMeta meta={post} />
         ) : (
           <span className="text-xs text-neutral-500">{date}</span>
         )}
-        <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
+        <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100 my-3">
           <a href={link} className="line-clamp-2" title={title}>
             {title}
           </a>
         </h2>
         <div className="flex items-end justify-between mt-auto">
           <PostCardLikeAndComment className="relative" postData={post} />
-          <PostCardSaveAction className="relative" postData={post} />
+          <PostCardDropdownShare />
         </div>
       </div>
     </div>

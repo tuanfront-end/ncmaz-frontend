@@ -4,6 +4,7 @@ import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction
 import CardAuthor2 from "components/CardAuthor2/CardAuthor2";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import { PostNode } from "data/postCardType";
+import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
 
 export interface Card4Props {
   className?: string;
@@ -12,7 +13,15 @@ export interface Card4Props {
 }
 
 const Card4: FC<Card4Props> = ({ className = "h-full", post, isSkeleton }) => {
-  const { title, link, featuredImage, categories, author, date } = post;
+  const {
+    title,
+    link,
+    featuredImage,
+    categories,
+    author,
+    date,
+    ncPostMetaData,
+  } = post;
 
   return (
     <div
@@ -24,6 +33,14 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post, isSkeleton }) => {
           containerClassName="absolute inset-0"
           src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
         />
+        <div>
+          {ncPostMetaData.favoriteButtonShortcode && (
+            <PostCardLikeAction
+              className="absolute right-2 top-2 z-[1]"
+              favoriteButtonShortcode={ncPostMetaData.favoriteButtonShortcode}
+            />
+          )}
+        </div>
       </span>
 
       <a href={link} className="absolute inset-0"></a>
@@ -38,8 +55,12 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post, isSkeleton }) => {
           </h2>
         </div>
         <div className="flex items-end justify-between mt-auto">
-          <CardAuthor2 readingTime={999} date={date} author={author} />
-          <PostCardSaveAction postData={post} />
+          <CardAuthor2
+            readingTimeShortcode={ncPostMetaData.readingTimeShortcode}
+            hoverReadingTime={false}
+            date={date}
+            author={author}
+          />
         </div>
       </div>
     </div>

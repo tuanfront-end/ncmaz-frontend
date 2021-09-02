@@ -8,14 +8,14 @@ export interface CardAuthor2Props {
   date: PostNode["date"];
   author: PostNode["author"];
   className?: string;
-  readingTime?: number;
+  readingTimeShortcode?: string;
   hoverReadingTime?: boolean;
 }
 
 const CardAuthor2: FC<CardAuthor2Props> = ({
   className = "",
   author,
-  readingTime = 10,
+  readingTimeShortcode = "",
   date,
   hoverReadingTime = true,
 }) => {
@@ -43,7 +43,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
           className={`flex items-center mt-1 text-xs text-neutral-500 dark:text-neutral-400`}
         >
           <span>{ncFormatDate(date)}</span>
-          {readingTime && (
+          {readingTimeShortcode && (
             <>
               <span
                 className={`hidden lg:inline mx-1 transition-opacity ${
@@ -56,9 +56,8 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
                 className={`hidden lg:inline transition-opacity ${
                   hoverReadingTime ? "opacity-0 group-hover:opacity-100" : ""
                 }`}
-              >
-                {readingTime} min read
-              </span>
+                dangerouslySetInnerHTML={{ __html: readingTimeShortcode }}
+              />
             </>
           )}
         </span>

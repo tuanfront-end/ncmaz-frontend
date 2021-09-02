@@ -7,6 +7,7 @@ import React, { FC, Fragment } from "react";
 import CardAuthor2 from "components/CardAuthor2/CardAuthor2";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import { PostNode } from "data/postCardType";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface CardLarge1Props {
   className?: string;
@@ -54,11 +55,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
 
             <div className="flex items-center justify-between mt-auto">
               <PostCardLikeAndComment postData={post} />
-              <PostCardSaveAction
-                classBgIcon="h-8 w-8 bg-neutral-50 bg-opacity-20 hover:bg-opacity-50 dark:bg-neutral-800 dark:bg-opacity-30 dark:hover:bg-opacity-50"
-                postData={post}
-                readingTime={999}
-              />
+              <PostCardDropdownShare />
             </div>
           </div>
         </Transition.Child>
@@ -88,7 +85,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
             prevImageHorizontal
             containerClassName="aspect-w-16 aspect-h-12 sm:aspect-h-9 md:aspect-h-14 lg:aspect-h-10 2xl:aspect-h-9 relative"
             className="absolute inset-0 object-cover rounded-3xl"
-            src={isSkeleton ? "." : featuredImage?.node.sourceUrl}
+            src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
             alt={title}
           />
         </a>

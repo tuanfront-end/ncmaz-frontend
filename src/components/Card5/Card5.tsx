@@ -12,7 +12,7 @@ const Card5: FC<Card5Props> = ({
   className = "[ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ",
   post,
 }) => {
-  const { author, title, link, id, date, categories } = post;
+  const { author, title, link, id, date, categories, ncPostMetaData } = post;
   return (
     <div
       className={`nc-Card5 relative p-5 group ${className}`}
@@ -33,7 +33,7 @@ const Card5: FC<Card5Props> = ({
         </h2>
         <CardAuthor2
           className="relative mt-auto"
-          readingTime={999}
+          readingTimeShortcode={ncPostMetaData.readingTimeShortcode}
           author={author}
           date={date}
         />

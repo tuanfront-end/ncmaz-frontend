@@ -148,6 +148,7 @@ function App() {
         const apiAttrStr = domNode.getAttribute(
           "data-nc-gutenberg-section-api"
         );
+
         if (!apiAttrStr) return null;
         const apiAttr: GutenbergApiAttr_BlockPostsGrid = JSON.parse(apiAttrStr);
         return (

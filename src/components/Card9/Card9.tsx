@@ -7,6 +7,7 @@ import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeatur
 import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import { PostNode } from "data/postCardType";
 import ncFormatDate from "utils/formatDate";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface Card9Props {
   className?: string;
@@ -29,7 +30,7 @@ const Card9: FC<Card9Props> = ({
   const renderMeta = () => {
     return (
       <div className="inline-flex items-center text-xs text-neutral-300">
-        <a href={author.node.url + author.node.uri} className="block relative">
+        <a href={link} className="block relative">
           <h2 className="block text-lg font-semibold text-white ">
             <span className="line-clamp-2" title={title}>
               {title}
@@ -52,9 +53,9 @@ const Card9: FC<Card9Props> = ({
       className={`nc-Card9 relative flex flex-col group rounded-3xl overflow-hidden ${hoverClass} ${className}`}
       data-nc-id="Card9"
     >
-      <div className="absolute inset-x-0 top-0 p-3 flex items-center justify-between transition-all opacity-0 z-[-1] group-hover:opacity-100 group-hover:z-10 duration-300">
+      <div className="absolute inset-x-0 top-0 p-3 flex items-center justify-between transition-all opacity-0 z-[-1] group-hover:opacity-100 group-hover:z-30 duration-300">
         <PostCardLikeAndComment className="relative" postData={post} />
-        <PostCardSaveAction className="relative" postData={post} />
+        <PostCardDropdownShare panelMenusClass="w-52 right-0 top-0 origin-top-right" />
       </div>
       <div className={`flex items-start relative w-full ${ratio}`}></div>
       {postFormats.edges[0]?.node.name === "Audio" ? (

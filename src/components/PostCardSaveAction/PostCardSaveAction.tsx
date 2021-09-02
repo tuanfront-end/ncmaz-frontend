@@ -19,7 +19,7 @@ const PostCardSaveAction: FC<PostCardSaveActionProps> = ({
 }) => {
   const { postId } = postData;
 
-  return <span>XXX</span>;
+  return <span>SAVE...</span>;
 
   return (
     <div

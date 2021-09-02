@@ -99,13 +99,13 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
           <NcImage
             containerClassName="absolute inset-0"
             className="object-cover w-full h-full "
-            src={isSkeleton ? "." : featuredImage?.node.sourceUrl}
+            src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
             alt={title}
           />
         </a>
       </div>
 
-      <div className="flex flex-col flex-grow ml-4">
+      <div className="flex flex-col flex-grow ml-4 overflow-hidden">
         <h2 className={`nc-card-title block font-semibold text-lg`}>
           <a href={link} className="line-clamp-1" title={title}>
             {title}

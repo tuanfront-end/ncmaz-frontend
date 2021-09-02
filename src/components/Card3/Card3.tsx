@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import PostCardMeta from "components/PostCardMeta/PostCardMeta";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLikeAndComment";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
@@ -21,7 +20,15 @@ const Card3: FC<Card3Props> = ({
   post,
   isSkeleton,
 }) => {
-  const { title, link, featuredImage, excerpt, categories, postFormats } = post;
+  const {
+    title,
+    link,
+    featuredImage,
+    excerpt,
+    categories,
+    postFormats,
+    ncPostMetaData,
+  } = post;
 
   const postType = postFormats.edges[0]?.node.name;
 
@@ -58,8 +65,14 @@ const Card3: FC<Card3Props> = ({
         </div>
         <div className="flex items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment postData={post} />
-          {/* <PostCardSaveAction postData={post} readingTime={999} /> */}
-          <PostCardDropdownShare />
+          <div className="flex items-center space-x-2 text-xs text-neutral-700 dark:text-neutral-300 ">
+            <span
+              dangerouslySetInnerHTML={{
+                __html: ncPostMetaData.readingTimeShortcode || "",
+              }}
+            />
+            <PostCardDropdownShare />
+          </div>
         </div>
       </div>
 
@@ -88,7 +101,6 @@ const Card3: FC<Card3Props> = ({
             />
           </span>
         </a>
-        {/* <a href={link} className="absolute inset-0"></a> */}
       </div>
     </div>
   );

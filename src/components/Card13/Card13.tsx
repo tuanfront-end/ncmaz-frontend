@@ -26,7 +26,10 @@ const Card13: FC<Card13Props> = ({ className = "", post, isSkeleton }) => {
         </h2>
         {excerpt && (
           <span className="hidden sm:block my-3 text-neutral-500 dark:text-neutral-400 ">
-            <span className="line-clamp-2"> {excerpt}</span>
+            <span
+              className="line-clamp-2"
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+            />
           </span>
         )}
         <span className="mt-4 block sm:hidden text-sm text-neutral-500 ">

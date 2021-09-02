@@ -5,6 +5,7 @@ import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import PostCardMetaV2 from "components/PostCardMeta/PostCardMetaV2";
 import { PostNode } from "data/postCardType";
 import NcImage from "components/NcImage/NcImage";
+import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
 
 export interface Card10V2Props {
   className?: string;
@@ -17,7 +18,7 @@ const Card10V2: FC<Card10V2Props> = ({
   post,
   isSkeleton,
 }) => {
-  const { link, categories } = post;
+  const { link, categories, ncPostMetaData } = post;
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -43,7 +44,9 @@ const Card10V2: FC<Card10V2Props> = ({
       </div>
       <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4">
         <CategoryBadgeList categories={categories} />
-        <PostCardSaveAction postData={post} />
+        <PostCardLikeAction
+          favoriteButtonShortcode={ncPostMetaData.favoriteButtonShortcode || ""}
+        />
       </div>
 
       <div className="space-y-2.5 mt-4 px-4">

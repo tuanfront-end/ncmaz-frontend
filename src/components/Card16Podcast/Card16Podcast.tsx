@@ -6,6 +6,7 @@ import musicWave from "images/musicWave.png";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
 import NcImage from "components/NcImage/NcImage";
 import { PostNode } from "data/postCardType";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface Card16PodcastProps {
   className?: string;
@@ -75,7 +76,9 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
         href={link}
         className={`block flex-shrink-0 relative w-full rounded-3xl overflow-hidden ${ratio}`}
       >
-        <NcImage src={isSkeleton ? "." : featuredImage?.node.sourceUrl} />
+        <NcImage
+          src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
+        />
         <span className="bg-neutral-900 bg-opacity-30"></span>
       </a>
 
@@ -107,11 +110,14 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
             </a>
           </h2>
           <span className="block text-sm text-neutral-500 dark:text-neutral-400 mt-3 mb-5">
-            <span className="line-clamp-2">{excerpt}</span>
+            <span
+              className="line-clamp-2"
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+            />
           </span>
           <div className="flex items-end justify-between mt-auto">
             <PostCardLikeAndComment className="relative" postData={post} />
-            <PostCardSaveAction className="relative" postData={post} />
+            <PostCardDropdownShare />
           </div>
         </div>
       </div>

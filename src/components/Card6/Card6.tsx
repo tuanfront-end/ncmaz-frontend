@@ -6,6 +6,7 @@ import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLi
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface Card6Props {
   className?: string;
@@ -34,11 +35,7 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post, isSkeleton }) => {
         </div>
         <div className="flex items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment className="relative" postData={post} />
-          <PostCardSaveAction
-            className="relative"
-            postData={post}
-            readingTime={10}
-          />
+          <PostCardDropdownShare />
         </div>
       </div>
 

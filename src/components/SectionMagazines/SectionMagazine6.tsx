@@ -14,8 +14,15 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
   isLoading,
 }) => {
   const renderMain = () => {
-    const { featuredImage, author, title, date, excerpt, link } =
-      activePosts[0].node;
+    const {
+      featuredImage,
+      author,
+      title,
+      date,
+      excerpt,
+      link,
+      ncPostMetaData,
+    } = activePosts[0].node;
     const subPosts = activePosts.filter((_, i) => i > 0);
     return (
       <main className="relative">
@@ -39,7 +46,10 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
               </h2>
               {excerpt && (
                 <span className="hidden lg:block text-base text-neutral-200 mt-5">
-                  <span className="line-clamp-2">{excerpt}</span>
+                  <span
+                    className="line-clamp-2"
+                    dangerouslySetInnerHTML={{ __html: excerpt }}
+                  />
                 </span>
               )}
             </div>
@@ -47,7 +57,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
             <div className="mt-7">
               <CardAuthor2
                 hoverReadingTime={false}
-                readingTime={99}
+                readingTimeShortcode={ncPostMetaData.readingTimeShortcode || ""}
                 date={date}
                 author={author}
               />

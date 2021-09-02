@@ -28,8 +28,11 @@ export interface PostNode {
     fieldGroupName: string;
     audioUrl?: string;
   };
-  ncPostFavorites: {
-    favoriteButton: string;
+  ncPostMetaData: {
+    favoriteButtonShortcode?: string;
+    readingTimeShortcode?: string;
+    viewsCount?: number;
+    fieldGroupName: "ncPostMetaData";
   };
   ncmazGalleryImgs: {
     fieldGroupName: string;

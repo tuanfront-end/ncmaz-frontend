@@ -1,11 +1,10 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import CardAuthor2 from "components/CardAuthor2/CardAuthor2";
-import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLikeAndComment";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
+import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
 
 export interface Card7Props {
   className?: string;
@@ -22,8 +21,16 @@ const Card7: FC<Card7Props> = ({
   hoverClass = "",
   isSkeleton,
 }) => {
-  const { title, link, featuredImage, categories, author, date, postFormats } =
-    post;
+  const {
+    title,
+    link,
+    featuredImage,
+    categories,
+    author,
+    date,
+    postFormats,
+    ncPostMetaData,
+  } = post;
 
   const postType = postFormats.edges[0]?.node.name;
   return (
@@ -31,10 +38,12 @@ const Card7: FC<Card7Props> = ({
       className={`nc-Card7 relative flex flex-col group rounded-3xl overflow-hidden ${hoverClass} ${className}`}
       data-nc-id="Card7"
     >
-      <div className="absolute inset-x-0 top-0 p-3  flex items-center justify-between transition-all opacity-0 z-[-1] group-hover:opacity-100 group-hover:z-10 duration-300">
-        <PostCardLikeAndComment className="relative" postData={post} />
-        <PostCardSaveAction className="relative" postData={post} />
-      </div>
+      {ncPostMetaData.favoriteButtonShortcode && (
+        <PostCardLikeAction
+          className="absolute top-3 right-3 z-10"
+          favoriteButtonShortcode={ncPostMetaData.favoriteButtonShortcode}
+        />
+      )}
       <a href={link} className={`flex items-start relative w-full ${ratio}`}>
         <NcImage
           containerClassName="absolute inset-0 overflow-hidden"
@@ -42,7 +51,7 @@ const Card7: FC<Card7Props> = ({
           src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
         />
         <PostTypeFeaturedIcon
-          className="absolute top-3 left-3 group-hover:hidden"
+          className="absolute top-3 left-3"
           postType={postType}
           wrapSize="w-7 h-7"
           iconSize="w-4 h-4"
@@ -60,7 +69,12 @@ const Card7: FC<Card7Props> = ({
             </a>
           </h2>
         </div>
-        <CardAuthor2 readingTime={999} date={date} author={author} />
+        <CardAuthor2
+          hoverReadingTime={false}
+          readingTimeShortcode={ncPostMetaData.readingTimeShortcode}
+          date={date}
+          author={author}
+        />
       </div>
     </div>
   );

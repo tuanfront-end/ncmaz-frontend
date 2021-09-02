@@ -23,7 +23,7 @@ export interface NcDropDownProps {
 const NcDropDown: FC<NcDropDownProps> = ({
   className = `h-8 w-8 bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center ${twFocusClass()}`,
   iconClass = "h-[18px] w-[18px]",
-  panelMenusClass = "origin-top-right",
+  panelMenusClass = "mt-2 w-56 right-0 origin-top-right",
   title = "More",
   renderTrigger,
   renderItem,
@@ -54,7 +54,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className={`absolute ${panelMenusClass} right-0 w-56 mt-2 bg-white dark:bg-neutral-900 rounded-lg divide-y divide-neutral-100 shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 focus:outline-none z-30`}
+          className={`absolute ${panelMenusClass} bg-white dark:bg-neutral-900 rounded-lg divide-y divide-neutral-100 shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 focus:outline-none z-40`}
         >
           <div className="px-1 py-3 text-sm text-neutral-6000 dark:text-neutral-300">
             {data.map((item) => (
