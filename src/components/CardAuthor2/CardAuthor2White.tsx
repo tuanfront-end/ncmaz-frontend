@@ -7,7 +7,7 @@ export interface CardAuthor2WhiteProps extends CardAuthor2Props {}
 const CardAuthor2White: FC<CardAuthor2WhiteProps> = ({
   className = "",
   author,
-  readingTime,
+  readingTimeShortcode,
   date,
 }) => {
   const { name, username, url, uri = "/", avatar } = author.node;
@@ -34,14 +34,15 @@ const CardAuthor2White: FC<CardAuthor2WhiteProps> = ({
           className={`flex items-center mt-1 text-xs text-neutral-300 dark:text-neutral-700`}
         >
           <span>{date}</span>
-          {readingTime && (
+          {readingTimeShortcode && (
             <>
               <span className="mx-1 opacity-0 group-hover:opacity-100 transition-opacity">
                 ·
               </span>
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity">
-                {readingTime} min read
-              </span>
+              <span
+                className="opacity-0 group-hover:opacity-100 transition-opacity"
+                dangerouslySetInnerHTML={{ __html: readingTimeShortcode }}
+              />
             </>
           )}
         </span>

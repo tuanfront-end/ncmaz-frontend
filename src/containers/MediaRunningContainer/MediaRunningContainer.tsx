@@ -7,8 +7,6 @@ import {
 } from "app/mediaRunning/mediaRunning";
 import ReactPlayer from "react-player";
 import NcImage from "components/NcImage/NcImage";
-import BookmarkContainer from "containers/BookmarkContainer/BookmarkContainer";
-import PostCardLikeContainer from "containers/PostCardLikeContainer/PostCardLikeContainer";
 import LoadingVideo from "components/LoadingVideo/LoadingVideo";
 import { PostNode } from "data/postCardType";
 import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
