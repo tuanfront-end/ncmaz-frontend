@@ -56,8 +56,8 @@ const safelist = [
 ];
 
 module.exports = {
-  important: "[data-type^=ncmaz-core]",
-  // important: true,
+  // important: "[data-type^=ncmaz-core]",
+  important: true,
   mode: "jit",
   purge: {
     content: [
