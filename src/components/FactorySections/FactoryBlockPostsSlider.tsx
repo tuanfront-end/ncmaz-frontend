@@ -188,7 +188,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
 
     return (
       <div
-        className={`nc-FactoryBlockPostsSlider relative container ${
+        className={`nc-FactoryBlockPostsSlider relative  ${
           isBg ? "py-16" : ""
         }  ${className}`}
       >

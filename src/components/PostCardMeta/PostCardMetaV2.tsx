@@ -5,7 +5,7 @@ import ncFormatDate from "utils/formatDate";
 
 export interface PostCardMetaV2Props {
   className?: string;
-  meta: Pick<PostNode, "date" | "author" | "title">;
+  meta: Pick<PostNode, "date" | "author" | "title" | "link">;
   hiddenAvatar?: boolean;
   size?: "large" | "normal";
 }
@@ -16,7 +16,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
   hiddenAvatar = false,
   size = "normal",
 }) => {
-  const { date, author, title } = meta;
+  const { date, author, title, link } = meta;
   return (
     <div
       className={`nc-PostCardMetaV2 inline-flex items-center flex-wrap text-neutral-800 dark:text-neutral-200 ${
@@ -24,21 +24,20 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
       } ${className}`}
       data-nc-id="PostCardMetaV2"
     >
-      <a
-        href={author.node.url + author.node.uri}
-        className="relative flex items-center space-x-2"
-      >
+      <div className="relative flex items-center space-x-2">
         {!hiddenAvatar && (
-          <Avatar
-            radius="rounded-full"
-            sizeClass={
-              size === "normal" ? "h-9 w-9 text-base" : "h-10 w-10 text-xl"
-            }
-            imgUrl={author.node.avatar.url}
-            userName={author.node.username}
-          />
+          <a href={author.node.uri}>
+            <Avatar
+              radius="rounded-full"
+              sizeClass={
+                size === "normal" ? "h-9 w-9 text-base" : "h-10 w-10 text-xl"
+              }
+              imgUrl={author.node.avatar.url}
+              userName={author.node.username}
+            />
+          </a>
         )}
-        <div>
+        <a href={link} className="block">
           <h2
             className={`block font-semibold ${
               size === "normal" ? "text-base" : "text-lg"
@@ -58,8 +57,8 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
               {ncFormatDate(date)}
             </span>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
   );
 };

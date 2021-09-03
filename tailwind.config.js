@@ -50,10 +50,14 @@ const safelist = [
   "2xl:grid-cols-6",
   "2xl:grid-cols-7",
   "2xl:grid-cols-8",
+  //
+  //
+  "space-y-28",
 ];
 
 module.exports = {
   important: "[data-type^=ncmaz-core]",
+  // important: true,
   mode: "jit",
   purge: {
     content: [

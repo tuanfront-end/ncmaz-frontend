@@ -7,9 +7,6 @@ import React, {
 } from "react";
 import checkInViewIntersectionObserver from "utils/isInViewPortIntersectionObserver";
 
-import { useAppSelector } from "app/hooks";
-import { selectDarkmodeState } from "app/darkmode/darkmode";
-
 export interface NcImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   containerClassName?: string;
   prevImageHorizontal?: boolean;
@@ -73,12 +70,6 @@ const NcImage: FC<NcImageProps> = ({
       isMounted = false;
     };
   }, [src]);
-
-  // useEffect(() => {
-  //   if (!imageLoaded) {
-  //     set__src(placeholderImage);
-  //   }
-  // }, [darkmodeState]);
 
   return (
     <div

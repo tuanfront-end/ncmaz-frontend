@@ -50,6 +50,7 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
   return (
     <NcDropDown
       panelMenusClass={panelMenusClass}
+      title="Share with"
       renderTrigger={renderButton}
       data={socials}
       onClick={() => {}}

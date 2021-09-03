@@ -41,7 +41,7 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
 
     return (
       <div
-        className={`nc-FactoryBlockTermsGrid relative container ${
+        className={`nc-FactoryBlockTermsGrid relative  ${
           isBg ? "py-16" : ""
         }  ${className}`}
       >

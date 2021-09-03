@@ -22,7 +22,6 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post, isSkeleton }) => {
     date,
     ncPostMetaData,
   } = post;
-
   return (
     <div
       className={`nc-Card4 relative flex flex-col group [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}

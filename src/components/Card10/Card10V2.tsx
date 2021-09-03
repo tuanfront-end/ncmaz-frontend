@@ -20,7 +20,6 @@ const Card10V2: FC<Card10V2Props> = ({
 }) => {
   const { link, categories, ncPostMetaData } = post;
   const [isHover, setIsHover] = useState(false);
-
   return (
     <div
       className={`nc-Card10V2 relative flex flex-col ${className}`}
@@ -29,13 +28,13 @@ const Card10V2: FC<Card10V2Props> = ({
       onMouseLeave={() => setIsHover(false)}
     >
       <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden">
-        <div>
-          {isSkeleton ? (
-            <NcImage src="." />
-          ) : (
+        {isSkeleton ? (
+          <NcImage src="." />
+        ) : (
+          <div>
             <PostFeaturedMedia post={post} isHover={isHover} />
-          )}
-        </div>
+          </div>
+        )}
 
         <a
           href={link}

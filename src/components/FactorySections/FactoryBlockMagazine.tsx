@@ -179,7 +179,7 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     const isBg = hasBackground;
     return (
       <div
-        className={`nc-FactoryBlockMagazine relative container ${
+        className={`nc-FactoryBlockMagazine relative ${
           isBg ? "py-16" : ""
         }  ${className}`}
       >

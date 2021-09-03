@@ -11,6 +11,8 @@ import BookmarkContainer from "containers/BookmarkContainer/BookmarkContainer";
 import PostCardLikeContainer from "containers/PostCardLikeContainer/PostCardLikeContainer";
 import LoadingVideo from "components/LoadingVideo/LoadingVideo";
 import { PostNode } from "data/postCardType";
+import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
+import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface MediaRunningContainerProps {
   className?: string;
@@ -105,7 +107,7 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
     return null;
   }
 
-  const { title, featuredImage, categories, postId, link } =
+  const { title, featuredImage, categories, postId, link, ncPostMetaData } =
     currentMediaRunning.postData;
   const mediaState = currentMediaRunning.state;
   return (
@@ -133,14 +135,13 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
             </div>
           </a>
           <div className="hidden md:flex flex-shrink-0 px-6 dark text-white space-x-2.5">
-            <PostCardLikeContainer
-              like={{
-                count: 99,
-                isLiked: true,
-              }}
-              postId={postId}
+            <PostCardLikeAction
+              favoriteButtonShortcode={
+                ncPostMetaData.favoriteButtonShortcode || ""
+              }
             />
-            <BookmarkContainer initBookmarked={true} postId={postId} />
+
+            <PostCardDropdownShare />
           </div>
         </div>
 

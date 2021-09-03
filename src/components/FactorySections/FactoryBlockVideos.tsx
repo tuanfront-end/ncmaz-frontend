@@ -21,7 +21,7 @@ const FactoryBlockVideos: FC<FactoryBlockTermsSliderProps> = ({
 
     return (
       <div
-        className={`nc-FactoryBlockVideos relative container ${
+        className={`nc-FactoryBlockVideos relative  ${
           hasBackground ? "py-16" : ""
         }  ${className}`}
       >

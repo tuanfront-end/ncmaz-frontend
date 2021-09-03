@@ -40,7 +40,7 @@ const FactoryBlockUsersGrid: FC<FactoryBlockTermsSliderProps> = ({
 
     return (
       <div
-        className={`nc-FactoryBlockUsersGrid relative container ${
+        className={`nc-FactoryBlockUsersGrid relative  ${
           hasBackground ? "py-16" : ""
         }  ${className}`}
       >
