@@ -67,8 +67,8 @@ module.exports = {
       "./*.php",
       "./**/*.php",
       //
-      // "../ncmaz-core/**/*.php",
-      // "../ncmaz-core/**/*.{js,jsx,ts,tsx}",
+      "../ncmaz-core/**/*.php",
+      "../ncmaz-core/**/*.{js,jsx,ts,tsx}",
     ],
     safelist,
   },
