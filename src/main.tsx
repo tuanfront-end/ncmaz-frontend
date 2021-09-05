@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "./index.css";
-import "../public/fonts/line-awesome-1.3.0/css/line-awesome.css";
 import "./styles/index.scss";
 
 declare global {

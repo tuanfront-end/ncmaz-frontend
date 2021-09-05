@@ -56,19 +56,17 @@ const safelist = [
 ];
 
 module.exports = {
-  // important: "[data-type^=ncmaz-core]",
-  important: true,
   mode: "jit",
   purge: {
     content: [
       "./index.html",
       "./src/**/*.{js,jsx,ts,tsx}",
-      //
       "./*.php",
       "./**/*.php",
-      //
-      "../ncmaz-core/**/*.php",
-      "../ncmaz-core/**/*.{js,jsx,ts,tsx}",
+      // THEME -----
+      "../../themes/ncmaz/*.php",
+      "../../themes/ncmaz/inc/**/*.php",
+      "../../themes/ncmaz/template-parts/**/*.php",
     ],
     safelist,
   },
