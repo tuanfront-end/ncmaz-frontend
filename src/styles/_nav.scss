@@ -132,7 +132,13 @@
 // ====================================================
 .main-menu-item[data-is-megamenu="true"] {
   position: static !important;
-  .sub-menu-wrap {
+  .sub-menu-wrap,
+  .nc-megamenu-item {
     display: none !important;
+  }
+  &:hover {
+    .nc-megamenu-item {
+      display: block !important;
+    }
   }
 }

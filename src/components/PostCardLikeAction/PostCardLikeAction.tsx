@@ -12,7 +12,7 @@ const PostCardLikeAction: FC<PostCardLikeActionProps> = ({
 }) => {
   return (
     <div
-      className={className}
+      className={`ncmaz-button-like-post ${className}`}
       dangerouslySetInnerHTML={{
         __html: favoriteButtonShortcode,
       }}

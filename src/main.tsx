@@ -5,6 +5,7 @@ import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { relayStylePagination } from "@apollo/client/utilities";
 import "./index.css";
 import "./styles/index.scss";
 
@@ -26,9 +27,11 @@ if (
   window.frontendObject?.graphQLBasePath &&
   !location.pathname.includes("/wp-admin/")
 ) {
+  const cache = new InMemoryCache();
+
   const client = new ApolloClient({
     uri: window.frontendObject.graphQLBasePath,
-    cache: new InMemoryCache(),
+    cache,
   });
 
   ReactDOM.render(

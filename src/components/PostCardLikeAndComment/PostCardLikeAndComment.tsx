@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import PostCardCommentBtn from "components/PostCardCommentBtn/PostCardCommentBtn";
 import { PostNode } from "data/postCardType";
+import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
 
 export interface PostCardLikeAndCommentProps {
   className?: string;
@@ -25,10 +26,10 @@ const PostCardLikeAndComment: FC<PostCardLikeAndCommentProps> = ({
       className={`nc-PostCardLikeAndComment flex items-center space-x-2 ${className}`}
       data-nc-id="PostCardLikeAndComment"
     >
-      <div
-        dangerouslySetInnerHTML={{
-          __html: postData?.ncPostMetaData?.favoriteButtonShortcode || "",
-        }}
+      <PostCardLikeAction
+        favoriteButtonShortcode={
+          postData?.ncPostMetaData?.favoriteButtonShortcode || ""
+        }
       />
 
       <PostCardCommentBtn

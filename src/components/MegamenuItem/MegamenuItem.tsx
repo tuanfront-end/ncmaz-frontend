@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
-import { useQuery, gql, ApolloError } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import ReactDOM from "react-dom";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
 import { PostNode } from "data/postCardType";
-import Card10 from "components/Card10/Card10";
 import Card18 from "components/Card18/Card18";
+import { GraphQlPageInfo } from "data/types";
 
 interface MegaMenuItemTerm {
   categoryId: number;
@@ -34,26 +34,39 @@ export interface MegamenuItemProps {
   menuItemData: MegaMenuItemData;
 }
 
+let DATA_LISTS: { node: PostNode }[] = [];
+
 const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   // =================== QUERY GRAPHQL ===================
+  const { ncmazMenuCustomFields } = menuItemData;
 
   const [temrActiveId, setTemrActiveId] = useState(
-    menuItemData?.ncmazMenuCustomFields?.taxonomies[0]?.categoryId
+    ncmazMenuCustomFields?.taxonomies[0]?.categoryId
   );
 
-  const { ncmazMenuCustomFields } = menuItemData;
-  const { taxonomies, numberOfPosts, order, orderBy } = ncmazMenuCustomFields;
+  const [loadingState, setLoadingState] = useState(false);
+
+  const { taxonomies, numberOfPosts, order, orderBy, showTabFilter } =
+    ncmazMenuCustomFields;
   //
   let GQL_QUERY__string = "";
   let variables = {};
   //
 
   GQL_QUERY__string = POSTS_SECTION_BY_FILTER__string;
+
+  let categoryIn = [];
+  if (showTabFilter) {
+    categoryIn = [temrActiveId];
+  } else {
+    categoryIn = taxonomies?.map((item) => item.categoryId) || [];
+  }
+
+  // HIEN TAI GRAPHQL CHUA HO TRO PAGINATION CHO CAC FILTER orderBy
   variables = {
-    // categoryIn: [temrActiveId],
-    categoryIn: taxonomies?.map((item) => item.categoryId) || [],
     order,
-    field: orderBy,
+    orderBy,
+    categoryIn,
     first: Number(numberOfPosts),
   };
 
@@ -61,30 +74,81 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     ${GQL_QUERY__string}
   `;
 
-  const { loading, error, data } = useQuery(gqlQuery, {
+  const { loading, error, data, fetchMore } = useQuery(gqlQuery, {
     variables,
   });
 
-  const dataLists: { node: PostNode }[] = data?.posts?.edges || [];
+  if (data) {
+    DATA_LISTS = data?.posts?.edges || [];
+  }
 
-  console.log(33, { dataLists, variables });
+  const pageInfo: GraphQlPageInfo = data?.posts?.pageInfo || {};
 
   const handleMoutEnterTerm = (term: MegaMenuItemTerm) => {
     setTemrActiveId(term.categoryId);
   };
 
-  // const gqlQuery = gql`
-  //   ${menuItemQuery}
-  // `;
+  // Function to update the query with the new results
+  const updateQuery = (previousResult: any, { fetchMoreResult }: any) => {
+    setLoadingState(false);
+    return fetchMoreResult?.posts?.edges.length
+      ? fetchMoreResult
+      : previousResult;
+  };
 
-  // const { loading, error, data } = useQuery(gqlQuery, {
-  //   variables: { id: menuId },
-  // });
+  const renderPagination = () => {
+    if (!pageInfo.hasPreviousPage && !pageInfo.hasNextPage) {
+      return null;
+    }
+
+    let btnClassName =
+      "w-10 h-10 bg-white dark:bg-neutral-900 border border-neutral-200 hover:border-neutral-300 dark:border-neutral-6000 dark:hover:border-neutral-500 rounded-full flex items-center justify-center  -- disabled:opacity-70 disabled:text-gray-500  disabled:cursor-default disabled:hover:border-neutral-200 dark:disabled:hover:border-neutral-6000";
+    return (
+      <div className="nc-NextPrev mt-8 ml-2 relative flex items-center justify-center text-neutral-900 dark:text-neutral-300 space-x-2.5 ">
+        <button
+          className={btnClassName}
+          disabled={!pageInfo.hasPreviousPage}
+          onClick={() => {
+            setLoadingState(true);
+            fetchMore({
+              variables: {
+                first: null,
+                after: null,
+                last: Number(numberOfPosts),
+                before: pageInfo.startCursor || null,
+              },
+              updateQuery,
+            });
+          }}
+        >
+          <i className="las la-angle-left"></i>
+        </button>
+        <button
+          className={btnClassName}
+          disabled={!pageInfo.hasNextPage}
+          onClick={() => {
+            setLoadingState(true);
+            fetchMore({
+              variables: {
+                first: Number(numberOfPosts),
+                after: pageInfo.endCursor || null,
+                last: null,
+                before: null,
+              },
+              updateQuery,
+            });
+          }}
+        >
+          <i className="las la-angle-right"></i>
+        </button>
+      </div>
+    );
+  };
 
   const renderLeft = () => {
     const { taxonomies } = menuItemData.ncmazMenuCustomFields;
     return (
-      <div className="w-1/4 py-5 flex-shrink-0 border-r border-neutral-200 ">
+      <div className="w-1/5 py-5 flex-shrink-0  ">
         <div className="flow-root">
           <ul className="-my-3">
             {taxonomies.map((item, index) => {
@@ -107,11 +171,26 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
 
   const renderRight = () => {
     return (
-      <div className="flex-grow ">
-        <div className="px-3 py-6 grid grid-cols-3 gap-8">
-          {dataLists.map((item, index) => (
-            <Card18 post={item.node} key={index} />
-          ))}
+      <div
+        className={`flex-grow ${
+          showTabFilter ? "border-l border-neutral-200" : ""
+        }`}
+      >
+        <div className="px-4 py-5 ">
+          <div
+            className={`grid gap-5 ${
+              showTabFilter ? "grid-cols-4" : "grid-cols-5"
+            }`}
+          >
+            {DATA_LISTS.map((item) => (
+              <Card18
+                isSkeleton={loading || loadingState}
+                post={item.node}
+                key={item.node.id}
+              />
+            ))}
+          </div>
+          {renderPagination()}
         </div>
       </div>
     );
@@ -120,8 +199,8 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   const renderContent = () => {
     return (
       <div className="nc-megamenu-item absolute top-full py-3 inset-x-0">
-        <div className="w-full flex overflow-hidden rounded-lg shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 ">
-          {renderLeft()}
+        <div className="w-full flex overflow-hidden rounded-2xl shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 ">
+          {showTabFilter && renderLeft()}
           {renderRight()}
         </div>
       </div>
