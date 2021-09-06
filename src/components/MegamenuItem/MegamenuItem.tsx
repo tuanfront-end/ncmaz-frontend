@@ -25,7 +25,7 @@ interface MegaMenuItemData {
     order: string;
     orderBy: string;
     showTabFilter: boolean;
-    taxonomies: MegaMenuItemTerm[];
+    taxonomies?: MegaMenuItemTerm[];
   };
 }
 
@@ -41,7 +41,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   const { ncmazMenuCustomFields } = menuItemData;
 
   const [temrActiveId, setTemrActiveId] = useState(
-    ncmazMenuCustomFields?.taxonomies[0]?.categoryId
+    ncmazMenuCustomFields?.taxonomies?.[0]?.categoryId
   );
 
   const [loadingState, setLoadingState] = useState(false);
@@ -178,7 +178,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
       >
         <div className="px-4 py-5 ">
           <div
-            className={`grid gap-5 ${
+            className={`grid gap-4 ${
               showTabFilter ? "grid-cols-4" : "grid-cols-5"
             }`}
           >
@@ -198,7 +198,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
 
   const renderContent = () => {
     return (
-      <div className="nc-megamenu-item absolute top-full py-3 inset-x-0">
+      <div className="nc-megamenu-item absolute top-full py-3 -inset-x-10">
         <div className="w-full flex overflow-hidden rounded-2xl shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 ">
           {showTabFilter && renderLeft()}
           {renderRight()}

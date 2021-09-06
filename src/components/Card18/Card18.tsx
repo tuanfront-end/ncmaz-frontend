@@ -32,36 +32,38 @@ const Card18: FC<Card18Props> = ({
       className={`nc-Card18 group relative flex flex-col ${className}`}
       data-nc-id="Card18"
     >
-      <div className="w-full block h-0 aspect-h-9 aspect-w-12 rounded-2xl overflow-hidden">
+      <div className="w-full block h-0 aspect-h-9 aspect-w-10 rounded-2xl overflow-hidden">
         <NcImage
           containerClassName="absolute inset-0 "
           src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
           alt={title}
         />
-        <span>
+        <div>
           <PostTypeFeaturedIcon
             className="absolute left-1.5 bottom-1.5"
             postType={postType}
             wrapSize="w-8 h-8"
             iconSize="w-4 h-4"
           />
-        </span>
+          {/* <PostCardLikeAction
+            className="absolute right-1.5 bottom-1.5 z-10 small"
+            favoriteButtonShortcode={
+              ncPostMetaData.favoriteButtonShortcode || ""
+            }
+          /> */}
+        </div>
         <div className="bg-transparent group-hover:bg-gray-900/30 transform transition-colors"></div>
       </div>
-      <div className="absolute top-1.5 inset-x-1.5 hidden group-hover:flex justify-between ">
+      <div className="absolute top-1.5 inset-x-1.5 flex justify-between ">
         <Badge
           className={`relative z-10`}
           name={categories.edges[0]?.node?.name}
           href={categories.edges[0]?.node?.link}
           // color={item.color as any}
         />
-        <PostCardLikeAction
-          className="relative z-10 small"
-          favoriteButtonShortcode={ncPostMetaData.favoriteButtonShortcode || ""}
-        />
       </div>
 
-      <h2 className={`block mt-2 mx-2 font-medium text-sm`}>
+      <h2 className={`block mt-2 font-medium text-sm`}>
         {isSkeleton ? (
           <>
             <Skeleton />

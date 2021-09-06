@@ -1,11 +1,11 @@
 //
 .nav-links,
 #pagination {
-  @apply flex items-center justify-center text-gray-700 dark:text-gray-300 font-medium text-lg space-x-3 mb-8;
+  @apply flex items-center justify-center text-neutral-700 dark:text-neutral-300 font-medium text-lg space-x-3 mb-8;
   .page-numbers {
     @apply w-10 h-10 bg-white dark:bg-black flex items-center justify-center rounded-full;
     &.current {
-      @apply w-12 h-12 text-gray-900 bg-primary-500 flex items-center justify-center rounded-full border;
+      @apply w-12 h-12 text-neutral-900 bg-primary-500 flex items-center justify-center rounded-full border;
     }
   }
 }
@@ -25,19 +25,20 @@
 
   #primary-menu-list > .menu-item {
     > a {
-      @apply text-gray-800 hover:text-black dark:text-gray-200 dark:hover:text-white inline-flex items-center py-2.5 px-3 lg:px-4 xl:px-6 rounded-full mr-[2px];
+      @apply text-neutral-800 hover:text-black dark:text-neutral-200 dark:hover:text-white inline-flex items-center py-2.5 px-3 lg:px-4 xl:px-6 rounded-full mr-[2px];
     }
-    &.menu-item-has-children {
+    &.menu-item-has-children,
+    &[data-is-megamenu="true"] {
       > a::after {
         content: "";
-        transform: rotate(-135deg);
-        @apply block border-solid border-l border-t border-gray-800 dark:border-gray-200 ml-2 mb-1 w-2 h-2 z-[1];
+        @apply block border-solid border-r border-b border-neutral-800 dark:border-neutral-200 ml-2 mb-1 w-2 h-2 z-[1] transition-transform rotate-45;
       }
     }
+
     &.current-menu-item,
     &.current-menu-parent.menu-item-has-children {
       > a {
-        @apply bg-gray-100 dark:text-gray-800;
+        @apply bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-50;
       }
     }
   }
@@ -49,27 +50,27 @@
       > .sub-menu-wrap {
         @apply absolute py-3 z-50 w-60 top-full;
         > ul.sub-menu {
-          @apply p-3 shadow-xl border border-gray-100 rounded-xl bg-white;
+          @apply p-3 shadow-xl border border-neutral-100 dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900;
           .sub-menu-wrap {
             @apply absolute pt-3 pl-5 z-50 w-64 left-full top-0;
           }
         }
         li {
           a {
-            @apply flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md;
+            @apply flex items-center px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 rounded-md;
           }
           &.menu-item-has-children {
             > a::after {
               content: "";
               z-index: 1;
               transform: rotate(-135deg);
-              @apply block border-l border-t border-gray-800 dark:border-gray-200 ml-2 mb-1 w-2 h-2;
+              @apply block border-l border-t border-neutral-800 dark:border-neutral-200 ml-2 mb-1 w-2 h-2;
             }
           }
           &.current-menu-item,
           &.current-menu-parent {
             > a {
-              @apply bg-gray-100 dark:bg-gray-800;
+              @apply bg-neutral-100 dark:bg-neutral-800;
             }
           }
         }
@@ -97,7 +98,7 @@
 
     > .menu-item {
       > a {
-        @apply flex items-center justify-between text-base px-5 hover:bg-gray-900 rounded-md uppercase tracking-wide text-white;
+        @apply flex items-center justify-between text-base px-5 hover:bg-neutral-900 rounded-md uppercase tracking-wide text-white;
         span {
           @apply block py-2;
         }
@@ -106,7 +107,7 @@
       .sub-menu {
         @apply px-5;
         a {
-          @apply flex items-center justify-between text-base font-normal px-4 hover:bg-gray-900 hover:text-gray-300 text-gray-400 rounded-md;
+          @apply flex items-center justify-between text-base font-normal px-4 hover:bg-neutral-900 hover:text-neutral-300 text-neutral-400 rounded-md;
           span {
             @apply block py-2;
           }

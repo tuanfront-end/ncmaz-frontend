@@ -16,6 +16,7 @@ declare global {
     stylesheetDirectory: string;
     placeholderImg: string;
     graphQLBasePath: string;
+    homeURL: string;
   };
 
   var ncmazFrontendVariables: {

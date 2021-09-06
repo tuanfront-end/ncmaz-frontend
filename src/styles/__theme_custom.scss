@@ -203,8 +203,13 @@
 
     &:not(.active) {
       @apply text-neutral-700 bg-neutral-50 dark:text-neutral-200 dark:bg-neutral-800 hover:bg-rose-50 dark:hover:bg-rose-100 hover:text-rose-600 dark:hover:text-rose-500;
+      &:hover {
+        .simplefavorite-button-count {
+          @apply text-rose-500  #{!important};
+        }
+      }
       .simplefavorite-button-count {
-        @apply text-neutral-900 dark:text-neutral-200;
+        @apply text-neutral-900 dark:text-neutral-200 transition-colors;
       }
     }
 
