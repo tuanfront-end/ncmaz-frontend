@@ -36,10 +36,13 @@ const HeaderFactory = () => {
   };
 
   const renderHeaderRight = () => {
+    const isShowDarkmode = domNodesHeaderRight?.getAttribute(
+      "data-show-toogleDarkmode"
+    );
     return (
       <>
         <div className="hidden items-center xl:flex space-x-1">
-          <SwitchDarkMode />
+          {isShowDarkmode !== "0" && <SwitchDarkMode />}
           <SearchDropdown />
           <div className="px-1" />
           <ButtonPrimary href="/login">Sign up</ButtonPrimary>

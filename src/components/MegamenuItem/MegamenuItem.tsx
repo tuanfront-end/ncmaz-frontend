@@ -5,6 +5,7 @@ import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
 import { PostNode } from "data/postCardType";
 import Card18 from "components/Card18/Card18";
 import { GraphQlPageInfo } from "data/types";
+import Loading from "components/Loading/Loading";
 
 interface MegaMenuItemTerm {
   categoryId: number;
@@ -151,11 +152,13 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
       <div className="w-1/5 py-5 flex-shrink-0  ">
         <div className="flow-root">
           <ul className="-my-3">
-            {taxonomies.map((item, index) => {
+            {(taxonomies || []).map((item) => {
               const isActive = item.categoryId === temrActiveId;
               return (
                 <li
-                  className={`py-2 px-3 ${isActive ? "bg-neutral-100" : ""}`}
+                  className={`py-2 px-3 ${
+                    isActive ? "bg-neutral-100 dark:bg-neutral-800" : ""
+                  }`}
                   key={item.categoryId}
                   onMouseEnter={() => handleMoutEnterTerm(item)}
                 >
@@ -173,10 +176,13 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     return (
       <div
         className={`flex-grow ${
-          showTabFilter ? "border-l border-neutral-200" : ""
+          showTabFilter
+            ? "border-l border-neutral-200 dark:border-neutral-800"
+            : ""
         }`}
       >
         <div className="px-4 py-5 ">
+          {(loading || loadingState) && !DATA_LISTS.length && <Loading />}
           <div
             className={`grid gap-4 ${
               showTabFilter ? "grid-cols-4" : "grid-cols-5"

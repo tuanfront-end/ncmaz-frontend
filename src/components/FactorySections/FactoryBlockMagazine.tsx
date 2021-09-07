@@ -20,6 +20,7 @@ import SectionLargeSlider from "components/SectionMagazines/SectionLargeSlider";
 import { GutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
 import { ListPosts } from "data/postCardType";
 import EmptyState from "components/EmptyState/EmptyState";
+import Loading from "components/Loading/Loading";
 
 export interface FactoryBlockMagazineProps {
   className?: string;
@@ -199,7 +200,9 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
         )}
 
         {loading && !LISTS_POSTS.edges.length && (
-          <span className="text-lg"> LOADING .............</span>
+          <div className="flex justify-center">
+            <Loading />
+          </div>
         )}
         {error && (
           <pre className="text-xs">

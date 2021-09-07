@@ -15,7 +15,11 @@
 
 define('_NCMAZ_FRONTEND_VERSION', '1.0.0');
 define('_NCMAZ_FRONTEND_PREFIX', 'ncmaz_frontend_prefix_');
+define('_NCMAZ_FRONTEND_TEXT_DOMAIN', 'ncmaz-frontend');
 
+// 
+require plugin_dir_path(__FILE__) . 'ncmaz-redux-sample-config.php';
+// 
 
 $script = 'script';
 $tag = '_loader_tag';
@@ -134,3 +138,5 @@ function registerStyles()
         }
     }
 }
+
+// ==============

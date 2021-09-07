@@ -25,7 +25,7 @@
 
   #primary-menu-list > .menu-item {
     > a {
-      @apply text-neutral-800 hover:text-black dark:text-neutral-200 dark:hover:text-white inline-flex items-center py-2.5 px-3 lg:px-4 xl:px-6 rounded-full mr-[2px];
+      @apply text-neutral-800 hover:text-black dark:text-neutral-200 dark:hover:text-white inline-flex items-center py-2.5 px-3 lg:px-4 xl:px-6 rounded-full mr-0.5;
     }
     &.menu-item-has-children,
     &[data-is-megamenu="true"] {
