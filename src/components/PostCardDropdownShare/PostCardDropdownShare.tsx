@@ -13,15 +13,17 @@ const socials: SocialType[] = [
 export interface PostCardDropdownShareProps {
   panelMenusClass?: string;
   href?: string;
+  className?: string;
 }
 
 const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
   panelMenusClass = "w-52 right-0 bottom-0 origin-bottom-right",
   href = "/#",
+  className = "nc-NcBookmark relative rounded-full flex items-center justify-center focus:outline-none bg-neutral-50 hover:bg-blue-50 hover:text-blue-700 dark:bg-neutral-800 dark:hover:bg-blue-100 transition-colors duration-300 h-8 w-8",
 }) => {
   const renderButton = () => {
     return (
-      <div className="nc-NcBookmark relative rounded-full flex items-center justify-center focus:outline-none h-8 w-8 bg-neutral-50 hover:bg-blue-50 hover:text-blue-700 dark:bg-neutral-800 dark:hover:bg-blue-100 transition-colors duration-300">
+      <div>
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path
             stroke="currentColor"
@@ -51,6 +53,7 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
 
   return (
     <NcDropDown
+      className={className}
       panelMenusClass={panelMenusClass}
       title="Share with"
       renderTrigger={renderButton}

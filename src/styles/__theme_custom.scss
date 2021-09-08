@@ -221,6 +221,14 @@
     }
   }
 
+  &.large {
+    .simplefavorite-button {
+      @apply min-w-[68px] px-4 h-9 #{!important};
+      .simplefavorite-button-count {
+        @apply mx-0.5;
+      }
+    }
+  }
   &.small {
     .simplefavorite-button {
       @apply min-w-[48px] px-2 h-6 #{!important};

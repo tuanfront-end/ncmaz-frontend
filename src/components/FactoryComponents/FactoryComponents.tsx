@@ -1,4 +1,6 @@
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
+import SocialsShare from "components/SocialsShare/SocialsShare";
+import SingleComment from "containers/SingleComments/SingleComment";
 import React, { FC } from "react";
 import ReactDOM from "react-dom";
 
@@ -29,6 +31,15 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "PostCardDropdownShare":
         return ReactDOM.createPortal(
           <PostCardDropdownShare {...componentProps} />,
+          dom
+        );
+
+      case "SocialsShare":
+        return ReactDOM.createPortal(<SocialsShare {...componentProps} />, dom);
+
+      case "SingleComment":
+        return ReactDOM.createPortal(
+          <SingleComment {...componentProps} />,
           dom
         );
 
