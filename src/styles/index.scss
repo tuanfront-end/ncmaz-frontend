@@ -1,5 +1,3 @@
-@import "./header";
-@import "./nav";
 //
 @import "./_tw_safe_classes";
 @import "./_theme_colors";
@@ -8,6 +6,10 @@
 @import "./_theme_widgets";
 //
 //
+@import "./header";
+@import "./nav";
+@import "./single";
 
+//
 //
 @import "node_modules/@glidejs/glide/src/assets/sass/glide.core";

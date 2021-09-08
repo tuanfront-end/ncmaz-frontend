@@ -1,0 +1,7 @@
+.nc-SingleHeader {
+  .nc-CategoryBadgeList {
+    a {
+      @apply transition-colors hover:text-white duration-300 relative inline-flex py-1 rounded-full font-medium text-xs px-3 text-pink-800 bg-pink-100 hover:bg-pink-800;
+    }
+  }
+}

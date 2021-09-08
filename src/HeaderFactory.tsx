@@ -1,4 +1,5 @@
 import ButtonPrimary from "components/Button/ButtonPrimary";
+import HeaderSite from "components/HeaderSite/HeaderSite";
 import MegamenuItem from "components/MegamenuItem/MegamenuItem";
 import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
@@ -53,6 +54,9 @@ const HeaderFactory = () => {
 
   return (
     <>
+      {/* ----------SITE HEADER PROGRESS---------- */}
+      <HeaderSite />
+
       {/* ----------MegamenuItem---------- */}
       {renderPortalMegamenuItem()}
 
