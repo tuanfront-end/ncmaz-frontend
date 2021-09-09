@@ -37,28 +37,37 @@ add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 
 
 // JAVASCRIPT
-wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
-wp_localize_script(
-    'ncmaz-frontend-js',
-    'frontendObject',
-    array(
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'stylesheetDirectory' => get_template_directory_uri(),
-        // 'restUrl' => get_rest_url(),
-        'dateFormat' => get_option('date_format'),
-        'placeholderImg' => get_template_directory_uri() . '/placeholder-small.png',
-        'graphQLBasePath' => get_site_url(null, '/graphql'),
-        'value2' => 'value 2',
-    )
-);
-wp_localize_script(
-    'ncmaz-frontend-js',
-    'ncmazFrontendVariables',
-    array(
-        'pluginDir' => _NCMAZ_FRONTEND_DIR_URL,
-        'emptyStatePng' => _NCMAZ_FRONTEND_DIR_URL . 'public/images/empty.png'
-    )
-);
+
+function ncmaz_frontend_enqueue_scripts_2()
+{
+    wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
+    wp_localize_script(
+        'ncmaz-frontend-js',
+        'frontendObject',
+        array(
+            'ajaxurl'               => admin_url('admin-ajax.php'),
+            'stylesheetDirectory'   => get_template_directory_uri(),
+            'restUrl'               => get_rest_url(),
+            'dateFormat'            => get_option('date_format'),
+            'placeholderImg'        => get_template_directory_uri() . '/placeholder-small.png',
+            'graphQLBasePath'       => get_site_url(null, '/graphql'),
+            'value2'                => 'value 2',
+            'homeURL'               => get_site_url(),
+            'currentUser'           => get_current_user_id()
+        )
+    );
+
+    wp_localize_script(
+        'ncmaz-frontend-js',
+        'ncmazFrontendVariables',
+        array(
+            'pluginDir' => _NCMAZ_FRONTEND_DIR_URL,
+            'emptyStatePng' => _NCMAZ_FRONTEND_DIR_URL . 'public/images/empty.png'
+        )
+    );
+}
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_scripts_2');
+
 // 
 
 // add_action('wp_enqueue_scripts', 'registerScripts');

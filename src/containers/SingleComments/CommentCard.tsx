@@ -20,7 +20,7 @@ const CommentCard: FC<CommentCardProps> = ({
   comment,
   size = "large",
 }) => {
-  const { author, databaseId, date, parentId, content } = comment;
+  const { author, databaseId, date, parentId, content, approved } = comment;
   const actions = [
     { id: "edit", name: "Edit", icon: "las la-edit" },
     { id: "reply", name: "Reply", icon: "las la-reply" },
@@ -99,9 +99,9 @@ const CommentCard: FC<CommentCardProps> = ({
             stroke="currentColor"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
               d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
             ></path>
           </svg>
@@ -125,9 +125,9 @@ const CommentCard: FC<CommentCardProps> = ({
       >
         <Avatar
           imgUrl={authorAvatar || ""}
-          userName={author.node.username}
+          userName={author.node.name}
           sizeClass={`h-6 w-6 text-base ${
-            size === "large" ? "sm:text-lg sm:h-8 sm:w-8" : ""
+            size === "large" ? "sm:text-lg sm:h-8 sm:w-8" : "!text-sm"
           }`}
           radius="rounded-full"
           containerClassName="mt-4"
@@ -153,12 +153,16 @@ const CommentCard: FC<CommentCardProps> = ({
               {ncFormatDate(date)}
             </span>
           </div>
-
+          {!approved && (
+            <div className="text-red-500 text-xs italic mt-1">
+              Your comment is awaiting moderation. This is a preview; your
+              comment will be visible after it has been approved.
+            </div>
+          )}
           {/* CONTENT */}
-          <span
-            className="block text-neutral-700 mt-2 mb-3 sm:mt-3 sm:mb-4 dark:text-neutral-300"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+          <div className="prose-sm sm:prose text-neutral-700 dark:text-neutral-300">
+            <div className="" dangerouslySetInnerHTML={{ __html: content }} />
+          </div>
 
           {/* ACTION LIKE REPLY */}
           {isReplying ? renderCommentForm() : renderButtonReply()}

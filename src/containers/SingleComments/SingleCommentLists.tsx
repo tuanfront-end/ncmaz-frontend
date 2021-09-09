@@ -5,33 +5,44 @@ import { CommentNode, Comments } from "./commentType";
 
 export interface SingleCommentListsProps {
   comments: Comments["edges"];
+  onClickLoadmore: () => void;
 }
 
-const SingleCommentLists: FC<SingleCommentListsProps> = ({ comments }) => {
+const SingleCommentLists: FC<SingleCommentListsProps> = ({
+  comments,
+  onClickLoadmore,
+}) => {
   let cmtLv1 = comments.filter((item) => !item.node.parentDatabaseId);
 
   const renderCommentItemChild = (comment: CommentNode) => {
+    const childComments = comments.filter(
+      (item) => item.node.parentDatabaseId === comment.databaseId
+    );
     return (
       <li key={comment.databaseId}>
         <CommentCard size="normal" comment={comment} />
-        {/* {comment.children && (
-          <ul className="pl-4 mt-5 space-y-5 md:pl-9">
-            {comment.children.map(renderCommentItemChild)}
+        {childComments.length ? (
+          <ul className="pl-4 mt-5 space-y-5 md:pl-11">
+            {childComments.map((child) => renderCommentItemChild(child.node))}
           </ul>
-        )} */}
+        ) : null}
       </li>
     );
   };
 
   const renderCommentItem = (comment: CommentNode) => {
+    const childComments = comments.filter(
+      (item) => item.node.parentDatabaseId === comment.databaseId
+    );
+
     return (
       <li key={comment.databaseId}>
         <CommentCard comment={comment} />
-        {/* {comment.children && (
+        {childComments.length ? (
           <ul className="pl-4 mt-5 space-y-5 md:pl-11">
-            {comment.children.map(renderCommentItemChild)}
+            {childComments.map((child) => renderCommentItemChild(child.node))}
           </ul>
-        )} */}
+        ) : null}
       </li>
     );
   };
@@ -39,8 +50,11 @@ const SingleCommentLists: FC<SingleCommentListsProps> = ({ comments }) => {
   return (
     <ul className="nc-SingleCommentLists space-y-5">
       {cmtLv1.map((item) => renderCommentItem(item.node))}
-      <ButtonPrimary className="dark:bg-primary-700 w-full">
-        View full comments (+117 comments)
+      <ButtonPrimary
+        onClick={onClickLoadmore}
+        className="dark:bg-primary-700 w-full"
+      >
+        View more comments
       </ButtonPrimary>
     </ul>
   );

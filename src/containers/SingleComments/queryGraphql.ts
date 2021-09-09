@@ -1,10 +1,10 @@
-const COMMENT_QUERY = `query MyQuery($after: String = null, $before: String = null, $first: Int = 10, $last: Int = null, $order: OrderEnum = DESC, $contentId: ID = null) {
+const COMMENT_QUERY = `query MyQuery($after: String = null, $before: String = null, $first: Int = 10, $last: Int = null, $order: OrderEnum = ASC, $contentId: ID = null) {
     comments(
       after: $after
       before: $before
       first: $first
       last: $last
-      where: {order: $order, contentId: $contentId}
+      where: {order: $order, contentId: $contentId, status: "all"}
     ) {
       edges {
         node {
@@ -39,13 +39,6 @@ const COMMENT_QUERY = `query MyQuery($after: String = null, $before: String = nu
                 uri
                 slug
               }
-              ... on CommentAuthor {
-                id
-                email
-                databaseId
-                url
-                name
-              }
             }
           }
           commentId
@@ -62,7 +55,6 @@ const COMMENT_QUERY = `query MyQuery($after: String = null, $before: String = nu
         endCursor
       }
     }
-  }
-  `;
+  }`;
 
 export { COMMENT_QUERY };

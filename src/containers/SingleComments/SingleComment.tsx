@@ -25,7 +25,7 @@ const SingleComment: FC<SingleCommentProps> = ({
 
   // HIEN TAI GRAPHQL CHUA HO TRO PAGINATION CHO CAC FILTER orderBy
   variables = {
-    first: 10,
+    first: 100,
     contentId: Number(postID),
   };
 
@@ -53,7 +53,27 @@ const SingleComment: FC<SingleCommentProps> = ({
     DATA_LISTS = data?.comments?.edges || [];
   }
 
-  const pageInfo: PageInfo | {} = data?.comments?.pageInfo || {};
+  // GET
+  const commentsWillShow = DATA_LISTS.filter((item) => {
+    return (
+      item.node.approved ||
+      (!item.node.approved &&
+        Number(item.node.author.node.databaseId) ===
+          Number(frontendObject.currentUser))
+    );
+  });
+
+  const pageInfo = data?.comments?.pageInfo;
+
+  const handleLoadMore = () => {
+    if (pageInfo?.hasNextPage) {
+      fetchMore({
+        variables: {
+          after: pageInfo.endCursor,
+        },
+      });
+    }
+  };
 
   return (
     <div>
@@ -70,7 +90,10 @@ const SingleComment: FC<SingleCommentProps> = ({
 
       {/* COMMENTS LIST */}
       <div className="max-w-screen-md mx-auto mt-10">
-        <SingleCommentLists comments={DATA_LISTS} />
+        <SingleCommentLists
+          onClickLoadmore={handleLoadMore}
+          comments={commentsWillShow}
+        />
       </div>
     </div>
   );

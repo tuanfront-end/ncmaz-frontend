@@ -17,6 +17,7 @@ declare global {
     placeholderImg: string;
     graphQLBasePath: string;
     homeURL: string;
+    currentUser?: number;
   };
 
   var ncmazFrontendVariables: {
@@ -28,7 +29,15 @@ if (
   window.frontendObject?.graphQLBasePath &&
   !location.pathname.includes("/wp-admin/")
 ) {
-  const cache = new InMemoryCache();
+  const cache = new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          comments: relayStylePagination(),
+        },
+      },
+    },
+  });
 
   const client = new ApolloClient({
     uri: window.frontendObject.graphQLBasePath,
