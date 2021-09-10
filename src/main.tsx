@@ -9,6 +9,31 @@ import { relayStylePagination } from "@apollo/client/utilities";
 import "./index.css";
 import "./styles/index.scss";
 
+interface User {
+  avatar: {
+    url: string;
+  };
+  databaseId: number;
+  email: string;
+  name: string;
+  ncUserMeta: {
+    color: string;
+    ncBio: string;
+    featuredImage?: {
+      sourceUrl: string;
+    };
+  };
+  registeredDate: string;
+  slug: string;
+  uri: string;
+  url: string;
+  userId: number;
+  username: string;
+  nicename: string;
+  nickname: string;
+  locale: string;
+}
+
 declare global {
   var frontendObject: {
     restUrl: string;
@@ -17,7 +42,10 @@ declare global {
     placeholderImg: string;
     graphQLBasePath: string;
     homeURL: string;
-    currentUser?: number;
+    currentUser?: User;
+    currentObject: {
+      id: number;
+    };
   };
 
   var ncmazFrontendVariables: {

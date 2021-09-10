@@ -1,8 +1,9 @@
-import { useQuery, gql, ApolloError } from "@apollo/client";
+import { useQuery, gql, ApolloError, useMutation } from "@apollo/client";
+import ButtonPrimary from "components/Button/ButtonPrimary";
 import React, { FC } from "react";
 import { CommentNode, Comments, PageInfo } from "./commentType";
-import { COMMENT_QUERY } from "./queryGraphql";
-import SingleCommentForm from "./SingleCommentForm";
+import { COMMENT_QUERY, CREATE_COMMENT_QUERY } from "./queryGraphql";
+import SingleCommentForm, { CommentFormData } from "./SingleCommentForm";
 import SingleCommentLists from "./SingleCommentLists";
 
 export interface SingleCommentProps {
@@ -58,8 +59,9 @@ const SingleComment: FC<SingleCommentProps> = ({
     return (
       item.node.approved ||
       (!item.node.approved &&
+        frontendObject.currentUser?.databaseId &&
         Number(item.node.author.node.databaseId) ===
-          Number(frontendObject.currentUser))
+          Number(frontendObject.currentUser?.databaseId))
     );
   });
 
@@ -75,6 +77,31 @@ const SingleComment: FC<SingleCommentProps> = ({
     }
   };
 
+  const [createCommentGraphFunc, createCommentGraphProgress] = useMutation(
+    gql(CREATE_COMMENT_QUERY)
+  );
+
+  console.log(1122, { createCommentGraphProgress });
+
+  const hanldeClickSubmitForm = ({
+    commentId,
+    formData,
+  }: {
+    commentId: number;
+    formData: CommentFormData;
+  }) => {
+    createCommentGraphFunc({
+      variables: {
+        content: formData.textareaValue,
+        authorEmail: formData.inputAuthorEmail,
+        authorUrl: null,
+        author: formData.inputAuthorName,
+        parent: commentId,
+        commentOn: postID || frontendObject.currentObject.id,
+      },
+    });
+  };
+
   return (
     <div>
       {/* COMMENT FORM */}
@@ -82,18 +109,32 @@ const SingleComment: FC<SingleCommentProps> = ({
         <h3 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200">
           Responses ({commentCount})
         </h3>
+        {createCommentGraphProgress.error && (
+          <pre className="my-1 text-xs italic text-red-500 max-w-full overflow-auto">
+            <code>
+              Submission error:{" "}
+              {createCommentGraphProgress.error.message ||
+                JSON.stringify(createCommentGraphProgress.error.message)}
+            </code>
+          </pre>
+        )}
         <SingleCommentForm
-          onClickSubmit={(id) => console.log(id)}
+          onClickSubmit={hanldeClickSubmitForm}
           onClickCancel={(id) => console.log(id)}
         />
       </div>
 
       {/* COMMENTS LIST */}
       <div className="max-w-screen-md mx-auto mt-10">
-        <SingleCommentLists
-          onClickLoadmore={handleLoadMore}
-          comments={commentsWillShow}
-        />
+        <SingleCommentLists comments={commentsWillShow} />
+        {pageInfo?.hasNextPage && (
+          <ButtonPrimary
+            onClick={handleLoadMore}
+            className="dark:bg-primary-700 w-full mt-5"
+          >
+            View more comments
+          </ButtonPrimary>
+        )}
       </div>
     </div>
   );

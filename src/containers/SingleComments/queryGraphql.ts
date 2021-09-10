@@ -1,4 +1,4 @@
-const COMMENT_QUERY = `query MyQuery($after: String = null, $before: String = null, $first: Int = 10, $last: Int = null, $order: OrderEnum = ASC, $contentId: ID = null) {
+const COMMENT_QUERY = `query MyQuery($after: String = null, $before: String = null, $first: Int = 10, $last: Int = null, $order: OrderEnum = DESC, $contentId: ID = null) {
     comments(
       after: $after
       before: $before
@@ -57,4 +57,49 @@ const COMMENT_QUERY = `query MyQuery($after: String = null, $before: String = nu
     }
   }`;
 
-export { COMMENT_QUERY };
+const CREATE_COMMENT_QUERY = `mutation MyMutation($author: String = "", $authorEmail: String = "", $authorUrl: String = "", $clientMutationId: String = "", $commentOn: Int = 10, $content: String = "", $parent: ID = "") {
+    createComment(
+      input: {author: $author, authorEmail: $authorEmail, authorUrl: $authorUrl, clientMutationId: $clientMutationId, commentOn: $commentOn, content: $content, parent: $parent}
+    ) {
+      clientMutationId
+      success
+      comment {
+        approved
+        parentId
+        parentDatabaseId
+        id
+        date
+        databaseId
+        content
+        commentId
+        author {
+          node {
+            url
+            name
+            id
+            email
+            databaseId
+            ... on User {
+              id
+              email
+              avatar {
+                url
+              }
+              name
+              ncUserMeta {
+                featuredImage {
+                  sourceUrl
+                }
+              }
+              url
+              userId
+              username
+            }
+          }
+        }
+      }
+    }
+  }
+  `;
+
+export { COMMENT_QUERY, CREATE_COMMENT_QUERY };

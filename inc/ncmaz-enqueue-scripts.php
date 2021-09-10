@@ -36,11 +36,47 @@ add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 // --------------------------------------------------------------------------------------
 
 
-// JAVASCRIPT
+function getCurrentUserGraphql()
+{
+    $userID = get_current_user_id();
+    if (!function_exists('graphql') || !$userID) {
+        return null;
+    }
+    return graphql([
+        'query' => ' {
+            user(idType: DATABASE_ID, id: ' . $userID . ') {
+                avatar {
+                  url
+                }
+                databaseId
+                email
+                name
+                ncUserMeta {
+                  color
+                  ncBio
+                  featuredImage {
+                    sourceUrl
+                  }
+                }
+                registeredDate
+                slug
+                uri
+                url
+                userId
+                username
+                nicename
+                nickname
+                locale
+              }
+				}'
+    ]);
+}
 
+// JAVASCRIPT
 function ncmaz_frontend_enqueue_scripts_2()
 {
     wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
+    $currentUser = getCurrentUserGraphql();
     wp_localize_script(
         'ncmaz-frontend-js',
         'frontendObject',
@@ -53,7 +89,10 @@ function ncmaz_frontend_enqueue_scripts_2()
             'graphQLBasePath'       => get_site_url(null, '/graphql'),
             'value2'                => 'value 2',
             'homeURL'               => get_site_url(),
-            'currentUser'           => get_current_user_id()
+            'currentUser'           => $currentUser ? $currentUser['data']['user'] : null,
+            'currentObject'         => [
+                'id'        => get_the_ID()
+            ]
         )
     );
 

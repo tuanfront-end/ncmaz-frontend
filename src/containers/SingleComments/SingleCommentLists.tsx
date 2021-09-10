@@ -5,13 +5,9 @@ import { CommentNode, Comments } from "./commentType";
 
 export interface SingleCommentListsProps {
   comments: Comments["edges"];
-  onClickLoadmore: () => void;
 }
 
-const SingleCommentLists: FC<SingleCommentListsProps> = ({
-  comments,
-  onClickLoadmore,
-}) => {
+const SingleCommentLists: FC<SingleCommentListsProps> = ({ comments }) => {
   let cmtLv1 = comments.filter((item) => !item.node.parentDatabaseId);
 
   const renderCommentItemChild = (comment: CommentNode) => {
@@ -50,12 +46,6 @@ const SingleCommentLists: FC<SingleCommentListsProps> = ({
   return (
     <ul className="nc-SingleCommentLists space-y-5">
       {cmtLv1.map((item) => renderCommentItem(item.node))}
-      <ButtonPrimary
-        onClick={onClickLoadmore}
-        className="dark:bg-primary-700 w-full"
-      >
-        View more comments
-      </ButtonPrimary>
     </ul>
   );
 };
