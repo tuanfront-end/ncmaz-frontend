@@ -95,6 +95,13 @@ const CREATE_COMMENT_QUERY = `mutation MyMutation($author: String = "", $authorE
               userId
               username
             }
+             ... on CommentAuthor {
+              id
+              email
+              databaseId
+              name
+              url
+            }
           }
         }
       }

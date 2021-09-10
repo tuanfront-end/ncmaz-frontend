@@ -64,6 +64,11 @@ if (
           comments: relayStylePagination(),
         },
       },
+      MutationRecord: {
+        fields: {
+          comments: relayStylePagination(),
+        },
+      },
     },
   });
 

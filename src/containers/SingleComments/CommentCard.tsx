@@ -8,6 +8,7 @@ import ModalReportItem from "components/ModalReportItem/ModalReportItem";
 import SingleCommentForm from "./SingleCommentForm";
 import { CommentNode } from "./commentType";
 import ncFormatDate from "utils/formatDate";
+import ncNanoId from "utils/ncNanoId";
 
 export interface CommentCardProps {
   className?: string;
@@ -113,8 +114,21 @@ const CommentCard: FC<CommentCardProps> = ({
     );
   };
 
+  let newAuthor = author.node
+    ? author
+    : {
+        node: {
+          databaseId: -11,
+          email: null,
+          id: ncNanoId(),
+          name: "unknow",
+          url: "",
+        },
+      };
+
   const authorAvatar =
-    author.node.ncUserMeta?.featuredImage?.sourceUrl || author.node.avatar?.url;
+    newAuthor.node.ncUserMeta?.featuredImage?.sourceUrl ||
+    newAuthor.node.avatar?.url;
   return (
     <>
       <div
@@ -125,7 +139,7 @@ const CommentCard: FC<CommentCardProps> = ({
       >
         <Avatar
           imgUrl={authorAvatar || ""}
-          userName={author.node.name}
+          userName={newAuthor.node.name}
           sizeClass={`h-6 w-6 text-base ${
             size === "large" ? "sm:text-lg sm:h-8 sm:w-8" : "!text-sm"
           }`}
@@ -144,9 +158,9 @@ const CommentCard: FC<CommentCardProps> = ({
             </div>
             <a
               className="flex-shrink-0 font-semibold text-neutral-800 dark:text-neutral-100"
-              href={author.node.url}
+              href={newAuthor.node.url}
             >
-              {author.node.name}
+              {newAuthor.node.name}
             </a>
             <span className="mx-2">·</span>
             <span className="text-neutral-500 dark:text-neutral-400 text-xs line-clamp-1 sm:text-sm">

@@ -71,7 +71,7 @@ const SingleCommentForm: FC<SingleCommentFormProps> = ({
         rows={rows}
       />
       {!frontendObject.currentUser && (
-        <div className="grid grid-cols-2 gap-2 mt-2">
+        <div className="grid grid-cols-2 gap-3 mt-3">
           <label className="block" htmlFor="singel-comment-authorName">
             <label htmlFor="singel-comment-authorName">Name</label>
             <Input
@@ -79,6 +79,7 @@ const SingleCommentForm: FC<SingleCommentFormProps> = ({
               id="singel-comment-authorName"
               placeholder="Your name"
               name="singel-comment-authorName"
+              required={true}
               rounded="rounded-2xl"
               defaultValue={inputAuthorName}
               onChange={(e) => setInputAuthorName(e.target.value)}
@@ -89,10 +90,12 @@ const SingleCommentForm: FC<SingleCommentFormProps> = ({
             <label htmlFor="singel-comment-authorEmail">Email</label>
             <Input
               className="mt-1"
+              required={true}
               placeholder="Your email"
               id="singel-comment-authorEmail"
               name="singel-comment-authorEmail"
               rounded="rounded-2xl"
+              type="email"
               defaultValue={inputAuthorEmail}
               onChange={(e) => setInputAuthorEmail(e.target.value)}
             />
