@@ -5,3 +5,12 @@
     }
   }
 }
+//
+
+.prose {
+  figure {
+    img {
+      @apply m-0;
+    }
+  }
+}

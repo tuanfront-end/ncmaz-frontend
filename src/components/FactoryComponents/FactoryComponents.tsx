@@ -1,6 +1,7 @@
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 import SocialsShare from "components/SocialsShare/SocialsShare";
-import SingleComment from "containers/SingleComments/SingleComment";
+import SingleMoreFromAuthorGridPosts from "containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts";
+import SingleRelatedGridPosts from "containers/SingleRelatedGridPosts/SingleRelatedGridPosts";
 import React, { FC } from "react";
 import ReactDOM from "react-dom";
 
@@ -37,9 +38,22 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "SocialsShare":
         return ReactDOM.createPortal(<SocialsShare {...componentProps} />, dom);
 
-      case "SingleComment":
+      // TAM THOI KHONG DUNG CAI NAY -- XIN CAM ON --
+      // case "SingleComment":
+      //   return ReactDOM.createPortal(
+      //     <SingleComment {...componentProps} />,
+      //     dom
+      //   );
+
+      case "SingleRelatedGridPosts":
         return ReactDOM.createPortal(
-          <SingleComment {...componentProps} />,
+          <SingleRelatedGridPosts {...componentProps} />,
+          dom
+        );
+
+      case "SingleMoreFromAuthorGridPosts":
+        return ReactDOM.createPortal(
+          <SingleMoreFromAuthorGridPosts {...componentProps} />,
           dom
         );
 

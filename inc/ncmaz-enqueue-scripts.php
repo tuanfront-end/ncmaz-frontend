@@ -108,6 +108,26 @@ function ncmaz_frontend_enqueue_scripts_2()
 add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_scripts_2');
 
 // 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
 
 // add_action('wp_enqueue_scripts', 'registerScripts');
 function registerScripts()

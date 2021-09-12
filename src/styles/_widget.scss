@@ -1,0 +1,131 @@
+.searchform {
+  > div {
+    @apply flex;
+    #searchsubmit {
+      @apply ml-1 px-2;
+    }
+  }
+}
+
+// ======================= GROUP BLOCK ==============================
+.widget-block,
+.nc-WidgetItem {
+  .widget-title {
+    @apply relative  text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow mb-5 pb-4 xl:pb-5;
+    &::after {
+      content: "";
+      @apply absolute bottom-0 -left-10 w-screen border-b  border-neutral-200 dark:border-neutral-700;
+    }
+  }
+}
+// ======================= END GROUP BLOCK ==============================
+
+// ======================= 1 TAG CLOUD ==============================
+.tagcloud,
+.wp-block-tag-cloud {
+  .tag-cloud-link {
+    @apply inline-block px-3.5 py-2 text-neutral-900 bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-200 text-sm rounded-lg mb-1 #{!important};
+  }
+}
+// =====================================================================
+
+// TEXT WIDGET
+.textwidget {
+  @apply prose-sm;
+}
+
+// CALENDAR
+.wp-calendar-table {
+  border-spacing: 0;
+  @apply w-full mb-4 py-2 px-4 rounded-md border-collapse;
+  caption {
+    @apply relative text-center text-sm uppercase mb-5 tracking-widest;
+    margin-bottom: 16px !important;
+    @apply text-blue-500 #{!important};
+  }
+
+  th {
+    @apply dark:bg-neutral-700;
+  }
+
+  th,
+  td {
+    @apply relative text-center p-2 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 uppercase text-sm #{!important};
+    a {
+      @apply text-blue-500 dark:text-blue-500 #{!important};
+    }
+  }
+}
+
+// SELECT ============================
+//searchform
+.searchform {
+  :first-child {
+    width: 100%;
+    display: flex;
+  }
+  input[type="text"] {
+    flex-grow: 1;
+  }
+  input {
+    @apply mt-1 block rounded-md border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+  }
+}
+
+// SEARCH INPUT
+.nc-WidgetItem {
+  .wp-block-search__input,
+  .search-field {
+    @apply inline-block rounded-full border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 #{!important};
+  }
+  .wp-block-search__button,
+  .search-submit {
+    @apply rounded-full min-w-[100px] dark:bg-neutral-700 dark:text-neutral-100;
+  }
+  input.search-submit {
+    min-height: 42px;
+  }
+}
+
+//
+.widget {
+  .widgettitle {
+    @apply text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow mb-5;
+  }
+}
+
+// SELECT
+select {
+  @apply block w-full mt-1 rounded-md border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-neutral-900;
+}
+ul li a {
+  word-break: break-all;
+}
+
+// UL LIST
+.menu-item,
+.cat-item,
+.page_item {
+  ul {
+    @apply space-y-4;
+  }
+  li {
+    @apply space-y-4;
+    ul {
+      @apply space-y-4 pl-4;
+    }
+    a {
+      @apply hover:text-neutral-800 dark:hover:text-neutral-100 transition-colors duration-200 capitalize;
+    }
+  }
+}
+
+// MY CUSTOM WIDGET
+.nc-WidgetItem {
+  @apply flow-root;
+  .wp-block-ncmaz-core-block-widget-users,
+  .wp-block-ncmaz-core-block-widget-terms,
+  .wp-block-ncmaz-core-block-widget-posts {
+    @apply -m-4 xl:-m-5;
+  }
+}

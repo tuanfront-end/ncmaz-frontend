@@ -21,6 +21,7 @@ import { GutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
 import { ListPosts } from "data/postCardType";
 import EmptyState from "components/EmptyState/EmptyState";
 import Loading from "components/Loading/Loading";
+import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockMagazineProps {
   className?: string;
@@ -199,7 +200,12 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
           <Heading desc={subHeading}>{heading}</Heading>
         )}
 
-        {loading && !LISTS_POSTS.edges.length && (
+        <DataStatementBlock
+          loading={loading}
+          error={error}
+          data={LISTS_POSTS.edges}
+        />
+        {/* {loading && !LISTS_POSTS.edges.length && (
           <div className="flex justify-center">
             <Loading />
           </div>
@@ -210,7 +216,7 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
           </pre>
         )}
 
-        {!LISTS_POSTS.edges.length && !loading && <EmptyState />}
+        {!LISTS_POSTS.edges.length && !loading && <EmptyState />} */}
 
         {renderLayoutType()}
       </div>
