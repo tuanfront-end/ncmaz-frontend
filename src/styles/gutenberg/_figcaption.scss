@@ -1,0 +1,20 @@
+.prose,
+.xl\:prose-lg {
+	// ----------------------------------   ## Figcaption ----------------------------------
+	.wp-caption,
+	.wp-block-embed {
+		img {
+			@apply my-1;
+		}
+		figcaption,
+		.wp-caption-text {
+			@apply text-center;
+		}
+	}
+	.wp-caption-text {
+		color: #6b7280;
+		font-size: 0.875em;
+		line-height: 1.4285714;
+		margin-top: 0.8571429em;
+	}
+}

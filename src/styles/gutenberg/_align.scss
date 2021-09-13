@@ -1,0 +1,59 @@
+.prose,
+.xl\:prose-lg {
+  // ------------------------------------------ aligncenter ------------------------------------------
+  > * {
+    @apply max-w-screen-md;
+  }
+
+  .aligncenter {
+    clear: both;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  // ------------------------------------------ alignleft ------------------------------------------
+  > *.alignleft {
+    @apply mt-0;
+  }
+  .alignleft {
+    float: left;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+  }
+
+  // ------------------------------------------ alignright ------------------------------------------
+  > *.alignright {
+    @apply mt-0;
+  }
+  .alignright {
+    float: right;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+  }
+  #emojics-root {
+    clear: both;
+    margin: 0 !important;
+  }
+  a,
+  strong,
+  blockquote {
+    @apply dark:text-neutral-300;
+  }
+
+  // =============================================
+  // ---------------------------------- ## align-wrap ## ----------------------------------
+  @screen lg {
+    .alignwide {
+      width: 100vw;
+      max-width: calc(80vw - 16px);
+      margin-left: calc(calc(50% - 40vw) + 8px);
+    }
+    .alignfull {
+      width: 100vw;
+      max-width: calc(100vw - 17px);
+      margin-left: calc(calc(50% - 50vw) + 8px);
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.prose {
+  .wp-block-button {
+    .wp-block-button__link {
+      @apply bg-primary-500 text-primary-50 hover:text-primary-50 hover:bg-primary-6000 no-underline;
+    }
+
+    &.is-style-outline {
+      .wp-block-button__link {
+        @apply bg-white text-neutral-800;
+      }
+    }
+
+    &.is-style-squared {
+      .wp-block-button__link {
+        @apply rounded-none;
+      }
+    }
+  }
+}

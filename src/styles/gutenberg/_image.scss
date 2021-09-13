@@ -1,0 +1,19 @@
+.prose,
+.xl\:prose-lg {
+  // ----------------------------------   ##   Image ----------------------------------
+  .wp-block-image {
+    > figure.alignleft {
+      @apply mt-1;
+    }
+
+    figcaption {
+      @apply text-center mt-[10px] text-gray-600 dark:text-gray-500;
+    }
+  }
+
+  figure {
+    img {
+      @apply my-0;
+    }
+  }
+}

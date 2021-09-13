@@ -1,3 +1,6 @@
+import HeaderSingleAudio from "components/HeaderSingleAudio/HeaderSingleAudio";
+import HeaderSingleGallery from "components/HeaderSingleGallery/HeaderSingleGallery";
+import HeaderSingleVideo from "components/HeaderSingleVideo/HeaderSingleVideo";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import SingleMoreFromAuthorGridPosts from "containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts";
@@ -54,6 +57,24 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "SingleMoreFromAuthorGridPosts":
         return ReactDOM.createPortal(
           <SingleMoreFromAuthorGridPosts {...componentProps} />,
+          dom
+        );
+
+      case "HeaderSingleGallery":
+        return ReactDOM.createPortal(
+          <HeaderSingleGallery {...componentProps} />,
+          dom
+        );
+
+      case "HeaderSingleVideo":
+        return ReactDOM.createPortal(
+          <HeaderSingleVideo {...componentProps} />,
+          dom
+        );
+
+      case "HeaderSingleAudio":
+        return ReactDOM.createPortal(
+          <HeaderSingleAudio {...componentProps} />,
           dom
         );
 

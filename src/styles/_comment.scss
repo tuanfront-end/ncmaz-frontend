@@ -16,6 +16,16 @@
   }
 }
 
+.trackback,
+.pingback {
+  .comment-author.vcard {
+    display: none;
+  }
+  .nc-CommentCard > .relative.flex-grow {
+    margin-left: 0;
+  }
+}
+
 #respond {
   @apply mt-10;
   #reply-title {

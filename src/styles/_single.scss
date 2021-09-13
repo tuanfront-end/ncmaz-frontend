@@ -1,16 +1,52 @@
 .nc-SingleHeader {
   .nc-CategoryBadgeList {
     a {
-      @apply transition-colors hover:text-white duration-300 relative inline-flex py-1 rounded-full font-medium text-xs px-3 text-pink-800 bg-pink-100 hover:bg-pink-800;
+      @apply transition-colors hover:text-white duration-300 relative inline-flex py-1 rounded-full font-medium text-xs px-3 text-pink-800 bg-pink-100 hover:bg-pink-800 my-1 mr-2;
     }
   }
 }
 //
-
-.prose {
-  figure {
-    img {
-      @apply m-0;
+.wp-block-group.has-background {
+  border-radius: 1rem;
+  padding: 1.25em 2.375em;
+  * {
+    @apply mx-auto;
+  }
+}
+//
+.entry-title {
+  overflow-wrap: break-word;
+}
+//
+.page-links {
+  @apply flex flex-wrap space-x-2;
+  .post-page-numbers {
+    @apply flex items-center justify-center border border-primary-6000 w-9 h-9 rounded-full no-underline;
+    &.current {
+      @apply text-primary-50 bg-primary-6000;
     }
   }
+}
+//
+.post-password-form {
+  input[name="post_password"] {
+    @apply inline-block rounded-md border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+  }
+  input[name="Submit"] {
+    min-height: 42px;
+    @apply px-4 rounded-md cursor-pointer;
+  }
+}
+//
+.prose {
+  audio,
+  iframe,
+  embed {
+    max-width: 100%;
+    width: 100vw;
+  }
+}
+//
+p.no-comments {
+  @apply mt-5;
 }

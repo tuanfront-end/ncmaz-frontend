@@ -1,0 +1,27 @@
+.prose,
+.xl\:prose-lg {
+  // ------------------------------------------ ## Pullquote ------------------------------------------
+  blockquote,
+  .wp-block-quote {
+    cite {
+      //   font-size: 0.8125em;
+      position: relative;
+      font-style: normal;
+      display: block;
+      @apply opacity-70;
+    }
+  }
+
+  .wp-block-pullquote {
+    @apply text-left py-4 border-none;
+    &.has-background {
+      @apply py-10 rounded;
+      blockquote {
+        border: none;
+        cite {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}

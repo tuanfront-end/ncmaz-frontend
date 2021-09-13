@@ -1,0 +1,70 @@
+.prose,
+.xl\:prose-lg {
+	// ---------------------------------- ## Gallery ----------------------------------
+	.blocks-gallery-grid,
+	.wp-block-gallery {
+		list-style-type: none;
+		li {
+			padding: 0;
+			&::before {
+				display: none;
+			}
+		}
+	}
+
+	.wp-block-gallery {
+		// margin: 0 auto;
+
+		.blocks-gallery-image,
+		.blocks-gallery-item {
+			img {
+				@apply m-0;
+			}
+			a:focus img {
+				outline-offset: 2px;
+			}
+		}
+		> ul {
+			@apply mt-2;
+		}
+		ul ~ figcaption {
+			@apply -mt-4;
+		}
+	}
+
+	.gallery-columns-2 {
+		@apply grid grid-cols-2 gap-2;
+	}
+	.gallery-columns-3 {
+		@apply grid grid-cols-3 gap-2;
+	}
+	.gallery-columns-4 {
+		@apply grid grid-cols-4 gap-2;
+	}
+	.gallery-columns-5 {
+		@apply grid grid-cols-5 gap-2;
+	}
+	.gallery-columns-6 {
+		@apply grid grid-cols-6 gap-2;
+	}
+	.gallery-columns-7 {
+		@apply grid grid-cols-7 gap-2;
+	}
+	.gallery-columns-8 {
+		@apply grid grid-cols-8 gap-2;
+	}
+	.gallery-columns-9 {
+		@apply grid grid-cols-9 gap-2;
+	}
+	.gallery-item {
+		figcaption {
+			@apply text-center;
+		}
+	}
+
+	.gallery-size-thumbnail {
+		img.attachment-thumbnail.size-thumbnail {
+			@apply w-full my-3;
+		}
+	}
+}

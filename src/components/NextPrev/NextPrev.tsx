@@ -13,7 +13,7 @@ export interface NextPrevProps {
 }
 
 const NextPrev: FC<NextPrevProps> = ({
-  containerClassName = "",
+  containerClassName = "relative",
   onClickNext = () => {},
   onClickPrev = () => {},
   btnClassName = "w-10 h-10",
@@ -22,7 +22,7 @@ const NextPrev: FC<NextPrevProps> = ({
 }) => {
   return (
     <div
-      className={`nc-NextPrev relative flex items-center text-neutral-900 dark:text-neutral-300 space-x-2 ${containerClassName}`}
+      className={`nc-NextPrev flex items-center text-neutral-900 dark:text-neutral-300 space-x-2 ${containerClassName}`}
       data-nc-id="NextPrev"
       data-glide-el="controls"
     >

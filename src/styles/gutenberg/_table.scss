@@ -1,0 +1,26 @@
+.prose,
+.xl\:prose-lg {
+  // ---------------------------------- ##    Table ----------------------------------
+  .wp-block-table {
+    td,
+    th {
+      @apply border-none;
+    }
+  }
+  thead {
+    @apply dark:text-neutral-100;
+  }
+  tbody tr {
+    @apply dark:border-neutral-6000;
+  }
+
+  //
+  .wp-block-calendar {
+    table {
+      th,
+      td {
+        @apply text-center;
+      }
+    }
+  }
+}

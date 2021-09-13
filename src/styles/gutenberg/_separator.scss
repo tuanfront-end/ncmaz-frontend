@@ -1,0 +1,8 @@
+.prose,
+.xl\:prose-lg {
+  // ------------------------------------------ ## Separator ------------------------------------------
+  .wp-block-separator {
+    clear: both;
+    @apply max-w-none dark:border-neutral-6000;
+  }
+}
