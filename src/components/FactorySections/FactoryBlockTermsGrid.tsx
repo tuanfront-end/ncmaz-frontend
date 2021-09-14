@@ -4,6 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
 import { GutenbergApiAttr_BlockTermGrid } from "data/gutenbergAttrType";
+import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockTermsGridProps {
   className?: string;
@@ -48,18 +49,7 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
         {isBg && <BackgroundSection />}
 
         {/* ------------ */}
-        {!termsLists.length && !loading && (
-          <span className="text-lg block">Nothing we found!</span>
-        )}
-        {loading && !termsLists.length && (
-          <span className="text-lg"> LOADING .............</span>
-        )}
-
-        {error && (
-          <pre className="text-xs">
-            <code>{JSON.stringify(error)}</code>
-          </pre>
-        )}
+        <DataStatementBlock loading={loading} error={error} data={termsLists} />
         {/* ------------ */}
 
         {termsLists.length && (

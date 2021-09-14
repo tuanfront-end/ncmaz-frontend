@@ -4,6 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
 import { GutenbergApiAttr_BlockTermSlider } from "data/gutenbergAttrType";
+import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockTermsSliderProps {
   className?: string;
@@ -41,18 +42,7 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
         {isBg && <BackgroundSection />}
 
         {/* ------------ */}
-        {!termsLists.length && !loading && (
-          <span className="text-lg block">Nothing we found!</span>
-        )}
-        {loading && !termsLists.length && (
-          <span className="text-lg"> LOADING .............</span>
-        )}
-
-        {error && (
-          <pre className="text-xs">
-            <code>{JSON.stringify(error)}</code>
-          </pre>
-        )}
+        <DataStatementBlock loading={loading} error={error} data={termsLists} />
         {/* ------------ */}
 
         {termsLists.length && (

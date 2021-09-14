@@ -10,7 +10,7 @@ export interface DataStatementBlockProps {
 }
 
 const DataStatementBlock: FC<DataStatementBlockProps> = ({
-  data,
+  data = [],
   loading,
   error,
 }) => {

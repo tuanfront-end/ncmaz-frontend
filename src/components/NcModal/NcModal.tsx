@@ -12,6 +12,7 @@ export interface NcModalProps {
   modalTitle?: ReactNode;
   isOpenProp?: boolean;
   onCloseModal?: () => void;
+  onOpenModal?: () => void;
 }
 
 const NcModal: FC<NcModalProps> = ({
@@ -23,6 +24,7 @@ const NcModal: FC<NcModalProps> = ({
   modalTitle = "Modal title",
   isOpenProp,
   onCloseModal,
+  onOpenModal,
 }) => {
   let [isOpen, setIsOpen] = useState(!!isOpenProp);
 
@@ -37,6 +39,7 @@ const NcModal: FC<NcModalProps> = ({
     if (typeof isOpenProp !== "boolean") {
       setIsOpen(true);
     }
+    onOpenModal && onOpenModal();
   }
 
   useEffect(() => {

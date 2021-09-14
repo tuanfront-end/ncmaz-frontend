@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import ReactDOM from "react-dom";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
@@ -45,8 +45,6 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     ncmazMenuCustomFields?.taxonomies?.[0]?.categoryId
   );
 
-  const [loadingState, setLoadingState] = useState(false);
-
   const { taxonomies, numberOfPosts, order, orderBy, showTabFilter } =
     ncmazMenuCustomFields;
   //
@@ -76,6 +74,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   `;
 
   const { loading, error, data, fetchMore } = useQuery(gqlQuery, {
+    notifyOnNetworkStatusChange: true,
     variables,
   });
 
@@ -91,7 +90,6 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
 
   // Function to update the query with the new results
   const updateQuery = (previousResult: any, { fetchMoreResult }: any) => {
-    setLoadingState(false);
     return fetchMoreResult?.posts?.edges.length
       ? fetchMoreResult
       : previousResult;
@@ -110,7 +108,6 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
           className={btnClassName}
           disabled={!pageInfo.hasPreviousPage}
           onClick={() => {
-            setLoadingState(true);
             fetchMore({
               variables: {
                 first: null,
@@ -128,7 +125,6 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
           className={btnClassName}
           disabled={!pageInfo.hasNextPage}
           onClick={() => {
-            setLoadingState(true);
             fetchMore({
               variables: {
                 first: Number(numberOfPosts),
@@ -182,7 +178,8 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
         }`}
       >
         <div className="px-4 py-5 ">
-          {(loading || loadingState) && !DATA_LISTS.length && <Loading />}
+          {loading && !DATA_LISTS && <Loading />}
+
           <div
             className={`grid gap-4 ${
               showTabFilter ? "grid-cols-4" : "grid-cols-5"
@@ -190,7 +187,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
           >
             {DATA_LISTS.map((item) => (
               <Card18
-                isSkeleton={loading || loadingState}
+                isSkeleton={loading}
                 post={item.node}
                 key={item.node.id}
               />

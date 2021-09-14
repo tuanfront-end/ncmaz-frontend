@@ -19,6 +19,7 @@ import Card3 from "components/Card3/Card3";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import { GutenbergApiAttr_BlockPostsGrid } from "data/gutenbergAttrType";
 import EmptyState from "components/EmptyState/EmptyState";
+import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockPostsGridProps {
   className?: string;
@@ -64,6 +65,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   }, [tabActiveId]);
 
   const { loading, error, data } = useQuery(queryGql, {
+    notifyOnNetworkStatusChange: true,
     variables: variablesFilter,
   });
 
@@ -178,16 +180,11 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
           </div>
 
           {/* ------------ */}
-          {loading && !LISTS_POSTS.edges.length && (
-            <span className="text-lg"> LOADING .............</span>
-          )}
-          {error && (
-            <pre className="text-xs">
-              <code>{JSON.stringify(error)}</code>
-            </pre>
-          )}
-
-          {!LISTS_POSTS.edges.length && !loading && <EmptyState />}
+          <DataStatementBlock
+            loading={loading}
+            error={error}
+            data={LISTS_POSTS.edges}
+          />
           {/* ------------ */}
 
           {showViewMoreBtn && (

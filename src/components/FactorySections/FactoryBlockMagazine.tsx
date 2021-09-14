@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { gql, useQuery } from "@apollo/client";
-
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
@@ -19,8 +18,6 @@ import SectionMagazine9 from "components/SectionMagazines/SectionMagazine9";
 import SectionLargeSlider from "components/SectionMagazines/SectionLargeSlider";
 import { GutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
 import { ListPosts } from "data/postCardType";
-import EmptyState from "components/EmptyState/EmptyState";
-import Loading from "components/Loading/Loading";
 import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockMagazineProps {
@@ -67,6 +64,7 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   }, [tabActiveId]);
 
   const { loading, error, data } = useQuery(queryGql, {
+    notifyOnNetworkStatusChange: true,
     variables: variablesFilter,
   });
 
@@ -205,18 +203,6 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
           error={error}
           data={LISTS_POSTS.edges}
         />
-        {/* {loading && !LISTS_POSTS.edges.length && (
-          <div className="flex justify-center">
-            <Loading />
-          </div>
-        )}
-        {error && (
-          <pre className="text-xs">
-            <code>{JSON.stringify(error)}</code>
-          </pre>
-        )}
-
-        {!LISTS_POSTS.edges.length && !loading && <EmptyState />} */}
 
         {renderLayoutType()}
       </div>

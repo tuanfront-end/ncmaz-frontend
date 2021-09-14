@@ -1,10 +1,9 @@
 import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import { gql, useQuery } from "@apollo/client";
-import BackgroundSection from "components/BackgroundSection/BackgroundSection";
-import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
 import { GutenbergApiAttr_BlockWidgetTerms } from "data/gutenbergAttrType";
 import WidgetCategories from "components/WidgetCategories/WidgetCategories";
+import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockTermsGridProps {
   className?: string;
@@ -28,14 +27,20 @@ const FactoryBlockWidgetTerms: FC<FactoryBlockTermsGridProps> = ({
 
   const termsLists = data?.tags?.edges || data?.categories?.edges || [];
 
-  return ReactDOM.createPortal(
-    <WidgetCategories
-      categories={termsLists}
-      heading={settings.heading}
-      termCardName={settings.termCardName}
-    />,
-    domNode
-  );
+  const renderContent = () => {
+    return (
+      <>
+        <DataStatementBlock loading={loading} error={error} data={termsLists} />
+        <WidgetCategories
+          categories={termsLists}
+          heading={settings.heading}
+          termCardName={settings.termCardName}
+        />
+      </>
+    );
+  };
+
+  return ReactDOM.createPortal(renderContent(), domNode);
 };
 
 export default FactoryBlockWidgetTerms;

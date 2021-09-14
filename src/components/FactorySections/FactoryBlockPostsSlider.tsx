@@ -19,6 +19,7 @@ import NextPrev from "components/NextPrev/NextPrev";
 import Card14 from "components/Card14/Card14";
 import { GutenbergApiAttr_BlockPostsSlider } from "data/gutenbergAttrType";
 import EmptyState from "components/EmptyState/EmptyState";
+import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockPostsSliderProps {
   className?: string;
@@ -66,6 +67,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   }, [tabActiveId]);
 
   const { loading, error, data } = useQuery(queryGql, {
+    notifyOnNetworkStatusChange: true,
     variables: variablesFilter,
   });
 
@@ -223,16 +225,11 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
           </div>
 
           {/* ------------ */}
-          {loading && !LISTS_POSTS.edges.length && (
-            <span className="text-lg"> LOADING .............</span>
-          )}
-          {error && (
-            <pre className="text-xs">
-              <code>{JSON.stringify(error)}</code>
-            </pre>
-          )}
-
-          {!LISTS_POSTS.edges.length && !loading && <EmptyState />}
+          <DataStatementBlock
+            loading={loading}
+            error={error}
+            data={LISTS_POSTS.edges}
+          />
           {/* ------------ */}
 
           {enableNexPrevOnFoot && (

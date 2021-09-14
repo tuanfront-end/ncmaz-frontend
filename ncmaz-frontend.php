@@ -25,3 +25,5 @@ require plugin_dir_path(__FILE__) . 'inc/ncmaz-redux-sample-config.php';
 // 
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-update-views-count.php';
 //  
+require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-wpgraphql.php';
+//  

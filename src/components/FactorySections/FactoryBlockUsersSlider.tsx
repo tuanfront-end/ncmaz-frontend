@@ -6,6 +6,7 @@ import { GutenbergAttr__BlockUsersSlider } from "data/gutenbergAttrType";
 import SectionSliderNewAuthors, {
   SectionSliderNewAuthorsProps,
 } from "components/SectionSliderNewAuthors/SectionSliderNewAuthors";
+import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockTermsSliderProps {
   className?: string;
@@ -48,18 +49,7 @@ const FactoryBlockUsersSlider: FC<FactoryBlockTermsSliderProps> = ({
         {hasBackground && <BackgroundSection />}
 
         {/* ------------ */}
-        {!dataLists.length && !loading && (
-          <span className="text-lg block">Nothing we found!</span>
-        )}
-        {loading && !dataLists.length && (
-          <span className="text-lg"> LOADING .............</span>
-        )}
-
-        {error && (
-          <pre className="text-xs">
-            <code>{JSON.stringify(error)}</code>
-          </pre>
-        )}
+        <DataStatementBlock loading={loading} error={error} data={dataLists} />
         {/* ------------ */}
 
         {dataLists.length && (

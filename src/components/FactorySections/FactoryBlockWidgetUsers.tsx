@@ -5,6 +5,7 @@ import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { GutenbergApiAttr_BlockWidgetUsers } from "data/gutenbergAttrType";
 import SectionGridAuthorBox from "components/SectionGridAuthorBox/SectionGridAuthorBox";
 import WidgetAuthors from "components/WidgetAuthors/WidgetAuthors";
+import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 
 export interface FactoryBlockTermsSliderProps {
   className?: string;
@@ -28,10 +29,16 @@ const FactoryBlockWidgetUsers: FC<FactoryBlockTermsSliderProps> = ({
   const dataLists = data?.users?.edges || [];
   //
 
-  return ReactDOM.createPortal(
-    <WidgetAuthors authors={dataLists} heading={settings.heading} />,
-    domNode
-  );
+  const renderContent = () => {
+    return (
+      <>
+        <DataStatementBlock loading={loading} error={error} data={dataLists} />
+        <WidgetAuthors authors={dataLists} heading={settings.heading} />
+      </>
+    );
+  };
+
+  return ReactDOM.createPortal(renderContent(), domNode);
 };
 
 export default FactoryBlockWidgetUsers;

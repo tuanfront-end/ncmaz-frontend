@@ -116,15 +116,17 @@ export interface CategoriesNode3 {
   slug: string;
   count: number;
   categoryId: number;
-  ncTaxonomyMeta: {
-    color?: string;
-    featuredImage?: {
-      id: string;
-      sourceUrl: string;
-    };
-    fieldGroupName: "ncTaxonomyMeta";
-  };
+  ncTaxonomyMeta: NcTaxonomyMeta;
   __typename: string;
+}
+
+export interface NcTaxonomyMeta {
+  color?: string;
+  featuredImage?: {
+    id: string;
+    sourceUrl: string;
+  };
+  fieldGroupName: "ncTaxonomyMeta";
 }
 
 interface FeaturedImage {

@@ -62,6 +62,8 @@ if (
       Query: {
         fields: {
           comments: relayStylePagination(),
+          tags: relayStylePagination(),
+          categories: relayStylePagination(),
         },
       },
       MutationRecord: {
