@@ -8,19 +8,27 @@ import ButtonDropdown from "components/ButtonDropdown/ButtonDropdown";
 export interface ArchiveFilterListBoxProps {
   className?: string;
   lists: ListBoxItemType[];
+  onChange?: (item: ListBoxItemType) => void;
 }
 
 const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
   className = "",
   lists,
+  onChange,
 }) => {
-  const [selected, setSelected] = useState(lists[0]);
+  const [selected, setSelected] = useState<ListBoxItemType>(lists[0]);
+
+  const handleChange = (item: ListBoxItemType) => {
+    setSelected(item);
+    onChange && onChange(item);
+  };
+
   return (
     <div
       className={`nc-ArchiveFilterListBox ${className}`}
       data-nc-id="ArchiveFilterListBox"
     >
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={handleChange}>
         <div className="relative md:min-w-[200px]">
           <Listbox.Button as={"div"}>
             <ButtonDropdown>{selected.name}</ButtonDropdown>

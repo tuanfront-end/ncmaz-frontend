@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ModalCategories from "./ModalCategories";
 import ModalTags from "./ModalTags";
 import ButtonPrimary from "components/Button/ButtonPrimary";
@@ -10,6 +10,7 @@ import { CategoriesNode3, ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
 import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
+import { ListBoxItemType } from "components/NcListBox/NcListBox";
 
 interface Data {
   posts: ListPosts;
@@ -38,17 +39,19 @@ const PageArchive: FC<PageArchiveProps> = ({
   isTag,
 }) => {
   const FILTERS = [
-    { name: "Most Recent" },
-    { name: "Curated by Admin" },
-    { name: "Most Appreciated" },
-    { name: "Most Discussed" },
-    { name: "Most Viewed" },
+    { name: "Most Recent", value: "DATE" },
+    { name: "Most Liked", value: "FAVORITES_COUNT" },
+    { name: "Most Discussed", value: "COMMENT_COUNT" },
+    { name: "Most Viewed", value: "VIEWS_COUNT" },
   ];
 
   const POST_PER_PAGE = 20;
 
+  const [orderByState, setorderByState] = useState(FILTERS[0].value);
+  //
   let variables = {};
   let taxonomy = "";
+  //
   if (isCategory) {
     taxonomy = "CATEGORY";
   } else if (isTag) {
@@ -58,12 +61,13 @@ const PageArchive: FC<PageArchiveProps> = ({
   }
 
   variables = {
-    // order,
-    // orderBy,
+    order: "DESC",
+    field: orderByState,
     categoryIn: [termId],
     first: POST_PER_PAGE,
     taxonomy,
   };
+  console.log(33, { variables });
 
   const gqlQuery = gql`
     ${POSTS_SECTION_BY_FILTER__string}
@@ -92,6 +96,11 @@ const PageArchive: FC<PageArchiveProps> = ({
         ],
       },
     };
+  };
+
+  const handleChangeFilter = (item: ListBoxItemType) => {
+    console.log(1, { item });
+    setorderByState(item.value);
   };
 
   const handleClickLoadmore = () => {
@@ -139,7 +148,10 @@ const PageArchive: FC<PageArchiveProps> = ({
             </div>
             <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
             <div className="flex justify-end">
-              <ArchiveFilterListBox lists={FILTERS} />
+              <ArchiveFilterListBox
+                onChange={handleChangeFilter}
+                lists={FILTERS}
+              />
             </div>
           </div>
 

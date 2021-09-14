@@ -173,7 +173,7 @@ const postFields = ` edges {
 }`;
 
 const POSTS_SECTION_BY_FILTER__string = `
-  query MyQueryPosts(
+  query MyQueryPostsOnArchivePage(
     $field: PostObjectsConnectionOrderbyEnum = AUTHOR
     $order: OrderEnum = ASC
     $categoryIn: [ID] = []

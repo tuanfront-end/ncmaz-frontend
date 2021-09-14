@@ -6,6 +6,7 @@ import ButtonDropdown from "components/ButtonDropdown/ButtonDropdown";
 
 export interface ListBoxItemType {
   name: string;
+  value: string;
 }
 
 export interface NcListBoxProps {
