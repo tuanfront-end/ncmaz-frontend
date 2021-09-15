@@ -267,6 +267,8 @@ $kses_exceptions = array(
 require plugin_dir_path(__FILE__) . 'ncmaz-redux-section-general.php';
 // 
 require plugin_dir_path(__FILE__) . 'ncmaz-redux-section-single.php';
+// 
+require plugin_dir_path(__FILE__) . 'ncmaz-redux-section-archive-page.php';
 
 /*
  * <--- END SECTIONS

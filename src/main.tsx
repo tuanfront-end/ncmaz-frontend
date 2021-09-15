@@ -46,6 +46,23 @@ declare global {
     currentObject: {
       id: number;
     };
+    allSettings?: {
+      discussionSettingsDefaultCommentStatus: string;
+      discussionSettingsDefaultPingStatus: string;
+      generalSettingsDateFormat: string;
+      generalSettingsDescription: string;
+      generalSettingsEmail: string;
+      generalSettingsLanguage: string;
+      generalSettingsStartOfWeek: number;
+      generalSettingsTimeFormat: string;
+      generalSettingsTimezone: string;
+      generalSettingsTitle: string;
+      generalSettingsUrl: string;
+      readingSettingsPostsPerPage: number;
+      writingSettingsDefaultCategory: number;
+      writingSettingsDefaultPostFormat: string;
+      writingSettingsUseSmilies: boolean;
+    };
   };
 
   var ncmazFrontendVariables: {
@@ -61,14 +78,7 @@ if (
     typePolicies: {
       Query: {
         fields: {
-          comments: relayStylePagination(),
           tags: relayStylePagination(),
-          categories: relayStylePagination(),
-        },
-      },
-      MutationRecord: {
-        fields: {
-          comments: relayStylePagination(),
         },
       },
     },

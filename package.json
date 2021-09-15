@@ -9,7 +9,7 @@
   "dependencies": {
     "@apollo/client": "^3.4.8",
     "@glidejs/glide": "^3.4.1",
-    "@headlessui/react": "^1.4.0",
+    "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
     "@reduxjs/toolkit": "^1.6.1",
     "@tailwindcss/aspect-ratio": "^0.2.1",

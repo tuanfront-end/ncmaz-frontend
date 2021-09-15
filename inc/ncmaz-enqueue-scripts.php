@@ -72,11 +72,40 @@ function getCurrentUserGraphql()
     ]);
 }
 
+function getAllSettingsGraphql()
+{
+    if (!function_exists('graphql')) {
+        return null;
+    }
+    return graphql([
+        'query' => '{
+            allSettings {
+                discussionSettingsDefaultCommentStatus
+                discussionSettingsDefaultPingStatus
+                generalSettingsDateFormat
+                generalSettingsDescription
+                generalSettingsEmail
+                generalSettingsLanguage
+                generalSettingsStartOfWeek
+                generalSettingsTimeFormat
+                generalSettingsTimezone
+                generalSettingsTitle
+                generalSettingsUrl
+                readingSettingsPostsPerPage
+                writingSettingsDefaultCategory
+                writingSettingsDefaultPostFormat
+                writingSettingsUseSmilies
+              }
+        }'
+    ]);
+}
+
 // JAVASCRIPT
 function ncmaz_frontend_enqueue_scripts_2()
 {
     wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
     $currentUser = getCurrentUserGraphql();
+    $allSettings = getAllSettingsGraphql();
     wp_localize_script(
         'ncmaz-frontend-js',
         'frontendObject',
@@ -90,6 +119,7 @@ function ncmaz_frontend_enqueue_scripts_2()
             'value2'                => 'value 2',
             'homeURL'               => get_site_url(),
             'currentUser'           => $currentUser ? $currentUser['data']['user'] : null,
+            'allSettings'           => $allSettings ? $allSettings['data']['allSettings'] : null,
             'currentObject'         => [
                 'id'        => get_the_ID()
             ]

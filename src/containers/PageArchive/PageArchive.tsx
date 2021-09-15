@@ -1,16 +1,17 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import ModalCategories from "./ModalCategories";
 import ModalTags from "./ModalTags";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import ArchiveFilterListBox from "components/ArchiveFilterListBox/ArchiveFilterListBox";
 import NcImage from "components/NcImage/NcImage";
 import Card11 from "components/Card11/Card11";
-import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { CategoriesNode3, ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 import { ListBoxItemType } from "components/NcListBox/NcListBox";
+import Card11Skeleton from "components/Card11/Card11Skeleton";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import SectionTrendingCategories from "./SectionTrendingCategories";
 
 interface Data {
   posts: ListPosts;
@@ -25,7 +26,23 @@ export interface PageArchiveProps {
   isDate?: boolean;
   isFormatVideo?: boolean;
   isFormatAudio?: boolean;
+  //
+  sectionCategoriesTrending: {
+    enable: boolean;
+    orderBy: "count" | "term_order" | "is_child";
+    heading: string;
+    subHeading: string;
+    itemPerPage: string;
+  };
 }
+
+// Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
+const FILTERS = [
+  { name: "Most Recent", value: "DATE" },
+  { name: "Most Liked", value: "FAVORITES_COUNT" },
+  { name: "Most Discussed", value: "COMMENT_COUNT" },
+  { name: "Most Viewed", value: "VIEWS_COUNT" },
+];
 
 // Tag and category have same data type - we will use one demo data
 const PageArchive: FC<PageArchiveProps> = ({
@@ -37,15 +54,10 @@ const PageArchive: FC<PageArchiveProps> = ({
   isFormatAudio,
   isFormatVideo,
   isTag,
+  sectionCategoriesTrending,
 }) => {
-  const FILTERS = [
-    { name: "Most Recent", value: "DATE" },
-    { name: "Most Liked", value: "FAVORITES_COUNT" },
-    { name: "Most Discussed", value: "COMMENT_COUNT" },
-    { name: "Most Viewed", value: "VIEWS_COUNT" },
-  ];
-
-  const POST_PER_PAGE = 20;
+  const POST_PER_PAGE =
+    frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
 
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
   //
@@ -67,7 +79,6 @@ const PageArchive: FC<PageArchiveProps> = ({
     first: POST_PER_PAGE,
     taxonomy,
   };
-  console.log(33, { variables });
 
   const gqlQuery = gql`
     ${POSTS_SECTION_BY_FILTER__string}
@@ -99,20 +110,23 @@ const PageArchive: FC<PageArchiveProps> = ({
   };
 
   const handleChangeFilter = (item: ListBoxItemType) => {
-    console.log(1, { item });
     setorderByState(item.value);
   };
 
   const handleClickLoadmore = () => {
     if (!fetchMore) return;
+    const notIn = POSTS.map((item) => item.node.postId);
     fetchMore({
       variables: {
         first: POST_PER_PAGE,
-        after: data?.posts.pageInfo?.endCursor || null,
+        notIn,
+        // after: data?.posts.pageInfo?.endCursor || null,
       },
       updateQuery,
     });
   };
+
+  const IS_SKELETON = loading && !POSTS.length;
 
   return (
     <div className={`nc-PageArchive ${className}`} data-nc-id="PageArchive">
@@ -149,21 +163,25 @@ const PageArchive: FC<PageArchiveProps> = ({
             <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
             <div className="flex justify-end">
               <ArchiveFilterListBox
-                onChange={handleChangeFilter}
+                onChangeSelect={handleChangeFilter}
                 lists={FILTERS}
               />
             </div>
           </div>
 
-          {/* LOADING STATE */}
-          <DataStatementBlock
-            loading={loading}
+          {/* SECTION STATE */}
+          <DataStatementBlockV2
+            data={POSTS}
             error={error}
-            data={data?.posts.edges || []}
+            isSkeleton={IS_SKELETON}
           />
 
           {/* LOOP ITEMS */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-8 lg:mt-10">
+            {IS_SKELETON &&
+              Array.from("88888888").map((_, index) => (
+                <Card11Skeleton key={index} />
+              ))}
             {POSTS.map((post) => (
               <Card11 key={post.node.id} post={post.node} />
             ))}
@@ -179,18 +197,13 @@ const PageArchive: FC<PageArchiveProps> = ({
           )}
         </div>
 
-        {/* MORE SECTIONS */}
-        <div className="relative py-16">
-          <BackgroundSection />
-          {/* <SectionGridCategoryBox
-            categories={OTHER_CATEGORIES.filter((_, i) => i < 10)}
-            heading=""
-            subHeading=""
-          /> */}
-          {/* <div className="text-center mx-auto mt-10 md:mt-16">
-            <ButtonSecondary>Show me more</ButtonSecondary>
-          </div> */}
-        </div>
+        {sectionCategoriesTrending.enable && (
+          <SectionTrendingCategories
+            {...sectionCategoriesTrending}
+            parentId={Number(termId)}
+            isCategory={!!isCategory}
+          />
+        )}
       </div>
     </div>
   );

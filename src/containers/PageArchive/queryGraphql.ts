@@ -1,5 +1,5 @@
-const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES($after: String = "", $before: String = "", $first: Int = 30, $last: Int = null) {
-  categories(after: $after, before: $before, first: $first, last: $last) {
+const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES($after: String = "", $before: String = "", $first: Int = 30, $last: Int = null, $orderby: TermObjectsConnectionOrderbyEnum = NAME, $parent: Int = null) {
+  categories(after: $after, before: $before, first: $first, last: $last, where: {parent: $parent, orderby: $orderby }) {
     edges {
       node {
         id
@@ -183,6 +183,7 @@ const POSTS_SECTION_BY_FILTER__string = `
     $first: Int = 10
     $before: String = ""
     $after: String = ""
+    $notIn: [ID] = ""
   ) {
     posts(
       where: {
@@ -190,6 +191,7 @@ const POSTS_SECTION_BY_FILTER__string = `
         categoryIn: $categoryIn
         tagIn: $tagIn
         authorIn: $authorIn
+        notIn: $notIn
       }
       last: $last
       first: $first

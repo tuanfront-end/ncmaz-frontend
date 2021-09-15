@@ -7,7 +7,7 @@ export interface LoadingVideoProps {
 const LoadingVideo: FC<LoadingVideoProps> = ({ className = "" }) => {
   return (
     <div
-      className={`nc-LoadingVideo lds-ellipsis ${className}`}
+      className={`nc-LoadingVideo lds-ellipsis lds-ellipsis-video ${className}`}
       data-nc-id="LoadingVideo"
     >
       <div></div>

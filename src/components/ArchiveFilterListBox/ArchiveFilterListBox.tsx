@@ -1,5 +1,4 @@
-import React, { FC } from "react";
-import { Fragment, useState } from "react";
+import React, { FC, useEffect, Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/solid";
 import { ListBoxItemType } from "components/NcListBox/NcListBox";
@@ -8,30 +7,29 @@ import ButtonDropdown from "components/ButtonDropdown/ButtonDropdown";
 export interface ArchiveFilterListBoxProps {
   className?: string;
   lists: ListBoxItemType[];
-  onChange?: (item: ListBoxItemType) => void;
+  onChangeSelect?: (item: ListBoxItemType) => void;
 }
 
 const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
   className = "",
   lists,
-  onChange,
+  onChangeSelect,
 }) => {
-  const [selected, setSelected] = useState<ListBoxItemType>(lists[0]);
+  const [itemSelected, setItemSelected] = useState<ListBoxItemType>(lists[0]);
 
-  const handleChange = (item: ListBoxItemType) => {
-    setSelected(item);
-    onChange && onChange(item);
-  };
+  useEffect(() => {
+    onChangeSelect && onChangeSelect(itemSelected);
+  }, [itemSelected]);
 
   return (
     <div
       className={`nc-ArchiveFilterListBox ${className}`}
       data-nc-id="ArchiveFilterListBox"
     >
-      <Listbox value={selected} onChange={handleChange}>
+      <Listbox value={itemSelected} onChange={setItemSelected}>
         <div className="relative md:min-w-[200px]">
           <Listbox.Button as={"div"}>
-            <ButtonDropdown>{selected.name}</ButtonDropdown>
+            <ButtonDropdown>{itemSelected.name}</ButtonDropdown>
           </Listbox.Button>
           <Transition
             as={Fragment}

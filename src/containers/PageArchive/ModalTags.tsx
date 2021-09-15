@@ -4,9 +4,10 @@ import Tag from "components/Tag/Tag";
 import { CategoriesNode3 } from "data/postCardType";
 import { useLazyQuery, gql } from "@apollo/client";
 import { GET_LIST_TAGS } from "./queryGraphql";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import { PageInfo } from "containers/SingleComments/commentType";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import Skeleton from "react-loading-skeleton";
 
 interface Data {
   tags: Tags;
@@ -25,7 +26,7 @@ export interface ModalTagsProps {}
 
 const ModalTags: FC<ModalTagsProps> = () => {
   //
-  const POST_PER_PAGE = 30;
+  const POST_PER_PAGE = 20;
   const Q_LIST_TAGS = gql`
     ${GET_LIST_TAGS}
   `;
@@ -48,15 +49,29 @@ const ModalTags: FC<ModalTagsProps> = () => {
     });
   };
 
+  const IS_SKELETON = loading && !data?.tags.edges.length;
+
   const renderModalContent = () => {
     return (
       <div className="flex flex-col items-center space-y-5">
-        <DataStatementBlock
-          loading={loading}
-          error={error}
+        {/* SECTION STATE */}
+        <DataStatementBlockV2
           data={data?.tags.edges || []}
+          isSkeleton={IS_SKELETON}
+          error={error}
         />
-        <div className="flex flex-wrap dark:text-neutral-200">
+
+        <div className="w-full   flex flex-wrap dark:text-neutral-200">
+          {IS_SKELETON &&
+            Array.from("iiiiiiiiiiiiiiiiiiiiiiiiiiii").map((_, i) => (
+              <Skeleton
+                key={i}
+                height="38px"
+                className="mr-2.5 mb-2"
+                width="90px"
+              />
+            ))}
+
           {(data?.tags.edges || []).map((tag) => (
             <Tag key={tag.node.id} tag={tag.node} className="mr-2 mb-2" />
           ))}

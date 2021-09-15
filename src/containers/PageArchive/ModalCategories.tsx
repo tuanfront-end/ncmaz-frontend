@@ -3,10 +3,11 @@ import NcModal from "components/NcModal/NcModal";
 import { CategoriesNode3 } from "data/postCardType";
 import { useLazyQuery, gql } from "@apollo/client";
 import { GET_LIST_CATEGORIES } from "./queryGraphql";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import CardCategory1 from "components/CardCategory1/CardCategory1";
 import { PageInfo } from "containers/SingleComments/commentType";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import CardCategory1Skeleton from "components/CardCategory1/CardCategory1Skeleton";
 
 interface Data {
   categories: Categories;
@@ -24,7 +25,7 @@ interface Edge {
 export interface ModalCategoriesProps {}
 
 const ModalCategories: FC<ModalCategoriesProps> = () => {
-  const POST_PER_PAGE = 30;
+  const POST_PER_PAGE = 20;
   const Q_LIST_CATS = gql`
     ${GET_LIST_CATEGORIES}
   `;
@@ -40,6 +41,24 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
     });
   };
 
+  // Function to update the query with the new results
+  const updateQuery = (
+    previousResult: Data,
+    { fetchMoreResult }: { fetchMoreResult?: Data }
+  ): Data => {
+    if (!fetchMoreResult?.categories?.edges.length) return previousResult;
+    return {
+      ...fetchMoreResult,
+      categories: {
+        ...fetchMoreResult.categories,
+        edges: [
+          ...previousResult?.categories?.edges,
+          ...fetchMoreResult?.categories?.edges,
+        ],
+      },
+    };
+  };
+
   const handleClickLoadmore = () => {
     if (!fetchMore) return;
     fetchMore({
@@ -47,19 +66,28 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
         first: POST_PER_PAGE,
         after: data?.categories.pageInfo.endCursor || null,
       },
+      updateQuery,
     });
   };
+
+  const IS_SKELETON = loading && !data?.categories.edges.length;
 
   const renderModalContent = () => {
     return (
       <div className="flex flex-col items-center space-y-8">
-        <DataStatementBlock
-          loading={loading}
-          error={error}
+        {/* SECTION STATE */}
+        <DataStatementBlockV2
           data={data?.categories.edges || []}
+          isSkeleton={IS_SKELETON}
+          error={error}
         />
 
-        <div className="grid gap-6 sm:grid-cols-2 sm:py-2 md:gap-8 md:grid-cols-3 lg:grid-cols-4 xl:md:grid-cols-5">
+        <div className="w-full grid gap-6 sm:grid-cols-2 sm:py-2 md:gap-8 md:grid-cols-3 lg:grid-cols-4 xl:md:grid-cols-5">
+          {IS_SKELETON &&
+            Array.from("iiiiiiiiiiiiiiiiiiii").map((_, i) => (
+              <CardCategory1Skeleton key={i} />
+            ))}
+
           {(data?.categories.edges || []).map((cat) => (
             <CardCategory1
               key={cat.node.id}
