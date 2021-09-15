@@ -3,7 +3,7 @@ import React from "react";
 const EmptyState = () => {
   return (
     <div
-      className={`inline-flex flex-col items-center justify-center text-center  pb-10`}
+      className={`inline-flex flex-col items-center justify-center text-center`}
     >
       <img
         src={ncmazFrontendVariables.emptyStatePng}

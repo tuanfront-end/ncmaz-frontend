@@ -14,7 +14,7 @@ const DataStatementBlockV2: FC<DataStatementBlockV2Props> = ({
   error,
 }) => {
   return (
-    <>
+    <div className="my-5">
       {/* ERROR */}
       {error && (
         <pre className="text-xs">
@@ -24,7 +24,7 @@ const DataStatementBlockV2: FC<DataStatementBlockV2Props> = ({
 
       {/* EMPTY STATE */}
       {!isSkeleton && !data.length && <EmptyState />}
-    </>
+    </div>
   );
 };
 

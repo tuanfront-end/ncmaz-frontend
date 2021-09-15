@@ -1,4 +1,5 @@
 import CardCategory2 from "components/CardCategory2/CardCategory2";
+import CardCategory2Skeleton from "components/CardCategory2/CardCategory2Skeleton";
 import CardCategory3 from "components/CardCategory3/CardCategory3";
 import CardCategory4 from "components/CardCategory4/CardCategory4";
 import CardCategory5 from "components/CardCategory5/CardCategory5";
@@ -14,6 +15,8 @@ export interface SectionGridCategoryBoxProps {
   headingCenter?: boolean;
   categoryCardType?: "card2" | "card3" | "card4" | "card5";
   className?: string;
+  isLoadingSkeleton?: boolean;
+  isLoadingSkeletonArr?: any[];
 }
 
 const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
@@ -24,7 +27,19 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
   heading = "",
   subHeading = "",
   gridClass = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
+  isLoadingSkeleton,
+  isLoadingSkeletonArr = Array.from("iiiiiiiiii"),
 }) => {
+  const renderCardSkeleton = (_: any, index: number) => {
+    switch (categoryCardType) {
+      case "card2":
+        return <CardCategory2Skeleton key={index} />;
+
+      default:
+        return <CardCategory2Skeleton key={index} />;
+    }
+  };
+
   const renderCard = (item: CategoriesEdge2, index: number) => {
     const topIndex = index < 3 ? `#${index + 1}` : undefined;
 
@@ -53,7 +68,9 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
         {heading}
       </Heading>
       <div className={`grid ${gridClass} gap-6 md:gap-8`}>
-        {categories.map(renderCard)}
+        {isLoadingSkeleton
+          ? isLoadingSkeletonArr.map(renderCardSkeleton)
+          : categories.map(renderCard)}
       </div>
     </div>
   );

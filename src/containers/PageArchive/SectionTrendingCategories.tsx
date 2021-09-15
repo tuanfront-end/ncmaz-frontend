@@ -49,7 +49,7 @@ const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
     ${GET_LIST_CATEGORIES}
   `;
 
-  let filterOrderby = "NAME";
+  let filterOrderby: null | string = "NAME";
   let filterByParentId: null | number = null;
   if (orderBy === "count") {
     filterOrderby = "COUNT";
@@ -59,7 +59,7 @@ const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
   }
   if (orderBy === "is_child") {
     if (isCategory) {
-      filterOrderby = "";
+      filterOrderby = null;
       filterByParentId = parentId;
     } else {
       filterOrderby = "COUNT";
@@ -75,11 +75,8 @@ const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
     },
   });
 
-  if (data?.categories.edges) {
-    DATA = data?.categories.edges;
-  }
+  DATA = data?.categories.edges || [];
 
-  console.log(44, { data });
   const IS_SKELETON = loading && !DATA.length;
 
   return (
@@ -88,20 +85,21 @@ const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
       <div className="relative py-16">
         <BackgroundSection />
 
+        <SectionGridCategoryBox
+          categories={DATA}
+          heading={heading}
+          subHeading={subHeading}
+          isLoadingSkeleton={IS_SKELETON}
+        />
+
         {/* SECTION STATE */}
-        <div className="relative">
+        <div className="relative mx-auto flex justify-center">
           <DataStatementBlockV2
             data={DATA}
             error={error}
             isSkeleton={IS_SKELETON}
           />
         </div>
-
-        <SectionGridCategoryBox
-          categories={DATA}
-          heading={heading}
-          subHeading={subHeading}
-        />
       </div>
     </>
   );

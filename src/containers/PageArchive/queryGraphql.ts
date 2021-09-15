@@ -1,5 +1,5 @@
 const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES($after: String = "", $before: String = "", $first: Int = 30, $last: Int = null, $orderby: TermObjectsConnectionOrderbyEnum = NAME, $parent: Int = null) {
-  categories(after: $after, before: $before, first: $first, last: $last, where: {parent: $parent, orderby: $orderby }) {
+  categories(after: $after, before: $before, first: $first, last: $last, where: {parent: $parent, orderby: $orderby, order: DESC }) {
     edges {
       node {
         id
