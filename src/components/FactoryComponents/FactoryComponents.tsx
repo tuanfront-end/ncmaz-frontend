@@ -4,6 +4,8 @@ import HeaderSingleVideo from "components/HeaderSingleVideo/HeaderSingleVideo";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import PageArchive from "containers/PageArchive/PageArchive";
+import PageArchiveAuthor from "containers/PageArchive/PageArchiveAuthor";
+import PageArchiveDate from "containers/PageArchive/PageArchiveDate";
 import SingleMoreFromAuthorGridPosts from "containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts";
 import SingleRelatedGridPosts from "containers/SingleRelatedGridPosts/SingleRelatedGridPosts";
 import React, { FC } from "react";
@@ -81,6 +83,18 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
 
       case "PageArchive":
         return ReactDOM.createPortal(<PageArchive {...componentProps} />, dom);
+
+      case "PageArchiveDate":
+        return ReactDOM.createPortal(
+          <PageArchiveDate {...componentProps} />,
+          dom
+        );
+
+      case "PageArchiveAuthor":
+        return ReactDOM.createPortal(
+          <PageArchiveAuthor {...componentProps} />,
+          dom
+        );
 
       default:
         return null;

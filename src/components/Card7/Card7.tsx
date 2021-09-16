@@ -30,6 +30,7 @@ const Card7: FC<Card7Props> = ({
     date,
     postFormats,
     ncPostMetaData,
+    postId,
   } = post;
 
   const postType = postFormats.edges[0]?.node.name;
@@ -40,6 +41,7 @@ const Card7: FC<Card7Props> = ({
     >
       {ncPostMetaData.favoriteButtonShortcode && (
         <PostCardLikeAction
+          postId={postId}
           className="absolute top-3 right-3 z-10"
           favoriteButtonShortcode={ncPostMetaData.favoriteButtonShortcode}
         />

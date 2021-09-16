@@ -134,6 +134,7 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
           </a>
           <div className="hidden md:flex flex-shrink-0 px-6 dark text-white space-x-2.5">
             <PostCardLikeAction
+              postId={postId}
               favoriteButtonShortcode={
                 ncPostMetaData.favoriteButtonShortcode || ""
               }

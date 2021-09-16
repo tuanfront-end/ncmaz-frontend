@@ -27,6 +27,8 @@ const PostCardLikeAndComment: FC<PostCardLikeAndCommentProps> = ({
       data-nc-id="PostCardLikeAndComment"
     >
       <PostCardLikeAction
+        postId={postData.postId}
+        onClick={() => onClickLike(postData.postId)}
         favoriteButtonShortcode={
           postData?.ncPostMetaData?.favoriteButtonShortcode || ""
         }

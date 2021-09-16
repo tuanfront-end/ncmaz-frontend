@@ -19,6 +19,8 @@ define('_NCMAZ_FRONTEND_PREFIX', 'ncmaz_frontend_prefix_');
 define('_NCMAZ_FRONTEND_TEXT_DOMAIN', 'ncmaz-frontend');
 
 // 
+require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-funcs.php';
+// 
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-enqueue-scripts.php';
 // 
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-redux-sample-config.php';
@@ -27,3 +29,18 @@ require plugin_dir_path(__FILE__) . 'inc/ncmaz-update-views-count.php';
 //  
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-wpgraphql.php';
 //  
+//  
+/**
+ * Change the Favorites loading indicator
+ */
+add_filter('favorites/button/loading/html', 'custom_favorites_html_loader');
+function custom_favorites_html_loader($html)
+{
+    return 'xxxxxxxx';
+}
+
+add_filter('favorites/button/loading/html_active', 'custom_favorites_html_loader_active');
+function custom_favorites_html_loader_active($html)
+{
+    return 'xxxxxxxx';
+}

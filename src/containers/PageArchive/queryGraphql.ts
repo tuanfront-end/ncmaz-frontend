@@ -174,28 +174,34 @@ const postFields = ` edges {
 
 const POSTS_SECTION_BY_FILTER__string = `
   query MyQueryPostsOnArchivePage(
-    $field: PostObjectsConnectionOrderbyEnum = AUTHOR
-    $order: OrderEnum = ASC
-    $categoryIn: [ID] = []
-    $tagIn: [ID] = []
-    $authorIn: [ID] = []
-    $last: Int = null
-    $first: Int = 10
-    $before: String = ""
-    $after: String = ""
-    $notIn: [ID] = ""
+    $field: PostObjectsConnectionOrderbyEnum = AUTHOR,
+    $order: OrderEnum = ASC,
+    $in: [ID] = null,
+    $categoryIn: [ID] = [],
+    $tagIn: [ID] = [],
+    $authorIn: [ID] = [],
+    $last: Int = null,
+    $first: Int = 10,
+    $before: String = null,
+    $after: String = null,
+    $notIn: [ID] = null,
+    $year: Int = null,
+    $month: Int = null,
+    $day: Int = null
   ) {
     posts(
       where: {
-        orderby: { field: $field, order: $order }
-        categoryIn: $categoryIn
-        tagIn: $tagIn
-        authorIn: $authorIn
-        notIn: $notIn
-      }
-      last: $last
-      first: $first
-      before: $before
+        in: $in
+        orderby: { field: $field, order: $order },
+        categoryIn: $categoryIn,
+        tagIn: $tagIn,
+        authorIn: $authorIn,
+        notIn: $notIn,
+        dateQuery: {year: $year, month: $month, day: $day}
+      },
+      last: $last,
+      first: $first,
+      before: $before,
       after: $after
     ) {
      ${postFields}

@@ -3,60 +3,45 @@ import ModalCategories from "./ModalCategories";
 import ModalTags from "./ModalTags";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import ArchiveFilterListBox from "components/ArchiveFilterListBox/ArchiveFilterListBox";
-import NcImage from "components/NcImage/NcImage";
 import Card11 from "components/Card11/Card11";
-import { CategoriesNode3, ListPosts } from "data/postCardType";
+import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
 import { ListBoxItemType } from "components/NcListBox/NcListBox";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import SectionTrendingCategories from "./SectionTrendingCategories";
+import {
+  ARCHIVE_PAGE_FILTERS,
+  SectionCategoriesTrendingArchivePageOption,
+} from "./PageArchive";
 
 interface Data {
   posts: ListPosts;
 }
 
-export interface SectionCategoriesTrendingArchivePageOption {
-  enable: boolean;
-  orderBy: "count" | "term_order" | "is_child";
-  heading: string;
-  subHeading: string;
-  itemPerPage: string;
-}
-
-export interface PageArchiveProps {
+export interface PageArchiveDateProps {
   className?: string;
-  termId: number;
-  termData: CategoriesNode3;
-  isCategory?: boolean;
-  isTag?: boolean;
-  isFormatVideo?: boolean;
-  isFormatAudio?: boolean;
+  day: number;
+  monthnum: number;
+  year: number;
+  //
+  pageTitle: string;
   //
   sectionCategoriesTrending: SectionCategoriesTrendingArchivePageOption;
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
-export const ARCHIVE_PAGE_FILTERS = [
-  { name: "Most Recent", value: "DATE" },
-  { name: "Most Liked", value: "FAVORITES_COUNT" },
-  { name: "Most Discussed", value: "COMMENT_COUNT" },
-  { name: "Most Viewed", value: "VIEWS_COUNT" },
-];
-
 const FILTERS = ARCHIVE_PAGE_FILTERS;
 
 // Tag and category have same data type - we will use one demo data
-const PageArchive: FC<PageArchiveProps> = ({
+const PageArchiveDate: FC<PageArchiveDateProps> = ({
   className = "",
-  termId,
-  termData,
-  isCategory,
-  isFormatAudio,
-  isFormatVideo,
-  isTag,
+  day,
+  monthnum,
+  year,
   sectionCategoriesTrending,
+  pageTitle,
 }) => {
   const POST_PER_PAGE =
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
@@ -64,22 +49,15 @@ const PageArchive: FC<PageArchiveProps> = ({
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
   //
   let variables = {};
-  let taxonomy = "";
   //
-  if (isCategory) {
-    taxonomy = "CATEGORY";
-  } else if (isTag) {
-    taxonomy = "TAG";
-  } else if (isFormatAudio || isFormatVideo) {
-    taxonomy = "POSTFORMAT";
-  }
 
   variables = {
     order: "DESC",
     field: orderByState,
-    categoryIn: [termId],
     first: POST_PER_PAGE,
-    taxonomy,
+    month: monthnum,
+    day,
+    year,
   };
 
   const gqlQuery = gql`
@@ -131,33 +109,19 @@ const PageArchive: FC<PageArchiveProps> = ({
   const IS_SKELETON = loading && !POSTS.length;
 
   return (
-    <div className={`nc-PageArchive ${className}`} data-nc-id="PageArchive">
+    <div
+      className={`nc-PageArchiveDate ${className}`}
+      data-nc-id="PageArchiveDate"
+    >
       {/* HEADER */}
-      <div className="w-full px-2 xl:max-w-screen-2xl mx-auto">
-        <div className="rounded-3xl relative aspect-w-16 aspect-h-16 sm:aspect-h-9 lg:aspect-h-8 xl:aspect-h-6 overflow-hidden ">
-          <NcImage
-            containerClassName="absolute inset-0"
-            src={
-              termData.ncTaxonomyMeta.featuredImage?.sourceUrl ||
-              "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            }
-            className="object-cover w-full h-full"
-          />
-          <div className="absolute inset-0 bg-black text-white bg-opacity-30 flex flex-col items-center justify-center">
-            <h2 className="inline-block align-middle text-5xl font-semibold md:text-7xl ">
-              {termData.name}
-            </h2>
-            <span className="block mt-4 text-neutral-300">
-              {termData.count || 0} Articles
-            </span>
-          </div>
-        </div>
-      </div>
-      {/* ====================== END HEADER ====================== */}
 
       <div className="container py-16 lg:py-28 space-y-16 lg:space-y-28">
         <div>
-          <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">
+          <h2
+            className="inline-block max-w-screen-2xl text-4xl font-semibold md:text-5xl"
+            dangerouslySetInnerHTML={{ __html: pageTitle }}
+          ></h2>
+          <div className="mt-14 flex flex-col sm:items-center sm:justify-between sm:flex-row">
             <div className="flex space-x-2.5">
               <ModalCategories />
               <ModalTags />
@@ -205,8 +169,7 @@ const PageArchive: FC<PageArchiveProps> = ({
         {sectionCategoriesTrending.enable && (
           <SectionTrendingCategories
             {...sectionCategoriesTrending}
-            parentId={Number(termId)}
-            isCategory={!!isCategory}
+            isCategory={false}
           />
         )}
       </div>
@@ -214,4 +177,4 @@ const PageArchive: FC<PageArchiveProps> = ({
   );
 };
 
-export default PageArchive;
+export default PageArchiveDate;

@@ -18,7 +18,7 @@ const Card10V2: FC<Card10V2Props> = ({
   post,
   isSkeleton,
 }) => {
-  const { link, categories, ncPostMetaData } = post;
+  const { link, categories, ncPostMetaData, postId } = post;
   const [isHover, setIsHover] = useState(false);
   return (
     <div
@@ -44,6 +44,7 @@ const Card10V2: FC<Card10V2Props> = ({
       <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4">
         <CategoryBadgeList categories={categories} />
         <PostCardLikeAction
+          postId={postId}
           favoriteButtonShortcode={ncPostMetaData.favoriteButtonShortcode || ""}
         />
       </div>

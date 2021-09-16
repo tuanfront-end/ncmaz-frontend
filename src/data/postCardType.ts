@@ -74,6 +74,7 @@ export interface AuthorNode {
   url: string;
   uri: string;
   username: string;
+  description?: string;
   userId: number;
 }
 

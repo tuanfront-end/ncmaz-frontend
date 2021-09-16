@@ -26,7 +26,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
     >
       <div className="relative flex items-center space-x-2">
         {!hiddenAvatar && (
-          <a href={author.node.uri}>
+          <a href={frontendObject.homeURL + author.node.uri}>
             <Avatar
               radius="rounded-full"
               sizeClass={

@@ -35,6 +35,19 @@ interface User {
 }
 
 declare global {
+  // ON FAVORITES PLUGIN
+  // NEED UPDATE WHEN UPDATE PLUGIN
+  var jQuery: any;
+  var Favorites: {
+    userFavorites?: [
+      {
+        groups: any;
+        posts?: Record<number, any>;
+        site_id: number;
+      }
+    ];
+  };
+  //
   var frontendObject: {
     restUrl: string;
     ajaxurl: string;

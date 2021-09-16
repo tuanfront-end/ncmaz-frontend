@@ -22,7 +22,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
   const { node } = author;
   return (
     <a
-      href={node.url + node.uri}
+      href={frontendObject.homeURL + node.uri}
       className={`nc-CardAuthor2 relative inline-flex items-center ${className}`}
       data-nc-id="CardAuthor2"
     >

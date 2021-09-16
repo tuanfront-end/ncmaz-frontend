@@ -21,6 +21,7 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post, isSkeleton }) => {
     author,
     date,
     ncPostMetaData,
+    postId,
   } = post;
   return (
     <div
@@ -35,6 +36,7 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post, isSkeleton }) => {
         <div>
           {ncPostMetaData.favoriteButtonShortcode && (
             <PostCardLikeAction
+              postId={postId}
               className="absolute right-2 top-2 z-[1]"
               favoriteButtonShortcode={ncPostMetaData.favoriteButtonShortcode}
             />

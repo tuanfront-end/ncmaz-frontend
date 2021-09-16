@@ -6,6 +6,7 @@ import { PageInfo } from "containers/SingleComments/commentType";
 import { CategoriesNode3 } from "data/postCardType";
 import { GET_LIST_CATEGORIES } from "./queryGraphql";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import { SectionCategoriesTrendingArchivePageOption } from "./PageArchive";
 
 interface QCatsData {
   categories: Categories;
@@ -22,14 +23,10 @@ interface Edge {
 
 let DATA: Edge[] = [];
 
-export interface SectionTrendingCategoriesProps {
-  enable: boolean;
+export interface SectionTrendingCategoriesProps
+  extends SectionCategoriesTrendingArchivePageOption {
+  parentId?: number;
   isCategory: boolean;
-  orderBy: "count" | "term_order" | "is_child";
-  heading: string;
-  subHeading: string;
-  itemPerPage: string;
-  parentId: number;
 }
 
 const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
@@ -58,7 +55,7 @@ const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
     filterOrderby = "TERM_ORDER";
   }
   if (orderBy === "is_child") {
-    if (isCategory) {
+    if (isCategory && parentId) {
       filterOrderby = null;
       filterByParentId = parentId;
     } else {

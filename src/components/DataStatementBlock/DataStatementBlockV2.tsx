@@ -6,15 +6,19 @@ export interface DataStatementBlockV2Props {
   data: any[];
   isSkeleton?: boolean;
   error?: ApolloError;
+  className?: string;
 }
 
 const DataStatementBlockV2: FC<DataStatementBlockV2Props> = ({
   data = [],
   isSkeleton,
   error,
+  className = "",
 }) => {
+  if (!error && (isSkeleton || data.length)) return null;
+
   return (
-    <div className="my-5">
+    <div className={className}>
       {/* ERROR */}
       {error && (
         <pre className="text-xs">

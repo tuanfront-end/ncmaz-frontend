@@ -26,7 +26,7 @@ const PostMeta2: FC<PostMeta2Props> = ({
       data-nc-id="PostMeta2"
     >
       <a
-        href={author.node.url + author.node.uri}
+        href={frontendObject.homeURL + author.node.uri}
         className="flex items-center space-x-2"
       >
         <Avatar
@@ -43,7 +43,7 @@ const PostMeta2: FC<PostMeta2Props> = ({
       <div className="ml-3">
         <div className="flex items-center">
           <a
-            href={author.node.url + author.node.uri}
+            href={frontendObject.homeURL + author.node.uri}
             className="block font-semibold"
           >
             {author.node.name}

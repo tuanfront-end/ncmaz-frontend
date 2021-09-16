@@ -59,7 +59,7 @@ const Card14: FC<Card14Props> = ({
 
         <div className="p-2 sm:p-2.5 mt-4 sm:mt-5 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full flex items-center text-neutral-50 text-xs sm:text-sm font-medium">
           <a
-            href={author.node.url + author.node.uri}
+            href={frontendObject.homeURL + author.node.uri}
             className="relative flex items-center space-x-2"
           >
             <Avatar

@@ -16,6 +16,7 @@ export interface Card11Props {
   isSkeleton?: boolean;
   ratio?: string;
   hiddenAuthor?: boolean;
+  onClickLike?: (id: number) => void;
 }
 
 const Card11: FC<Card11Props> = ({
@@ -24,6 +25,7 @@ const Card11: FC<Card11Props> = ({
   hiddenAuthor = false,
   ratio = "aspect-w-4 aspect-h-3",
   isSkeleton,
+  onClickLike,
 }) => {
   const { title, link, categories, date } = post;
 
@@ -64,7 +66,11 @@ const Card11: FC<Card11Props> = ({
           </a>
         </h2>
         <div className="flex items-end justify-between mt-auto">
-          <PostCardLikeAndComment className="relative" postData={post} />
+          <PostCardLikeAndComment
+            onClickLike={onClickLike}
+            className="relative"
+            postData={post}
+          />
           <PostCardDropdownShare />
         </div>
       </div>
