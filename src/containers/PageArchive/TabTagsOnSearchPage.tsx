@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { TagNode3 } from "data/postCardType";
 import { gql, useQuery } from "@apollo/client";
 import { GET_LIST_TAGS } from "./queryGraphql";
@@ -23,9 +23,13 @@ interface Edge {
 
 export interface TabTagsOnSearchPageProps {
   searchText: string;
+  onUpdateTotal: (total: number) => void;
 }
 
-const TabTagsOnSearchPage: FC<TabTagsOnSearchPageProps> = ({ searchText }) => {
+const TabTagsOnSearchPage: FC<TabTagsOnSearchPageProps> = ({
+  searchText,
+  onUpdateTotal,
+}) => {
   const POST_PER_PAGE = 30;
 
   const Q_LIST_CATS = gql`
@@ -48,7 +52,13 @@ const TabTagsOnSearchPage: FC<TabTagsOnSearchPageProps> = ({ searchText }) => {
     notifyOnNetworkStatusChange: true,
     variables,
   });
-  console.log(22, { data, loading });
+
+  useEffect(() => {
+    if (typeof data?.tags.pageInfo?.total !== "number") {
+      return;
+    }
+    onUpdateTotal(data?.tags.pageInfo?.total);
+  }, [data]);
 
   // Function to update the query with the new results
   const updateQuery = (

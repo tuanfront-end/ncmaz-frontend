@@ -40,6 +40,7 @@ const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
       hasPreviousPage
       hasNextPage
       startCursor
+      total
     }
   }
 }
@@ -84,6 +85,7 @@ const GET_LIST_TAGS = `query GET_LIST_TAGS(
       hasNextPage
       hasPreviousPage
       startCursor
+      total
     }
   }
 }
@@ -243,6 +245,7 @@ const POSTS_SECTION_BY_FILTER__string = `
         hasPreviousPage
         endCursor
         startCursor
+        total
       }
     }
   }
@@ -299,6 +302,7 @@ const USERS_QUERY_FILTER__string = `query GET_USERS_QUERY_FILTER(
       hasNextPage
       startCursor
       hasPreviousPage
+      total
     }
 	}
 }`;

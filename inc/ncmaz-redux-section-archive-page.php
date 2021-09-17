@@ -82,3 +82,23 @@ $section = array(
     ),
 );
 Redux::set_section($opt_name, $section);
+
+// 
+// 
+//
+$section = array(
+    'title'      => esc_html__('Search page settings', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'desc'       => esc_html__('Settings for search page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'id'         => 'nc-search-page-settings',
+    'subsection' => true,
+    'fields'     => array(
+        [
+            'id' => 'nc-search-page-settings--multi-text-suggestions',
+            'type' => 'multi_text',
+            'title' => __('Multi Text Option - Lists Suggestions', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'subtitle' => __('Enter Lists Suggestions text for search page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+
+        ]
+    ),
+);
+Redux::set_section($opt_name, $section);

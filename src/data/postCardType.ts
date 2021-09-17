@@ -1,3 +1,5 @@
+import { PageInfo } from "containers/SingleComments/commentType";
+
 export interface ListPosts {
   edges: Post[];
   pageInfo?: PageInfo;
@@ -174,14 +176,6 @@ interface PostFormats {
         };
       }[]
     | [];
-  __typename: string;
-}
-
-interface PageInfo {
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-  endCursor: string;
-  startCursor: string;
   __typename: string;
 }
 

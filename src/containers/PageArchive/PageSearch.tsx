@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import ArchiveFilterListBox from "components/ArchiveFilterListBox/ArchiveFilterListBox";
 import { ListBoxItemType } from "components/NcListBox/NcListBox";
 import SectionTrendingCategories from "./SectionTrendingCategories";
@@ -18,11 +18,9 @@ import TabAuthorsOnSearchPage from "./TabAuthorsOnSearchPage";
 
 export interface PageSearchProps {
   className?: string;
-  //
   searchQuery: string;
-  pageTitle: string;
-  //
   sectionCategoriesTrending: SectionCategoriesTrendingArchivePageOption;
+  listSuggestions: string[];
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
@@ -36,13 +34,24 @@ const TABS: TabType[] = ["Articles", "Categories", "Tags", "Authors"];
 const PageSearch: FC<PageSearchProps> = ({
   className = "",
   sectionCategoriesTrending,
-  pageTitle,
   searchQuery,
+  listSuggestions,
 }) => {
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
   const [tabActive, setTabActive] = useState<TabType>(TABS[0]);
   //
+  const [totalCountResultString, setTotalCountResultString] = useState("");
   const [searchText, setSearchText] = useState(searchQuery);
+  //
+  useEffect(() => {
+    const inputEl = document.getElementById(
+      "ncmaz-search-input"
+    ) as HTMLInputElement;
+    if (!inputEl) {
+      return;
+    }
+    inputEl.value = searchText;
+  }, [searchText]);
   //
   const handleChangeFilter = (item: ListBoxItemType) => {
     setorderByState(item.value);
@@ -82,14 +91,13 @@ const PageSearch: FC<PageSearchProps> = ({
               </h2>
               <span className="block text-xs sm:text-sm mt-4 text-neutral-500 dark:text-neutral-300">
                 <strong className="font-medium text-neutral-800 dark:text-neutral-100">
-                  {/* {data?.posts.pageInfo?.hasNextPage
-                    ? `More than ${POSTS.length}`
-                    : POSTS.length} */}
+                  {totalCountResultString}
                 </strong>{" "}
-                articles were found for keyword{" "}
+                were found for keyword{" "}
                 <strong className="font-medium text-neutral-800 dark:text-neutral-100">
-                  {searchText}
-                </strong>
+                  '{searchText}'
+                </strong>{" "}
+                in this case
               </span>
               <form
                 className="relative w-full mt-8 sm:mt-11 text-left"
@@ -128,15 +136,24 @@ const PageSearch: FC<PageSearchProps> = ({
                   </span>
                 </label>
               </form>
-              <div className="w-full text-sm text-left mt-4 text-neutral-500 dark:text-neutral-300">
-                <div className="inline-block">
-                  <span className="mr-2.5">Related:</span>
-                  <p className="mr-2.5 inline-block font-normal">Design</p>
-                  <p className="mr-2.5 inline-block font-normal">Photo</p>
-                  <p className="mr-2.5 inline-block font-normal">Vector</p>
-                  <p className="mr-2.5 inline-block font-normal">Frontend</p>
+              {listSuggestions && listSuggestions.length ? (
+                <div className="w-full text-sm text-left mt-4 text-neutral-500 dark:text-neutral-300">
+                  <div className="inline-block text-primary-500">
+                    <span className="mr-2.5 text-neutral-700">
+                      Suggestions:
+                    </span>
+                    {listSuggestions.map((item, index) => (
+                      <p
+                        key={index}
+                        className="mr-2.5 inline-block cursor-pointer"
+                        onClick={() => setSearchText(item)}
+                      >
+                        {item}
+                      </p>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : null}
             </header>
           </div>
         </div>
@@ -151,14 +168,38 @@ const PageSearch: FC<PageSearchProps> = ({
           <TabArticlesOnSearchPage
             orderByState={orderByState}
             searchText={searchText}
+            onUpdateTotal={(total) =>
+              setTotalCountResultString(`${total} ${tabActive}`)
+            }
           />
         );
       case "Categories":
-        return <TabCategoriesOnSearchPage searchText={searchText} />;
+        return (
+          <TabCategoriesOnSearchPage
+            onUpdateTotal={(total) =>
+              setTotalCountResultString(`${total} ${tabActive}`)
+            }
+            searchText={searchText}
+          />
+        );
       case "Tags":
-        return <TabTagsOnSearchPage searchText={searchText} />;
+        return (
+          <TabTagsOnSearchPage
+            onUpdateTotal={(total) =>
+              setTotalCountResultString(`${total} ${tabActive}`)
+            }
+            searchText={searchText}
+          />
+        );
       case "Authors":
-        return <TabAuthorsOnSearchPage searchText={searchText} />;
+        return (
+          <TabAuthorsOnSearchPage
+            onUpdateTotal={(total) =>
+              setTotalCountResultString(`${total} ${tabActive}`)
+            }
+            searchText={searchText}
+          />
+        );
 
       default:
         return null;

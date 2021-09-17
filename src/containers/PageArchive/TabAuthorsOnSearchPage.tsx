@@ -1,11 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { AuthorNode } from "data/postCardType";
 import { gql, useQuery } from "@apollo/client";
 import { USERS_QUERY_FILTER__string } from "./queryGraphql";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
-import CardCategory2Skeleton from "components/CardCategory2/CardCategory2Skeleton";
 import CardAuthorBox2 from "components/CardAuthorBox2/CardAuthorBox2";
 import CardAuthorBox2Skeleton from "components/CardAuthorBox2/CardAuthorBox2Skeleton";
 
@@ -24,10 +23,12 @@ interface Edge {
 
 export interface TabAuthorsOnSearchPageProps {
   searchText: string;
+  onUpdateTotal: (total: number) => void;
 }
 
 const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
   searchText,
+  onUpdateTotal,
 }) => {
   const POST_PER_PAGE = 10;
   const Q_LIST_CATS = gql`
@@ -50,6 +51,13 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
     notifyOnNetworkStatusChange: true,
     variables,
   });
+
+  useEffect(() => {
+    if (typeof data?.users.pageInfo?.total !== "number") {
+      return;
+    }
+    onUpdateTotal(data?.users.pageInfo?.total);
+  }, [data]);
 
   // Function to update the query with the new results
   const updateQuery = (

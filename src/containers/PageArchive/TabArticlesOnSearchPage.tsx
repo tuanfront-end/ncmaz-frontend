@@ -1,24 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect } from "react";
 import ButtonPrimary from "components/Button/ButtonPrimary";
-import ArchiveFilterListBox from "components/ArchiveFilterListBox/ArchiveFilterListBox";
 import Card11 from "components/Card11/Card11";
 import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
-import { ListBoxItemType } from "components/NcListBox/NcListBox";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
-import SectionTrendingCategories from "./SectionTrendingCategories";
-import {
-  ARCHIVE_PAGE_FILTERS,
-  SectionCategoriesTrendingArchivePageOption,
-} from "./PageArchive";
-import ButtonCircle from "components/Button/ButtonCircle";
-import Input from "components/Input/Input";
-import NcImage from "components/NcImage/NcImage";
-import Nav from "components/Nav/Nav";
-import NavItem from "components/NavItem/NavItem";
-import TabCategoriesOnSearchPage from "./TabCategoriesOnSearchPage";
 
 interface Data {
   posts: ListPosts;
@@ -27,11 +14,13 @@ interface Data {
 export interface TabArticlesOnSearchPageProps {
   searchText: string;
   orderByState: string;
+  onUpdateTotal: (total: number) => void;
 }
 
 const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
   searchText,
   orderByState,
+  onUpdateTotal,
 }) => {
   const POST_PER_PAGE =
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
@@ -55,6 +44,13 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
     notifyOnNetworkStatusChange: true,
     variables,
   });
+
+  useEffect(() => {
+    if (typeof data?.posts.pageInfo?.total !== "number") {
+      return;
+    }
+    onUpdateTotal(data?.posts.pageInfo?.total);
+  }, [data]);
 
   const POSTS = data?.posts.edges || [];
 

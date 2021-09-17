@@ -55,4 +55,5 @@ export interface PageInfo {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
   endCursor: string;
+  total?: number;
 }

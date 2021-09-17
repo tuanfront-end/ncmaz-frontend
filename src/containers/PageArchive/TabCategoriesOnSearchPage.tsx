@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { CategoriesNode3 } from "data/postCardType";
 import { gql, useQuery } from "@apollo/client";
 import { GET_LIST_CATEGORIES } from "./queryGraphql";
@@ -23,10 +23,12 @@ interface Edge {
 
 export interface TabCategoriesOnSearchPageProps {
   searchText: string;
+  onUpdateTotal: (total: number) => void;
 }
 
 const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
   searchText,
+  onUpdateTotal,
 }) => {
   const POST_PER_PAGE = 20;
   const Q_LIST_CATS = gql`
@@ -49,6 +51,13 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
     notifyOnNetworkStatusChange: true,
     variables,
   });
+
+  useEffect(() => {
+    if (typeof data?.categories.pageInfo?.total !== "number") {
+      return;
+    }
+    onUpdateTotal(data?.categories.pageInfo?.total);
+  }, [data]);
 
   // Function to update the query with the new results
   const updateQuery = (
