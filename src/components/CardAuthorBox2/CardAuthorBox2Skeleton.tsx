@@ -2,30 +2,25 @@ import React, { FC } from "react";
 import { ArrowRightIcon } from "@heroicons/react/solid";
 import Avatar from "components/Avatar/Avatar";
 import NcImage from "components/NcImage/NcImage";
-import { AuthorNode } from "data/postCardType";
+import Skeleton from "react-loading-skeleton";
 
-export interface CardAuthorBox2Props {
+export interface CardAuthorBox2SkeletonProps {
   className?: string;
-  author: AuthorNode;
 }
 
-const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
+const CardAuthorBox2Skeleton: FC<CardAuthorBox2SkeletonProps> = ({
   className = "",
-  author,
 }) => {
-  const { name, username, uri, url, avatar, ncUserMeta } = author;
-
   return (
-    <a
-      href={url + uri}
-      className={`nc-CardAuthorBox2 flex flex-col overflow-hidden [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
-      data-nc-id="CardAuthorBox2"
+    <div
+      className={`nc-CardAuthorBox2Skeleton flex flex-col overflow-hidden [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
+      data-nc-id="CardAuthorBox2Skeleton"
     >
       <div className="relative flex-shrink-0 ">
         <div>
           <NcImage
             containerClassName="flex aspect-w-7 aspect-h-5 sm:aspect-h-6 w-full h-0"
-            src={ncUserMeta.featuredImage?.sourceUrl || ","}
+            src={","}
           />
         </div>
         <div className="absolute top-3 inset-x-3 flex">
@@ -40,22 +35,21 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
           containerClassName="ring-2 ring-white"
           sizeClass="w-16 h-16 text-2xl"
           radius="rounded-full"
-          imgUrl={avatar.url}
-          userName={username}
+          userName={"d"}
         />
         <div className="mt-3">
           <h2 className={`text-base font-medium`}>
-            <span className="line-clamp-1">{name}</span>
+            <Skeleton width="60%" />
           </h2>
           <span
             className={`block mt-1 text-sm text-neutral-500 dark:text-neutral-400`}
           >
-            {ncUserMeta.ncBio}
+            <Skeleton width="90%" />
           </span>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 
-export default CardAuthorBox2;
+export default CardAuthorBox2Skeleton;

@@ -85,6 +85,14 @@ export interface NcUserMeta {
     id: string;
     sourceUrl: string;
   };
+  //
+  twitterUrl?: string;
+  facebookUrl?: string;
+  instagramUrl?: string;
+  youtubeUrl?: string;
+  backgroundImage?: {
+    sourceUrl?: string;
+  };
 }
 
 interface Avatar {
@@ -117,6 +125,18 @@ export interface CategoriesNode3 {
   slug: string;
   count: number;
   categoryId: number;
+  ncTaxonomyMeta: NcTaxonomyMeta;
+  __typename: string;
+}
+
+export interface TagNode3 {
+  id: string;
+  link: string;
+  name: string;
+  uri: string;
+  slug: string;
+  count: number;
+  tagId: number;
   ncTaxonomyMeta: NcTaxonomyMeta;
   __typename: string;
 }

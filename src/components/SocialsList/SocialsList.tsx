@@ -23,18 +23,18 @@ export const SOCIALS_2 = socialsDemo;
 
 const SocialsList: FC<SocialsListProps> = ({
   className = "",
-  itemClass = "block",
+  itemClass = "w-7 h-7 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-400 text-lg rounded-lg flex items-center justify-center hover:border-neutral-400 dark:hover:border-neutral-6000 ",
   socials = socialsDemo,
 }) => {
   return (
     <nav
-      className={`nc-SocialsList flex space-x-2.5 text-2xl text-neutral-6000 dark:text-neutral-300 ${className}`}
+      className={`nc-SocialsList flex space-x-2 ${className}`}
       data-nc-id="SocialsList"
     >
       {socials.map((item, i) => (
         <a
           key={i}
-          className={`${itemClass}`}
+          className={`${itemClass} `}
           href={item.href}
           target="_blank"
           rel="noopener noreferrer"

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import NcModal from "components/NcModal/NcModal";
 import Tag from "components/Tag/Tag";
-import { CategoriesNode3 } from "data/postCardType";
+import { CategoriesNode3, TagNode3 } from "data/postCardType";
 import { useLazyQuery, gql } from "@apollo/client";
 import { GET_LIST_TAGS } from "./queryGraphql";
 import ButtonPrimary from "components/Button/ButtonPrimary";
@@ -18,7 +18,7 @@ interface Tags {
   __typename: string;
 }
 interface Edge {
-  node: CategoriesNode3;
+  node: TagNode3;
   __typename: string;
 }
 
@@ -26,7 +26,7 @@ export interface ModalTagsProps {}
 
 const ModalTags: FC<ModalTagsProps> = () => {
   //
-  const POST_PER_PAGE = 20;
+  const POST_PER_PAGE = 30;
   const Q_LIST_TAGS = gql`
     ${GET_LIST_TAGS}
   `;
@@ -39,6 +39,24 @@ const ModalTags: FC<ModalTagsProps> = () => {
     getListTags({ variables: { first: POST_PER_PAGE } });
   };
 
+  // Function to update the query with the new results
+  const updateQuery = (
+    previousResult: Data,
+    { fetchMoreResult }: { fetchMoreResult?: Data }
+  ): Data => {
+    if (!fetchMoreResult?.tags?.edges.length) return previousResult;
+    return {
+      ...fetchMoreResult,
+      tags: {
+        ...fetchMoreResult.tags,
+        edges: [
+          ...previousResult?.tags?.edges,
+          ...fetchMoreResult?.tags?.edges,
+        ],
+      },
+    };
+  };
+
   const handleClickLoadmore = () => {
     if (!fetchMore) return;
     fetchMore({
@@ -46,6 +64,7 @@ const ModalTags: FC<ModalTagsProps> = () => {
         first: POST_PER_PAGE,
         after: data?.tags.pageInfo.endCursor || null,
       },
+      updateQuery,
     });
   };
 
@@ -61,7 +80,7 @@ const ModalTags: FC<ModalTagsProps> = () => {
           error={error}
         />
 
-        <div className="w-full   flex flex-wrap dark:text-neutral-200">
+        <div className="w-full flex flex-wrap dark:text-neutral-200">
           {IS_SKELETON &&
             Array.from("iiiiiiiiiiiiiiiiiiiiiiiiiiii").map((_, i) => (
               <Skeleton

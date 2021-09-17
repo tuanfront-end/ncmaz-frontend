@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Badge from "components/Badge/Badge";
 import { PostNode } from "data/postCardType";
+import { TwMainColor } from "data/types";
 
 export interface CategoryBadgeListProps {
   className?: string;
@@ -25,7 +26,7 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
             key={index}
             name={item.node.name}
             href={item.node.link}
-            // color={item.color as any}
+            color={item.node?.ncTaxonomyMeta?.color as TwMainColor}
           />
         ))}
       </div>

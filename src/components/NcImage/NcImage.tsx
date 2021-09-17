@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import checkInViewIntersectionObserver from "utils/isInViewPortIntersectionObserver";
+import PlaceIcon from "./PlaceIcon";
 
 export interface NcImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   containerClassName?: string;
@@ -16,7 +17,6 @@ const NcImage: FC<NcImageProps> = ({
   containerClassName = "",
   alt = "nc-imgs",
   src = "",
-  prevImageHorizontal = false,
   className = "object-cover w-full h-full",
   ...args
 }) => {
@@ -25,13 +25,11 @@ const NcImage: FC<NcImageProps> = ({
   let _imageEl: HTMLImageElement | null = null;
   // const darkmodeState = useAppSelector(selectDarkmodeState);
 
-  const placeholderImage = window.frontendObject.placeholderImg;
-
-  const [__src, set__src] = useState(placeholderImage);
+  const [__src, set__src] = useState("");
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const _initActions = async () => {
-    set__src(placeholderImage);
+    // set__src(placeholderImage);
     _checkInViewPort();
   };
 
@@ -71,18 +69,28 @@ const NcImage: FC<NcImageProps> = ({
     };
   }, [src]);
 
+  const renderLoadingPlaceholder = () => {
+    return (
+      <div
+        className={`${className} flex items-center justify-center bg-neutral-200 dark:bg-neutral-6000 text-neutral-100 dark:text-neutral-500`}
+      >
+        <div className="h-2/4 max-w-[50%]">
+          <PlaceIcon />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div
       className={`nc-NcImage ${containerClassName}`}
       data-nc-id="NcImage"
       ref={_containerRef}
     >
-      {__src ? (
+      {__src && imageLoaded ? (
         <img src={__src} className={className} alt={alt} {...args} />
       ) : (
-        <div
-          className={`${className} bg-neutral-200 dark:bg-neutral-6000`}
-        ></div>
+        renderLoadingPlaceholder()
       )}
     </div>
   );

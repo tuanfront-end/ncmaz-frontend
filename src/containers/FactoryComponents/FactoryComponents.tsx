@@ -6,6 +6,7 @@ import SocialsShare from "components/SocialsShare/SocialsShare";
 import PageArchive from "containers/PageArchive/PageArchive";
 import PageArchiveAuthor from "containers/PageArchive/PageArchiveAuthor";
 import PageArchiveDate from "containers/PageArchive/PageArchiveDate";
+import PageSearch from "containers/PageArchive/PageSearch";
 import SingleMoreFromAuthorGridPosts from "containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts";
 import SingleRelatedGridPosts from "containers/SingleRelatedGridPosts/SingleRelatedGridPosts";
 import React, { FC } from "react";
@@ -43,13 +44,6 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
 
       case "SocialsShare":
         return ReactDOM.createPortal(<SocialsShare {...componentProps} />, dom);
-
-      // TAM THOI KHONG DUNG CAI NAY -- XIN CAM ON --
-      // case "SingleComment":
-      //   return ReactDOM.createPortal(
-      //     <SingleComment {...componentProps} />,
-      //     dom
-      //   );
 
       case "SingleRelatedGridPosts":
         return ReactDOM.createPortal(
@@ -95,6 +89,9 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
           <PageArchiveAuthor {...componentProps} />,
           dom
         );
+
+      case "PageSearch":
+        return ReactDOM.createPortal(<PageSearch {...componentProps} />, dom);
 
       default:
         return null;

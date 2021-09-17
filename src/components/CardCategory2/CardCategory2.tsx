@@ -16,7 +16,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
   index,
 }) => {
   const { count, name, link, ncTaxonomyMeta } = taxonomy;
-  const { color, featuredImage } = ncTaxonomyMeta;
+  const { featuredImage } = ncTaxonomyMeta;
 
   return (
     <a
@@ -26,7 +26,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
     >
       {index && (
         <Badge
-          color={color as TwMainColor}
+          color={index === "#1" ? "red" : index === "#2" ? "purple" : "green"}
           name={index}
           className="absolute -top-2 sm:top-3 left-3"
         />

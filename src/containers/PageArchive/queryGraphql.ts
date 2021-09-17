@@ -1,5 +1,20 @@
-const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES($after: String = "", $before: String = "", $first: Int = 30, $last: Int = null, $orderby: TermObjectsConnectionOrderbyEnum = NAME, $parent: Int = null) {
-  categories(after: $after, before: $before, first: $first, last: $last, where: {parent: $parent, orderby: $orderby, order: DESC }) {
+const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
+  $after: String = "",
+  $before: String = "",
+  $first: Int = 30,
+  $last: Int = null,
+  $orderby: TermObjectsConnectionOrderbyEnum = NAME,
+  $parent: Int = null,
+  $search: String = null,
+  $exclude: [ID] = ""
+  ) {
+  categories(
+    after: $after,
+    before: $before,
+    first: $first,
+    last: $last,
+    where: {parent: $parent, orderby: $orderby, order: DESC, search: $search, exclude: $exclude }
+    ) {
     edges {
       node {
         id
@@ -30,8 +45,21 @@ const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES($after: String = "", $bef
 }
 `;
 
-const GET_LIST_TAGS = `query GET_LIST_TAGS($after: String = "", $before: String = "", $first: Int = 30, $last: Int = null) {
-  tags(after: $after, before: $before, first: $first, last: $last) {
+const GET_LIST_TAGS = `query GET_LIST_TAGS(
+  $after: String = "",
+  $before: String = "",
+  $first: Int = 30,
+  $last: Int = null,
+  $search: String = null,
+  $exclude: [ID] = ""
+  ) {
+  tags(
+    after: $after,
+    before: $before,
+    first: $first,
+    last: $last,
+    where: { search: $search, exclude: $exclude }
+    ) {
     edges {
       node {
         id
@@ -95,6 +123,9 @@ const postFields = ` edges {
           slug
           count
           categoryId
+          ncTaxonomyMeta {
+            color
+          }
         }
       }
     }
@@ -187,7 +218,8 @@ const POSTS_SECTION_BY_FILTER__string = `
     $notIn: [ID] = null,
     $year: Int = null,
     $month: Int = null,
-    $day: Int = null
+    $day: Int = null,
+    $search: String = null
   ) {
     posts(
       where: {
@@ -197,7 +229,8 @@ const POSTS_SECTION_BY_FILTER__string = `
         tagIn: $tagIn,
         authorIn: $authorIn,
         notIn: $notIn,
-        dateQuery: {year: $year, month: $month, day: $day}
+        dateQuery: {year: $year, month: $month, day: $day},
+        search: $search
       },
       last: $last,
       first: $first,
@@ -215,4 +248,64 @@ const POSTS_SECTION_BY_FILTER__string = `
   }
 `;
 
-export { POSTS_SECTION_BY_FILTER__string, GET_LIST_CATEGORIES, GET_LIST_TAGS };
+const GQLUserCommon = `edges {
+	node {
+		id
+		avatar {
+			url
+		}
+		name
+		username
+		userId
+		url
+		uri
+		ncUserMeta {
+			color
+			ncBio
+			featuredImage {
+				sourceUrl
+				id
+			}
+		}
+	}
+}`;
+
+const USERS_QUERY_FILTER__string = `query GET_USERS_QUERY_FILTER(
+	$after: String = "",
+	$before: String = "",
+	$first: Int = 10,
+	$last: Int = null
+	$field: UsersConnectionOrderbyEnum = DISPLAY_NAME,
+	$order: OrderEnum = ASC,
+	$roleIn: [UserRoleEnum] = [],
+  $search: String = null,
+  $exclude: [Int] = null
+) {
+	users(
+		where: {
+      orderby: { field: $field, order: $order },
+      roleIn: $roleIn,
+      search: $search,
+      exclude: $exclude
+    }
+		last: $last
+		first: $first
+		before: $before
+		after: $after
+	) {
+		${GQLUserCommon}
+    pageInfo {
+      endCursor
+      hasNextPage
+      startCursor
+      hasPreviousPage
+    }
+	}
+}`;
+
+export {
+  POSTS_SECTION_BY_FILTER__string,
+  GET_LIST_CATEGORIES,
+  GET_LIST_TAGS,
+  USERS_QUERY_FILTER__string,
+};

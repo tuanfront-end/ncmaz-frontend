@@ -90,9 +90,7 @@ if (
   const cache = new InMemoryCache({
     typePolicies: {
       Query: {
-        fields: {
-          tags: relayStylePagination(),
-        },
+        fields: {},
       },
     },
   });

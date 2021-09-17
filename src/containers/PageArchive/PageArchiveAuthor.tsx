@@ -18,6 +18,7 @@ import NcImage from "components/NcImage/NcImage";
 import Avatar from "components/Avatar/Avatar";
 import SocialsList from "components/SocialsList/SocialsList";
 import { ListBoxItemType } from "components/NcListBox/NcListBox";
+import { SocialType } from "components/SocialsShare/SocialsShare";
 
 interface Data {
   posts: ListPosts;
@@ -28,6 +29,8 @@ export interface PageArchiveAuthorProps {
   userData: AuthorNode;
   //
   sectionCategoriesTrending: SectionCategoriesTrendingArchivePageOption;
+
+  // NEU listIDFavorites == undefined thi trang hien tai dang la cua minh => listIDFavorites = Favorites.userFavorites[0].posts
   listIDFavorites?: Record<number, number>;
 }
 
@@ -41,15 +44,13 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   className = "",
   sectionCategoriesTrending,
   userData,
+  listIDFavorites,
 }) => {
   const POST_PER_PAGE =
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
 
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
   const [tabActive, setTabActive] = useState(TABS[0]);
-  //
-  const [recentLikedIds, setRecentLikedIds] = useState([]);
-  const [recentDisLikedIds, setRecentDisLikedIds] = useState([]);
   //
   let variables = {};
   //
@@ -66,18 +67,28 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   if (tabActive === TABS[1]) {
     // GET LIST FAVORITES ID FROM PLUGIN FAVORITE JS GLOBALFavorites
     let inIDs: number[] | string[] | string = "";
-    if (
-      Favorites.userFavorites &&
-      Favorites.userFavorites[0] &&
-      Favorites.userFavorites[0].posts
-    ) {
-      const ids = Object.keys(Favorites.userFavorites[0].posts);
-      if (!!ids.length) {
-        inIDs = ids;
+
+    // VAO TRANG AUTHOR CUA USER KHAC
+    if (listIDFavorites) {
+      const userlistIds = Object.values(listIDFavorites);
+      if (userlistIds.length) {
+        inIDs = userlistIds;
+      }
+    } else {
+      // VAO TRANG AUTHOR CUA MINH (listIDFavorites = undefined)
+      // TAI SAO KHONG SU DUNG LUON listIDFavorites cho trang cua minh: VI cua minh con update khi click like button,
+      // trong khi do listIDFavorites co dinh global nen khong su dung duoc.Phai su dung userFavorites
+      if (
+        Favorites.userFavorites &&
+        Favorites.userFavorites[0] &&
+        Favorites.userFavorites[0].posts
+      ) {
+        const myIds = Object.keys(Favorites.userFavorites[0].posts);
+        if (!!myIds.length) {
+          inIDs = myIds;
+        }
       }
     }
-    console.log(22, { inIDs });
-
     variables = {
       order: "DESC",
       first: 100,
@@ -95,6 +106,34 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   });
 
   const POSTS = data?.posts.edges || [];
+  //
+
+  const userSocials: SocialType[] = [
+    {
+      id: "Facebook",
+      name: "Facebook",
+      icon: "lab la-facebook-square",
+      href: userData.ncUserMeta.facebookUrl || "",
+    },
+    {
+      id: "Twitter",
+      name: "Twitter",
+      icon: "lab la-twitter",
+      href: userData.ncUserMeta.twitterUrl || "",
+    },
+    {
+      id: "Youtube",
+      name: "Youtube",
+      icon: "lab la-youtube",
+      href: userData.ncUserMeta.youtubeUrl || "",
+    },
+    {
+      id: "Instagram",
+      name: "Instagram",
+      icon: "lab la-instagram",
+      href: userData.ncUserMeta.instagramUrl || "",
+    },
+  ].filter((item) => !!item.href);
 
   // Function to update the query with the new results
   const updateQuery = (
@@ -178,11 +217,14 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
       data-nc-id="PageArchiveAuthor"
     >
       {/* HEADER */}
-      <div className="w-screen px-2 xl:max-w-screen-2xl mx-auto">
-        <div className="rounded-3xl relative aspect-w-16 aspect-h-16 sm:aspect-h-9 lg:aspect-h-8 xl:aspect-h-7 overflow-hidden ">
+      <div className="w-screen px-2 max-w-full 2xl:max-w-screen-2xl mx-auto">
+        <div className="rounded-3xl relative aspect-w-16 aspect-h-12 sm:aspect-h-7 xl:aspect-h-5 overflow-hidden ">
           <NcImage
             containerClassName="absolute inset-0"
-            src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            src={
+              userData.ncUserMeta?.backgroundImage?.sourceUrl ||
+              "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            }
             className="object-cover w-full h-full"
           />
         </div>
@@ -202,10 +244,17 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
               <h2 className="inline-block text-2xl sm:text-3xl md:text-4xl font-semibold">
                 {userData.name}
               </h2>
-              <span className="block text-sm text-neutral-6000 dark:text-neutral-300 md:text-base">
-                {userData.description}
-              </span>
-              <SocialsList />
+              {userData.description ? (
+                <span
+                  className="block text-sm text-neutral-6000 dark:text-neutral-300 md:text-base"
+                  dangerouslySetInnerHTML={{
+                    __html: userData.description || "",
+                  }}
+                ></span>
+              ) : null}
+              {userSocials.length ? (
+                <SocialsList socials={userSocials} />
+              ) : null}
             </div>
           </div>
         </div>
@@ -245,12 +294,6 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
             isCategory={false}
           />
         )}
-        {/* === SECTION 5 === */}
-        {/* <SectionSliderNewAuthors
-            heading="Top elite authors"
-            subHeading="Discover our elite writers"
-            authors={DEMO_AUTHORS.filter((_, i) => i < 10)}
-          /> */}
       </div>
     </div>
   );

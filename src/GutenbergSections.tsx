@@ -1,9 +1,9 @@
 import React from "react";
-import FactoryBlockMagazine from "components/FactorySections/FactoryBlockMagazine";
-import FactoryBlockPostsGrid from "components/FactorySections/FactoryBlockPostsGrid";
-import FactoryBlockPostsSlider from "components/FactorySections/FactoryBlockPostsSlider";
-import FactoryBlockTermsSlider from "components/FactorySections/FactoryBlockTermsSlider";
-import FactoryBlockTermsGrid from "components/FactorySections/FactoryBlockTermsGrid";
+import FactoryBlockMagazine from "containers/FactorySections/FactoryBlockMagazine";
+import FactoryBlockPostsGrid from "containers/FactorySections/FactoryBlockPostsGrid";
+import FactoryBlockPostsSlider from "containers/FactorySections/FactoryBlockPostsSlider";
+import FactoryBlockTermsSlider from "containers/FactorySections/FactoryBlockTermsSlider";
+import FactoryBlockTermsGrid from "containers/FactorySections/FactoryBlockTermsGrid";
 import {
   GutenbergApiAttr_BlockTermGrid,
   GutenbergApiAttr_BlockTermSlider,
@@ -17,12 +17,12 @@ import {
   GutenbergApiAttr_BlockWidgetUsers,
   GutenbergApiAttr_BlockWidgetTerms,
 } from "data/gutenbergAttrType";
-import FactoryBlockUsersSlider from "components/FactorySections/FactoryBlockUsersSlider";
-import FactoryBlockUsersGrid from "components/FactorySections/FactoryBlockUsersGrid";
-import FactoryBlockVideos from "components/FactorySections/FactoryBlockVideos";
-import FactoryBlockWidgetPosts from "components/FactorySections/FactoryBlockWidgetPosts";
-import FactoryBlockWidgetUsers from "components/FactorySections/FactoryBlockWidgetUsers";
-import FactoryBlockWidgetTerms from "components/FactorySections/FactoryBlockWidgetTerms";
+import FactoryBlockUsersSlider from "containers/FactorySections/FactoryBlockUsersSlider";
+import FactoryBlockUsersGrid from "containers/FactorySections/FactoryBlockUsersGrid";
+import FactoryBlockVideos from "containers/FactorySections/FactoryBlockVideos";
+import FactoryBlockWidgetPosts from "containers/FactorySections/FactoryBlockWidgetPosts";
+import FactoryBlockWidgetUsers from "containers/FactorySections/FactoryBlockWidgetUsers";
+import FactoryBlockWidgetTerms from "containers/FactorySections/FactoryBlockWidgetTerms";
 
 // DOMS
 const gutenbergDomNodes = document.querySelectorAll(

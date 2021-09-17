@@ -1,9 +1,9 @@
-import { CategoriesNode3 } from "data/postCardType";
+import { CategoriesNode3, TagNode3 } from "data/postCardType";
 import React, { FC } from "react";
 
 export interface TagProps {
   className?: string;
-  tag: CategoriesNode3;
+  tag: TagNode3;
   hideCount?: boolean;
 }
 
