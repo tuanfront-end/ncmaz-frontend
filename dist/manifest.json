@@ -1,33 +1,16 @@
 {
   "src/main.tsx": {
-    "file": "assets/main.6e8f6356.js",
+    "file": "assets/main.2cff5baf.js",
     "src": "src/main.tsx",
     "isEntry": true,
     "imports": [
-      "_vendor.8be0bf4f.js"
+      "_vendor.cb7907aa.js"
     ],
     "css": [
-      "assets/main.d24cea1d.css"
-    ],
-    "assets": [
-      "assets/la-brands-400.c0e32387.eot",
-      "assets/la-brands-400.ff70c9bc.woff2",
-      "assets/la-brands-400.14c63377.woff",
-      "assets/la-brands-400.fbc98702.ttf",
-      "assets/la-brands-400.af7a9c33.svg",
-      "assets/la-regular-400.7dc456f0.eot",
-      "assets/la-regular-400.51ca2c00.woff2",
-      "assets/la-regular-400.7711fabc.woff",
-      "assets/la-regular-400.4b6ab8d0.ttf",
-      "assets/la-regular-400.8606b583.svg",
-      "assets/la-solid-900.8a57f8a9.eot",
-      "assets/la-solid-900.10a68e01.woff2",
-      "assets/la-solid-900.a0d21b2a.woff",
-      "assets/la-solid-900.07ce3559.ttf",
-      "assets/la-solid-900.36bf86c3.svg"
+      "assets/main.98bdf632.css"
     ]
   },
-  "_vendor.8be0bf4f.js": {
-    "file": "assets/vendor.8be0bf4f.js"
+  "_vendor.cb7907aa.js": {
+    "file": "assets/vendor.cb7907aa.js"
   }
 }

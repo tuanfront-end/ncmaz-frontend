@@ -14,7 +14,7 @@ interface Data {
 export interface TabArticlesOnSearchPageProps {
   searchText: string;
   orderByState: string;
-  onUpdateTotal: (total: number) => void;
+  onUpdateTotal: (totalString: string) => void;
 }
 
 const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
@@ -49,7 +49,7 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
     if (typeof data?.posts.pageInfo?.total !== "number") {
       return;
     }
-    onUpdateTotal(data?.posts.pageInfo?.total);
+    onUpdateTotal(`${data?.posts.edges.length} articles` || `0 articles`);
   }, [data]);
 
   const POSTS = data?.posts.edges || [];

@@ -93,11 +93,20 @@ $section = array(
     'subsection' => true,
     'fields'     => array(
         [
+            'id'            => 'nc-search-page-settings--media-background',
+            'type'          => 'media',
+            'url'           => true,
+            'title'         => __('Header Background Image', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'subtitle'      => __('Upload image for header background on search page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'default'       => array(
+                'url' => 'https://chisnghiax.com/ncmaz/static/media/placeholder-large.ed676656.png'
+            ),
+        ],
+        [
             'id' => 'nc-search-page-settings--multi-text-suggestions',
             'type' => 'multi_text',
             'title' => __('Multi Text Option - Lists Suggestions', _NCMAZ_FRONTEND_TEXT_DOMAIN),
             'subtitle' => __('Enter Lists Suggestions text for search page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-
         ]
     ),
 );

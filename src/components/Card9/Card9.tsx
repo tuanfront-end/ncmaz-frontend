@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLikeAndComment";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";

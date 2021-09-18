@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import NcImage from "components/NcImage/NcImage";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import CardAuthor2 from "components/CardAuthor2/CardAuthor2";

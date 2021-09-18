@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLikeAndComment";
 import CardAuthor2 from "components/CardAuthor2/CardAuthor2";

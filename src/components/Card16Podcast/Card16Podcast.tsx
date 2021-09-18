@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLikeAndComment";
 import musicWave from "images/musicWave.png";

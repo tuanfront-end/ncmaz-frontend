@@ -23,7 +23,7 @@ interface Edge {
 
 export interface TabAuthorsOnSearchPageProps {
   searchText: string;
-  onUpdateTotal: (total: number) => void;
+  onUpdateTotal: (totalString: string) => void;
 }
 
 const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
@@ -56,7 +56,7 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
     if (typeof data?.users.pageInfo?.total !== "number") {
       return;
     }
-    onUpdateTotal(data?.users.pageInfo?.total);
+    onUpdateTotal(`${data?.users.edges.length} authors` || `0 authors`);
   }, [data]);
 
   // Function to update the query with the new results

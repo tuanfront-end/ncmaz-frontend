@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import PostCardMetaV2 from "components/PostCardMeta/PostCardMetaV2";

@@ -143,6 +143,18 @@ export interface TagNode3 {
   __typename: string;
 }
 
+export interface TermNode {
+  id: string;
+  link: string;
+  name: string;
+  uri: string;
+  slug: string;
+  count: number;
+  databaseId: number;
+  ncTaxonomyMeta: NcTaxonomyMeta;
+  __typename: string;
+}
+
 export interface NcTaxonomyMeta {
   color?: string;
   featuredImage?: {

@@ -1,25 +1,3 @@
-export interface Comments {
-  edges: Edge[];
-  pageInfo: PageInfo;
-}
-
-export interface Edge {
-  node: CommentNode;
-}
-
-export interface CommentNode {
-  parentId?: string;
-  parentDatabaseId: number;
-  isRestricted: boolean;
-  approved: boolean;
-  author: Author;
-  commentId: number;
-  content: string;
-  databaseId: number;
-  date: string;
-  type: string;
-}
-
 export interface Author {
   node: Node2;
 }

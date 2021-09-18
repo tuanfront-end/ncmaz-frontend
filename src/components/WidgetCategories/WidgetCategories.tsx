@@ -29,7 +29,7 @@ const WidgetCategories: FC<WidgetCategoriesProps> = ({
           />
         );
       case "tag-card":
-        return <Tag className="mr-2 mb-2" key={index} tag={term.node} />;
+        return <Tag className="mr-2 mb-2" key={index} tag={term.node as any} />;
 
       default:
         return null;

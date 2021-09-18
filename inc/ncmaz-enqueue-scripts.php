@@ -1,5 +1,5 @@
 <?php
-
+// =================================================================================
 $script = 'script';
 $tag = '_loader_tag';
 add_filter(
@@ -9,31 +9,24 @@ add_filter(
     3
 );
 
+
+
 function addModuleTypeForScripts($tag, $handle, $src)
 {
-    if ('@vite-client-js' === $handle || $handle === 'ncmaz-frontend-src-main-tsx') {
+    if (
+        '@vite-client-js' === $handle ||
+        $handle === 'ncmaz-frontend-src-main-tsx' ||
+        boolval(preg_match(
+            '/^edentuan-xxx-vitejs-module--/',
+            $handle,
+        ))
+    ) {
         return  $tag = '<script id="' . esc_attr($handle) . '" type="module" src="' . esc_url($src) . '"></script>';
     }
     return $tag;
 }
+// =================================================================================
 
-
-// --------------------------------------------------------------------------------------
-function ncmaz_frontend_enqueue_script($hook)
-{
-    echo '<script type="module">
-    import RefreshRuntime from "http://localhost:3000/@react-refresh"
-    RefreshRuntime.injectIntoGlobalHook(window)
-    window.$RefreshReg$ = () => {}
-    window.$RefreshSig$ = () => (type) => type
-    window.__vite_plugin_react_preamble_installed__ = true
-</script>';
-
-    wp_enqueue_script('@vite-client-js', 'http://localhost:3000/@vite/client', [], null, true);
-    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:3000/src/main.tsx', [], null, true);
-}
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
-// --------------------------------------------------------------------------------------
 
 
 function getCurrentUserGraphql()
@@ -159,32 +152,31 @@ add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_scripts_2');
 // 
 // 
 
-// add_action('wp_enqueue_scripts', 'registerScripts');
+add_action('wp_enqueue_scripts', 'registerScripts');
 function registerScripts()
 {
     $dirJS = [];
     // WILL ENABLE WHEN DEPLOY BUILD PRODUCT
-    if (file_exists(plugin_dir_path(__FILE__) . 'dist/assets')) {
-        $dirJS = new DirectoryIterator(plugin_dir_path(__FILE__) . 'dist/assets');
+    if (file_exists(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets')) {
+        $dirJS = new DirectoryIterator(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets');
     }
     foreach ($dirJS as $file) {
-        // if (pathinfo($file, PATHINFO_EXTENSION) === 'js' && preg_match('/^main./', pathinfo($file, PATHINFO_FILENAME))) {
         if (pathinfo($file, PATHINFO_EXTENSION) === 'js') {
             $fullName = basename($file);
-            $name = _NCMAZ_FRONTEND_PREFIX . substr(basename($fullName), 0, strpos(basename($fullName), '.'));
+            $name = 'edentuan-xxx-vitejs-module--' . _NCMAZ_FRONTEND_PREFIX . substr(basename($fullName), 0, strpos(basename($fullName), '.'));
             wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/assets/' . $fullName, [], _NCMAZ_FRONTEND_VERSION, true);
         }
     }
 }
 
 
-// add_action('wp_enqueue_scripts', 'registerStyles');
+add_action('wp_enqueue_scripts', 'registerStyles');
 function registerStyles()
 {
     $dirCSS = [];
     // WILL ENABLE WHEN DEPLOY BUILD
-    if (file_exists(plugin_dir_path(__FILE__) . 'dist/assets')) {
-        $dirCSS = new DirectoryIterator(plugin_dir_path(__FILE__) . 'dist/assets');
+    if (file_exists(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets')) {
+        $dirCSS = new DirectoryIterator(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets');
     }
 
     foreach ($dirCSS as $file) {
@@ -196,4 +188,20 @@ function registerStyles()
     }
 }
 
-// =============
+
+// --------------------------------------------------------------------------------------
+function ncmaz_frontend_enqueue_script($hook)
+{
+    echo '<script type="module">
+    import RefreshRuntime from "http://localhost:3000/@react-refresh"
+    RefreshRuntime.injectIntoGlobalHook(window)
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+</script>';
+
+    wp_enqueue_script('@vite-client-js', 'http://localhost:3000/@vite/client', [], null, true);
+    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:3000/src/main.tsx', [], null, true);
+}
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+// --------------------------------------------------------------------------------------

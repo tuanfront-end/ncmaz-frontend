@@ -15,12 +15,16 @@ import TabCategoriesOnSearchPage from "./TabCategoriesOnSearchPage";
 import TabArticlesOnSearchPage from "./TabArticlesOnSearchPage";
 import TabTagsOnSearchPage from "./TabTagsOnSearchPage";
 import TabAuthorsOnSearchPage from "./TabAuthorsOnSearchPage";
+import Skeleton from "react-loading-skeleton";
 
 export interface PageSearchProps {
   className?: string;
   searchQuery: string;
   sectionCategoriesTrending: SectionCategoriesTrendingArchivePageOption;
   listSuggestions: string[];
+  headerBackgroundImg: {
+    url?: string;
+  };
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
@@ -36,6 +40,7 @@ const PageSearch: FC<PageSearchProps> = ({
   sectionCategoriesTrending,
   searchQuery,
   listSuggestions,
+  headerBackgroundImg,
 }) => {
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
   const [tabActive, setTabActive] = useState<TabType>(TABS[0]);
@@ -78,7 +83,10 @@ const PageSearch: FC<PageSearchProps> = ({
         <div className="rounded-3xl relative aspect-w-16 aspect-h-12 sm:aspect-h-7 xl:aspect-h-5 overflow-hidden ">
           <NcImage
             containerClassName="absolute inset-0"
-            src="https://images.pexels.com/photos/2138922/pexels-photo-2138922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            src={
+              headerBackgroundImg.url ||
+              `https://images.pexels.com/photos/2138922/pexels-photo-2138922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`
+            }
             className="object-cover w-full h-full"
           />
         </div>
@@ -87,18 +95,19 @@ const PageSearch: FC<PageSearchProps> = ({
           <div className=" bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 p-5 lg:p-16 rounded-[40px] shadow-2xl flex items-center">
             <header className="w-full max-w-3xl mx-auto text-center flex flex-col items-center">
               <h2 className="text-2xl sm:text-4xl font-semibold">
-                {searchText}
+                {searchText ? searchText : `" "`}
               </h2>
-              <span className="block text-xs sm:text-sm mt-4 text-neutral-500 dark:text-neutral-300">
-                <strong className="font-medium text-neutral-800 dark:text-neutral-100">
-                  {totalCountResultString}
-                </strong>{" "}
-                were found for keyword{" "}
-                <strong className="font-medium text-neutral-800 dark:text-neutral-100">
-                  '{searchText}'
-                </strong>{" "}
-                in this case
-              </span>
+
+              {totalCountResultString ? (
+                <div
+                  className="text-xs sm:text-sm mt-4 text-neutral-500 dark:text-neutral-300"
+                  dangerouslySetInnerHTML={{ __html: totalCountResultString }}
+                ></div>
+              ) : (
+                <div className="flex-shrink w-full max-w-md mt-4 text-sm">
+                  <Skeleton />
+                </div>
+              )}
               <form
                 className="relative w-full mt-8 sm:mt-11 text-left"
                 method="post"
@@ -142,6 +151,7 @@ const PageSearch: FC<PageSearchProps> = ({
                     <span className="mr-2.5 text-neutral-700">
                       Suggestions:
                     </span>
+
                     {listSuggestions.map((item, index) => (
                       <p
                         key={index}
@@ -162,41 +172,47 @@ const PageSearch: FC<PageSearchProps> = ({
   };
 
   const renderContent = () => {
+    let s = ` were found for keyword <strong>${searchText || `" "`}</strong>`;
     switch (tabActive) {
       case "Articles":
         return (
           <TabArticlesOnSearchPage
             orderByState={orderByState}
             searchText={searchText}
-            onUpdateTotal={(total) =>
-              setTotalCountResultString(`${total} ${tabActive}`)
-            }
+            onUpdateTotal={(totalString) => {
+              s = `<strong>${totalString}</strong>` + s;
+              setTotalCountResultString(s);
+            }}
           />
         );
       case "Categories":
         return (
           <TabCategoriesOnSearchPage
-            onUpdateTotal={(total) =>
-              setTotalCountResultString(`${total} ${tabActive}`)
-            }
+            onUpdateTotal={(totalString) => {
+              s = `<strong>${totalString}</strong>` + s;
+              setTotalCountResultString(s);
+            }}
             searchText={searchText}
           />
         );
       case "Tags":
         return (
           <TabTagsOnSearchPage
-            onUpdateTotal={(total) =>
-              setTotalCountResultString(`${total} ${tabActive}`)
-            }
+            onUpdateTotal={(totalString) => {
+              s = `<strong>${totalString}</strong>` + s;
+              setTotalCountResultString(s);
+            }}
             searchText={searchText}
           />
         );
       case "Authors":
         return (
           <TabAuthorsOnSearchPage
-            onUpdateTotal={(total) =>
-              setTotalCountResultString(`${total} ${tabActive}`)
-            }
+            onUpdateTotal={(totalString) => {
+              s = `<strong>${totalString}</strong>` + s;
+              setTotalCountResultString(s);
+              setTotalCountResultString(s);
+            }}
             searchText={searchText}
           />
         );

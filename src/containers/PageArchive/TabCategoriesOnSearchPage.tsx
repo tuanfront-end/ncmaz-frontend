@@ -23,7 +23,7 @@ interface Edge {
 
 export interface TabCategoriesOnSearchPageProps {
   searchText: string;
-  onUpdateTotal: (total: number) => void;
+  onUpdateTotal: (totalString: string) => void;
 }
 
 const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
@@ -53,10 +53,13 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
   });
 
   useEffect(() => {
-    if (typeof data?.categories.pageInfo?.total !== "number") {
+    if (!data?.categories) {
       return;
     }
-    onUpdateTotal(data?.categories.pageInfo?.total);
+    const s = data.categories.pageInfo.hasNextPage
+      ? `${data?.categories.edges.length}+ categories`
+      : `${data?.categories.edges.length} categories`;
+    onUpdateTotal(s);
   }, [data]);
 
   // Function to update the query with the new results

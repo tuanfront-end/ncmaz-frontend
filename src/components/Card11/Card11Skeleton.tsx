@@ -1,13 +1,5 @@
 import React, { FC, useState } from "react";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
-import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
-import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLikeAndComment";
-import PostCardMeta from "components/PostCardMeta/PostCardMeta";
-import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
-import { PostNode } from "data/postCardType";
 import NcImage from "components/NcImage/NcImage";
-import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
-import PostCardReadingTime from "components/PostCardReadingTime/PostCardReadingTime";
 import Skeleton from "react-loading-skeleton";
 
 export interface Card11SkeletonProps {

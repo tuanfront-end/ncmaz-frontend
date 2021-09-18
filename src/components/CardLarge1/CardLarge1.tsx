@@ -1,5 +1,4 @@
 import { Transition } from "@headlessui/react";
-import PostCardSaveAction from "components/PostCardSaveAction/PostCardSaveAction";
 import NcImage from "components/NcImage/NcImage";
 import NextPrev from "components/NextPrev/NextPrev";
 import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLikeAndComment";
