@@ -21,6 +21,10 @@
   will-change: top;
 }
 
+.z-max {
+  z-index: 9999999999999999999999999;
+}
+
 //
 .nc-card-title {
   @apply transition-colors  hover:text-primary-900 dark:hover:text-primary-300 duration-75;

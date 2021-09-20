@@ -41,7 +41,6 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
               containerClassName="absolute inset-0"
               className="object-cover w-full h-full rounded-xl"
               src={PHOTOS[0]}
-              prevImageHorizontal
             />
             <div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity"></div>
           </div>
@@ -56,7 +55,6 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
                 containerClassName="aspect-w-6 aspect-h-5"
                 className="object-cover w-full h-full rounded-xl "
                 src={item || ""}
-                prevImageHorizontal
               />
 
               {/* OVERLAY */}

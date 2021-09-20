@@ -40,7 +40,6 @@ const Card2: FC<Card2Props> = ({
     >
       <span className="block flex-shrink-0 flex-grow relative w-full h-0 pt-[75%] sm:pt-[55%] rounded-xl sm:rounded-b-none overflow-hidden">
         <NcImage
-          prevImageHorizontal
           containerClassName="absolute inset-0"
           src={isSkeleton ? "." : featuredImage?.node.sourceUrl}
           alt={title}

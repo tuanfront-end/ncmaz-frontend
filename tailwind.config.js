@@ -66,6 +66,7 @@ module.exports = {
       // NCMAZ-CORE PLUGIN -----
       // "../ncmaz-core/src/**/*.{js,jsx}",
       // THEME -----
+      "../../themes/ncmaz/assets/**/*.{js,jsx,ts,tsx}",
       "../../themes/ncmaz/*.php",
       "../../themes/ncmaz/inc/**/*.php",
       "../../themes/ncmaz/template-parts/**/*.php",

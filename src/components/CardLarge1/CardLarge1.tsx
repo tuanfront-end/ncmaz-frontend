@@ -81,7 +81,6 @@ const CardLarge1: FC<CardLarge1Props> = ({
       >
         <a href={link}>
           <NcImage
-            prevImageHorizontal
             containerClassName="aspect-w-16 aspect-h-12 sm:aspect-h-9 md:aspect-h-14 lg:aspect-h-10 2xl:aspect-h-9 relative"
             className="absolute inset-0 object-cover rounded-3xl"
             src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}

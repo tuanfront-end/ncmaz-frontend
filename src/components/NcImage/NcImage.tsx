@@ -10,7 +10,6 @@ import PlaceIcon from "./PlaceIcon";
 
 export interface NcImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   containerClassName?: string;
-  prevImageHorizontal?: boolean;
 }
 
 const NcImage: FC<NcImageProps> = ({

@@ -3,6 +3,7 @@ import HeaderSingleGallery from "components/HeaderSingleGallery/HeaderSingleGall
 import HeaderSingleVideo from "components/HeaderSingleVideo/HeaderSingleVideo";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 import SocialsShare from "components/SocialsShare/SocialsShare";
+import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
 import PageArchive from "containers/PageArchive/PageArchive";
 import PageArchiveAuthor from "containers/PageArchive/PageArchiveAuthor";
 import PageArchiveDate from "containers/PageArchive/PageArchiveDate";
@@ -28,9 +29,10 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
     if (!dom || !conponentName) {
       return null;
     }
-    let componentProps = JSON.parse(
-      dom.getAttribute("data-component-props") || ""
-    );
+
+    let componentProps = dom.getAttribute("data-component-props")
+      ? JSON.parse(dom.getAttribute("data-component-props") || "")
+      : {};
     if (typeof componentProps !== "object") {
       componentProps = [];
     }
@@ -92,6 +94,12 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
 
       case "PageSearch":
         return ReactDOM.createPortal(<PageSearch {...componentProps} />, dom);
+
+      case "SwitchDarkMode":
+        return ReactDOM.createPortal(
+          <SwitchDarkMode {...componentProps} />,
+          dom
+        );
 
       default:
         return null;
