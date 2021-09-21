@@ -28,6 +28,7 @@
 //
 .nc-card-title {
   @apply transition-colors  hover:text-primary-900 dark:hover:text-primary-300 duration-75;
+  overflow-wrap: break-word;
 }
 
 //
@@ -254,5 +255,17 @@ div {
   .wp-block {
     margin-top: 0;
     margin-bottom: 0;
+  }
+}
+
+//
+.nc-Card11 {
+  .nc-card-title {
+    overflow-wrap: break-word;
+  }
+  .nc-CategoryBadgeList {
+    > a {
+      @apply mr-2 my-1 transition-colors hover:text-white duration-300 relative inline-flex px-2.5 py-1 rounded-full font-medium text-xs text-red-800 bg-red-100 hover:bg-red-800;
+    }
   }
 }

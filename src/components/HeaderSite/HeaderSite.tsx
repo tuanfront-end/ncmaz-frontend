@@ -1,3 +1,4 @@
+import useWindowSize from "hooks/useWindowSize";
 import React, { useState, useEffect } from "react";
 
 // COMPOnent nay muc dich chi hide/show header va action voi single header
@@ -18,9 +19,17 @@ const HeaderSite = () => {
     ".nc-SingleHeaderMenu__progress-bar"
   );
 
-  const wpadminbarRef: HTMLDivElement | null =
+  let wpadminbarRef: HTMLDivElement | null =
     document.querySelector("#wpadminbar");
   //
+
+  const windowSize = useWindowSize();
+
+  if (windowSize.width <= 600) {
+    wpadminbarRef = null;
+  } else {
+    wpadminbarRef = document.querySelector("#wpadminbar");
+  }
 
   let prevScrollpos = window.pageYOffset;
   //
@@ -65,7 +74,7 @@ const HeaderSite = () => {
     window.onscroll = function () {
       showHideHeaderMenu(mainMenuHeight);
     };
-  }, []);
+  }, [windowSize.width]);
 
   useEffect(() => {
     if (showSingleMenu) {

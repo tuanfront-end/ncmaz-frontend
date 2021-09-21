@@ -53,19 +53,25 @@ Redux::set_section($opt_name, $section);
 
 // ===========================GENERAL SETTING__SUB2 SOCIALS ========================
 $section = array(
-    'title'      => esc_html__('Text Area', 'your-textdomain-here'),
-    'desc'       => esc_html__('For full documentation on this field, visit: ', 'your-textdomain-here') . '<a href="https://devs.redux.io/core-fields/textarea.html" target="_blank">https://devs.redux.io/core-fields/textarea.html</a>',
-    'id'         => 'opt-textarea-subsection',
+    'title'      => esc_html__('Mobile sidebar menu', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'desc'       => esc_html__('All setting for Mobile sidebar menu', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'id'         => 'nc-general-settings--mobile-menu',
     'subsection' => true,
     'fields'     => array(
-        array(
-            'id'       => 'textarea-example',
-            'type'     => 'textarea',
-            'title'    => esc_html__('Text Area Field', 'your-textdomain-here'),
-            'subtitle' => esc_html__('Subtitle', 'your-textdomain-here'),
-            'desc'     => esc_html__('Field Description', 'your-textdomain-here'),
+        [
+            'id'       => 'nc-general-settings--mobile-menu-btn-foot-text',
+            'type'     => 'text',
+            'title'    => esc_html__('Button footer', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'subtitle'    => esc_html__('Enter text for button on footer menu', _NCMAZ_FRONTEND_TEXT_DOMAIN),
             'default'  => 'Default Text',
-        ),
+        ],
+        [
+            'id'       => 'nc-general-settings--mobile-menu-btn-foot-link',
+            'type'     => 'text',
+            'title'    => esc_html__('Button footer link', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'default'  => '#',
+        ],
+
     ),
 );
 Redux::set_section($opt_name, $section);

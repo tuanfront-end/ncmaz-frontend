@@ -30,6 +30,8 @@ require plugin_dir_path(__FILE__) . 'inc/ncmaz-update-views-count.php';
 //  
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-wpgraphql.php';
 //  
+require plugin_dir_path(__FILE__) . 'inc/ncmaz-register-widgets.php';
+//  
 //  
 /**
  * Change the Favorites loading indicator

@@ -43,7 +43,9 @@ const HeaderFactory = () => {
     return (
       <>
         <div className="items-center flex space-x-2.5 sm:space-x-1">
-          {isShowDarkmode !== "0" && <SwitchDarkMode />}
+          {isShowDarkmode !== "0" && (
+            <SwitchDarkMode className="sm:w-12 h-12" />
+          )}
           <SearchDropdown />
           <div className="px-1 hidden sm:block" />
           <ButtonPrimary href="/login">Sign up</ButtonPrimary>
