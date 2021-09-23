@@ -19,7 +19,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
   ratio = "aspect-w-3 xl:aspect-w-4 aspect-h-3",
 }) => {
   const { title, link, categories, excerpt, featuredImage, postFormats } = post;
-  const postFormatName = postFormats.edges[0]?.node.name;
+  const postFormatName = postFormats?.edges[0]?.node.name;
   const renderIcon = (state?: "playing" | "loading") => {
     if (!state) {
       return (

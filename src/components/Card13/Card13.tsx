@@ -51,7 +51,7 @@ const Card13: FC<Card13Props> = ({ className = "", post }) => {
         />
         <PostTypeFeaturedIcon
           className="absolute bottom-2 left-2"
-          postType={postFormats.edges[0]?.node.name}
+          postType={postFormats?.edges[0]?.node.name}
           wrapSize="w-8 h-8"
           iconSize="w-4 h-4"
         />

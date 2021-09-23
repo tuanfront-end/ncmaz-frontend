@@ -31,7 +31,7 @@ const Card7: FC<Card7Props> = ({
     postId,
   } = post;
 
-  const postType = postFormats.edges[0]?.node.name;
+  const postType = postFormats?.edges[0]?.node.name;
   return (
     <div
       className={`nc-Card7 relative flex flex-col group rounded-3xl overflow-hidden ${hoverClass} ${className}`}

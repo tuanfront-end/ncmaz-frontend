@@ -35,10 +35,12 @@ const Card9: FC<Card9Props> = ({
           </h2>
           <div className="flex mt-2.5">
             <span className="block text-neutral-200 hover:text-white font-medium truncate">
-              {author.node.name}
+              {author?.node.name}
             </span>
             <span className="mx-[6px] font-medium">·</span>
-            <span className="font-normal truncate">{ncFormatDate(date)}</span>
+            <span className="font-normal truncate">
+              {ncFormatDate(date || "")}
+            </span>
           </div>
         </a>
       </div>
@@ -55,7 +57,7 @@ const Card9: FC<Card9Props> = ({
         <PostCardDropdownShare panelMenusClass="w-52 right-0 top-0 origin-top-right" />
       </div>
       <div className={`flex items-start relative w-full ${ratio}`}></div>
-      {postFormats.edges[0]?.node.name === "Audio" ? (
+      {postFormats?.edges[0]?.node.name === "Audio" ? (
         <div className="absolute inset-0">
           <PostFeaturedMedia post={post} />
         </div>
@@ -68,7 +70,7 @@ const Card9: FC<Card9Props> = ({
           />
           <PostTypeFeaturedIcon
             className="absolute top-3 left-3 group-hover:hidden"
-            postType={postFormats.edges[0]?.node.name}
+            postType={postFormats?.edges[0]?.node.name}
             wrapSize="w-7 h-7"
             iconSize="w-4 h-4"
           />

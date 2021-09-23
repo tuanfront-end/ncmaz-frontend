@@ -21,7 +21,7 @@ const Card14: FC<Card14Props> = ({
 }) => {
   const { title, link, featuredImage, categories, author, date, postFormats } =
     post;
-  const postType = postFormats.edges[0]?.node.name;
+  const postType = postFormats?.edges[0]?.node.name;
   return (
     <div
       className={`nc-Card14 relative flex flex-col group rounded-3xl overflow-hidden ${hoverClass} ${className}`}
@@ -57,23 +57,25 @@ const Card14: FC<Card14Props> = ({
 
         <div className="p-2 sm:p-2.5 mt-4 sm:mt-5 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full flex items-center text-neutral-50 text-xs sm:text-sm font-medium">
           <a
-            href={frontendObject.homeURL + author.node.uri}
+            href={frontendObject.homeURL + author?.node.uri}
             className="relative flex items-center space-x-2"
           >
             <Avatar
               radius="rounded-full"
               containerClassName="ring-2 ring-white"
               sizeClass="h-7 w-7 text-sm"
-              imgUrl={author.node.avatar?.url}
-              userName={author.node.username}
+              imgUrl={author?.node.avatar?.url}
+              userName={author?.node.username}
             />
             <span className="block text-white truncate">
-              {author.node.name}
+              {author?.node.name}
             </span>
           </a>
           <>
             <span className=" mx-[6px]">·</span>
-            <span className=" font-normal truncate">{ncFormatDate(date)}</span>
+            <span className=" font-normal truncate">
+              {ncFormatDate(date || "")}
+            </span>
           </>
         </div>
       </div>

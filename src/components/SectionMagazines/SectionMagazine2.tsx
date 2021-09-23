@@ -11,7 +11,7 @@ export interface SectionMagazine2Props {
 }
 
 const SectionMagazine2: FC<SectionMagazine2Props> = ({
-  listPosts,
+  listPosts = [],
   isLoading,
 }) => {
   return (

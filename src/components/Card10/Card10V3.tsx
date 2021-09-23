@@ -108,7 +108,7 @@ const Card10V3: FC<Card10V3Props> = ({
     >
       <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-16 sm:aspect-h-9 overflow-hidden">
         <div>
-          {postFormats.edges[0]?.node.name !== "Gallery" &&
+          {postFormats?.edges[0]?.node.name !== "Gallery" &&
           !!galleryImgs?.length ? (
             <PostFeaturedMedia post={post} isHover={isHover} />
           ) : galleryType === 1 ? (

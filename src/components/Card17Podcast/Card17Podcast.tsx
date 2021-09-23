@@ -10,7 +10,7 @@ export interface Card17PodcastProps {
 
 const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
   const { title, link, featuredImage, postFormats } = post;
-  const postFormatName = postFormats.edges[0]?.node.name;
+  const postFormatName = postFormats?.edges[0]?.node.name;
 
   const renderIcon = (state?: "loading" | "playing") => {
     switch (state) {

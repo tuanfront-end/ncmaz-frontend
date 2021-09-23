@@ -28,7 +28,7 @@ const Card3: FC<Card3Props> = ({
     ncPostMetaData,
   } = post;
 
-  const postType = postFormats.edges[0]?.node.name;
+  const postType = postFormats?.edges[0]?.node.name;
 
   return (
     <div

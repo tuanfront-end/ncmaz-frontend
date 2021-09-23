@@ -32,7 +32,7 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
   //
 
   const getMediaUrl = (postData: PostNode) => {
-    const postType = postData.postFormats.edges[0]?.node?.name;
+    const postType = postData.postFormats?.edges[0]?.node?.name;
     if (postType === "Audio") {
       return postData.ncmazAudioUrl.audioUrl;
     }

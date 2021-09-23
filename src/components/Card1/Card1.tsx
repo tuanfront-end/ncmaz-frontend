@@ -21,8 +21,8 @@ const Card1: FC<Card1Props> = ({ className = "", post }) => {
 
       <div className="flex-shrink-0 pt-1 pr-3">
         <Avatar
-          imgUrl={author.node.avatar?.url}
-          userName={author.node.username}
+          imgUrl={author?.node.avatar?.url}
+          userName={author?.node.username}
         />
       </div>
       <div className="flex-grow">

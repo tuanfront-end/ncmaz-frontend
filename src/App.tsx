@@ -7,7 +7,7 @@ import FactoryComponents from "containers/FactoryComponents/FactoryComponents";
 function App() {
   return (
     <>
-      {/* <HeaderFactory /> */}
+      <HeaderFactory />
 
       {/* ------- */}
       <FactoryComponents />

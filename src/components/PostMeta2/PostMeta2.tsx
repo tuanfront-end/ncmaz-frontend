@@ -26,7 +26,7 @@ const PostMeta2: FC<PostMeta2Props> = ({
       data-nc-id="PostMeta2"
     >
       <a
-        href={frontendObject.homeURL + author.node.uri}
+        href={frontendObject.homeURL + author?.node.uri}
         className="flex items-center space-x-2"
       >
         <Avatar
@@ -36,17 +36,17 @@ const PostMeta2: FC<PostMeta2Props> = ({
               ? "h-6 w-6 text-sm"
               : "h-10 w-10 sm:h-11 sm:w-11 text-xl"
           }
-          imgUrl={author.node.avatar?.url}
-          userName={author.node.username}
+          imgUrl={author?.node.avatar?.url}
+          userName={author?.node.username}
         />
       </a>
       <div className="ml-3">
         <div className="flex items-center">
           <a
-            href={frontendObject.homeURL + author.node.uri}
+            href={frontendObject.homeURL + author?.node.uri}
             className="block font-semibold"
           >
-            {author.node.name}
+            {author?.node.name}
           </a>
 
           {!hiddenCategories && (
@@ -54,7 +54,7 @@ const PostMeta2: FC<PostMeta2Props> = ({
               <span className="mx-2 font-semibold">·</span>
               <div className="ml-0">
                 <span className="text-xs">🏷 </span>
-                {categories.edges.map((cat, index) => (
+                {categories?.edges.map((cat, index) => (
                   <a
                     key={cat.node.id}
                     href={cat.node.link}

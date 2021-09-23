@@ -26,10 +26,10 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     ncmazGalleryImgs,
   } = post;
 
-  const postType = postFormats.edges[0]?.node?.name;
+  const postType = postFormats?.edges[0]?.node?.name;
 
   const isPostMedia = () => {
-    if (!postFormats.edges[0]) return false;
+    if (!postFormats?.edges[0]) return false;
     return postType === "Video" || postType === "Audio";
   };
 

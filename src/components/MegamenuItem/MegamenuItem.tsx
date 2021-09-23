@@ -6,6 +6,7 @@ import { ListPosts } from "data/postCardType";
 import Card18 from "components/Card18/Card18";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import Card18Skeleton from "components/Card18/Card18Skeleton";
+import Badge from "components/Badge/Badge";
 
 interface Data {
   posts: ListPosts;
@@ -16,6 +17,9 @@ interface MegaMenuItemTerm {
   link: string;
   name: string;
   slug: string;
+  ncTaxonomyMeta?: {
+    color: string;
+  };
 }
 
 interface MegaMenuItemData {
@@ -144,15 +148,17 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   const renderLeft = () => {
     const { taxonomies } = menuItemData.ncmazMenuCustomFields;
     return (
-      <div className="w-1/5 py-5 flex-shrink-0  ">
+      <div className="w-1/5 py-8 flex-shrink-0  ">
         <div className="flow-root">
-          <ul className="-my-3">
+          <ul className="">
             {(taxonomies || []).map((item) => {
               const isActive = item.categoryId === temrActiveId;
               return (
                 <li
-                  className={`py-2 px-3 ${
-                    isActive ? "bg-neutral-100 dark:bg-neutral-800" : ""
+                  className={`py-2.5 px-3.5 flex items-center !m-0 ${
+                    isActive
+                      ? "bg-neutral-100 dark:bg-neutral-800 border-l-4 border-primary-500"
+                      : ""
                   }`}
                   key={item.categoryId}
                   onMouseEnter={() => handleMoutEnterTerm(item)}

@@ -24,7 +24,6 @@ const Card11: FC<Card11Props> = ({
   const { title, link, categories, date } = post;
 
   const [isHover, setIsHover] = useState(false);
-
   return (
     <div
       className={`nc-Card11 relative flex flex-col group [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}

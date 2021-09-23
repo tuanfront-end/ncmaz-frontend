@@ -11,7 +11,7 @@ export interface Card18Props {
 
 const Card18: FC<Card18Props> = ({ className = "h-full", post }) => {
   const { link, categories, title, featuredImage, postFormats } = post;
-  const postType = postFormats.edges[0]?.node.name;
+  const postType = postFormats?.edges[0]?.node.name;
 
   return (
     <div
@@ -37,9 +37,9 @@ const Card18: FC<Card18Props> = ({ className = "h-full", post }) => {
       <div className="absolute top-1.5 inset-x-1.5 flex justify-between ">
         <Badge
           className={`relative z-10`}
-          name={categories.edges[0]?.node?.name}
-          href={categories.edges[0]?.node?.link}
-          color={categories.edges[0]?.node?.ncTaxonomyMeta.color as any}
+          name={categories?.edges[0]?.node?.name}
+          href={categories?.edges[0]?.node?.link}
+          color={categories?.edges[0]?.node?.ncTaxonomyMeta.color as any}
         />
       </div>
 

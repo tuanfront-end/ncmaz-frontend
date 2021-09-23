@@ -20,7 +20,7 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
       data-nc-id="CategoryBadgeList"
     >
       <div className={`flex flex-wrap space-x-2 -my-1 ${className}`}>
-        {categories.edges.map((item, index) => (
+        {(categories || { edges: [] }).edges.map((item, index) => (
           <Badge
             className={`relative my-1 ${itemClass}`}
             key={index}

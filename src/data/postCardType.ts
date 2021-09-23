@@ -12,13 +12,13 @@ interface Post {
 export interface PostNode {
   id: string;
   link: string;
-  author: Author;
-  categories: Categories;
-  commentCount: any;
-  date: string;
-  excerpt: string;
+  author?: Author;
+  categories?: Categories;
+  commentCount?: any;
+  date?: string;
+  excerpt?: string;
   featuredImage?: FeaturedImage;
-  postFormats: PostFormats;
+  postFormats?: PostFormats;
   postId: number;
   slug: string;
   title: string;

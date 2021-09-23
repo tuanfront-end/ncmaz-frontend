@@ -13,7 +13,7 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
   post,
 }) => {
   const { title, link, featuredImage, postFormats } = post;
-  const postFormatName = postFormats.edges[0]?.node.name;
+  const postFormatName = postFormats?.edges[0]?.node.name;
 
   const renderIcon = (state?: "loading" | "playing") => {
     switch (state) {
