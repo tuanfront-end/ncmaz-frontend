@@ -1,33 +1,40 @@
 import Card2 from "components/Card2/Card2";
+import Card2Skeleton from "components/Card2/Card2Skeleton";
 import Card9 from "components/Card9/Card9";
+import Card9Skeleton from "components/Card9/Card9Skeleton";
 import { ListPosts } from "data/postCardType";
 import React, { FC } from "react";
 
 export interface SectionMagazine3Props {
-  activePosts: ListPosts["edges"];
+  listPosts: ListPosts["edges"];
   isLoading?: boolean;
 }
 
 const SectionMagazine3: FC<SectionMagazine3Props> = ({
-  activePosts,
+  listPosts,
   isLoading,
 }) => {
   return (
     <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
-      {activePosts[0] && (
-        <Card2 isSkeleton={isLoading} size="large" post={activePosts[0].node} />
-      )}
+      {isLoading ? (
+        <Card2Skeleton />
+      ) : listPosts[0] ? (
+        <Card2 size="large" post={listPosts[0].node} />
+      ) : null}
       <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
-        {activePosts
-          .filter((_, i) => i < 5 && i >= 1)
-          .map((item, index) => (
-            <Card9
-              isSkeleton={isLoading}
-              ratio="aspect-w-3 aspect-h-3"
-              key={index}
-              post={item.node}
-            />
-          ))}
+        {isLoading
+          ? [1, 1, 1, 1].map((_, index) => (
+              <Card9Skeleton ratio="aspect-w-3 aspect-h-3" key={index} />
+            ))
+          : listPosts
+              .filter((_, i) => i < 5 && i >= 1)
+              .map((item, index) => (
+                <Card9
+                  ratio="aspect-w-3 aspect-h-3"
+                  key={index}
+                  post={item.node}
+                />
+              ))}
       </div>
     </div>
   );

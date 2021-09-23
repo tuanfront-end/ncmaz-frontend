@@ -11,7 +11,6 @@ export interface Card7Props {
   post: PostNode;
   hoverClass?: string;
   ratio?: string;
-  isSkeleton?: boolean;
 }
 
 const Card7: FC<Card7Props> = ({
@@ -19,7 +18,6 @@ const Card7: FC<Card7Props> = ({
   ratio = "aspect-w-5 aspect-h-5 sm:aspect-h-7",
   post,
   hoverClass = "",
-  isSkeleton,
 }) => {
   const {
     title,
@@ -50,7 +48,7 @@ const Card7: FC<Card7Props> = ({
         <NcImage
           containerClassName="absolute inset-0 overflow-hidden"
           className="object-cover w-full h-full rounded-3xl "
-          src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
+          src={featuredImage?.node.sourceUrl || "."}
         />
         <PostTypeFeaturedIcon
           className="absolute top-3 left-3"

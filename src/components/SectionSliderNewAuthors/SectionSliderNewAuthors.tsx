@@ -6,15 +6,19 @@ import CardAuthorBox2 from "components/CardAuthorBox2/CardAuthorBox2";
 import NextPrev from "components/NextPrev/NextPrev";
 import { AuthorNode } from "data/postCardType";
 import CardAuthorBox from "components/CardAuthorBox/CardAuthorBox";
+import CardAuthorBoxSkeleton from "components/CardAuthorBox/CardAuthorBoxSkeleton";
+import CardAuthorBox2Skeleton from "components/CardAuthorBox2/CardAuthorBox2Skeleton";
 
 export interface SectionSliderNewAuthorsProps {
   className?: string;
   heading: string;
   subHeading: string;
   authorNodes: { node: AuthorNode }[];
+  authorNodesLoading: any[];
   itemPerView: number;
   authorCardName: "card1" | "card2";
   blockLayoutStyle: "layout-1" | "layout-2";
+  isLoading?: boolean;
 }
 
 const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
@@ -25,6 +29,8 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
   itemPerView = 5,
   authorCardName,
   blockLayoutStyle,
+  isLoading,
+  authorNodesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1],
 }) => {
   const UNIQUE_CLASS = "glide_" + ncNanoId();
 
@@ -87,6 +93,31 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
     }
   };
 
+  const renderCardSkeleton = () => {
+    switch (authorCardName) {
+      case "card1":
+        return (
+          <CardAuthorBoxSkeleton
+            className={!isLayout2 ? "" : "hover:!shadow-none"}
+          />
+        );
+
+      case "card2":
+        return (
+          <CardAuthorBox2Skeleton
+            className={!isLayout2 ? "" : "hover:!shadow-none"}
+          />
+        );
+
+      default:
+        return (
+          <CardAuthorBox2Skeleton
+            className={!isLayout2 ? "" : "hover:!shadow-none"}
+          />
+        );
+    }
+  };
+
   return (
     <div className={`nc-SectionSliderNewAuthors ${className}`}>
       <div className={`${UNIQUE_CLASS}`}>
@@ -99,14 +130,27 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
         </Heading>
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
-            {authorNodes.map((item, index) => (
-              <li
-                key={index}
-                className={`glide__slide ${!isLayout2 ? "pb-12 md:pb-16" : ""}`}
-              >
-                {renderCard(item.node)}
-              </li>
-            ))}
+            {isLoading
+              ? authorNodesLoading.map((_, index) => (
+                  <li
+                    key={index}
+                    className={`glide__slide ${
+                      !isLayout2 ? "pb-12 md:pb-16" : ""
+                    }`}
+                  >
+                    {renderCardSkeleton()}
+                  </li>
+                ))
+              : authorNodes.map((item, index) => (
+                  <li
+                    key={index}
+                    className={`glide__slide ${
+                      !isLayout2 ? "pb-12 md:pb-16" : ""
+                    }`}
+                  >
+                    {renderCard(item.node)}
+                  </li>
+                ))}
           </ul>
         </div>
         {!isLayout2 && (

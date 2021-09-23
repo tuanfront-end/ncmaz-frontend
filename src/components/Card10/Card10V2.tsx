@@ -3,20 +3,14 @@ import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import PostCardMetaV2 from "components/PostCardMeta/PostCardMetaV2";
 import { PostNode } from "data/postCardType";
-import NcImage from "components/NcImage/NcImage";
 import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
 
 export interface Card10V2Props {
   className?: string;
-  isSkeleton?: boolean;
   post: PostNode;
 }
 
-const Card10V2: FC<Card10V2Props> = ({
-  className = "h-full",
-  post,
-  isSkeleton,
-}) => {
+const Card10V2: FC<Card10V2Props> = ({ className = "h-full", post }) => {
   const { link, categories, ncPostMetaData, postId } = post;
   const [isHover, setIsHover] = useState(false);
   return (
@@ -27,13 +21,9 @@ const Card10V2: FC<Card10V2Props> = ({
       onMouseLeave={() => setIsHover(false)}
     >
       <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden">
-        {isSkeleton ? (
-          <NcImage src="." />
-        ) : (
-          <div>
-            <PostFeaturedMedia post={post} isHover={isHover} />
-          </div>
-        )}
+        <div>
+          <PostFeaturedMedia post={post} isHover={isHover} />
+        </div>
 
         <a
           href={link}

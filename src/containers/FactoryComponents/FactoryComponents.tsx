@@ -2,6 +2,7 @@ import HeaderSingleAudio from "components/HeaderSingleAudio/HeaderSingleAudio";
 import HeaderSingleGallery from "components/HeaderSingleGallery/HeaderSingleGallery";
 import HeaderSingleVideo from "components/HeaderSingleVideo/HeaderSingleVideo";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
+import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
 import PageArchive from "containers/PageArchive/PageArchive";
@@ -98,6 +99,12 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "SwitchDarkMode":
         return ReactDOM.createPortal(
           <SwitchDarkMode {...componentProps} />,
+          dom
+        );
+
+      case "SearchDropdown":
+        return ReactDOM.createPortal(
+          <SearchDropdown {...componentProps} />,
           dom
         );
 

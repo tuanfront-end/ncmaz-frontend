@@ -34,7 +34,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
             sizeClass={
               size === "normal" ? "h-7 w-7 text-sm" : "h-10 w-10 text-xl"
             }
-            imgUrl={author.node.avatar.url}
+            imgUrl={author?.node?.avatar?.url}
             userName={author.node.username}
           />
         )}

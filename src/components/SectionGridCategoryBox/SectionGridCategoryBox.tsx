@@ -1,8 +1,11 @@
 import CardCategory2 from "components/CardCategory2/CardCategory2";
 import CardCategory2Skeleton from "components/CardCategory2/CardCategory2Skeleton";
 import CardCategory3 from "components/CardCategory3/CardCategory3";
+import CardCategory3Skeleton from "components/CardCategory3/CardCategory3Skeleton";
 import CardCategory4 from "components/CardCategory4/CardCategory4";
+import CardCategory4Skeleton from "components/CardCategory4/CardCategory4Skeleton";
 import CardCategory5 from "components/CardCategory5/CardCategory5";
+import CardCategory5Skeleton from "components/CardCategory5/CardCategory5Skeleton";
 import Heading from "components/Heading/Heading";
 import { CategoriesEdge2 } from "data/postCardType";
 import React from "react";
@@ -29,11 +32,18 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
   gridClass = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
   isLoadingSkeleton,
   isLoadingSkeletonArr = Array.from("iiiiiiiiii"),
-}) => {
+} ) => {
+  
   const renderCardSkeleton = (_: any, index: number) => {
     switch (categoryCardType) {
       case "card2":
         return <CardCategory2Skeleton key={index} />;
+      case "card3":
+        return <CardCategory3Skeleton key={index} />;
+      case "card4":
+        return <CardCategory4Skeleton key={index} />;
+      case "card5":
+        return <CardCategory5Skeleton key={index} />;
 
       default:
         return <CardCategory2Skeleton key={index} />;

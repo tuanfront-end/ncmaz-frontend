@@ -29,82 +29,60 @@ const gutenbergDomNodes = document.querySelectorAll(
   "[data-nc-gutenberg-section=true]"
 );
 
-// block-magazine
-const blockMagazines = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") === "block-magazine"
-);
+let blockMagazines: Element[] = [];
+let blockPostsSlider: Element[] = [];
+let blockPostsGrid: Element[] = [];
+let blockTermsSlider: Element[] = [];
+let blockTermsGrid: Element[] = [];
+let blockUserSlider: Element[] = [];
+let blockUserGrid: Element[] = [];
+let blockVideos: Element[] = [];
+let blockWidgetPosts: Element[] = [];
+let blockWidgetUsers: Element[] = [];
+let blockWidgetTerms: Element[] = [];
 
-// block-posts-slider
-const blockPostsSlider = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-posts-slider"
-);
+Array.from(gutenbergDomNodes).map((item) => {
+  const attrSectionType =
+    item.getAttribute("data-nc-gutenberg-section-type") || "";
 
-// block-posts-grid
-const blockPostsGrid = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-posts-grid"
-);
-
-// =====================TERMS========================================
-// block-terms-slider
-const blockTermsSlider = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-terms-slider"
-);
-// block-terms-grid
-const blockTermsGrid = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-terms-grid"
-);
-
-//
-// =====================USERS========================================
-// block-use slider
-const blockUserSlider = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-users-slider"
-);
-// block-user grid
-const blockUserGrid = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-users-grid"
-);
-//
-
-// =====================VIDEOS========================================
-// block-use slider
-const blockVideos = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") === "block-videos"
-);
-
-// =====================WIDGETS========================================
-// block-use slider
-const blockWidgetPosts = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-widget-posts"
-);
-// block-use slider
-const blockWidgetUsers = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-widget-users"
-);
-// block-use slider
-const blockWidgetTerms = Array.from(gutenbergDomNodes).filter(
-  (selector) =>
-    selector.getAttribute("data-nc-gutenberg-section-type") ===
-    "block-widget-terms"
-);
+  switch (attrSectionType) {
+    case "block-magazine":
+      blockMagazines = [...blockMagazines, item];
+      break;
+    case "block-posts-slider":
+      blockPostsSlider = [...blockPostsSlider, item];
+      break;
+    case "block-posts-grid":
+      blockPostsGrid = [...blockPostsGrid, item];
+      break;
+    case "block-terms-slider":
+      blockTermsSlider = [...blockTermsSlider, item];
+      break;
+    case "block-terms-grid":
+      blockTermsGrid = [...blockTermsGrid, item];
+      break;
+    case "block-users-slider":
+      blockUserSlider = [...blockUserSlider, item];
+      break;
+    case "block-users-grid":
+      blockUserGrid = [...blockUserGrid, item];
+      break;
+    case "block-videos":
+      blockVideos = [...blockVideos, item];
+      break;
+    case "block-widget-posts":
+      blockWidgetPosts = [...blockWidgetPosts, item];
+      break;
+    case "block-widget-users":
+      blockWidgetUsers = [...blockWidgetUsers, item];
+      break;
+    case "block-widget-terms":
+      blockWidgetTerms = [...blockWidgetTerms, item];
+      break;
+    default:
+      break;
+  }
+});
 
 const GutenbergSections = () => {
   return (
@@ -273,6 +251,7 @@ const GutenbergSections = () => {
           />
         );
       })}
+
       {/* ----- RENDER BLOCK WIDGET USERS ----- */}
       {blockWidgetTerms.map((domNode, index) => {
         const apiAttrStr = domNode.getAttribute(

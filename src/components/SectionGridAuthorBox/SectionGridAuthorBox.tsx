@@ -1,5 +1,7 @@
 import CardAuthorBox from "components/CardAuthorBox/CardAuthorBox";
+import CardAuthorBoxSkeleton from "components/CardAuthorBox/CardAuthorBoxSkeleton";
 import CardAuthorBox2 from "components/CardAuthorBox2/CardAuthorBox2";
+import CardAuthorBox2Skeleton from "components/CardAuthorBox2/CardAuthorBox2Skeleton";
 import Heading from "components/Heading/Heading";
 import { AuthorNode } from "data/postCardType";
 import React, { FC } from "react";
@@ -9,19 +11,23 @@ export interface SectionGridAuthorBoxProps {
   heading: string;
   subHeading: string;
   authorNodes: { node: AuthorNode }[];
+  authorNodesLoading?: any[];
   gridClass: string;
   authorCardName: "card1" | "card2";
   blockLayoutStyle: "layout-1" | "layout-2";
+  isLoading?: boolean;
 }
 
 const SectionGridAuthorBox: FC<SectionGridAuthorBoxProps> = ({
   className = "",
   authorNodes,
+  authorNodesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   heading,
   subHeading,
   authorCardName,
   blockLayoutStyle,
   gridClass,
+  isLoading,
 }) => {
   const renderCard = (author: { node: AuthorNode }, index: number) => {
     switch (authorCardName) {
@@ -35,6 +41,18 @@ const SectionGridAuthorBox: FC<SectionGridAuthorBoxProps> = ({
     }
   };
 
+  const renderCardLoading = (_: any, index: number) => {
+    switch (authorCardName) {
+      case "card1":
+        return <CardAuthorBoxSkeleton key={index} />;
+      case "card2":
+        return <CardAuthorBox2Skeleton key={index} />;
+
+      default:
+        return <CardAuthorBox2Skeleton key={index} />;
+    }
+  };
+
   return (
     <div
       className={`nc-SectionGridAuthorBox relative ${className}`}
@@ -44,7 +62,9 @@ const SectionGridAuthorBox: FC<SectionGridAuthorBoxProps> = ({
         {heading}
       </Heading>
       <div className={`grid gap-6 md:gap-8 ${gridClass}`}>
-        {authorNodes.map(renderCard)}
+        {isLoading
+          ? authorNodesLoading.map(renderCardLoading)
+          : authorNodes.map(renderCard)}
       </div>
     </div>
   );

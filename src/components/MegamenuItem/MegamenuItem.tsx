@@ -2,10 +2,14 @@ import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import ReactDOM from "react-dom";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
-import { PostNode } from "data/postCardType";
+import { ListPosts } from "data/postCardType";
 import Card18 from "components/Card18/Card18";
-import { GraphQlPageInfo } from "data/types";
-import Loading from "components/Loading/Loading";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import Card18Skeleton from "components/Card18/Card18Skeleton";
+
+interface Data {
+  posts: ListPosts;
+}
 
 interface MegaMenuItemTerm {
   categoryId: number;
@@ -35,12 +39,9 @@ export interface MegamenuItemProps {
   menuItemData: MegaMenuItemData;
 }
 
-let DATA_LISTS: { node: PostNode }[] = [];
-
 const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   // =================== QUERY GRAPHQL ===================
   const { ncmazMenuCustomFields } = menuItemData;
-
   const [temrActiveId, setTemrActiveId] = useState(
     ncmazMenuCustomFields?.taxonomies?.[0]?.categoryId
   );
@@ -48,11 +49,9 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   const { taxonomies, numberOfPosts, order, orderBy, showTabFilter } =
     ncmazMenuCustomFields;
   //
-  let GQL_QUERY__string = "";
+
   let variables = {};
   //
-
-  GQL_QUERY__string = POSTS_SECTION_BY_FILTER__string;
 
   let categoryIn = [];
   if (showTabFilter) {
@@ -63,40 +62,40 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
 
   // HIEN TAI GRAPHQL CHUA HO TRO PAGINATION CHO CAC FILTER orderBy
   variables = {
-    order,
-    orderBy,
+    // order,
+    // field: orderBy,
     categoryIn,
     first: Number(numberOfPosts),
   };
 
   const gqlQuery = gql`
-    ${GQL_QUERY__string}
+    ${POSTS_SECTION_BY_FILTER__string}
   `;
 
-  const { loading, error, data, fetchMore } = useQuery(gqlQuery, {
+  const { loading, error, data, fetchMore } = useQuery<Data>(gqlQuery, {
     notifyOnNetworkStatusChange: true,
     variables,
   });
 
-  if (data) {
-    DATA_LISTS = data?.posts?.edges || [];
-  }
-
-  const pageInfo: GraphQlPageInfo = data?.posts?.pageInfo || {};
+  const pageInfo = data?.posts?.pageInfo;
+  const POSTS = data?.posts.edges || [];
+  const IS_SKELETON = loading;
 
   const handleMoutEnterTerm = (term: MegaMenuItemTerm) => {
     setTemrActiveId(term.categoryId);
   };
 
-  // Function to update the query with the new results
-  const updateQuery = (previousResult: any, { fetchMoreResult }: any) => {
+  const updateQuery = (
+    previousResult: Data,
+    { fetchMoreResult }: { fetchMoreResult?: Data }
+  ) => {
     return fetchMoreResult?.posts?.edges.length
       ? fetchMoreResult
       : previousResult;
   };
 
   const renderPagination = () => {
-    if (!pageInfo.hasPreviousPage && !pageInfo.hasNextPage) {
+    if (!pageInfo?.hasPreviousPage && !pageInfo?.hasNextPage) {
       return null;
     }
 
@@ -178,21 +177,30 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
         }`}
       >
         <div className="px-4 py-5 ">
-          {loading && !DATA_LISTS && <Loading />}
+          <DataStatementBlockV2
+            className="my-5"
+            data={POSTS}
+            error={error}
+            isSkeleton={IS_SKELETON}
+          />
 
-          <div
-            className={`grid gap-4 ${
-              showTabFilter ? "grid-cols-4" : "grid-cols-5"
-            }`}
-          >
-            {DATA_LISTS.map((item) => (
-              <Card18
-                isSkeleton={loading}
-                post={item.node}
-                key={item.node.id}
-              />
-            ))}
-          </div>
+          {/* LOOP ITEMS */}
+          {IS_SKELETON || POSTS.length ? (
+            <div
+              className={`grid gap-4 ${
+                showTabFilter ? "grid-cols-4" : "grid-cols-5"
+              }`}
+            >
+              {IS_SKELETON
+                ? Array.from(showTabFilter ? "88888888" : "8888888888").map(
+                    (_, index) => <Card18Skeleton key={index} />
+                  )
+                : POSTS.map((item) => (
+                    <Card18 post={item.node} key={item.node.id} />
+                  ))}
+            </div>
+          ) : null}
+
           {renderPagination()}
         </div>
       </div>

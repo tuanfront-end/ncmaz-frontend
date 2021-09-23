@@ -7,10 +7,9 @@ import { PostNode } from "data/postCardType";
 export interface Card13Props {
   className?: string;
   post: PostNode;
-  isSkeleton?: boolean;
 }
 
-const Card13: FC<Card13Props> = ({ className = "", post, isSkeleton }) => {
+const Card13: FC<Card13Props> = ({ className = "", post }) => {
   const { title, link, excerpt, featuredImage, date, postFormats } = post;
 
   return (
@@ -47,7 +46,7 @@ const Card13: FC<Card13Props> = ({ className = "", post, isSkeleton }) => {
         <NcImage
           containerClassName="absolute inset-0 "
           className="object-cover w-full h-full rounded-xl sm:rounded-3xl"
-          src={isSkeleton ? "." : featuredImage?.node.sourceUrl}
+          src={featuredImage?.node.sourceUrl || "."}
           alt={title}
         />
         <PostTypeFeaturedIcon

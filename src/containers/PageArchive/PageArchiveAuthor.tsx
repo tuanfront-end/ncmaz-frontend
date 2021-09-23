@@ -234,7 +234,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
               containerClassName="ring-4 ring-white dark:ring-0 shadow-2xl"
               imgUrl={
                 userData.ncUserMeta.featuredImage?.sourceUrl ||
-                userData.avatar.url
+                userData.avatar?.url
               }
               userName={userData.name}
               sizeClass="w-20 h-20 text-xl lg:text-2xl lg:w-36 lg:h-36"

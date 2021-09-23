@@ -12,14 +12,12 @@ export interface Card2Props {
   className?: string;
   post: PostNode;
   size?: "normal" | "large";
-  isSkeleton?: boolean;
 }
 
 const Card2: FC<Card2Props> = ({
   className = "h-full",
   size = "normal",
   post,
-  isSkeleton,
 }) => {
   const {
     featuredImage,
@@ -41,7 +39,7 @@ const Card2: FC<Card2Props> = ({
       <span className="block flex-shrink-0 flex-grow relative w-full h-0 pt-[75%] sm:pt-[55%] rounded-xl sm:rounded-b-none overflow-hidden">
         <NcImage
           containerClassName="absolute inset-0"
-          src={isSkeleton ? "." : featuredImage?.node.sourceUrl}
+          src={featuredImage?.node.sourceUrl || "."}
           alt={title}
         />
         <PostTypeFeaturedIcon

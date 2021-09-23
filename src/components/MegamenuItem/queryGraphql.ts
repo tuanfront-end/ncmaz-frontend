@@ -6,14 +6,7 @@ const postFields = ` edges {
       node {
         id
         avatar {
-          default
-          extraAttr
-          forceDefault
-          foundAvatar
-          height
-          size
           url
-          width
         }
         url
         uri
@@ -32,6 +25,12 @@ const postFields = ` edges {
           slug
           count
           categoryId
+          ncTaxonomyMeta {
+            color
+            featuredImage {
+              sourceUrl
+            }
+          }
         }
       }
     }
@@ -112,7 +111,7 @@ const postFields = ` edges {
 const POSTS_SECTION_BY_FILTER__string = `
   query MyQuery(
     $field: PostObjectsConnectionOrderbyEnum = DATE
-    $order: OrderEnum = ASC
+    $order: OrderEnum = DESC
     $categoryIn: [ID] = []
     $tagIn: [ID] = []
     $authorIn: [ID] = []

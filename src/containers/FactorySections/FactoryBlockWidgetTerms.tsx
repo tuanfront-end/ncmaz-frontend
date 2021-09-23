@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import { gql, useQuery } from "@apollo/client";
 import { GutenbergApiAttr_BlockWidgetTerms } from "data/gutenbergAttrType";
 import WidgetCategories from "components/WidgetCategories/WidgetCategories";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 
-export interface FactoryBlockTermsGridProps {
+export interface FactoryBlockWidgetTermsProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockWidgetTerms;
 }
 
-const FactoryBlockWidgetTerms: FC<FactoryBlockTermsGridProps> = ({
+const FactoryBlockWidgetTerms: FC<FactoryBlockWidgetTermsProps> = ({
   className = "",
   domNode,
   apiSettings,
@@ -26,15 +26,23 @@ const FactoryBlockWidgetTerms: FC<FactoryBlockTermsGridProps> = ({
   });
 
   const termsLists = data?.tags?.edges || data?.categories?.edges || [];
+  const IS_SKELETON = loading && !termsLists.length;
 
   const renderContent = () => {
     return (
       <>
-        <DataStatementBlock loading={loading} error={error} data={termsLists} />
         <WidgetCategories
           categories={termsLists}
           heading={settings.heading}
           termCardName={settings.termCardName}
+          isLoading={IS_SKELETON}
+        />
+
+        <DataStatementBlockV2
+          className="my-5"
+          data={termsLists}
+          error={error}
+          isSkeleton={IS_SKELETON}
         />
       </>
     );

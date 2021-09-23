@@ -1,43 +1,44 @@
 import Card16Podcast from "components/Card16Podcast/Card16Podcast";
+import Card16PodcastSkeleton from "components/Card16Podcast/Card16PodcastSkeleton";
 import Card17Podcast from "components/Card17Podcast/Card17Podcast";
+import Card17PodcastSkeleton from "components/Card17Podcast/Card17PodcastSkeleton";
 import { ListPosts } from "data/postCardType";
 import React, { FC } from "react";
 
 export interface SectionMagazine8Props {
-  activePosts: ListPosts["edges"];
+  listPosts: ListPosts["edges"];
   isLoading?: boolean;
 }
 
 const SectionMagazine8: FC<SectionMagazine8Props> = ({
-  activePosts,
+  listPosts,
   isLoading,
 }) => {
   return (
     <div className={`grid sm:grid-cols-6 gap-6 md:gap-8`}>
-      {activePosts[0] && (
+      {isLoading ? (
+        <Card16PodcastSkeleton className="sm:col-span-3 lg:col-span-2" />
+      ) : listPosts[0] ? (
         <Card16Podcast
-          isSkeleton={isLoading}
           className="sm:col-span-3 lg:col-span-2"
-          post={activePosts[0].node}
+          post={listPosts[0].node}
         />
-      )}
-      {activePosts[1] && (
+      ) : null}
+
+      {isLoading ? (
+        <Card16PodcastSkeleton className="sm:col-span-3 lg:col-span-2" />
+      ) : listPosts[1] ? (
         <Card16Podcast
-          isSkeleton={isLoading}
           className="sm:col-span-3 lg:col-span-2"
-          post={activePosts[1].node}
+          post={listPosts[1].node}
         />
-      )}
+      ) : null}
       <div className="flex flex-col space-y-6 md:space-y-8 sm:col-span-6 lg:col-span-2">
-        {activePosts
-          .filter((_, i) => i > 1 && i < 6)
-          .map((p) => (
-            <Card17Podcast
-              isSkeleton={isLoading}
-              key={p.node.id}
-              post={p.node}
-            />
-          ))}
+        {isLoading
+          ? [1, 1, 1, 1].map((_, i) => <Card17PodcastSkeleton key={i} />)
+          : listPosts
+              .filter((_, i) => i > 1 && i < 6)
+              .map((p) => <Card17Podcast key={p.node.id} post={p.node} />)}
       </div>
     </div>
   );

@@ -1,17 +1,9 @@
-import ButtonPrimary from "components/Button/ButtonPrimary";
 import HeaderSite from "components/HeaderSite/HeaderSite";
 import MegamenuItem from "components/MegamenuItem/MegamenuItem";
-import SearchDropdown from "components/SearchDropdown/SearchDropdown";
-import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
 import React from "react";
-import ReactDOM from "react-dom";
 
 const domNodesMegamenuItem = document.querySelectorAll(
   "[data-is-megamenu=true]"
-);
-
-const domNodesHeaderRight = document.querySelector(
-  "[data-react-header-right-area=true]"
 );
 
 const HeaderFactory = () => {
@@ -36,24 +28,6 @@ const HeaderFactory = () => {
     );
   };
 
-  const renderHeaderRight = () => {
-    const isShowDarkmode = domNodesHeaderRight?.getAttribute(
-      "data-show-toogleDarkmode"
-    );
-    return (
-      <>
-        <div className="items-center flex space-x-2.5 sm:space-x-1">
-          {isShowDarkmode !== "0" && (
-            <SwitchDarkMode className="sm:w-12 h-12" />
-          )}
-          <SearchDropdown />
-          <div className="px-1 hidden sm:block" />
-          <ButtonPrimary href="/login">Sign up</ButtonPrimary>
-        </div>
-      </>
-    );
-  };
-
   return (
     <>
       {/* ----------SITE HEADER PROGRESS---------- */}
@@ -61,10 +35,6 @@ const HeaderFactory = () => {
 
       {/* ----------MegamenuItem---------- */}
       {renderPortalMegamenuItem()}
-
-      {/* -----HEADER RIGHT-------- */}
-      {domNodesHeaderRight &&
-        ReactDOM.createPortal(renderHeaderRight(), domNodesHeaderRight)}
     </>
   );
 };

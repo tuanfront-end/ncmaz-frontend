@@ -5,12 +5,10 @@ import PostCardMeta from "components/PostCardMeta/PostCardMeta";
 import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import { PostNode } from "data/postCardType";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
-import Card11Skeleton from "./Card11Skeleton";
 
 export interface Card11Props {
   className?: string;
   post: PostNode;
-  isSkeleton?: boolean;
   ratio?: string;
   hiddenAuthor?: boolean;
   onClickLike?: (id: number) => void;
@@ -21,16 +19,11 @@ const Card11: FC<Card11Props> = ({
   post,
   hiddenAuthor = false,
   ratio = "aspect-w-4 aspect-h-3",
-  isSkeleton,
   onClickLike,
 }) => {
   const { title, link, categories, date } = post;
 
   const [isHover, setIsHover] = useState(false);
-
-  if (isSkeleton) {
-    return <Card11Skeleton />;
-  }
 
   return (
     <div

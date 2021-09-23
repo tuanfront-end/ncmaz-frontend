@@ -5,14 +5,12 @@ import { PostNode } from "data/postCardType";
 
 export interface Card15PodcastProps {
   className?: string;
-  isSkeleton?: boolean;
   post: PostNode;
 }
 
 const Card15Podcast: FC<Card15PodcastProps> = ({
   className = "h-full",
   post,
-  isSkeleton,
 }) => {
   const { title, link, featuredImage, postFormats } = post;
   const postFormatName = postFormats.edges[0]?.node.name;
@@ -99,7 +97,7 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
           <NcImage
             containerClassName="absolute inset-0"
             className="object-cover w-full h-full "
-            src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
+            src={featuredImage?.node.sourceUrl || "."}
             alt={title}
           />
         </a>

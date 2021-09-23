@@ -11,7 +11,6 @@ export interface Card14Props {
   post: PostNode;
   hoverClass?: string;
   ratio?: string;
-  isSkeleton?: boolean;
 }
 
 const Card14: FC<Card14Props> = ({
@@ -19,7 +18,6 @@ const Card14: FC<Card14Props> = ({
   ratio = "aspect-w-5 aspect-h-5",
   post,
   hoverClass = "",
-  isSkeleton,
 }) => {
   const { title, link, featuredImage, categories, author, date, postFormats } =
     post;
@@ -33,7 +31,7 @@ const Card14: FC<Card14Props> = ({
         <NcImage
           containerClassName="absolute inset-0 overflow-hidden"
           className="object-cover w-full h-full rounded-3xl "
-          src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
+          src={featuredImage?.node.sourceUrl || "."}
         />
 
         <span className="absolute inset-0 bg-black bg-opacity-40">
@@ -66,7 +64,7 @@ const Card14: FC<Card14Props> = ({
               radius="rounded-full"
               containerClassName="ring-2 ring-white"
               sizeClass="h-7 w-7 text-sm"
-              imgUrl={author.node.avatar.url}
+              imgUrl={author.node.avatar?.url}
               userName={author.node.username}
             />
             <span className="block text-white truncate">

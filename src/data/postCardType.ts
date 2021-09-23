@@ -59,7 +59,7 @@ interface Author {
 
 interface AuthorNode2 {
   id: string;
-  avatar: Avatar;
+  avatar?: Avatar;
   url: any;
   uri: string;
   username: string;
@@ -71,7 +71,7 @@ interface AuthorNode2 {
 export interface AuthorNode {
   id: string;
   name: string;
-  avatar: Avatar;
+  avatar?: Avatar;
   ncUserMeta: NcUserMeta;
   url: string;
   uri: string;

@@ -18,7 +18,7 @@ import SectionMagazine9 from "components/SectionMagazines/SectionMagazine9";
 import SectionLargeSlider from "components/SectionMagazines/SectionLargeSlider";
 import { GutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
 import { ListPosts } from "data/postCardType";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 
 export interface FactoryBlockMagazineProps {
   className?: string;
@@ -26,9 +26,9 @@ export interface FactoryBlockMagazineProps {
   apiSettings: GutenbergApiAttr_BlockMagazine;
 }
 
-let LISTS_POSTS: ListPosts = {
-  edges: [],
-};
+interface Data {
+  posts: ListPosts;
+}
 
 const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   className = "",
@@ -63,15 +63,14 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     });
   }, [tabActiveId]);
 
-  const { loading, error, data } = useQuery(queryGql, {
+  const { loading, error, data } = useQuery<Data>(queryGql, {
     notifyOnNetworkStatusChange: true,
     variables: variablesFilter,
   });
 
   //
-  if (data) {
-    LISTS_POSTS = data?.posts;
-  }
+  const LISTS_POSTS = data?.posts.edges || [];
+  const IS_SKELETON = loading && !LISTS_POSTS.length;
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -88,81 +87,48 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     switch (apiSettings.settings.sectionName) {
       case "magazine-1":
         return (
-          <SectionMagazine1
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine1 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "magazine-2":
         return (
-          <SectionMagazine2
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine2 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "magazine-3":
         return (
-          <SectionMagazine3
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine3 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "magazine-4":
         return (
-          <SectionMagazine4
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine4 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "magazine-5":
         return (
-          <SectionMagazine5
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine5 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "magazine-6":
         return (
-          <SectionMagazine6
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine6 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "magazine-7":
         return (
-          <SectionMagazine7
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine7 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "magazine-8":
         return (
-          <SectionMagazine8
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine8 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "magazine-9":
         return (
-          <SectionMagazine9
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine9 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
       case "large-slider":
         return (
-          <SectionLargeSlider
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionLargeSlider isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
 
       default:
         return (
-          <SectionMagazine1
-            isLoading={loading}
-            activePosts={LISTS_POSTS.edges}
-          />
+          <SectionMagazine1 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
         );
     }
   };
@@ -198,10 +164,11 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
           <Heading desc={subHeading}>{heading}</Heading>
         )}
 
-        <DataStatementBlock
-          loading={loading}
+        <DataStatementBlockV2
+          className="my-5"
+          data={LISTS_POSTS}
           error={error}
-          data={LISTS_POSTS.edges}
+          isSkeleton={IS_SKELETON}
         />
 
         {renderLayoutType()}

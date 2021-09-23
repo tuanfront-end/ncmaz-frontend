@@ -99,14 +99,7 @@ const postFields = ` edges {
       node {
         id
         avatar {
-          default
-          extraAttr
-          forceDefault
-          foundAvatar
-          height
-          size
           url
-          width
         }
         url
         uri

@@ -18,18 +18,24 @@ import Card11 from "components/Card11/Card11";
 import NextPrev from "components/NextPrev/NextPrev";
 import Card14 from "components/Card14/Card14";
 import { GutenbergApiAttr_BlockPostsSlider } from "data/gutenbergAttrType";
-import EmptyState from "components/EmptyState/EmptyState";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import Card4Skeleton from "components/Card4/Card4Skeleton";
+import Card7Skeleton from "components/Card7/Card7Skeleton";
+import Card9Skeleton from "components/Card9/Card9Skeleton";
+import Card10Skeleton from "components/Card10/Card10Skeleton";
+import Card10V2Skeleton from "components/Card10/Card10V2Skeleton";
+import Card11Skeleton from "components/Card11/Card11Skeleton";
+import Card14Skeleton from "components/Card14/Card14Skeleton";
+
+interface Data {
+  posts: ListPosts;
+}
 
 export interface FactoryBlockPostsSliderProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockPostsSlider;
 }
-
-let LISTS_POSTS: ListPosts = {
-  edges: [],
-};
 
 const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   className = "",
@@ -66,15 +72,14 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
     });
   }, [tabActiveId]);
 
-  const { loading, error, data } = useQuery(queryGql, {
+  const { loading, error, data } = useQuery<Data>(queryGql, {
     notifyOnNetworkStatusChange: true,
     variables: variablesFilter,
   });
 
   //
-  if (data) {
-    LISTS_POSTS = data?.posts;
-  }
+  const LISTS_POSTS = data?.posts.edges || [];
+  const IS_SKELETON = loading && !LISTS_POSTS.length;
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -93,11 +98,6 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   const perView = settings.itemPerView;
 
   useEffect(() => {
-    if (!data) return;
-    if (!LISTS_POSTS.edges.length) {
-      return;
-    }
-
     new Glide(`.${UNIQUE_CLASS}`, {
       perView: perView,
       gap: 32,
@@ -128,22 +128,20 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
         return (
           <Card4
             post={post}
-            isSkeleton={loading}
             className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
           />
         );
       case "card7":
         return <Card7 post={post} />;
       case "card9":
-        return <Card9 isSkeleton={loading} post={post} />;
+        return <Card9 post={post} />;
       case "card10":
-        return <Card10 isSkeleton={loading} post={post} />;
+        return <Card10 post={post} />;
       case "card10V2":
-        return <Card10V2 isSkeleton={loading} post={post} />;
+        return <Card10V2 post={post} />;
       case "card11":
         return (
           <Card11
-            isSkeleton={loading}
             post={post}
             className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
           />
@@ -155,7 +153,39 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
           <Card4
             className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
             post={post}
-            isSkeleton={loading}
+          />
+        );
+    }
+  };
+
+  const renderPostComponentLoading = () => {
+    switch (apiSettings.settings.postCardName) {
+      case "card4":
+        return (
+          <Card4Skeleton
+            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
+          />
+        );
+      case "card7":
+        return <Card7Skeleton />;
+      case "card9":
+        return <Card9Skeleton />;
+      case "card10":
+        return <Card10Skeleton />;
+      case "card10V2":
+        return <Card10V2Skeleton />;
+      case "card11":
+        return (
+          <Card11Skeleton
+            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
+          />
+        );
+      case "card14":
+        return <Card14Skeleton />;
+      default:
+        return (
+          <Card4Skeleton
+            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
           />
         );
     }
@@ -209,27 +239,41 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
           ) : (
             renderHeading()
           )}
+
           <div className="glide__track" data-glide-el="track">
             <ul className="glide__slides">
-              {LISTS_POSTS.edges.map((item, index) => (
-                <li
-                  key={index}
-                  className={`glide__slide ${
-                    enableNexPrevOnFoot ? "pb-12 xl:pb-16" : ""
-                  }`}
-                >
-                  {renderPostComponent(item.node)}
-                </li>
-              ))}
+              {IS_SKELETON
+                ? [1, 1, 1, 1, 1, 1, 1, 1].map((_, index) => (
+                    <li
+                      key={index}
+                      className={`glide__slide ${
+                        enableNexPrevOnFoot ? "pb-12 xl:pb-16" : ""
+                      }`}
+                    >
+                      {renderPostComponentLoading()}
+                    </li>
+                  ))
+                : LISTS_POSTS.map((item, index) => (
+                    <li
+                      key={index}
+                      className={`glide__slide ${
+                        enableNexPrevOnFoot ? "pb-12 xl:pb-16" : ""
+                      }`}
+                    >
+                      {renderPostComponent(item.node)}
+                    </li>
+                  ))}
             </ul>
           </div>
 
           {/* ------------ */}
-          <DataStatementBlock
-            loading={loading}
+          <DataStatementBlockV2
+            className="my-5"
+            data={LISTS_POSTS}
             error={error}
-            data={LISTS_POSTS.edges}
+            isSkeleton={IS_SKELETON}
           />
+
           {/* ------------ */}
 
           {enableNexPrevOnFoot && (

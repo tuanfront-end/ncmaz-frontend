@@ -13,7 +13,6 @@ export interface Card9Props {
   ratio?: string;
   post: PostNode;
   hoverClass?: string;
-  isSkeleton?: boolean;
 }
 
 const Card9: FC<Card9Props> = ({
@@ -21,7 +20,6 @@ const Card9: FC<Card9Props> = ({
   ratio = "aspect-w-3 aspect-h-3 sm:aspect-h-4",
   post,
   hoverClass = "",
-  isSkeleton,
 }) => {
   const { title, link, featuredImage, categories, author, date, postFormats } =
     post;
@@ -59,14 +57,14 @@ const Card9: FC<Card9Props> = ({
       <div className={`flex items-start relative w-full ${ratio}`}></div>
       {postFormats.edges[0]?.node.name === "Audio" ? (
         <div className="absolute inset-0">
-          {isSkeleton ? <NcImage src="." /> : <PostFeaturedMedia post={post} />}
+          <PostFeaturedMedia post={post} />
         </div>
       ) : (
         <a href={link}>
           <NcImage
             containerClassName="absolute inset-0 rounded-3xl"
             className="object-cover w-full h-full rounded-3xl"
-            src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
+            src={featuredImage?.node.sourceUrl || "."}
           />
           <PostTypeFeaturedIcon
             className="absolute top-3 left-3 group-hover:hidden"

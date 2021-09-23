@@ -1,22 +1,22 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import { gql, useQuery } from "@apollo/client";
-import { ListPosts, PostNode } from "data/postCardType";
+import { ListPosts } from "data/postCardType";
 import { GutenbergApiAttr_BlockWidgetPots } from "data/gutenbergAttrType";
 import WidgetPosts from "components/WidgetPosts/WidgetPosts";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 
-export interface FactoryBlockPostsGridProps {
+interface Data {
+  posts: ListPosts;
+}
+
+export interface FactoryBlockWidgetPostsProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockWidgetPots;
 }
 
-let LISTS_POSTS: ListPosts = {
-  edges: [],
-};
-
-const FactoryBlockWidgetPosts: FC<FactoryBlockPostsGridProps> = ({
+const FactoryBlockWidgetPosts: FC<FactoryBlockWidgetPostsProps> = ({
   domNode,
   apiSettings,
 }) => {
@@ -26,24 +26,29 @@ const FactoryBlockWidgetPosts: FC<FactoryBlockPostsGridProps> = ({
     ${graphQLvariables.queryString}
   `;
 
-  const { loading, error, data } = useQuery(queryGql, {
+  const { loading, error, data } = useQuery<Data>(queryGql, {
     variables: graphQLvariables.variables,
   });
 
   //
-  if (data) {
-    LISTS_POSTS = data?.posts;
-  }
+  const LISTS_POSTS = data?.posts.edges || [];
+  const IS_SKELETON = loading && !LISTS_POSTS.length;
+  //
 
   const renderContent = () => {
     return (
       <>
-        <DataStatementBlock
-          loading={loading}
-          error={error}
-          data={LISTS_POSTS.edges}
+        <WidgetPosts
+          posts={LISTS_POSTS}
+          isLoading={IS_SKELETON}
+          heading={settings.heading}
         />
-        <WidgetPosts posts={LISTS_POSTS.edges} heading={settings.heading} />
+        <DataStatementBlockV2
+          className="my-5"
+          data={LISTS_POSTS}
+          error={error}
+          isSkeleton={IS_SKELETON}
+        />
       </>
     );
   };

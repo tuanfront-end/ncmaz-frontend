@@ -7,6 +7,10 @@ import CardCategory2 from "components/CardCategory2/CardCategory2";
 import CardCategory3 from "components/CardCategory3/CardCategory3";
 import CardCategory4 from "components/CardCategory4/CardCategory4";
 import CardCategory5 from "components/CardCategory5/CardCategory5";
+import CardCategory2Skeleton from "components/CardCategory2/CardCategory2Skeleton";
+import CardCategory3Skeleton from "components/CardCategory3/CardCategory3Skeleton";
+import CardCategory4Skeleton from "components/CardCategory4/CardCategory4Skeleton";
+import CardCategory5Skeleton from "components/CardCategory5/CardCategory5Skeleton";
 
 export interface SectionSliderNewCategoriesProps {
   className?: string;
@@ -14,8 +18,10 @@ export interface SectionSliderNewCategoriesProps {
   heading: string;
   subHeading: string;
   categories: CategoriesEdge2[];
+  categoriesLoading?: any[];
   categoryCardType?: "card2" | "card3" | "card4" | "card5";
   itemPerRow?: number;
+  isLoading?: boolean;
 }
 
 const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
@@ -26,6 +32,8 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
   categories,
   itemPerRow = 5,
   categoryCardType = "card3",
+  isLoading,
+  categoriesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1],
 }) => {
   const UNIQUE_CLASS = "glide_" + ncNanoId();
 
@@ -87,6 +95,22 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
     }
   };
 
+  const renderCardLoading = () => {
+    switch (categoryCardType) {
+      case "card2":
+        return <CardCategory2Skeleton className="hover:!shadow-none" />;
+      case "card3":
+        return <CardCategory3Skeleton />;
+      case "card4":
+        return <CardCategory4Skeleton />;
+      case "card5":
+        return <CardCategory5Skeleton />;
+
+      default:
+        return <CardCategory2Skeleton className="hover:!shadow-none" />;
+    }
+  };
+
   return (
     <div className={`nc-SectionSliderNewCategories ${className}`}>
       <div className={`${UNIQUE_CLASS} flow-root`}>
@@ -95,11 +119,17 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
         </Heading>
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
-            {categories.map((item, index) => (
-              <li key={index} className={`glide__slide ${itemClassName}`}>
-                {renderCard(item, index)}
-              </li>
-            ))}
+            {isLoading
+              ? categoriesLoading.map((_, index) => (
+                  <li key={index} className={`glide__slide ${itemClassName}`}>
+                    {renderCardLoading()}
+                  </li>
+                ))
+              : categories.map((item, index) => (
+                  <li key={index} className={`glide__slide ${itemClassName}`}>
+                    {renderCard(item, index)}
+                  </li>
+                ))}
           </ul>
         </div>
       </div>

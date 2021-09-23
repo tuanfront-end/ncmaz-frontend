@@ -9,7 +9,6 @@ import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDrop
 
 export interface Card10V3Props {
   className?: string;
-  isSkeleton?: boolean;
   post: PostNode;
   galleryType?: 1 | 2;
 }
@@ -18,7 +17,6 @@ const Card10V3: FC<Card10V3Props> = ({
   className = "h-full",
   post,
   galleryType = 1,
-  isSkeleton,
 }) => {
   const {
     title,
@@ -43,24 +41,24 @@ const Card10V3: FC<Card10V3Props> = ({
           <NcImage
             containerClassName="relative col-span-2"
             className="absolute inset-0 object-cover w-full h-full"
-            src={isSkeleton ? "." : galleryImgs[0]}
+            src={galleryImgs[0]}
           />
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={isSkeleton ? "." : galleryImgs[1]}
+            src={galleryImgs[1]}
           />
         </div>
         <div className="grid grid-cols-3 gap-2 ">
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={isSkeleton ? "." : galleryImgs[2]}
+            src={galleryImgs[2]}
           />
           <NcImage
             containerClassName="relative col-span-2"
             className="absolute inset-0 object-cover w-full h-full"
-            src={isSkeleton ? "." : galleryImgs[3]}
+            src={galleryImgs[3]}
           />
         </div>
       </div>
@@ -75,26 +73,26 @@ const Card10V3: FC<Card10V3Props> = ({
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={isSkeleton ? "." : galleryImgs[0]}
+            src={galleryImgs[0]}
           />
         </div>
         <div className="grid grid-rows-2 gap-2">
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={isSkeleton ? "." : galleryImgs[1]}
+            src={galleryImgs[1]}
           />
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={isSkeleton ? "." : galleryImgs[2]}
+            src={galleryImgs[2]}
           />
         </div>
         <div className="grid ">
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={isSkeleton ? "." : galleryImgs[3]}
+            src={galleryImgs[3]}
           />
         </div>
       </div>
@@ -112,11 +110,7 @@ const Card10V3: FC<Card10V3Props> = ({
         <div>
           {postFormats.edges[0]?.node.name !== "Gallery" &&
           !!galleryImgs?.length ? (
-            isSkeleton ? (
-              <NcImage src="." />
-            ) : (
-              <PostFeaturedMedia post={post} isHover={isHover} />
-            )
+            <PostFeaturedMedia post={post} isHover={isHover} />
           ) : galleryType === 1 ? (
             renderGallery()
           ) : (

@@ -21,7 +21,7 @@ const CardAuthor2White: FC<CardAuthor2WhiteProps> = ({
         sizeClass="h-10 w-10 text-base"
         containerClassName="flex-shrink-0 mr-3"
         radius="rounded-full"
-        imgUrl={avatar.url}
+        imgUrl={avatar?.url}
         userName={username}
       />
       <div>

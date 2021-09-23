@@ -3,32 +3,51 @@ import ReactDOM from "react-dom";
 import { gql, useQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { GutenbergAttr__BlockUsersSlider } from "data/gutenbergAttrType";
-import SectionSliderNewAuthors, {
-  SectionSliderNewAuthorsProps,
-} from "components/SectionSliderNewAuthors/SectionSliderNewAuthors";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
+import SectionSliderNewAuthors from "components/SectionSliderNewAuthors/SectionSliderNewAuthors";
+import { PageInfo } from "containers/SingleComments/commentType";
+import { AuthorNode } from "data/postCardType";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 
-export interface FactoryBlockTermsSliderProps {
+interface Data {
+  users: Users;
+}
+interface Users {
+  edges: Edge[];
+  pageInfo: PageInfo;
+  __typename: string;
+}
+interface Edge {
+  node: AuthorNode;
+  __typename: string;
+}
+
+export interface FactoryBlockUsersSliderSliderProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergAttr__BlockUsersSlider;
 }
 
-const FactoryBlockUsersSlider: FC<FactoryBlockTermsSliderProps> = ({
+const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
   className = "",
   domNode,
   apiSettings,
 }) => {
   const { graphQLvariables, settings } = apiSettings;
+
   const queryGql = gql`
     ${graphQLvariables.queryString}
   `;
-  const { loading, error, data } = useQuery(queryGql, {
+
+  //
+  const { loading, error, data } = useQuery<Data>(queryGql, {
+    notifyOnNetworkStatusChange: true,
     variables: graphQLvariables.variables,
   });
-
-  const dataLists = data?.users?.edges || [];
   //
+
+  //
+  const LISTS_DATA = data?.users.edges || [];
+  const IS_SKELETON = loading && !LISTS_DATA.length;
 
   const renderContent = () => {
     const {
@@ -49,19 +68,24 @@ const FactoryBlockUsersSlider: FC<FactoryBlockTermsSliderProps> = ({
         {hasBackground && <BackgroundSection />}
 
         {/* ------------ */}
-        <DataStatementBlock loading={loading} error={error} data={dataLists} />
-        {/* ------------ */}
+        <SectionSliderNewAuthors
+          authorCardName={userCardName}
+          blockLayoutStyle={blockLayoutStyle}
+          itemPerView={itemPerView}
+          authorNodes={LISTS_DATA}
+          authorNodesLoading={[1, 1, 1, 1, 1, , 1, 1, 1]}
+          heading={heading}
+          subHeading={subHeading}
+          isLoading={IS_SKELETON}
+        />
 
-        {dataLists.length && (
-          <SectionSliderNewAuthors
-            authorCardName={userCardName}
-            blockLayoutStyle={blockLayoutStyle}
-            itemPerView={itemPerView}
-            authorNodes={dataLists}
-            heading={heading}
-            subHeading={subHeading}
-          />
-        )}
+        {/* ------------ */}
+        <DataStatementBlockV2
+          className="my-5"
+          data={LISTS_DATA}
+          error={error}
+          isSkeleton={IS_SKELETON}
+        />
       </div>
     );
   };

@@ -10,10 +10,9 @@ import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDrop
 export interface Card6Props {
   className?: string;
   post: PostNode;
-  isSkeleton?: boolean;
 }
 
-const Card6: FC<Card6Props> = ({ className = "h-full", post, isSkeleton }) => {
+const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
   const { title, link, featuredImage, categories, postFormats } = post;
 
   return (
@@ -45,7 +44,7 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post, isSkeleton }) => {
         <NcImage
           containerClassName="absolute inset-0"
           className="object-cover w-full h-full"
-          src={isSkeleton ? "." : featuredImage?.node.sourceUrl}
+          src={featuredImage?.node.sourceUrl || "."}
           alt={title}
         />
         <span className="absolute bottom-1 left-1">

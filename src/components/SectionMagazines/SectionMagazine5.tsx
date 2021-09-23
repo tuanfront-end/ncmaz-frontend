@@ -1,28 +1,32 @@
 import Card12 from "components/Card12/Card12";
+import Card12Skeleton from "components/Card12/Card12Skeleton";
 import Card13 from "components/Card13/Card13";
+import Card13Skeleton from "components/Card13/Card13Skeleton";
 import { ListPosts } from "data/postCardType";
 import React, { FC } from "react";
 
 export interface SectionMagazine5Props {
-  activePosts: ListPosts["edges"];
+  listPosts: ListPosts["edges"];
   isLoading?: boolean;
 }
 
 const SectionMagazine5: FC<SectionMagazine5Props> = ({
-  activePosts,
+  listPosts,
   isLoading,
 }) => {
   return (
     <div className="grid lg:grid-cols-2 gap-5 md:gap-7">
-      {activePosts[0] && (
-        <Card12 isSkeleton={isLoading} post={activePosts[0].node} />
-      )}
+      {isLoading ? (
+        <Card12Skeleton />
+      ) : listPosts[0] ? (
+        <Card12 post={listPosts[0].node} />
+      ) : null}
       <div className="grid gap-5 md:gap-7">
-        {activePosts
-          .filter((_, i) => i < 4 && i > 0)
-          .map((item, index) => (
-            <Card13 isSkeleton={isLoading} key={index} post={item.node} />
-          ))}
+        {isLoading
+          ? [1, 2, 3].map((_, index) => <Card13Skeleton key={index} />)
+          : listPosts
+              .filter((_, i) => i < 4 && i > 0)
+              .map((item, index) => <Card13 key={index} post={item.node} />)}
       </div>
     </div>
   );

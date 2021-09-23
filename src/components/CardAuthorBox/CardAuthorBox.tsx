@@ -20,7 +20,7 @@ const CardAuthorBox: FC<CardAuthorBoxProps> = ({ className = "", author }) => {
       <Avatar
         sizeClass="w-20 h-20 text-2xl"
         radius="rounded-full"
-        imgUrl={avatar.url}
+        imgUrl={avatar?.url}
         userName={username}
       />
       <div className="mt-3">
@@ -34,7 +34,7 @@ const CardAuthorBox: FC<CardAuthorBoxProps> = ({ className = "", author }) => {
         </span>
       </div>
       <div className="py-2 px-4 mt-4 bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center leading-none text-xs font-medium">
-        {99} <ArrowRightIcon className="w-5 h-5 text-yellow-600 ml-3" />
+        <ArrowRightIcon className="w-5 h-5 text-yellow-600 " />
       </div>
     </a>
   );

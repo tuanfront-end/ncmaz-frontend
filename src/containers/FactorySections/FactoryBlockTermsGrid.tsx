@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
 import { GutenbergApiAttr_BlockTermGrid } from "data/gutenbergAttrType";
-import DataStatementBlock from "components/DataStatementBlock/DataStatementBlock";
+import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 
 export interface FactoryBlockTermsGridProps {
   className?: string;
@@ -23,10 +23,12 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
     ${graphQLvariables.queryString}
   `;
   const { loading, error, data } = useQuery(queryGql, {
+    notifyOnNetworkStatusChange: true,
     variables: graphQLvariables.variables,
   });
 
   const termsLists = data?.tags?.edges || data?.categories?.edges || [];
+  const IS_SKELETON = loading && !termsLists.length;
 
   const renderContent = () => {
     const {
@@ -49,19 +51,23 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
         {isBg && <BackgroundSection />}
 
         {/* ------------ */}
-        <DataStatementBlock loading={loading} error={error} data={termsLists} />
-        {/* ------------ */}
+        <SectionGridCategoryBox
+          categories={termsLists}
+          heading={heading}
+          subHeading={subHeading}
+          headingCenter={blockLayoutStyle === "layout-1"}
+          categoryCardType={termCardName}
+          gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
+          isLoadingSkeleton={IS_SKELETON}
+        />
 
-        {termsLists.length && (
-          <SectionGridCategoryBox
-            categories={termsLists}
-            heading={heading}
-            subHeading={subHeading}
-            headingCenter={blockLayoutStyle === "layout-1"}
-            categoryCardType={termCardName}
-            gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
-          />
-        )}
+        {/* ------------ */}
+        <DataStatementBlockV2
+          data={termsLists}
+          isSkeleton={IS_SKELETON}
+          error={error}
+        />
+        {/* ------------ */}
       </div>
     );
   };

@@ -4,13 +4,13 @@ import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { GutenbergApiAttr_BlockVideos } from "data/gutenbergAttrType";
 import SectionVideos from "components/SectionVideos/SectionVideos";
 
-export interface FactoryBlockTermsSliderProps {
+export interface FactoryBlockVideosProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockVideos;
 }
 
-const FactoryBlockVideos: FC<FactoryBlockTermsSliderProps> = ({
+const FactoryBlockVideos: FC<FactoryBlockVideosProps> = ({
   className = "",
   domNode,
   apiSettings,

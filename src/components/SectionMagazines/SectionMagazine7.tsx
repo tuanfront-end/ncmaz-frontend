@@ -1,41 +1,39 @@
 import Card10 from "components/Card10/Card10";
+import Card10Skeleton from "components/Card10/Card10Skeleton";
 import Card10V3 from "components/Card10/Card10V3";
+import Card10V3Skeleton from "components/Card10/Card10V3Skeleton";
 import { ListPosts } from "data/postCardType";
 import React, { FC } from "react";
 
 export interface SectionMagazine7Props {
-  activePosts: ListPosts["edges"];
+  listPosts: ListPosts["edges"];
   isLoading?: boolean;
 }
 
 const SectionMagazine7: FC<SectionMagazine7Props> = ({
-  activePosts,
+  listPosts,
   isLoading,
 }) => {
   return (
     <div className={`grid gap-6 md:gap-8`}>
       <div className={`grid gap-6 md:gap-8 lg:grid-cols-2`}>
-        {activePosts[0] && (
-          <Card10V3 isSkeleton={isLoading} post={activePosts[0].node} />
-        )}
-        {activePosts[1] && (
-          <Card10V3
-            isSkeleton={isLoading}
-            galleryType={2}
-            post={activePosts[1].node}
-          />
-        )}
+        {isLoading ? (
+          <Card10V3Skeleton />
+        ) : listPosts[0] ? (
+          <Card10V3 post={listPosts[0].node} />
+        ) : null}
+        {isLoading ? (
+          <Card10V3Skeleton />
+        ) : listPosts[1] ? (
+          <Card10V3 galleryType={2} post={listPosts[1].node} />
+        ) : null}
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-3">
-        {activePosts
-          .filter((_, i) => i > 1)
-          .map((post) => (
-            <Card10
-              isSkeleton={isLoading}
-              key={post.node.id}
-              post={post.node}
-            />
-          ))}
+        {isLoading
+          ? [1, 1, 1, 1].map((_, i) => <Card10Skeleton key={i} />)
+          : listPosts
+              .filter((_, i) => i > 1)
+              .map((post) => <Card10 key={post.node.id} post={post.node} />)}
       </div>
     </div>
   );

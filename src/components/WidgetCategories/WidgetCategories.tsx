@@ -1,4 +1,5 @@
 import CardCategory1 from "components/CardCategory1/CardCategory1";
+import CardCategory1Skeleton from "components/CardCategory1/CardCategory1Skeleton";
 import Tag from "components/Tag/Tag";
 import WidgetHeading1 from "components/WidgetHeading1/WidgetHeading1";
 import { CategoriesEdge2 } from "data/postCardType";
@@ -9,6 +10,8 @@ export interface WidgetCategoriesProps {
   heading?: string;
   termCardName?: "card1" | "tag-card";
   categories: CategoriesEdge2[];
+  categoriesLoading?: any[];
+  isLoading?: boolean;
 }
 
 const WidgetCategories: FC<WidgetCategoriesProps> = ({
@@ -16,6 +19,8 @@ const WidgetCategories: FC<WidgetCategoriesProps> = ({
   termCardName = "card1",
   heading = "",
   categories,
+  categoriesLoading = [1, 1, 1, 1],
+  isLoading,
 }) => {
   const renderCard = (term: CategoriesEdge2, index: number) => {
     switch (termCardName) {
@@ -36,6 +41,29 @@ const WidgetCategories: FC<WidgetCategoriesProps> = ({
     }
   };
 
+  const renderCardLoading = (_: any, index: number) => {
+    switch (termCardName) {
+      case "card1":
+        return (
+          <CardCategory1Skeleton
+            className="p-4 xl:p-5 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+            key={index}
+            size="normal"
+          />
+        );
+      case "tag-card":
+        return (
+          <div
+            className="mr-2 mb-2 w-20 h-8 bg-neutral-200 dark:bg-neutral-700 rounded"
+            key={index}
+          />
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <div
       className={`nc-WidgetCategories rounded-3xl  overflow-hidden ${className}`}
@@ -50,7 +78,9 @@ const WidgetCategories: FC<WidgetCategoriesProps> = ({
               : "flex-wrap p-4 xl:p-5"
           }`}
         >
-          {categories.map(renderCard)}
+          {isLoading
+            ? categoriesLoading.map(renderCardLoading)
+            : categories.map(renderCard)}
         </div>
       </div>
     </div>

@@ -53,24 +53,33 @@ Redux::set_section($opt_name, $section);
 
 // ===========================GENERAL SETTING__SUB2 SOCIALS ========================
 $section = array(
-    'title'      => esc_html__('Mobile sidebar menu', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-    'desc'       => esc_html__('All setting for Mobile sidebar menu', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-    'id'         => 'nc-general-settings--mobile-menu',
+    'title'      => esc_html__('Social Login', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'desc'       => esc_html__('All setting for socials login setting', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'id'         => 'nc-general-settings--nextend-social-login',
     'subsection' => true,
     'fields'     => array(
         [
-            'id'       => 'nc-general-settings--mobile-menu-btn-foot-text',
+            'id'       => 'nc-general-settings--nextend-social-login-facebook',
             'type'     => 'text',
-            'title'    => esc_html__('Button footer', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'subtitle'    => esc_html__('Enter text for button on footer menu', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'default'  => 'Default Text',
-        ],
-        [
-            'id'       => 'nc-general-settings--mobile-menu-btn-foot-link',
-            'type'     => 'text',
-            'title'    => esc_html__('Button footer link', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title'    => esc_html__('Facebook Login Url', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'subtitle'    => esc_html__('Enter facebook login url on usage nextend settings', _NCMAZ_FRONTEND_TEXT_DOMAIN),
             'default'  => '#',
         ],
+        [
+            'id'       => 'nc-general-settings--nextend-social-login-google',
+            'type'     => 'text',
+            'title'    => esc_html__('Google Login Url', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'subtitle'    => esc_html__('Enter Google login url on usage nextend settings', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'default'  => '#',
+        ],
+        [
+            'id'       => 'nc-general-settings--nextend-social-login-twitter',
+            'type'     => 'text',
+            'title'    => esc_html__('Twitter Login Url', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'subtitle'    => esc_html__('Enter twitter login url on usage nextend settings', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'default'  => '#',
+        ],
+
 
     ),
 );

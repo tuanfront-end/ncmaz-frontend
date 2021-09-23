@@ -8,11 +8,11 @@ export interface CardAuthorProps {
 }
 
 const CardAuthor: FC<CardAuthorProps> = ({ className = "", author }) => {
-  const { name, username, uri, url, avatar, ncUserMeta } = author;
+  const { name, username, uri, avatar, ncUserMeta } = author;
 
   return (
     <a
-      href={url + uri}
+      href={frontendObject.homeURL + uri}
       className={`nc-CardAuthor flex items-center ${className}`}
       data-nc-id="CardAuthor"
     >
@@ -20,7 +20,7 @@ const CardAuthor: FC<CardAuthorProps> = ({ className = "", author }) => {
         sizeClass="h-10 w-10 text-base"
         containerClassName="flex-shrink-0 mr-4"
         radius="rounded-full"
-        imgUrl={avatar.url}
+        imgUrl={avatar?.url}
         userName={username}
       />
       <div>

@@ -28,14 +28,14 @@ const CardCategory1Skeleton: FC<CardCategory1SkeletonProps> = ({
             size === "large" ? "text-lg" : "text-base"
           } nc-card-title text-neutral-900 dark:text-neutral-100 font-semibold`}
         >
-          <Skeleton width="90%" />
+          <Skeleton width="70%" />
         </h2>
         <span
           className={`${
             size === "large" ? "text-sm" : "text-xs"
           } block mt-[2px] text-neutral-500 dark:text-neutral-400`}
         >
-          <Skeleton width="60%" />
+          <Skeleton width="50%" />
         </span>
       </div>
     </div>

@@ -14,16 +14,18 @@ export interface CardLarge1Props {
   onClickNext?: () => void;
   onClickPrev?: () => void;
   isShowing?: boolean;
-  isSkeleton?: boolean;
+  hasNext: boolean;
+  hasPrev: boolean;
 }
 
 const CardLarge1: FC<CardLarge1Props> = ({
   className = "",
   isShowing = true,
   post,
-  isSkeleton,
   onClickNext = () => {},
   onClickPrev = () => {},
+  hasNext,
+  hasPrev,
 }) => {
   const { featuredImage, title, date, categories, author, link } = post;
 
@@ -58,19 +60,23 @@ const CardLarge1: FC<CardLarge1Props> = ({
             </div>
           </div>
         </Transition.Child>
-        <Transition.Child
-          as="div"
-          className="p-4 sm:pt-8 sm:px-10"
-          enter="transform nc-will-change-transform transition-all duration-500 delay-100"
-          enterFrom="translate-y-4 opacity-0"
-          enterTo="translate-y-0 opacity-100"
-        >
-          <NextPrev
-            btnClassName="w-11 h-11 text-xl"
-            onClickNext={onClickNext}
-            onClickPrev={onClickPrev}
-          />
-        </Transition.Child>
+        {hasNext || hasPrev ? (
+          <Transition.Child
+            as="div"
+            className="p-4 sm:pt-8 sm:px-10"
+            enter="transform nc-will-change-transform transition-all duration-500 delay-100"
+            enterFrom="translate-y-4 opacity-0"
+            enterTo="translate-y-0 opacity-100"
+          >
+            <NextPrev
+              disablePrev={!hasPrev}
+              disableNext={!hasNext}
+              btnClassName="w-11 h-11 text-xl"
+              onClickNext={onClickNext}
+              onClickPrev={onClickPrev}
+            />
+          </Transition.Child>
+        ) : null}
       </div>
       <Transition.Child
         as="div"
@@ -83,7 +89,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
           <NcImage
             containerClassName="aspect-w-16 aspect-h-12 sm:aspect-h-9 md:aspect-h-14 lg:aspect-h-10 2xl:aspect-h-9 relative"
             className="absolute inset-0 object-cover rounded-3xl"
-            src={isSkeleton ? "." : featuredImage?.node.sourceUrl || "."}
+            src={featuredImage?.node.sourceUrl || "."}
             alt={title}
           />
         </a>

@@ -170,7 +170,7 @@ function registerScripts()
 }
 
 
-add_action('wp_enqueue_scripts', 'registerStyles');
+// add_action('wp_enqueue_scripts', 'registerStyles');
 function registerStyles()
 {
     $dirCSS = [];
