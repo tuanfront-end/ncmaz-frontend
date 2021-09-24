@@ -60,7 +60,7 @@ const Card11: FC<Card11Props> = ({
             className="relative"
             postData={post}
           />
-          <PostCardDropdownShare />
+          <PostCardDropdownShare href={post.link} />
         </div>
       </div>
     </div>

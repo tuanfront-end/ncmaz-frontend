@@ -52,7 +52,7 @@ const Card8: FC<Card8Props> = ({ className = "h-full", post }) => {
         <div className="hidden sm:block mt-2">
           <span
             className="text-neutral-300 text-sm line-clamp-1"
-            dangerouslySetInnerHTML={{ __html: excerpt }}
+            dangerouslySetInnerHTML={{ __html: excerpt || "" }}
           ></span>
         </div>
       </div>

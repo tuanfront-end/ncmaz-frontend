@@ -128,7 +128,7 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
             <div className="flex-grow overflow-hidden hidden xl:block">
               <h3 className="text-base text-neutral-50 truncate">{title}</h3>
               <span className="block text-xs text-neutral-400 truncate">
-                {categories.edges[0]?.node.name}
+                {categories?.edges[0]?.node.name}
               </span>
             </div>
           </a>
@@ -140,7 +140,7 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
               }
             />
 
-            <PostCardDropdownShare />
+            <PostCardDropdownShare href={currentMediaRunning.postData.link} />
           </div>
         </div>
 

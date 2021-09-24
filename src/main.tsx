@@ -48,6 +48,8 @@ declare global {
     ];
   };
   //
+  var DATE_I18N: any;
+  //
   var frontendObject: {
     restUrl: string;
     ajaxurl: string;
@@ -55,6 +57,7 @@ declare global {
     placeholderImg: string;
     graphQLBasePath: string;
     homeURL: string;
+    frontendTranslate: Record<string, string>;
     currentUser?: User;
     currentObject: {
       id: number;

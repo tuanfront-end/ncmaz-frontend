@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-
 import Avatar from "components/Avatar/Avatar";
 import { PostNode } from "data/postCardType";
 import ncFormatDate from "utils/formatDate";
@@ -19,6 +18,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
   date,
   hoverReadingTime = true,
 }) => {
+  if (!author) return null;
   const { node } = author;
   return (
     <a
@@ -42,7 +42,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
         <span
           className={`flex items-center mt-1 text-xs text-neutral-500 dark:text-neutral-400`}
         >
-          <span>{ncFormatDate(date)}</span>
+          <span>{ncFormatDate(date || "")}</span>
           {readingTimeShortcode && (
             <>
               <span

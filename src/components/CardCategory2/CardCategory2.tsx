@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
-import { TwMainColor } from "data/types";
 import Badge from "components/Badge/Badge";
 import { CategoriesNode3 } from "data/postCardType";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface CardCategory2Props {
   className?: string;
@@ -42,7 +42,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
         <span
           className={`block mt-[2px] text-sm text-neutral-500 dark:text-neutral-400`}
         >
-          {count} Articles
+          {count} {NCMAZ_TRANSLATE["articles"]}
         </span>
       </div>
     </a>

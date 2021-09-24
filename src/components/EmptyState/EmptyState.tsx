@@ -1,3 +1,4 @@
+import NCMAZ_TRANSLATE from "contains/translate";
 import React from "react";
 
 const EmptyState = () => {
@@ -10,7 +11,9 @@ const EmptyState = () => {
         className="w-36 sm:w-40"
         alt="empty state"
       />
-      <span className="text-sm block text-neutral-500">Nothing we found!</span>
+      <span className="text-sm block text-neutral-500">
+        {NCMAZ_TRANSLATE["nothingWeFound"]}
+      </span>
     </div>
   );
 };

@@ -33,7 +33,7 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
         </div>
         <div className="flex items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment className="relative" postData={post} />
-          <PostCardDropdownShare />
+          <PostCardDropdownShare href={post.link} />
         </div>
       </div>
 

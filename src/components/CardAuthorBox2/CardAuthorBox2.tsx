@@ -13,11 +13,11 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
   className = "",
   author,
 }) => {
-  const { name, username, uri, url, avatar, ncUserMeta } = author;
+  const { name, username, uri, avatar, ncUserMeta } = author;
 
   return (
     <a
-      href={url + uri}
+      href={frontendObject.homeURL + uri}
       className={`nc-CardAuthorBox2 flex flex-col overflow-hidden [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="CardAuthorBox2"
     >

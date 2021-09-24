@@ -56,7 +56,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
 
             <div className="flex items-center justify-between mt-auto">
               <PostCardLikeAndComment postData={post} />
-              <PostCardDropdownShare />
+              <PostCardDropdownShare href={post.link} />
             </div>
           </div>
         </Transition.Child>

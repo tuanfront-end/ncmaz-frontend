@@ -12,7 +12,7 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
   className = "h-full",
   post,
 }) => {
-  const { title, link, featuredImage, postFormats } = post;
+  const { title, link, featuredImage, postFormats, excerpt } = post;
   const postFormatName = postFormats?.edges[0]?.node.name;
 
   const renderIcon = (state?: "loading" | "playing") => {
@@ -109,9 +109,14 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
             {title}
           </a>
         </h2>
-        <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
-          40 Episode · 110 minutes xxxx
-        </span>
+        {excerpt ? (
+          <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 ">
+            <span
+              className="line-clamp-1"
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+            ></span>
+          </span>
+        ) : null}
 
         {(postFormatName === "Video" || postFormatName === "Audio") && (
           <ButtonPlayMusicRunningContainer

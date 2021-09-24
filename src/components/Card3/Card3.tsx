@@ -69,7 +69,7 @@ const Card3: FC<Card3Props> = ({
                 __html: ncPostMetaData.readingTimeShortcode || "",
               }}
             />
-            <PostCardDropdownShare />
+            <PostCardDropdownShare href={post.link} />
           </div>
         </div>
       </div>

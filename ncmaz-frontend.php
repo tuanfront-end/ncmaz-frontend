@@ -36,14 +36,3 @@ require plugin_dir_path(__FILE__) . 'inc/ncmaz-register-widgets.php';
 /**
  * Change the Favorites loading indicator
  */
-add_filter('favorites/button/loading/html', 'custom_favorites_html_loader');
-function custom_favorites_html_loader($html)
-{
-    return 'xxxxxxxx';
-}
-
-add_filter('favorites/button/loading/html_active', 'custom_favorites_html_loader_active');
-function custom_favorites_html_loader_active($html)
-{
-    return 'xxxxxxxx';
-}

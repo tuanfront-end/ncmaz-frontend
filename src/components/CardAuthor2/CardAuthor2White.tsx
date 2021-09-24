@@ -10,6 +10,7 @@ const CardAuthor2White: FC<CardAuthor2WhiteProps> = ({
   readingTimeShortcode,
   date,
 }) => {
+  if (!author) return null;
   const { name, username, url, uri = "/", avatar } = author.node;
   return (
     <a

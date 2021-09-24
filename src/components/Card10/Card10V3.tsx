@@ -125,7 +125,10 @@ const Card10V3: FC<Card10V3Props> = ({
       </div>
       <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4">
         <CategoryBadgeList categories={categories} />
-        <PostCardDropdownShare panelMenusClass="w-52 right-0 top-0 origin-top-right" />
+        <PostCardDropdownShare
+          panelMenusClass="w-52 right-0 top-0 origin-top-right"
+          href={post.link}
+        />
       </div>
 
       <div className="space-y-2.5 mt-4 px-4">

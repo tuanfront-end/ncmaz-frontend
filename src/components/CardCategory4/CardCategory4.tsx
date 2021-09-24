@@ -3,6 +3,7 @@ import NcImage from "components/NcImage/NcImage";
 import { TwMainColor } from "data/types";
 import Badge from "components/Badge/Badge";
 import { CategoriesNode3 } from "data/postCardType";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface CardCategory4Props {
   className?: string;
@@ -79,7 +80,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
           <span
             className={`block mt-1 text-sm text-neutral-6000 dark:text-neutral-400`}
           >
-            {count} Articles
+            {count} {NCMAZ_TRANSLATE["articles"]}
           </span>
         </div>
       </div>

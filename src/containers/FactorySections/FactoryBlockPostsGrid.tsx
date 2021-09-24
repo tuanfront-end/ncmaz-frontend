@@ -28,6 +28,7 @@ import Card10Skeleton from "components/Card10/Card10Skeleton";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import Card14Skeleton from "components/Card14/Card14Skeleton";
 import Card15PodcastSkeleton from "components/Card15Podcast/Card15PodcastSkeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface FactoryBlockPostsGridProps {
   className?: string;
@@ -72,7 +73,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     });
   }, [tabActiveId]);
 
-  const { loading, error, data } = useQuery<Data>(queryGql, {
+  const { loading, error, data, fetchMore } = useQuery<Data>(queryGql, {
     notifyOnNetworkStatusChange: true,
     variables: variablesFilter,
   });
@@ -80,6 +81,21 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   //
   const LISTS_POSTS = data?.posts.edges || [];
   const IS_SKELETON = loading && !LISTS_POSTS.length;
+
+  //
+  const {
+    hasBackground,
+    heading,
+    subHeading,
+    viewMoreHref,
+    gridClass,
+    gridClassCustom,
+    showFilterTab,
+    blockLayoutStyle,
+    enableLoadMoreButton,
+    loadMoreButtonHref,
+    filterDataBy,
+  } = settings;
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -90,6 +106,38 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
       return;
     }
     setTabActiveId(item.id);
+  };
+
+  // Function to update the query with the new results
+  const updateQuery = (
+    previousResult: Data,
+    { fetchMoreResult }: { fetchMoreResult?: Data }
+  ): Data => {
+    if (!fetchMoreResult?.posts?.edges.length) return previousResult;
+    return {
+      ...fetchMoreResult,
+      posts: {
+        ...fetchMoreResult.posts,
+        edges: [
+          ...previousResult?.posts?.edges,
+          ...fetchMoreResult?.posts?.edges,
+        ],
+      },
+    };
+  };
+
+  const handleClickLoadmoreBtn = (e: React.MouseEvent<any, MouseEvent>) => {
+    if (!fetchMore || filterDataBy === "by_specific" || !!loadMoreButtonHref) {
+      return;
+    }
+    e.preventDefault();
+    const notIn = LISTS_POSTS.map((item) => item.node.postId);
+    fetchMore({
+      variables: {
+        notIn,
+      },
+      updateQuery,
+    });
   };
 
   const renderCard = (post: PostNode) => {
@@ -156,7 +204,6 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   };
 
   const renderHeading = () => {
-    const { heading, subHeading, blockLayoutStyle } = settings;
     if (blockLayoutStyle === "layout-1") {
       return <Heading desc={subHeading}>{heading}</Heading>;
     }
@@ -168,18 +215,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   };
 
   const renderContent = () => {
-    const {
-      hasBackground,
-      heading,
-      subHeading,
-      viewMoreHref,
-      gridClass,
-      gridClassCustom,
-      showFilterTab,
-    } = settings;
     const isBg = hasBackground;
-
-    const showViewMoreBtn = !showFilterTab && viewMoreHref;
 
     return (
       <div
@@ -221,11 +257,25 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
           />
           {/* ------------ */}
 
-          {showViewMoreBtn && (
-            <div className="flex mt-20 justify-center items-center">
-              <ButtonPrimary href={viewMoreHref}>Show me more</ButtonPrimary>
-            </div>
-          )}
+          {enableLoadMoreButton ? (
+            !!loadMoreButtonHref ? (
+              <div className="flex mt-20 justify-center items-center">
+                <ButtonPrimary href={loadMoreButtonHref}>
+                  {NCMAZ_TRANSLATE["showMeMore"]}
+                </ButtonPrimary>
+              </div>
+            ) : filterDataBy !== "by_specific" &&
+              data?.posts.pageInfo?.hasNextPage ? (
+              <div className="flex mt-20 justify-center items-center">
+                <ButtonPrimary
+                  onClick={handleClickLoadmoreBtn}
+                  loading={loading}
+                >
+                  {NCMAZ_TRANSLATE["showMeMore"]}
+                </ButtonPrimary>
+              </div>
+            ) : null
+          ) : null}
         </div>
       </div>
     );

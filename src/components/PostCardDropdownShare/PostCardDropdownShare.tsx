@@ -1,18 +1,28 @@
-import NcDropDown from "components/NcDropDown/NcDropDown";
+import NcDropDown, { NcDropDownItem } from "components/NcDropDown/NcDropDown";
 import { SocialType } from "components/SocialsShare/SocialsShare";
 import React from "react";
 import { FC } from "react";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterShareButton,
+  TwitterIcon,
+  LinkedinIcon,
+  LinkedinShareButton,
+  PinterestIcon,
+  PinterestShareButton,
+} from "react-share";
 
 const socials: SocialType[] = [
   { id: "Facebook", name: "Facebook", icon: "lab la-facebook-f", href: "#" },
   { id: "Twitter", name: "Twitter", icon: "lab la-twitter", href: "#" },
   { id: "Linkedin", name: "Linkedin", icon: "lab la-linkedin-in", href: "#" },
-  { id: "Instagram", name: "Instagram", icon: "lab la-instagram", href: "#" },
+  { id: "Pinterest", name: "Pinterest", icon: "lab la-Pinterest", href: "#" },
 ];
 
 export interface PostCardDropdownShareProps {
   panelMenusClass?: string;
-  href?: string;
+  href: string;
   className?: string;
 }
 
@@ -51,12 +61,70 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
     );
   };
 
+  const renderSocialsItem = (item: NcDropDownItem) => {
+    switch (item.id) {
+      case "Facebook":
+        return (
+          <FacebookShareButton
+            className="flex items-center space-x-3 !px-3 !py-2 "
+            url={href}
+          >
+            <FacebookIcon round size={24} />
+            <span>Facebook</span>
+          </FacebookShareButton>
+        );
+      case "Twitter":
+        return (
+          <TwitterShareButton
+            className="flex items-center space-x-3 !px-3 !py-2 "
+            url={href}
+          >
+            <TwitterIcon round size={24} />
+            <span>Twitter</span>
+          </TwitterShareButton>
+        );
+      case "Linkedin":
+        return (
+          <LinkedinShareButton
+            className="flex items-center space-x-3 !px-3 !py-2 "
+            url={href}
+          >
+            <LinkedinIcon round size={24} />
+            <span>Linkedin</span>
+          </LinkedinShareButton>
+        );
+      case "Pinterest":
+        return (
+          <PinterestShareButton
+            media=""
+            className="flex items-center space-x-3 !px-3 !py-2 "
+            url={href}
+          >
+            <PinterestIcon round size={24} />
+            <span>Pinterest</span>
+          </PinterestShareButton>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  const renderItem = (item: NcDropDownItem) => {
+    return (
+      <div className="flex items-center rounded-md w-full hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-100 truncate ">
+        {renderSocialsItem(item)}
+      </div>
+    );
+  };
+
   return (
     <NcDropDown
       className={className}
       panelMenusClass={panelMenusClass}
       title="Share with"
       renderTrigger={renderButton}
+      renderItem={renderItem}
       data={socials}
       onClick={() => {}}
     />

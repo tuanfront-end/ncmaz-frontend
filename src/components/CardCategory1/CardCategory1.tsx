@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import { CategoriesNode3 } from "data/postCardType";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface CardCategory1Props {
   className?: string;
@@ -41,7 +42,7 @@ const CardCategory1: FC<CardCategory1Props> = ({
             size === "large" ? "text-sm" : "text-xs"
           } block mt-[2px] text-neutral-500 dark:text-neutral-400`}
         >
-          {count || 0} Articles
+          {count || 0} {NCMAZ_TRANSLATE["articles"]}
         </span>
       </div>
     </a>

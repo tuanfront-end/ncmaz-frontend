@@ -102,6 +102,9 @@ export interface GutenbergApiAttr_BlockPostsGrid {
     subHeading: string;
     hasBackground: boolean;
     categories: HeaderSectionFilterTabItem[];
+    enableLoadMoreButton: boolean;
+    loadMoreButtonHref: string;
+    filterDataBy: "by_specific" | "by_filter";
   };
 }
 

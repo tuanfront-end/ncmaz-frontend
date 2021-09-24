@@ -38,7 +38,7 @@ const Card1: FC<Card1Props> = ({ className = "", post }) => {
       </div>
 
       {/* ACTIONS */}
-      <PostCardDropdownShare />
+      <PostCardDropdownShare href={post.link} />
     </div>
   );
 };

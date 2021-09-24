@@ -99,6 +99,24 @@ function ncmaz_frontend_enqueue_scripts_2()
     wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
     $currentUser = getCurrentUserGraphql();
     $allSettings = getAllSettingsGraphql();
+
+    global $wp_locale;
+    global $ncmaz_redux_demo;
+
+
+
+    // =============
+    $monthNames = array_map(array(&$wp_locale, 'get_month'), range(1, 12));
+    $monthNamesShort = array_map(array(&$wp_locale, 'get_month_abbrev'), $monthNames);
+    $dayNames = array_map(array(&$wp_locale, 'get_weekday'), range(0, 6));
+    $dayNamesShort = array_map(array(&$wp_locale, 'get_weekday_abbrev'), $dayNames);
+    wp_localize_script("ncmaz-frontend-js", "DATE_I18N", array(
+        "month_names" => $monthNames,
+        "month_names_short" => $monthNamesShort,
+        "day_names" => $dayNames,
+        "day_names_short" => $dayNamesShort
+    ));
+
     wp_localize_script(
         'ncmaz-frontend-js',
         'frontendObject',
@@ -109,7 +127,7 @@ function ncmaz_frontend_enqueue_scripts_2()
             'dateFormat'            => get_option('date_format'),
             'placeholderImg'        => get_template_directory_uri() . '/placeholder-small.png',
             'graphQLBasePath'       => get_site_url(null, '/graphql'),
-            'value2'                => 'value 2',
+            'frontendTranslate'     => $ncmaz_redux_demo['nc-general-settings--translate-js-editor'],
             'homeURL'               => get_site_url(),
             'currentUser'           => $currentUser ? $currentUser['data']['user'] : null,
             'allSettings'           => $allSettings ? $allSettings['data']['allSettings'] : null,

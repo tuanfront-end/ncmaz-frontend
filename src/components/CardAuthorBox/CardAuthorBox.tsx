@@ -9,11 +9,11 @@ export interface CardAuthorBoxProps {
 }
 
 const CardAuthorBox: FC<CardAuthorBoxProps> = ({ className = "", author }) => {
-  const { name, username, uri, url, avatar, ncUserMeta } = author;
+  const { name, username, uri, avatar, ncUserMeta } = author;
 
   return (
     <a
-      href={url + uri}
+      href={frontendObject.homeURL + uri}
       className={`nc-CardAuthorBox flex flex-col items-center justify-center text-center px-3 py-5 sm:px-6 sm:py-7  [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="CardAuthorBox"
     >

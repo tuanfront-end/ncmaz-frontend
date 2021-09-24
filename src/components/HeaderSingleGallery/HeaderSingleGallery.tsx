@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import NcImage from "components/NcImage/NcImage";
 import ModalPhotos from "./ModalPhotos";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface HeaderSingleGalleryProps {
   className?: string;
@@ -84,7 +85,7 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
               />
             </svg>
             <span className="ml-2 text-neutral-800 text-sm font-medium">
-              Show all photos
+              {NCMAZ_TRANSLATE["showAllPhotos"]}
             </span>
           </div>
         </div>

@@ -113,7 +113,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
           </span>
           <div className="flex items-end justify-between mt-auto">
             <PostCardLikeAndComment className="relative" postData={post} />
-            <PostCardDropdownShare />
+            <PostCardDropdownShare href={post.link} />
           </div>
         </div>
       </div>
