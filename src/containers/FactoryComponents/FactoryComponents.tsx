@@ -1,6 +1,7 @@
 import HeaderSingleAudio from "components/HeaderSingleAudio/HeaderSingleAudio";
 import HeaderSingleGallery from "components/HeaderSingleGallery/HeaderSingleGallery";
 import HeaderSingleVideo from "components/HeaderSingleVideo/HeaderSingleVideo";
+import NavAccountDropdown from "components/NavAccountDropdown/NavAccountDropdown";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SocialsShare from "components/SocialsShare/SocialsShare";
@@ -105,6 +106,12 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "SearchDropdown":
         return ReactDOM.createPortal(
           <SearchDropdown {...componentProps} />,
+          dom
+        );
+
+      case "NavAccountDropdown":
+        return ReactDOM.createPortal(
+          <NavAccountDropdown {...componentProps} />,
           dom
         );
 

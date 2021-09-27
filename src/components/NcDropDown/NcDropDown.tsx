@@ -63,15 +63,16 @@ const NcDropDown: FC<NcDropDownProps> = ({
                 onClick={() => onClick(item)}
                 data-menu-item-id={item.id}
               >
-                {() =>
+                {(active) =>
                   renderItem ? (
                     renderItem(item)
                   ) : (
                     <button
-                      className={
-                        "flex items-center rounded-md w-full px-3 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-100 truncate " +
-                        twFocusClass()
-                      }
+                      className={`flex items-center rounded-md w-full px-3 py-2  truncate ${
+                        active
+                          ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
+                          : ""
+                      }`}
                     >
                       {!!item.icon && (
                         <i className={`${item.icon} mr-1 w-7 text-base`}></i>

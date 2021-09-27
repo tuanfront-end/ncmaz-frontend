@@ -96,7 +96,7 @@ function getAllSettingsGraphql()
 // JAVASCRIPT
 function ncmaz_frontend_enqueue_scripts_2()
 {
-    wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
+    wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
     $currentUser = getCurrentUserGraphql();
     $allSettings = getAllSettingsGraphql();
 
