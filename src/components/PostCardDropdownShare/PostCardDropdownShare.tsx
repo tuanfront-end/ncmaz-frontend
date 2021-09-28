@@ -61,7 +61,7 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
     );
   };
 
-  const renderSocialsItem = (item: NcDropDownItem) => {
+  const renderSocialsItem = (item: NcDropDownItem, active: boolean) => {
     switch (item.id) {
       case "Facebook":
         return (
@@ -110,10 +110,16 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
     }
   };
 
-  const renderItem = (item: NcDropDownItem) => {
+  const renderItem = (item: NcDropDownItem, active: boolean) => {
     return (
-      <div className="flex items-center rounded-md w-full hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-100 truncate ">
-        {renderSocialsItem(item)}
+      <div
+        className={`flex items-center rounded-md w-full  truncate ${
+          active
+            ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
+            : ""
+        }`}
+      >
+        {renderSocialsItem(item, active)}
       </div>
     );
   };

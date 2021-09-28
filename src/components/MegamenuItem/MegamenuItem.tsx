@@ -155,14 +155,15 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
               const isActive = item.categoryId === temrActiveId;
               return (
                 <li
-                  className={`py-2.5 px-3.5 flex items-center !m-0 ${
-                    isActive
-                      ? "bg-neutral-100 dark:bg-neutral-800 border-l-4 border-primary-500"
-                      : ""
+                  className={`py-2.5 px-5 flex items-center !m-0 relative ${
+                    isActive ? "bg-neutral-100 dark:bg-neutral-800 " : ""
                   }`}
                   key={item.categoryId}
                   onMouseEnter={() => handleMoutEnterTerm(item)}
                 >
+                  {isActive && (
+                    <span className="absolute left-0 w-1 h-full top-0 bg-primary-500"></span>
+                  )}
                   {item.name}
                 </li>
               );

@@ -43,8 +43,8 @@ $args = array(
     // Show the sections below the admin menu item or not.
     'allow_sub_menu'            => true,
 
-    'menu_title'                => esc_html__('Theme Options', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-    'page_title'                => esc_html__('Theme Options', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'menu_title'                => esc_html__('Theme Options', 'ncmaz-frontend'),
+    'page_title'                => esc_html__('Theme Options', 'ncmaz-frontend'),
 
     // Disable this in case you want to create your own google fonts loader.
     'disable_google_fonts_link' => false,
@@ -224,21 +224,21 @@ Redux::set_args($opt_name, $args);
 $help_tabs = array(
     array(
         'id'      => 'redux-help-tab-1',
-        'title'   => esc_html__('Theme Information 1', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-        'content' => '<p>' . esc_html__('This is the tab content, HTML is allowed.', _NCMAZ_FRONTEND_TEXT_DOMAIN) . '</p>',
+        'title'   => esc_html__('Theme Information 1', 'ncmaz-frontend'),
+        'content' => '<p>' . esc_html__('This is the tab content, HTML is allowed.', 'ncmaz-frontend') . '</p>',
     ),
 
     array(
         'id'      => 'redux-help-tab-2',
-        'title'   => esc_html__('Theme Information 2', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-        'content' => '<p>' . esc_html__('This is the tab content, HTML is allowed.', _NCMAZ_FRONTEND_TEXT_DOMAIN) . '</p>',
+        'title'   => esc_html__('Theme Information 2', 'ncmaz-frontend'),
+        'content' => '<p>' . esc_html__('This is the tab content, HTML is allowed.', 'ncmaz-frontend') . '</p>',
     ),
 );
 
 Redux::set_help_tab($opt_name, $help_tabs);
 
 // Set the help sidebar.
-$content = '<p>' . esc_html__('This is the sidebar content, HTML is allowed.', _NCMAZ_FRONTEND_TEXT_DOMAIN) . '</p>';
+$content = '<p>' . esc_html__('This is the sidebar content, HTML is allowed.', 'ncmaz-frontend') . '</p>';
 Redux::set_help_sidebar($opt_name, $content);
 
 /*

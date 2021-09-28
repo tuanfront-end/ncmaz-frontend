@@ -10,16 +10,8 @@ h4 {
   @apply font-display;
 }
 
-/* root */
-:root {
-  --font-display: Poppins;
-  --font-body: Poppins;
-}
-.theme-animals {
-  --font-display: Inter;
-  --font-body: Inter;
-}
-.theme-astronomy {
-  --font-display: BeVietnam;
-  --font-body: BeVietnam;
+.prose {
+  h1 + * {
+    @apply mt-0;
+  }
 }

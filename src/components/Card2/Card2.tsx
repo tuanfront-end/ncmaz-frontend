@@ -65,10 +65,12 @@ const Card2: FC<Card2Props> = ({
               {title}
             </a>
           </h2>
-          <div
-            className="block text-neutral-500 dark:text-neutral-400 text-sm line-clamp-2"
-            dangerouslySetInnerHTML={{ __html: excerpt }}
-          ></div>
+          {excerpt ? (
+            <div
+              className="block text-neutral-500 dark:text-neutral-400 text-sm line-clamp-2"
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+            ></div>
+          ) : null}
         </div>
 
         <CardAuthor2

@@ -15,7 +15,7 @@ export interface NcDropDownProps {
   iconClass?: string;
   data: NcDropDownItem[];
   renderTrigger?: () => ReactNode;
-  renderItem?: (item: NcDropDownItem) => ReactNode;
+  renderItem?: (item: NcDropDownItem, active: boolean) => ReactNode;
   title?: string;
   onClick: (item: NcDropDownItem) => void;
 }
@@ -63,9 +63,9 @@ const NcDropDown: FC<NcDropDownProps> = ({
                 onClick={() => onClick(item)}
                 data-menu-item-id={item.id}
               >
-                {(active) =>
+                {({ active }) =>
                   renderItem ? (
-                    renderItem(item)
+                    renderItem(item, active)
                   ) : (
                     <button
                       className={`flex items-center rounded-md w-full px-3 py-2  truncate ${

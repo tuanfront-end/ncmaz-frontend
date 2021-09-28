@@ -2,9 +2,9 @@
 
 // =====================================single SETTING ==================================================
 $section = array(
-    'title'  => esc_html__('Archive page settings', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'title'  => esc_html__('Archive page settings', 'ncmaz-frontend'),
     'id'     => 'nc-archive-page-settings',
-    'desc'   => esc_html__('All Archive page settings', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'desc'   => esc_html__('All Archive page settings', 'ncmaz-frontend'),
     'icon'   => 'el el-home',
     'fields' => array(),
 );
@@ -12,8 +12,8 @@ Redux::set_section($opt_name, $section);
 
 // ===========================GENERAL SETTING__SUB1 --Header ========================
 $section = array(
-    'title'      => esc_html__('General settings', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-    'desc'       => esc_html__('General settings for Archive page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'title'      => esc_html__('General settings', 'ncmaz-frontend'),
+    'desc'       => esc_html__('General settings for Archive page', 'ncmaz-frontend'),
     'id'         => 'nc-archive-page-settings--general',
     'subsection' => true,
     'fields'     => array(),
@@ -23,32 +23,32 @@ Redux::set_section($opt_name, $section);
 
 // ===========================GENERAL SETTING__SUB1 --Header ========================
 $section = array(
-    'title'      => esc_html__('Section Trending Categories', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-    'desc'       => esc_html__('Section grid categories bellow posts', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'title'      => esc_html__('Section Trending Categories', 'ncmaz-frontend'),
+    'desc'       => esc_html__('Section grid categories bellow posts', 'ncmaz-frontend'),
     'id'         => 'nc-archive-page-settings--section-top10-categories',
     'subsection' => true,
     'fields'     => array(
         [
             'id'       => 'nc-archive-page-settings--section-top10-categories-switch-toggle',
             'type'     => 'switch',
-            'title'    => __('Show/Hide section', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'subtitle' => __('Look, it\'s on!', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title'    => __('Show/Hide section', 'ncmaz-frontend'),
+            'subtitle' => __('Look, it\'s on!', 'ncmaz-frontend'),
             'default'  => true,
         ],
         [
             'id'       => 'nc-archive-page-settings--section-top10-categories-only-category-page',
             'type'     => 'switch',
-            'title'    => __('Show only category page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'subtitle' => __('Only show on category page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'desc'      => __('If enable then other archive pages (eg: tag, author, date ...) will hidden this section', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title'    => __('Show only category page', 'ncmaz-frontend'),
+            'subtitle' => __('Only show on category page', 'ncmaz-frontend'),
+            'desc'      => __('If enable then other archive pages (eg: tag, author, date ...) will hidden this section', 'ncmaz-frontend'),
             'default'  => true,
         ],
         [
             'id'       => 'nc-archive-page-settings--section-top10-categories-select-orderby',
             'type'     => 'select',
-            'title'    => __('Select OrderBy', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'subtitle' => __('Select OrderBy filter for section', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'desc'      => __('Is categories child only for category archive page, more archive page will default orderBy Count', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title'    => __('Select OrderBy', 'ncmaz-frontend'),
+            'subtitle' => __('Select OrderBy filter for section', 'ncmaz-frontend'),
+            'desc'      => __('Is categories child only for category archive page, more archive page will default orderBy Count', 'ncmaz-frontend'),
             'options'  => array(
                 'count'         => 'OrderBy Count',
                 'term_order'    => 'OrderBy Term order',
@@ -59,7 +59,7 @@ $section = array(
         [
             'id'        => 'nc-archive-page-settings--section-top10-categories-number-items',
             'type'      => 'slider',
-            'title'     => __('Number categories', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title'     => __('Number categories', 'ncmaz-frontend'),
             "default"   => 10,
             "min"       => 1,
             "step"      => 1,
@@ -69,13 +69,13 @@ $section = array(
         [
             'id'       => 'nc-archive-page-settings--section-top10-categories-heading',
             'type'     => 'text',
-            'title'    => __('Heading', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title'    => __('Heading', 'ncmaz-frontend'),
             'default'  => 'Top trending topics',
         ],
         [
             'id'       => 'nc-archive-page-settings--section-top10-categories-sub-heading',
             'type'     => 'text',
-            'title'    => __('Heading', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title'    => __('Heading', 'ncmaz-frontend'),
             'default'  => 'Discover over 100 topics',
         ]
 
@@ -87,8 +87,8 @@ Redux::set_section($opt_name, $section);
 // 
 //
 $section = array(
-    'title'      => esc_html__('Search page settings', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-    'desc'       => esc_html__('Settings for search page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+    'title'      => esc_html__('Search page settings', 'ncmaz-frontend'),
+    'desc'       => esc_html__('Settings for search page', 'ncmaz-frontend'),
     'id'         => 'nc-search-page-settings',
     'subsection' => true,
     'fields'     => array(
@@ -96,8 +96,8 @@ $section = array(
             'id'            => 'nc-search-page-settings--media-background',
             'type'          => 'media',
             'url'           => true,
-            'title'         => __('Header Background Image', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'subtitle'      => __('Upload image for header background on search page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title'         => __('Header Background Image', 'ncmaz-frontend'),
+            'subtitle'      => __('Upload image for header background on search page', 'ncmaz-frontend'),
             'default'       => array(
                 'url' => 'https://chisnghiax.com/ncmaz/static/media/placeholder-large.ed676656.png'
             ),
@@ -105,8 +105,8 @@ $section = array(
         [
             'id' => 'nc-search-page-settings--multi-text-suggestions',
             'type' => 'multi_text',
-            'title' => __('Multi Text Option - Lists Suggestions', _NCMAZ_FRONTEND_TEXT_DOMAIN),
-            'subtitle' => __('Enter Lists Suggestions text for search page', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+            'title' => __('Multi Text Option - Lists Suggestions', 'ncmaz-frontend'),
+            'subtitle' => __('Enter Lists Suggestions text for search page', 'ncmaz-frontend'),
         ]
     ),
 );

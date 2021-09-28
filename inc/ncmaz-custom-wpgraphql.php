@@ -17,7 +17,7 @@ add_filter('graphql_request_results', function ($response) {
 add_filter('graphql_PostObjectsConnectionOrderbyEnum_values', function ($values) {
     $values['VIEWS_COUNT'] = [
         'value' => 'views_count',
-        'description' => __('The number of views on the post', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+        'description' => __('The number of views on the post', 'ncmaz-frontend'),
     ];
     return $values;
 });
@@ -40,7 +40,7 @@ add_filter('graphql_post_object_connection_query_args', function ($query_args, $
 add_filter('graphql_PostObjectsConnectionOrderbyEnum_values', function ($values) {
     $values['FAVORITES_COUNT'] = [
         'value' => 'simplefavorites_count',
-        'description' => __('The number of favorites count on the post', _NCMAZ_FRONTEND_TEXT_DOMAIN),
+        'description' => __('The number of favorites count on the post', 'ncmaz-frontend'),
     ];
     return $values;
 });

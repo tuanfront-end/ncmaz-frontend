@@ -1,0 +1,16 @@
+{
+  "src/main.tsx": {
+    "file": "assets/main.9a7d6ef9.js",
+    "src": "src/main.tsx",
+    "isEntry": true,
+    "imports": [
+      "_vendor.7e5ca006.js"
+    ],
+    "css": [
+      "assets/main.38ceff21.css"
+    ]
+  },
+  "_vendor.7e5ca006.js": {
+    "file": "assets/vendor.7e5ca006.js"
+  }
+}
