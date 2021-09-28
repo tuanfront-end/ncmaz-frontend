@@ -94,7 +94,7 @@ function getAllSettingsGraphql()
 }
 
 // JAVASCRIPT
-function ncmaz_frontend_enqueue_scripts_2()
+function ncmazFrontend_enqueueScriptCustomize()
 {
     wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
     $currentUser = getCurrentUserGraphql();
@@ -102,8 +102,6 @@ function ncmaz_frontend_enqueue_scripts_2()
 
     global $wp_locale;
     global $ncmaz_redux_demo;
-
-
 
     // =============
     $monthNames = array_map(array(&$wp_locale, 'get_month'), range(1, 12));
@@ -146,35 +144,16 @@ function ncmaz_frontend_enqueue_scripts_2()
         )
     );
 }
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_scripts_2');
+add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 
 // 
 // 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
 
-// add_action('wp_enqueue_scripts', 'registerScripts');
-function registerScripts()
+// ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
+add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
+function ncmazFrontend_registerScripts()
 {
     $dirJS = [];
-    // WILL ENABLE WHEN DEPLOY BUILD PRODUCT
     if (file_exists(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets')) {
         $dirJS = new DirectoryIterator(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets');
     }
@@ -188,11 +167,11 @@ function registerScripts()
 }
 
 
-// add_action('wp_enqueue_scripts', 'registerStyles');
-function registerStyles()
+// ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
+add_action('wp_enqueue_scripts', 'ncmazFrontend_registerStyles');
+function ncmazFrontend_registerStyles()
 {
     $dirCSS = [];
-    // WILL ENABLE WHEN DEPLOY BUILD
     if (file_exists(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets')) {
         $dirCSS = new DirectoryIterator(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets');
     }
@@ -207,7 +186,8 @@ function registerStyles()
 }
 
 
-// --------------------------------------------------------------------------------------
+// ======================== ENABLE WHEN DEV MODE ========================
+// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">
@@ -221,5 +201,4 @@ function ncmaz_frontend_enqueue_script($hook)
     wp_enqueue_script('@vite-client-js', 'http://localhost:3000/@vite/client', [], null, true);
     wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:3000/src/main.tsx', [], null, true);
 }
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 // --------------------------------------------------------------------------------------

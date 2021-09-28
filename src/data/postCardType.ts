@@ -161,7 +161,6 @@ export interface NcTaxonomyMeta {
     id: string;
     sourceUrl: string;
   };
-  fieldGroupName: "ncTaxonomyMeta";
 }
 
 interface FeaturedImage {
