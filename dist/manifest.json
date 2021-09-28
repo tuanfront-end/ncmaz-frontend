@@ -1,13 +1,13 @@
 {
   "src/main.tsx": {
-    "file": "assets/main.9a7d6ef9.js",
+    "file": "assets/main.fb66b516.js",
     "src": "src/main.tsx",
     "isEntry": true,
     "imports": [
       "_vendor.7e5ca006.js"
     ],
     "css": [
-      "assets/main.38ceff21.css"
+      "assets/main.10d1ccfa.css"
     ]
   },
   "_vendor.7e5ca006.js": {

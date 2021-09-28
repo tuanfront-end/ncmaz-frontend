@@ -1,9 +1,11 @@
-.nc-Footer-item {
+.nc-Footer .nc-Footer-item {
+  .ncmaz-footer-sidebar-title,
   .widget-title,
   > div > h2 {
     @apply font-semibold text-neutral-700 dark:text-neutral-200 mb-5;
   }
-  ul {
+  ul,
+  li {
     @apply space-y-4;
   }
   a {

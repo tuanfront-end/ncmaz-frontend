@@ -74,7 +74,8 @@
 }
 
 // SEARCH INPUT
-.nc-WidgetItem {
+.nc-WidgetItem,
+.nc-Footer-item {
   .wp-block-search__input,
   .search-field {
     @apply inline-block rounded-full border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 #{!important};
@@ -111,7 +112,9 @@ select {
 .widget_recent_comments,
 .widget_rss,
 .widget_nav_menu,
-.widget_recent_entries {
+.widget_recent_entries,
+.wp-block-archives-list,
+.wp-block-archives {
   ul {
     @apply space-y-4;
   }
@@ -121,9 +124,14 @@ select {
       @apply space-y-4 pl-4;
     }
     a {
-      @apply hover:text-neutral-800 dark:hover:text-neutral-100 transition-colors duration-200 capitalize;
+      @apply text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-200 capitalize;
     }
   }
+}
+
+ul.wp-block-archives-list,
+ul.wp-block-archives {
+  @apply space-y-4;
 }
 
 // MY CUSTOM WIDGET
