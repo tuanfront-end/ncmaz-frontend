@@ -112,7 +112,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
     {
       id: "Facebook",
       name: "Facebook",
-      icon: "lab la-facebook-square",
+      icon: "lab la-facebook-f",
       href: userData.ncUserMeta.facebookUrl || "",
     },
     {

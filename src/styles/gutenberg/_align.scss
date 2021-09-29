@@ -44,16 +44,18 @@
 
   // =============================================
   // ---------------------------------- ## align-wrap ## ----------------------------------
-  @screen lg {
-    .alignwide {
-      width: 100vw;
-      max-width: calc(80vw - 16px);
-      margin-left: calc(calc(50% - 40vw) + 8px);
-    }
-    .alignfull {
-      width: 100vw;
-      max-width: calc(100vw - 17px);
-      margin-left: calc(calc(50% - 50vw) + 8px);
+  &.entry-content--not-has-sidebar {
+    @screen lg {
+      .alignwide {
+        width: 100vw;
+        max-width: calc(80vw - 16px);
+        margin-left: calc(calc(50% - 40vw) + 8px);
+      }
+      .alignfull {
+        width: 100vw;
+        max-width: calc(100vw - 17px);
+        margin-left: calc(calc(50% - 50vw) + 8px);
+      }
     }
   }
 }

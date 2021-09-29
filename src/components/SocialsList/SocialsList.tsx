@@ -11,7 +11,7 @@ const socialsDemo: SocialType[] = [
   {
     id: "Facebook",
     name: "Facebook",
-    icon: "lab la-facebook-square",
+    icon: "lab la-facebook-f",
     href: "#",
   },
   { id: "Twitter", name: "Twitter", icon: "lab la-twitter", href: "#" },
@@ -23,12 +23,12 @@ export const SOCIALS_2 = socialsDemo;
 
 const SocialsList: FC<SocialsListProps> = ({
   className = "",
-  itemClass = "w-7 h-7 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-400 text-lg rounded-lg flex items-center justify-center hover:border-neutral-400 dark:hover:border-neutral-6000 ",
+  itemClass = "rounded-full flex items-center justify-center text-lg lg:w-9 w-8 lg:h-9 h-8 border-2 border-neutral-200",
   socials = socialsDemo,
 }) => {
   return (
     <nav
-      className={`nc-SocialsList flex space-x-2 ${className}`}
+      className={`nc-SocialsList flex space-x-2.5 ${className}`}
       data-nc-id="SocialsList"
     >
       {socials.map((item, i) => (

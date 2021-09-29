@@ -40,7 +40,7 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
           containerClassName="ring-2 ring-white"
           sizeClass="w-16 h-16 text-2xl"
           radius="rounded-full"
-          imgUrl={avatar?.url}
+          imgUrl={ncUserMeta?.featuredImage?.sourceUrl || avatar?.url}
           userName={username}
         />
         <div className="mt-3">

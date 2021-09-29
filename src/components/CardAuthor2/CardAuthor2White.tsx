@@ -11,7 +11,7 @@ const CardAuthor2White: FC<CardAuthor2WhiteProps> = ({
   date,
 }) => {
   if (!author) return null;
-  const { name, username, url, uri = "/", avatar } = author.node;
+  const { name, username, url, uri = "/", avatar, ncUserMeta } = author.node;
   return (
     <a
       href={url + uri}
@@ -22,7 +22,7 @@ const CardAuthor2White: FC<CardAuthor2WhiteProps> = ({
         sizeClass="h-10 w-10 text-base"
         containerClassName="flex-shrink-0 mr-3"
         radius="rounded-full"
-        imgUrl={avatar?.url}
+        imgUrl={ncUserMeta?.featuredImage?.sourceUrl || avatar?.url}
         userName={username}
       />
       <div>

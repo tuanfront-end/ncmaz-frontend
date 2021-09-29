@@ -2,6 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import Avatar from "components/Avatar/Avatar";
 import NcDropDown from "components/NcDropDown/NcDropDown";
 import React, { FC, Fragment } from "react";
+import getAvatarUrlDefaultWordpress from "utils/getAvatarUrlWordpress";
 
 interface Item {
   id: string;
@@ -19,12 +20,16 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
   data,
   footData,
 }) => {
+  const { currentUser, homeURL } = frontendObject;
   const renderAvatar = () => {
     return (
       <div className="flex-shrink-0 sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ">
         <Avatar
-          imgUrl={frontendObject.currentUser?.avatar.url}
-          userName={frontendObject.currentUser?.name}
+          imgUrl={getAvatarUrlDefaultWordpress(
+            currentUser?.avatar.url,
+            currentUser?.ncUserMeta.featuredImage?.sourceUrl
+          )}
+          userName={currentUser?.name}
           radius="rounded-full"
           containerClassName="ring-2 ring-neutral-200 dark:ring-neutral-700 ring-offset-2"
           sizeClass="h-7 w-7 text-base "
@@ -47,72 +52,74 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-neutral-800 rounded-lg divide-y divide-neutral-100 dark:divide-neutral-700 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-neutral-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-neutral-100  dark:divide-neutral-700 text-sm">
           <div className="px-1 py-2">
             <a
-              href={frontendObject.homeURL + frontendObject.currentUser?.uri}
+              href={homeURL + currentUser?.uri}
               className="px-3 py-2 flex items-center space-x-3"
             >
               <Avatar
-                imgUrl={frontendObject.currentUser?.avatar.url}
-                userName={frontendObject.currentUser?.name}
+                imgUrl={getAvatarUrlDefaultWordpress(
+                  currentUser?.avatar.url,
+                  currentUser?.ncUserMeta.featuredImage?.sourceUrl
+                )}
+                userName={currentUser?.name}
                 radius="rounded-full"
                 sizeClass="h-9 w-9 sm:h-10 sm:w-10 text-base"
               />
               <div className="flex flex-col justify-center text-sm truncate">
                 <span className="text-base font-medium truncate capitalize leading-tight mb-0.5">
-                  {frontendObject.currentUser?.name}
+                  {currentUser?.name}
                 </span>
                 <span className="text-neutral-500 dark:text-neutral-400 truncate leading-tight">
-                  {frontendObject.currentUser?.ncUserMeta.ncBio}
+                  {currentUser?.ncUserMeta.ncBio}
                 </span>
               </div>
             </a>
           </div>
-          <Menu.Items className="divide-y divide-neutral-100  dark:divide-neutral-700 text-sm">
-            <div className="px-1 py-2">
-              {data.map((item) => (
-                <Menu.Item key={item.id}>
-                  {({ active }) => (
-                    <a
-                      key={item.id}
-                      href={item.href || "#"}
-                      className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
-                        active
-                          ? "bg-neutral-100 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100"
-                          : ""
-                      }`}
-                    >
-                      <i className={`${item.icon} mr-1 w-7 text-lg`}></i>
-                      <span>{item.name}</span>
-                    </a>
-                  )}
-                </Menu.Item>
-              ))}
-            </div>
 
-            <div className="px-1 py-2">
-              {footData.map((item) => (
-                <Menu.Item key={item.id}>
-                  {({ active }) => (
-                    <a
-                      key={item.id}
-                      href={item.href || "#"}
-                      className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
-                        active
-                          ? "bg-neutral-100 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100"
-                          : ""
-                      }`}
-                    >
-                      <i className={`${item.icon} mr-1 w-7 text-lg`}></i>
-                      <span>{item.name}</span>
-                    </a>
-                  )}
-                </Menu.Item>
-              ))}
-            </div>
-          </Menu.Items>
-        </div>
+          <div className="px-1 py-2">
+            {data.map((item) => (
+              <Menu.Item key={item.id}>
+                {({ active }) => (
+                  <a
+                    key={item.id}
+                    href={item.href || "#"}
+                    className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
+                      active
+                        ? "bg-neutral-100 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100"
+                        : ""
+                    }`}
+                  >
+                    <i className={`${item.icon} mr-1 w-7 text-lg`}></i>
+                    <span>{item.name}</span>
+                  </a>
+                )}
+              </Menu.Item>
+            ))}
+          </div>
+
+          <div className="px-1 py-2">
+            {footData.map((item) => (
+              <Menu.Item key={item.id}>
+                {({ active }) => (
+                  <a
+                    key={item.id}
+                    href={item.href || "#"}
+                    className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
+                      active
+                        ? "bg-neutral-100 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100"
+                        : ""
+                    }`}
+                  >
+                    <i className={`${item.icon} mr-1 w-7 text-lg`}></i>
+                    <span>{item.name}</span>
+                  </a>
+                )}
+              </Menu.Item>
+            ))}
+          </div>
+        </Menu.Items>
       </Transition>
     </Menu>
   );

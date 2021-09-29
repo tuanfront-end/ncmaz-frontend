@@ -64,7 +64,10 @@ const Card14: FC<Card14Props> = ({
               radius="rounded-full"
               containerClassName="ring-2 ring-white"
               sizeClass="h-7 w-7 text-sm"
-              imgUrl={author?.node.avatar?.url}
+              imgUrl={
+                author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
+                author?.node.avatar?.url
+              }
               userName={author?.node.username}
             />
             <span className="block text-white truncate">

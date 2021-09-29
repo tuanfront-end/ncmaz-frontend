@@ -36,7 +36,10 @@ const PostMeta2: FC<PostMeta2Props> = ({
               ? "h-6 w-6 text-sm"
               : "h-10 w-10 sm:h-11 sm:w-11 text-xl"
           }
-          imgUrl={author?.node.avatar?.url}
+          imgUrl={
+            author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
+            author?.node.avatar?.url
+          }
           userName={author?.node.username}
         />
       </a>

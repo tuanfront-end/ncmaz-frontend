@@ -30,7 +30,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
         sizeClass="h-10 w-10 text-base"
         containerClassName="flex-shrink-0 mr-3"
         radius="rounded-full"
-        imgUrl={node.avatar?.url}
+        imgUrl={node.ncUserMeta?.featuredImage?.sourceUrl || node.avatar?.url}
         userName={node.username}
       />
       <div>

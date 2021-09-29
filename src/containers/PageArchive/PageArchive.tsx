@@ -64,23 +64,36 @@ const PageArchive: FC<PageArchiveProps> = ({
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
   //
   let variables = {};
-  let taxonomy = "";
+  // let taxonomy = "";
   //
-  if (isCategory) {
-    taxonomy = "CATEGORY";
-  } else if (isTag) {
-    taxonomy = "TAG";
-  } else if (isFormatAudio || isFormatVideo) {
-    taxonomy = "POSTFORMAT";
-  }
 
-  variables = {
-    order: "DESC",
-    field: orderByState,
-    categoryIn: [termId],
-    first: POST_PER_PAGE,
-    taxonomy,
-  };
+  // if (isCategory) {
+  //   taxonomy = "CATEGORY";
+  // } else if (isTag) {
+  //   taxonomy = "TAG";
+  // } else if (isFormatAudio || isFormatVideo) {
+  //   taxonomy = "POSTFORMAT";
+  // }
+
+  //
+  if (isTag) {
+    variables = {
+      order: "DESC",
+      field: orderByState,
+      tagIn: [termId],
+      first: POST_PER_PAGE,
+      // taxonomy,
+    };
+  } else {
+    variables = {
+      order: "DESC",
+      field: orderByState,
+      categoryIn: [termId],
+      first: POST_PER_PAGE,
+      // taxonomy,
+    };
+  }
+  //
 
   const gqlQuery = gql`
     ${POSTS_SECTION_BY_FILTER__string}
@@ -145,6 +158,7 @@ const PageArchive: FC<PageArchiveProps> = ({
           />
           <div className="absolute inset-0 bg-black text-white bg-opacity-30 flex flex-col items-center justify-center">
             <h2 className="inline-block align-middle text-5xl font-semibold md:text-7xl ">
+              {isTag ? "#" : ""}
               {termData.name}
             </h2>
             <span className="block mt-4 text-neutral-300">

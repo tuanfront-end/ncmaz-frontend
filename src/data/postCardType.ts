@@ -65,6 +65,11 @@ interface AuthorNode2 {
   username: string;
   name: string;
   slug: string;
+  ncUserMeta?: {
+    featuredImage?: {
+      sourceUrl: string;
+    };
+  };
   __typename: string;
 }
 
