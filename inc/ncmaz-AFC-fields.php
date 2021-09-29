@@ -62,7 +62,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '33',
+                        'width' => '25',
                         'class' => '',
                         'id' => '',
                     ),
@@ -87,7 +87,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '33',
+                        'width' => '25',
                         'class' => '',
                         'id' => '',
                     ),
@@ -112,7 +112,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '33',
+                        'width' => '25',
                         'class' => '',
                         'id' => '',
                     ),
@@ -137,7 +137,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '33',
+                        'width' => '25',
                         'class' => '',
                         'id' => '',
                     ),
@@ -162,7 +162,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '33',
+                        'width' => '25',
                         'class' => '',
                         'id' => '',
                     ),
@@ -187,7 +187,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '33',
+                        'width' => '25',
                         'class' => '',
                         'id' => '',
                     ),
@@ -212,7 +212,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '33',
+                        'width' => '25',
                         'class' => '',
                         'id' => '',
                     ),
@@ -237,7 +237,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '33',
+                        'width' => '25',
                         'class' => '',
                         'id' => '',
                     ),
