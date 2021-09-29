@@ -188,7 +188,7 @@ function ncmazFrontend_registerScripts()
 
 
 // ======================== ENABLE WHEN DEV MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

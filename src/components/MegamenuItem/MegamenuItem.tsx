@@ -6,7 +6,6 @@ import { ListPosts } from "data/postCardType";
 import Card18 from "components/Card18/Card18";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import Card18Skeleton from "components/Card18/Card18Skeleton";
-import Badge from "components/Badge/Badge";
 
 interface Data {
   posts: ListPosts;
