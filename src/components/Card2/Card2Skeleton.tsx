@@ -27,8 +27,6 @@ const Card2Skeleton: FC<Card2SkeletonProps> = ({
         />
       </span>
 
-      <SocialsShare className="absolute hidden md:grid gap-[5px] right-4 top-4 opacity-0 z-[-1] group-hover:z-10 group-hover:opacity-100 transition-all duration-300" />
-
       <div className="p-4 sm:p-5 flex flex-col">
         <div className="space-y-3">
           <Skeleton width="30%" />

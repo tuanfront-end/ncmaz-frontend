@@ -328,7 +328,7 @@ function ncmazFrontend_acf_add_local_field_groups()
             'fields' => array(
                 array(
                     'key' => 'field_615317bb8ab81',
-                    'label' => 'favorite Button Shortcode',
+                    'label' => 'Favorite Button Shortcode',
                     'name' => 'favorite_button_shortcode',
                     'type' => 'wysiwyg',
                     'instructions' => '[favorite_button]',
@@ -348,7 +348,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                 ),
                 array(
                     'key' => 'field_615318d18ab82',
-                    'label' => 'reading Time Shortcode',
+                    'label' => 'Reading Time Shortcode',
                     'name' => 'reading_time_shortcode',
                     'type' => 'wysiwyg',
                     'instructions' => '[rt_reading_time label="Reading Time:" postfix="minutes" postfix_singular="minute"]',
@@ -368,7 +368,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                 ),
                 array(
                     'key' => 'field_615319018ab83',
-                    'label' => 'views Count',
+                    'label' => 'Views Count',
                     'name' => 'views_count',
                     'type' => 'number',
                     'instructions' => '',
@@ -417,7 +417,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                 ),
                 array(
                     'key' => 'field_61532b44973d3',
-                    'label' => 'show right sidebar',
+                    'label' => 'Show right sidebar',
                     'name' => 'show_right_sidebar',
                     'type' => 'true_false',
                     'instructions' => '',
@@ -497,7 +497,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                 ),
                 array(
                     'key' => 'field_615316f276755',
-                    'label' => 'featured Image',
+                    'label' => 'Featured Image',
                     'name' => 'featured_image',
                     'type' => 'image',
                     'instructions' => '',
@@ -550,7 +550,7 @@ function ncmazFrontend_acf_add_local_field_groups()
             'fields' => array(
                 array(
                     'key' => 'field_6152dc15767fb',
-                    'label' => 'featured Image',
+                    'label' => 'Featured Image',
                     'name' => 'featured_image',
                     'type' => 'image',
                     'instructions' => '',
@@ -575,7 +575,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                 ),
                 array(
                     'key' => 'field_6153157770fcf',
-                    'label' => 'background Image',
+                    'label' => 'Background Image',
                     'name' => 'background_image',
                     'type' => 'image',
                     'instructions' => '',

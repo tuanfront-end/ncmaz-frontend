@@ -22,27 +22,10 @@ function ncmazGetOptionForSectionTrendingArchivePage()
 }
 
 
-
-// UPDATE VIEW COUNT SINGLE PAGE
+// ============ READ ONLY SOME AFC FIELDS ============
 function my_acf_prepare_field($field)
 {
     $field['readonly'] = true;
     return $field;
 }
 add_filter('acf/prepare_field/name=views_count', 'my_acf_prepare_field');
-
-// 
-function ncmazcoreUpdateViewsCountOnSinglePage($content)
-{
-    if (!is_single()) {
-        return $content;
-    }
-
-    if (is_single()) {
-        $count = (int) get_field('views_count');
-        $count++;
-        update_field('views_count', $count);
-    }
-    return $content;
-}
-add_filter('the_content', 'ncmazcoreUpdateViewsCountOnSinglePage');

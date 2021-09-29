@@ -18,7 +18,10 @@ const Card8: FC<Card8Props> = ({ className = "h-full", post }) => {
       className={`nc-Card8 group relative [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] overflow-hidden ${className}`}
       data-nc-id="Card8"
     >
-      <SocialsShare className="absolute hidden md:grid gap-[5px] right-4 top-4 opacity-0 z-[-1] group-hover:z-10 group-hover:opacity-100 transition-all duration-300" />
+      <SocialsShare
+        href={link}
+        className="absolute hidden md:grid gap-[5px] right-4 top-4 opacity-0 z-[-1] group-hover:z-10 group-hover:opacity-100 transition-all duration-300"
+      />
       <a
         href={link}
         className="block w-full h-0 pt-[100%] sm:pt-[55%] rounded-xl overflow-hidden"

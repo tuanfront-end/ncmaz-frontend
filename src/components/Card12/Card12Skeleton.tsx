@@ -17,8 +17,6 @@ const Card12Skeleton: FC<Card12SkeletonProps> = ({ className = "h-full" }) => {
         <NcImage containerClassName="absolute inset-0" src={"."} />
       </div>
 
-      <SocialsShare className="absolute hidden md:grid gap-[5px] right-4 top-4 opacity-0 z-[-1] group-hover:z-10 group-hover:opacity-100 transition-all duration-300" />
-
       <div className=" mt-8 pr-10 flex flex-col">
         <h2
           className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-lg sm:text-2xl`}
