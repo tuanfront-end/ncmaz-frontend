@@ -145,7 +145,6 @@ function ncmazFrontend_enqueueScriptCustomize()
     );
 }
 add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
-
 // 
 // 
 
@@ -187,8 +186,8 @@ function ncmazFrontend_registerScripts()
 }
 
 
-// ======================== ENABLE WHEN DEV MODE ========================
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+// ======================== ENABLE WHEN ONLY DEV MODE ========================
+// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">
