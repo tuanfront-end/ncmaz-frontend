@@ -4,10 +4,19 @@
   > div > h2 {
     @apply font-semibold text-neutral-700 dark:text-neutral-200 mb-5;
   }
+
   ul,
   li {
     @apply space-y-4;
   }
+
+  ul.wp-block-social-links {
+    li {
+      @apply space-y-0;
+      margin: 4px 8px 4px 0 !important;
+    }
+  }
+
   a {
     @apply text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white;
   }
