@@ -7,6 +7,7 @@ import SectionSliderNewAuthors from "components/SectionSliderNewAuthors/SectionS
 import { PageInfo } from "containers/SingleComments/commentType";
 import { AuthorNode } from "data/postCardType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import ncNanoId from "utils/ncNanoId";
 
 interface Data {
   users: Users;
@@ -67,25 +68,26 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
       >
         {hasBackground && <BackgroundSection />}
 
-        {/* ------------ */}
-        <SectionSliderNewAuthors
-          authorCardName={userCardName}
-          blockLayoutStyle={blockLayoutStyle}
-          itemPerView={itemPerView}
-          authorNodes={LISTS_DATA}
-          authorNodesLoading={[1, 1, 1, 1, 1, , 1, 1, 1]}
-          heading={heading}
-          subHeading={subHeading}
-          isLoading={IS_SKELETON}
-        />
+        <div className="relative">
+          {/* ------------ */}
+          <SectionSliderNewAuthors
+            authorCardName={userCardName}
+            blockLayoutStyle={blockLayoutStyle}
+            itemPerView={itemPerView}
+            authorNodes={LISTS_DATA}
+            heading={heading}
+            subHeading={subHeading}
+            isLoading={IS_SKELETON}
+          />
 
-        {/* ------------ */}
-        <DataStatementBlockV2
-          className="my-5"
-          data={LISTS_DATA}
-          error={error}
-          isSkeleton={IS_SKELETON}
-        />
+          {/* ------------ */}
+          <DataStatementBlockV2
+            className="my-5"
+            data={LISTS_DATA}
+            error={error}
+            isSkeleton={IS_SKELETON}
+          />
+        </div>
       </div>
     );
   };

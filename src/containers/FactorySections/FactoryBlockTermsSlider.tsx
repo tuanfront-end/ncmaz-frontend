@@ -45,22 +45,24 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
       >
         {isBg && <BackgroundSection />}
 
-        <SectionSliderNewCategories
-          categories={termsLists}
-          heading={heading}
-          subHeading={subHeading}
-          categoryCardType={termCardName}
-          itemPerRow={itemPerView}
-          isLoading={IS_SKELETON}
-        />
+        <div className="relative">
+          <SectionSliderNewCategories
+            categories={termsLists}
+            heading={heading}
+            subHeading={subHeading}
+            categoryCardType={termCardName}
+            itemPerRow={itemPerView}
+            isLoading={IS_SKELETON}
+          />
 
-        {/* ------------ */}
-        <DataStatementBlockV2
-          data={termsLists}
-          isSkeleton={IS_SKELETON}
-          error={error}
-        />
-        {/* ------------ */}
+          {/* ------------ */}
+          <DataStatementBlockV2
+            data={termsLists}
+            isSkeleton={IS_SKELETON}
+            error={error}
+          />
+          {/* ------------ */}
+        </div>
       </div>
     );
   };

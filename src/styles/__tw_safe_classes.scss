@@ -1,1 +1,14 @@
 // SAFE CLASS -- BECAUSE TAILWIND JIT CURRENT NOT SUPPORT YET
+.ncmaz-myCustomPage {
+  .nc-SectionLatestPosts-hasSidebar {
+    @apply flex flex-col lg:flex-row;
+    > .wp-block-column:nth-child(1) {
+      @apply w-full lg:w-3/5 xl:w-2/3 xl:pr-14;
+      flex-basis: unset !important;
+    }
+    > .wp-block-column:nth-child(2) {
+      @apply w-full ml-0 mt-24 lg:mt-0 lg:w-2/5 lg:pl-10 xl:pl-0 xl:w-1/3;
+      flex-basis: unset !important;
+    }
+  }
+}

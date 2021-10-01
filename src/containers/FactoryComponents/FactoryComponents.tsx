@@ -1,19 +1,44 @@
-import HeaderSingleAudio from "components/HeaderSingleAudio/HeaderSingleAudio";
-import HeaderSingleGallery from "components/HeaderSingleGallery/HeaderSingleGallery";
-import HeaderSingleVideo from "components/HeaderSingleVideo/HeaderSingleVideo";
 import NavAccountDropdown from "components/NavAccountDropdown/NavAccountDropdown";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
-import PageArchive from "containers/PageArchive/PageArchive";
-import PageArchiveAuthor from "containers/PageArchive/PageArchiveAuthor";
-import PageArchiveDate from "containers/PageArchive/PageArchiveDate";
-import PageSearch from "containers/PageArchive/PageSearch";
-import SingleMoreFromAuthorGridPosts from "containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts";
-import SingleRelatedGridPosts from "containers/SingleRelatedGridPosts/SingleRelatedGridPosts";
-import React, { FC } from "react";
+
+import React, { FC, Suspense } from "react";
 import ReactDOM from "react-dom";
+
+//
+const HeaderSingleAudioLazy = React.lazy(
+  () => import("components/HeaderSingleAudio/HeaderSingleAudio")
+);
+const HeaderSingleGalleryLazy = React.lazy(
+  () => import("components/HeaderSingleGallery/HeaderSingleGallery")
+);
+const HeaderSingleVideoLazy = React.lazy(
+  () => import("components/HeaderSingleVideo/HeaderSingleVideo")
+);
+const PageArchiveDateLazy = React.lazy(
+  () => import("containers/PageArchive/PageArchiveDate")
+);
+const PageSearchLazy = React.lazy(
+  () => import("containers/PageArchive/PageSearch")
+);
+const SingleMoreFromAuthorGridPostsLazy = React.lazy(
+  () =>
+    import(
+      "containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts"
+    )
+);
+const SingleRelatedGridPostsLazy = React.lazy(
+  () => import("containers/SingleRelatedGridPosts/SingleRelatedGridPosts")
+);
+const PageArchiveAuthorLazy = React.lazy(
+  () => import("containers/PageArchive/PageArchiveAuthor")
+);
+const PageArchiveLazy = React.lazy(
+  () => import("containers/PageArchive/PageArchive")
+);
+//
 
 export interface FactoryComponentsProps {}
 
@@ -51,51 +76,75 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
 
       case "SingleRelatedGridPosts":
         return ReactDOM.createPortal(
-          <SingleRelatedGridPosts {...componentProps} />,
+          <Suspense fallback={<div />}>
+            <SingleRelatedGridPostsLazy {...componentProps} />
+          </Suspense>,
           dom
         );
 
       case "SingleMoreFromAuthorGridPosts":
         return ReactDOM.createPortal(
-          <SingleMoreFromAuthorGridPosts {...componentProps} />,
+          <Suspense fallback={<div />}>
+            <SingleMoreFromAuthorGridPostsLazy {...componentProps} />
+          </Suspense>,
           dom
         );
 
       case "HeaderSingleGallery":
         return ReactDOM.createPortal(
-          <HeaderSingleGallery {...componentProps} />,
+          <Suspense fallback={<div />}>
+            <HeaderSingleGalleryLazy {...componentProps} />
+          </Suspense>,
           dom
         );
 
       case "HeaderSingleVideo":
         return ReactDOM.createPortal(
-          <HeaderSingleVideo {...componentProps} />,
+          <Suspense fallback={<div />}>
+            <HeaderSingleVideoLazy {...componentProps} />
+          </Suspense>,
           dom
         );
 
       case "HeaderSingleAudio":
         return ReactDOM.createPortal(
-          <HeaderSingleAudio {...componentProps} />,
+          <Suspense fallback={<div />}>
+            <HeaderSingleAudioLazy {...componentProps} />
+          </Suspense>,
           dom
         );
 
       case "PageArchive":
-        return ReactDOM.createPortal(<PageArchive {...componentProps} />, dom);
+        return ReactDOM.createPortal(
+          <Suspense fallback={<div />}>
+            <PageArchiveLazy {...componentProps} />
+          </Suspense>,
+          dom
+        );
 
       case "PageArchiveDate":
         return ReactDOM.createPortal(
-          <PageArchiveDate {...componentProps} />,
+          <Suspense fallback={<div />}>
+            <PageArchiveDateLazy {...componentProps} />
+          </Suspense>,
           dom
         );
 
       case "PageArchiveAuthor":
         return ReactDOM.createPortal(
-          <PageArchiveAuthor {...componentProps} />,
+          <Suspense fallback={<div />}>
+            <PageArchiveAuthorLazy {...componentProps} />
+          </Suspense>,
           dom
         );
 
       case "PageSearch":
-        return ReactDOM.createPortal(<PageSearch {...componentProps} />, dom);
+        return ReactDOM.createPortal(
+          <Suspense fallback={<div />}>
+            <PageSearchLazy {...componentProps} />
+          </Suspense>,
+          dom
+        );
 
       case "SwitchDarkMode":
         return ReactDOM.createPortal(

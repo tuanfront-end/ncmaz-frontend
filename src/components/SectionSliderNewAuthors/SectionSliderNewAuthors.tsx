@@ -14,11 +14,12 @@ export interface SectionSliderNewAuthorsProps {
   heading: string;
   subHeading: string;
   authorNodes: { node: AuthorNode }[];
-  authorNodesLoading: any[];
+  authorNodesLoading?: any[];
   itemPerView: number;
   authorCardName: "card1" | "card2";
   blockLayoutStyle: "layout-1" | "layout-2";
   isLoading?: boolean;
+  uniqueClass?: string;
 }
 
 const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({

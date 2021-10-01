@@ -13,7 +13,14 @@ export interface Card6Props {
 }
 
 const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
-  const { title, link, featuredImage, categories, postFormats } = post;
+  const {
+    title,
+    link,
+    featuredImage,
+    categories,
+    postFormats,
+    ncPostMetaData,
+  } = post;
 
   return (
     <div
@@ -33,7 +40,14 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
         </div>
         <div className="flex items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment className="relative" postData={post} />
-          <PostCardDropdownShare href={post.link} />
+          <div className="flex items-center space-x-2 text-xs text-neutral-700 dark:text-neutral-300 ">
+            <span
+              dangerouslySetInnerHTML={{
+                __html: ncPostMetaData.readingTimeShortcode || "",
+              }}
+            />
+            <PostCardDropdownShare href={post.link} />
+          </div>
         </div>
       </div>
 

@@ -351,7 +351,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'label' => 'Reading Time Shortcode',
                     'name' => 'reading_time_shortcode',
                     'type' => 'wysiwyg',
-                    'instructions' => '[rt_reading_time label="Reading Time:" postfix="minutes" postfix_singular="minute"]',
+                    'instructions' => '[rt_reading_time label="" postfix="minutes" postfix_singular="minute"]',
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -360,7 +360,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '[rt_reading_time label="Reading Time:" postfix="minutes" postfix_singular="minute"]',
+                    'default_value' => '[rt_reading_time label="" postfix="minutes" postfix_singular="minute"]',
                     'tabs' => 'text',
                     'media_upload' => 0,
                     'toolbar' => 'full',

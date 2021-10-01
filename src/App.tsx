@@ -1,9 +1,12 @@
-import React from "react";
-import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunningContainer";
+import React, { Suspense } from "react";
 import GutenbergSections from "GutenbergSections";
 import HeaderFactory from "HeaderFactory";
 import FactoryComponents from "containers/FactoryComponents/FactoryComponents";
-
+//
+const MediaRunningContainerLazy = React.lazy(
+  () => import("containers/MediaRunningContainer/MediaRunningContainer")
+);
+//
 function App() {
   return (
     <>
@@ -16,7 +19,9 @@ function App() {
       <GutenbergSections />
 
       {/* ---------- */}
-      <MediaRunningContainer />
+      <Suspense fallback={<div />}>
+        <MediaRunningContainerLazy />
+      </Suspense>
     </>
   );
 }

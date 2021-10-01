@@ -14,7 +14,7 @@
 .site-header-nav-main {
   .menu-item-has-children {
     .sub-menu-wrap {
-      @apply hidden py-3 bg-transparent;
+      @apply hidden py-3 bg-transparent text-sm;
     }
     &:hover {
       > .sub-menu-wrap {

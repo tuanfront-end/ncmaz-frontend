@@ -148,41 +148,25 @@ add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 // 
 // 
 
-
-
-// ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFrontend_registerStyles');
-function ncmazFrontend_registerStyles()
-{
-    $dirCSS = [];
-    if (file_exists(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets')) {
-        $dirCSS = new DirectoryIterator(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets');
-    }
-
-    foreach ($dirCSS as $file) {
-        if (pathinfo($file, PATHINFO_EXTENSION) === 'css') {
-            $fullName = basename($file);
-            $name = _NCMAZ_FRONTEND_PREFIX . substr(basename($fullName), 0, strpos(basename($fullName), '.'));
-            wp_enqueue_style($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/assets/' . $fullName, [], _NCMAZ_FRONTEND_VERSION, 'all');
-        }
-    }
-}
-
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
 add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
 function ncmazFrontend_registerScripts()
 {
-    $dirJS = [];
-    if (file_exists(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets')) {
-        $dirJS = new DirectoryIterator(_NCMAZ_FRONTEND_DIR_PATH . 'dist/assets');
+    $manifestJS = false;
+    if (file_exists(_NCMAZ_FRONTEND_DIR_PATH . 'dist/manifest.json')) {
+        $manifestJS = json_decode(file_get_contents(_NCMAZ_FRONTEND_DIR_PATH . 'dist/manifest.json'), true);
     }
-    foreach ($dirJS as $file) {
-        if (pathinfo($file, PATHINFO_EXTENSION) === 'js') {
-            $fullName = basename($file);
-            $name = 'edentuan-xxx-vitejs-module--' . _NCMAZ_FRONTEND_PREFIX . substr(basename($fullName), 0, strpos(basename($fullName), '.'));
-            wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/assets/' . $fullName, [], _NCMAZ_FRONTEND_VERSION, true);
-        }
+    if (!$manifestJS) {
+        return;
     }
+
+    $jsFileUrl = (string) $manifestJS['src/main.tsx']['file'];
+    $cssFileUrl = (string) $manifestJS['src/main.tsx']['css'][0];
+    $name = 'edentuan-xxx-vitejs-module--' . _NCMAZ_FRONTEND_PREFIX . $jsFileUrl;
+    // JS
+    wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, [], _NCMAZ_FRONTEND_VERSION, true);
+    // CSS
+    wp_enqueue_style('ncmaz-vitebuild-css', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssFileUrl, [], _NCMAZ_FRONTEND_VERSION, 'all');
 }
 
 

@@ -25,7 +25,7 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
         <div>
           <NcImage
             containerClassName="flex aspect-w-7 aspect-h-5 sm:aspect-h-6 w-full h-0"
-            src={ncUserMeta.featuredImage?.sourceUrl || ","}
+            src={ncUserMeta.backgroundImage?.sourceUrl || ","}
           />
         </div>
         <div className="absolute top-3 inset-x-3 flex">

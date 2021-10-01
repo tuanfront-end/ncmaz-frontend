@@ -226,7 +226,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       >
         {isBg && <BackgroundSection />}
 
-        <div className={`${UNIQUE_CLASS}`}>
+        <div className={`relative ${UNIQUE_CLASS}`}>
           {showFilterTab ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}

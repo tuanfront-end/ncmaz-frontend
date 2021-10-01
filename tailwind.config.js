@@ -53,6 +53,24 @@ const safelist = [
   //
   //
   "space-y-28",
+  //
+  //
+  "m-0",
+  "m-1",
+  "m-2",
+  //
+  "w-full",
+  "space-y-7",
+  "mt-24",
+  "lg:mt-0",
+  "lg:w-2/5",
+  "lg:pl-10",
+  "xl:pl-0",
+  "xl:w-1/3",
+  "lg:w-3/5",
+  "xl:w-2/3",
+  "xl:pr-14",
+  "flex-1",
 ];
 
 module.exports = {
@@ -64,7 +82,11 @@ module.exports = {
       "./*.php",
       "./**/*.php",
 
-      // THEME -----
+      // CORE PLUGIN -----
+      // lam dieu nay vi trong core co nhieu block render HTML ma theme khong the phat hien class
+      "../ncmaz-core/index.html",
+      "../ncmaz-core/src/**/*.{js,jsx,ts,tsx}",
+
       // THEME -----
       "../../themes/ncmaz/assets/**/*.{js,jsx,ts,tsx}",
       "../../themes/ncmaz/*.php",

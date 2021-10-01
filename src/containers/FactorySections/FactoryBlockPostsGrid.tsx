@@ -225,7 +225,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
       >
         {isBg && <BackgroundSection />}
 
-        <div className="">
+        <div className="relative">
           {showFilterTab ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}

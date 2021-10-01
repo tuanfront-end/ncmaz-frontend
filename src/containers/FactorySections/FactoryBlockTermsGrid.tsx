@@ -50,24 +50,26 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
       >
         {isBg && <BackgroundSection />}
 
-        {/* ------------ */}
-        <SectionGridCategoryBox
-          categories={termsLists}
-          heading={heading}
-          subHeading={subHeading}
-          headingCenter={blockLayoutStyle === "layout-1"}
-          categoryCardType={termCardName}
-          gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
-          isLoadingSkeleton={IS_SKELETON}
-        />
+        <div className="relative">
+          {/* ------------ */}
+          <SectionGridCategoryBox
+            categories={termsLists}
+            heading={heading}
+            subHeading={subHeading}
+            headingCenter={blockLayoutStyle === "layout-1"}
+            categoryCardType={termCardName}
+            gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
+            isLoadingSkeleton={IS_SKELETON}
+          />
 
-        {/* ------------ */}
-        <DataStatementBlockV2
-          data={termsLists}
-          isSkeleton={IS_SKELETON}
-          error={error}
-        />
-        {/* ------------ */}
+          {/* ------------ */}
+          <DataStatementBlockV2
+            data={termsLists}
+            isSkeleton={IS_SKELETON}
+            error={error}
+          />
+          {/* ------------ */}
+        </div>
       </div>
     );
   };

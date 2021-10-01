@@ -64,6 +64,33 @@ Redux::set_section($opt_name, $section);
 
 // ===========================SOCIALS SETTING__SUB2 SOCIALS ========================
 $section = array(
+    'title'      => esc_html__('Mobile Menu', 'ncmaz-frontend'),
+    'desc'       => esc_html__('All setting for mobile menu nav side', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--mobile-menu',
+    'subsection' => true,
+    'fields'     => array(
+        [
+            'id'       => 'nc-general-settings--mobile-menu-btn-foot-text',
+            'type'     => 'text',
+            'title'    => esc_html__('Button footer', 'ncmaz-frontend'),
+            'subtitle'    => esc_html__('Enter text for button on footer', 'ncmaz-frontend'),
+            'default'  => 'Get this theme',
+        ],
+        [
+            'id'       => 'nc-general-settings--mobile-menu-btn-foot-href',
+            'type'     => 'text',
+            'title'    => esc_html__('Button footer href', 'ncmaz-frontend'),
+            'subtitle'    => esc_html__('Enter href for button on footer', 'ncmaz-frontend'),
+            'default'  => '#',
+        ],
+
+    ),
+);
+Redux::set_section($opt_name, $section);
+
+
+// ===========================SOCIALS SETTING__SUB2 SOCIALS ========================
+$section = array(
     'title'      => esc_html__('Social Login', 'ncmaz-frontend'),
     'desc'       => esc_html__('All setting for socials login setting', 'ncmaz-frontend'),
     'id'         => 'nc-general-settings--nextend-social-login',

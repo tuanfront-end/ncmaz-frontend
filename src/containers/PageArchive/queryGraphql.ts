@@ -267,6 +267,9 @@ const GQLUserCommon = `edges {
 				sourceUrl
 				id
 			}
+      backgroundImage {
+				sourceUrl
+			}
 		}
 	}
 }`;

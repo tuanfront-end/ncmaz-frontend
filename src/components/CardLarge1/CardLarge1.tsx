@@ -27,7 +27,15 @@ const CardLarge1: FC<CardLarge1Props> = ({
   hasNext,
   hasPrev,
 }) => {
-  const { featuredImage, title, date, categories, author, link } = post;
+  const {
+    ncPostMetaData,
+    featuredImage,
+    title,
+    date,
+    categories,
+    author,
+    link,
+  } = post;
 
   return (
     <Transition
@@ -52,7 +60,13 @@ const CardLarge1: FC<CardLarge1Props> = ({
               </a>
             </h2>
 
-            <CardAuthor2 className="relative" author={author} date={date} />
+            <CardAuthor2
+              className="relative"
+              author={author}
+              date={date}
+              hoverReadingTime={false}
+              readingTimeShortcode={ncPostMetaData.readingTimeShortcode}
+            />
 
             <div className="flex items-center justify-between mt-auto">
               <PostCardLikeAndComment postData={post} />

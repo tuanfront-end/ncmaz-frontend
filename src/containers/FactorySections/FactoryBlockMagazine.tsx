@@ -151,27 +151,29 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
       >
         {isBg && <BackgroundSection />}
 
-        {showFilterTab ? (
-          <HeaderSectionFilter
-            tabActiveId={tabActiveId}
-            tabs={categories}
-            viewMoreHref={viewMoreHref}
-            heading={heading}
-            subHeading={subHeading}
-            onClickTab={handleClickTab}
+        <div className="relative">
+          {showFilterTab ? (
+            <HeaderSectionFilter
+              tabActiveId={tabActiveId}
+              tabs={categories}
+              viewMoreHref={viewMoreHref}
+              heading={heading}
+              subHeading={subHeading}
+              onClickTab={handleClickTab}
+            />
+          ) : (
+            <Heading desc={subHeading}>{heading}</Heading>
+          )}
+
+          <DataStatementBlockV2
+            className="my-5"
+            data={LISTS_POSTS}
+            error={error}
+            isSkeleton={IS_SKELETON}
           />
-        ) : (
-          <Heading desc={subHeading}>{heading}</Heading>
-        )}
 
-        <DataStatementBlockV2
-          className="my-5"
-          data={LISTS_POSTS}
-          error={error}
-          isSkeleton={IS_SKELETON}
-        />
-
-        {renderLayoutType()}
+          {renderLayoutType()}
+        </div>
       </div>
     );
   };

@@ -1,9 +1,4 @@
-import React from "react";
-import FactoryBlockMagazine from "containers/FactorySections/FactoryBlockMagazine";
-import FactoryBlockPostsGrid from "containers/FactorySections/FactoryBlockPostsGrid";
-import FactoryBlockPostsSlider from "containers/FactorySections/FactoryBlockPostsSlider";
-import FactoryBlockTermsSlider from "containers/FactorySections/FactoryBlockTermsSlider";
-import FactoryBlockTermsGrid from "containers/FactorySections/FactoryBlockTermsGrid";
+import React, { Suspense } from "react";
 import {
   GutenbergApiAttr_BlockTermGrid,
   GutenbergApiAttr_BlockTermSlider,
@@ -17,13 +12,41 @@ import {
   GutenbergApiAttr_BlockWidgetUsers,
   GutenbergApiAttr_BlockWidgetTerms,
 } from "data/gutenbergAttrType";
-import FactoryBlockUsersSlider from "containers/FactorySections/FactoryBlockUsersSlider";
-import FactoryBlockUsersGrid from "containers/FactorySections/FactoryBlockUsersGrid";
-import FactoryBlockVideos from "containers/FactorySections/FactoryBlockVideos";
-import FactoryBlockWidgetPosts from "containers/FactorySections/FactoryBlockWidgetPosts";
-import FactoryBlockWidgetUsers from "containers/FactorySections/FactoryBlockWidgetUsers";
-import FactoryBlockWidgetTerms from "containers/FactorySections/FactoryBlockWidgetTerms";
 
+const FactoryBlockMagazineLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockMagazine")
+);
+const FactoryBlockPostsGridLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockPostsGrid")
+);
+const FactoryBlockPostsSliderLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockPostsSlider")
+);
+const FactoryBlockTermsSliderLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockTermsSlider")
+);
+const FactoryBlockTermsGridLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockTermsGrid")
+);
+const FactoryBlockUsersSliderLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockUsersSlider")
+);
+const FactoryBlockUsersGridLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockUsersGrid")
+);
+const FactoryBlockVideosLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockVideos")
+);
+const FactoryBlockWidgetPostsLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockWidgetPosts")
+);
+const FactoryBlockWidgetUsersLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockWidgetUsers")
+);
+const FactoryBlockWidgetTermsLazy = React.lazy(
+  () => import("containers/FactorySections/FactoryBlockWidgetTerms")
+);
+//
 // DOMS
 const gutenbergDomNodes = document.querySelectorAll(
   "[data-nc-gutenberg-section=true]"
@@ -95,11 +118,13 @@ const GutenbergSections = () => {
         if (!apiAttrStr) return null;
         const apiAttr: GutenbergApiAttr_BlockMagazine = JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockMagazine
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockMagazineLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -112,11 +137,13 @@ const GutenbergSections = () => {
         const apiAttr: GutenbergApiAttr_BlockPostsSlider =
           JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockPostsSlider
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockPostsSliderLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -129,11 +156,13 @@ const GutenbergSections = () => {
         if (!apiAttrStr) return null;
         const apiAttr: GutenbergApiAttr_BlockPostsGrid = JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockPostsGrid
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockPostsGridLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -146,11 +175,13 @@ const GutenbergSections = () => {
         const apiAttr: GutenbergApiAttr_BlockTermSlider =
           JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockTermsSlider
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockTermsSliderLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -162,11 +193,13 @@ const GutenbergSections = () => {
         if (!apiAttrStr) return null;
         const apiAttr: GutenbergApiAttr_BlockTermGrid = JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockTermsGrid
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockTermsGridLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -178,11 +211,13 @@ const GutenbergSections = () => {
         if (!apiAttrStr) return null;
         const apiAttr: GutenbergAttr__BlockUsersSlider = JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockUsersSlider
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockUsersSliderLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -194,11 +229,13 @@ const GutenbergSections = () => {
         if (!apiAttrStr) return null;
         const apiAttr: GutenbergAttr__BlockUsersGrid = JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockUsersGrid
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockUsersGridLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -210,11 +247,13 @@ const GutenbergSections = () => {
         if (!apiAttrStr) return null;
         const apiAttr: GutenbergApiAttr_BlockVideos = JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockVideos
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockVideosLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -227,11 +266,13 @@ const GutenbergSections = () => {
         const apiAttr: GutenbergApiAttr_BlockWidgetPots =
           JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockWidgetPosts
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockWidgetPostsLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -244,11 +285,13 @@ const GutenbergSections = () => {
         const apiAttr: GutenbergApiAttr_BlockWidgetUsers =
           JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockWidgetUsers
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockWidgetUsersLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
 
@@ -261,11 +304,13 @@ const GutenbergSections = () => {
         const apiAttr: GutenbergApiAttr_BlockWidgetTerms =
           JSON.parse(apiAttrStr);
         return (
-          <FactoryBlockWidgetTerms
-            key={index}
-            domNode={domNode}
-            apiSettings={apiAttr}
-          />
+          <Suspense key={index} fallback={<div />}>
+            <FactoryBlockWidgetTermsLazy
+              key={index}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </Suspense>
         );
       })}
     </>

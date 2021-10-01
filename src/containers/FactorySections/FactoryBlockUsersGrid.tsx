@@ -66,25 +66,27 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
       >
         {hasBackground && <BackgroundSection />}
 
-        {/* ------------ */}
-        <SectionGridAuthorBox
-          authorCardName={userCardName}
-          blockLayoutStyle={blockLayoutStyle}
-          authorNodes={LISTS_DATA}
-          authorNodesLoading={[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
-          heading={heading}
-          subHeading={subHeading}
-          gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
-          isLoading={IS_SKELETON}
-        />
+        <div className="relative">
+          {/* ------------ */}
+          <SectionGridAuthorBox
+            authorCardName={userCardName}
+            blockLayoutStyle={blockLayoutStyle}
+            authorNodes={LISTS_DATA}
+            authorNodesLoading={[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
+            heading={heading}
+            subHeading={subHeading}
+            gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
+            isLoading={IS_SKELETON}
+          />
 
-        {/* ------------ */}
-        <DataStatementBlockV2
-          className="my-5"
-          data={LISTS_DATA}
-          error={error}
-          isSkeleton={IS_SKELETON}
-        />
+          {/* ------------ */}
+          <DataStatementBlockV2
+            className="my-5"
+            data={LISTS_DATA}
+            error={error}
+            isSkeleton={IS_SKELETON}
+          />
+        </div>
       </div>
     );
   };
