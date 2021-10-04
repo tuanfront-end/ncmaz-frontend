@@ -1,0 +1,1 @@
+import{R as e,y as l,z as a}from"./vendor.061fbf51.js";const s=({className:l=""})=>e.createElement("div",{className:`nc-LoadingVideo lds-ellipsis lds-ellipsis-video ${l}`,"data-nc-id":"LoadingVideo"},e.createElement("div",null),e.createElement("div",null),e.createElement("div",null),e.createElement("div",null)),i=()=>l(),d=a;export{s as L,i as a,d as u};
