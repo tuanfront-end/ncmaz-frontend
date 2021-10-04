@@ -1,12 +1,18 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { GutenbergAttr__BlockUsersGrid } from "data/gutenbergAttrType";
 import SectionGridAuthorBox from "components/SectionGridAuthorBox/SectionGridAuthorBox";
 import { GraphQlPageInfo } from "data/types";
 import { AuthorNode } from "data/postCardType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import {
+  GQL_QUERY_GET_USERS_BY_FILTER,
+  GQL_QUERY_GET_USERS_BY_SPECIFIC,
+} from "contains/contants";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 interface Data {
   users: Users;
@@ -25,23 +31,45 @@ export interface FactoryBlockUsersGridProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergAttr__BlockUsersGrid;
+  sectionIndex: number;
 }
 
 const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
   className = "",
   domNode,
   apiSettings,
+  sectionIndex,
 }) => {
   const { graphQLvariables, settings } = apiSettings;
 
+  let GQL_QUERY__string = "";
+  if (graphQLvariables.queryString === "GQL_QUERY_GET_USERS_BY_SPECIFIC") {
+    GQL_QUERY__string = GQL_QUERY_GET_USERS_BY_SPECIFIC;
+  }
+  if (graphQLvariables.queryString === "GQL_QUERY_GET_USERS_BY_FILTER") {
+    GQL_QUERY__string = GQL_QUERY_GET_USERS_BY_FILTER;
+  }
   const queryGql = gql`
-    ${graphQLvariables.queryString}
+    ${GQL_QUERY__string}
   `;
 
-  const { loading, error, data } = useQuery<Data>(queryGql, {
-    notifyOnNetworkStatusChange: true,
-    variables: graphQLvariables.variables,
-  });
+  // const { loading, error, data } = useQuery<Data>(queryGql, {
+  //   notifyOnNetworkStatusChange: true,
+  //   variables: graphQLvariables.variables,
+  // } );
+
+  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
+    useLazyQuery<Data>(queryGql, {
+      notifyOnNetworkStatusChange: true,
+      variables: graphQLvariables.variables,
+    });
+
+  // =========================================================
+  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
+
+  // =========================================================
+
+  //
 
   //
   const LISTS_DATA = data?.users.edges || [];
@@ -63,7 +91,9 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
         className={`nc-FactoryBlockUsersGrid relative ${
           hasBackground ? "py-16" : ""
         }  ${className}`}
+        ref={ref}
       >
+        <h2 className="text-3xl font-bold underline">--{sectionIndex}</h2>
         {hasBackground && <BackgroundSection />}
 
         <div className="relative">

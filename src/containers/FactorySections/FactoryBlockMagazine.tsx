@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useLazyQuery } from "@apollo/client";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
@@ -19,11 +19,18 @@ import SectionLargeSlider from "components/SectionMagazines/SectionLargeSlider";
 import { GutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
 import { ListPosts } from "data/postCardType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import {
+  GQL_QUERY_GET_POSTS_BY_FILTER,
+  GQL_QUERY_GET_POSTS_BY_SPECIFIC,
+} from "contains/contants";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 export interface FactoryBlockMagazineProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockMagazine;
+  sectionIndex: number;
 }
 
 interface Data {
@@ -34,6 +41,7 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   className = "",
   domNode,
   apiSettings,
+  sectionIndex,
 }) => {
   const { graphQLvariables, settings } = apiSettings;
 
@@ -43,12 +51,21 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   );
 
   //
+
   useEffect(() => {
     setVariablesFilter(graphQLvariables.variables);
   }, [graphQLvariables]);
 
+  let GQL_QUERY__string = "";
+  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
+    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_FILTER;
+  }
+  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_SPECIFIC") {
+    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
+  }
+
   const queryGql = gql`
-    ${graphQLvariables.queryString}
+    ${GQL_QUERY__string}
   `;
 
   useEffect(() => {
@@ -63,11 +80,17 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     });
   }, [tabActiveId]);
 
-  const { loading, error, data } = useQuery<Data>(queryGql, {
-    notifyOnNetworkStatusChange: true,
-    variables: variablesFilter,
-  });
+  const [gqlQueryGetPosts, { loading, error, data }] = useLazyQuery<Data>(
+    queryGql,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: variablesFilter,
+    }
+  );
 
+  // =========================================================
+  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
+  // =========================================================
   //
   const LISTS_POSTS = data?.posts.edges || [];
   const IS_SKELETON = loading && !LISTS_POSTS.length;
@@ -148,7 +171,9 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
         className={`nc-FactoryBlockMagazine relative ${
           isBg ? "py-16" : ""
         }  ${className}`}
+        ref={ref}
       >
+        <h2 className="text-3xl font-bold underline">--{sectionIndex}</h2>
         {isBg && <BackgroundSection />}
 
         <div className="relative">

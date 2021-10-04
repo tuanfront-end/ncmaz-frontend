@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { ListPosts, PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -26,6 +26,12 @@ import Card10Skeleton from "components/Card10/Card10Skeleton";
 import Card10V2Skeleton from "components/Card10/Card10V2Skeleton";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import Card14Skeleton from "components/Card14/Card14Skeleton";
+import {
+  GQL_QUERY_GET_POSTS_BY_FILTER,
+  GQL_QUERY_GET_POSTS_BY_SPECIFIC,
+} from "contains/contants";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 interface Data {
   posts: ListPosts;
@@ -35,12 +41,14 @@ export interface FactoryBlockPostsSliderProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockPostsSlider;
+  sectionIndex: number;
 }
 
 const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   className = "",
   domNode,
   apiSettings,
+  sectionIndex,
 }) => {
   const UNIQUE_CLASS = "glide_" + ncNanoId();
 
@@ -56,8 +64,15 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
     setVariablesFilter(graphQLvariables.variables);
   }, [graphQLvariables]);
 
+  let GQL_QUERY__string = "";
+  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
+    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_FILTER;
+  }
+  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_SPECIFIC") {
+    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
+  }
   const queryGql = gql`
-    ${graphQLvariables.queryString}
+    ${GQL_QUERY__string}
   `;
 
   useEffect(() => {
@@ -72,10 +87,22 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
     });
   }, [tabActiveId]);
 
-  const { loading, error, data } = useQuery<Data>(queryGql, {
-    notifyOnNetworkStatusChange: true,
-    variables: variablesFilter,
-  });
+  // const { loading, error, data } = useQuery<Data>(queryGql, {
+  //   notifyOnNetworkStatusChange: true,
+  //   variables: variablesFilter,
+  // });
+  const [gqlQueryGetPosts, { loading, error, data }] = useLazyQuery<Data>(
+    queryGql,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: variablesFilter,
+    }
+  );
+
+  // =========================================================
+  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
+
+  // =========================================================
 
   //
   const LISTS_POSTS = data?.posts.edges || [];
@@ -223,7 +250,9 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
         className={`nc-FactoryBlockPostsSlider relative  ${
           isBg ? "py-16" : ""
         }  ${className}`}
+        ref={ref}
       >
+        <h2 className="text-3xl font-bold underline">--{sectionIndex}</h2>
         {isBg && <BackgroundSection />}
 
         <div className={`relative ${UNIQUE_CLASS}`}>

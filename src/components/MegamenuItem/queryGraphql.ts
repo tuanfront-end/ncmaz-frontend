@@ -2,19 +2,6 @@ const postFields = ` edges {
   node {
     id
     link
-    author {
-      node {
-        id
-        avatar {
-          url
-        }
-        url
-        uri
-        username
-        name
-        slug
-      }
-    }
     categories {
       edges {
         node {
@@ -27,12 +14,13 @@ const postFields = ` edges {
           categoryId
           ncTaxonomyMeta {
             color
-            featuredImage {
-              sourceUrl
-            }
+            __typename
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
     commentCount
     date
@@ -43,73 +31,31 @@ const postFields = ` edges {
         altText
         caption
         sourceUrl
+        __typename
       }
+      __typename
     }
     postFormats {
       edges {
         node {
           id
           name
+          __typename
         }
+        __typename
       }
+      __typename
     }
     postId
     slug
     title
-    ncmazVideoUrl {
-      fieldGroupName
-      videoUrl
-    }
-    ncmazAudioUrl {
-      fieldGroupName
-      audioUrl
-    }
-    ncPostMetaData {
-      favoriteButtonShortcode
-      readingTimeShortcode
-      viewsCount
-      fieldGroupName
-    }
-    ncmazGalleryImgs {
-      fieldGroupName
-      image1 {
-        id
-        sourceUrl
-      }
-      image2 {
-        id
-        sourceUrl
-      }
-      image3 {
-        id
-        sourceUrl
-      }
-      image4 {
-        id
-        sourceUrl
-      }
-      image5 {
-        id
-        sourceUrl
-      }
-      image6 {
-        id
-        sourceUrl
-      }
-      image7 {
-        id
-        sourceUrl
-      }
-      image8 {
-        id
-        sourceUrl
-      }
-    }
+    __typename
   }
+  __typename
 }`;
 
 const POSTS_SECTION_BY_FILTER__string = `
-  query MyQuery(
+  query Megamenu_Filter(
     $field: PostObjectsConnectionOrderbyEnum = DATE
     $order: OrderEnum = DESC
     $categoryIn: [ID] = []
@@ -138,13 +84,15 @@ const POSTS_SECTION_BY_FILTER__string = `
         hasPreviousPage
         endCursor
         startCursor
+        __typename
       }
+      __typename
     }
   }
 `;
 
 const POSTS_SECTION_SPECIFIC__string = `
-  query MyQuery($nameIn: [String] = "") {
+  query Megamenu_Specific($nameIn: [String] = "") {
     posts(where: { nameIn: $nameIn }) {
       ${postFields}
     }

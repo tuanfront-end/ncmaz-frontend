@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { ListPosts, PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -29,11 +29,18 @@ import Card11Skeleton from "components/Card11/Card11Skeleton";
 import Card14Skeleton from "components/Card14/Card14Skeleton";
 import Card15PodcastSkeleton from "components/Card15Podcast/Card15PodcastSkeleton";
 import NCMAZ_TRANSLATE from "contains/translate";
+import {
+  GQL_QUERY_GET_POSTS_BY_FILTER,
+  GQL_QUERY_GET_POSTS_BY_SPECIFIC,
+} from "contains/contants";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 export interface FactoryBlockPostsGridProps {
   className?: string;
   domNode: Element;
   apiSettings: GutenbergApiAttr_BlockPostsGrid;
+  sectionIndex: number;
 }
 
 interface Data {
@@ -44,6 +51,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   className = "",
   domNode,
   apiSettings,
+  sectionIndex,
 }) => {
   const { graphQLvariables, settings } = apiSettings;
 
@@ -53,12 +61,20 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   );
 
   //
+
   useEffect(() => {
     setVariablesFilter(graphQLvariables.variables);
   }, [graphQLvariables]);
 
+  let GQL_QUERY__string = "";
+  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
+    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_FILTER;
+  }
+  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_SPECIFIC") {
+    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
+  }
   const queryGql = gql`
-    ${graphQLvariables.queryString}
+    ${GQL_QUERY__string}
   `;
 
   useEffect(() => {
@@ -73,10 +89,20 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     });
   }, [tabActiveId]);
 
-  const { loading, error, data, fetchMore } = useQuery<Data>(queryGql, {
-    notifyOnNetworkStatusChange: true,
-    variables: variablesFilter,
-  });
+  // const { loading, error, data, fetchMore } = useQuery<Data>(queryGql, {
+  //   notifyOnNetworkStatusChange: true,
+  //   variables: variablesFilter,
+  // });
+  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
+    useLazyQuery<Data>(queryGql, {
+      notifyOnNetworkStatusChange: true,
+      variables: variablesFilter,
+    });
+
+  // =========================================================
+  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
+
+  // =========================================================
 
   //
   const LISTS_POSTS = data?.posts.edges || [];
@@ -222,7 +248,9 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
         className={`nc-FactoryBlockPostsGrid relative ${
           isBg ? "py-16" : ""
         }  ${className}`}
+        ref={ref}
       >
+        <h2 className="text-3xl font-bold underline">--{sectionIndex}</h2>
         {isBg && <BackgroundSection />}
 
         <div className="relative">

@@ -43,6 +43,7 @@ export interface MegamenuItemProps {
 }
 
 const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
+  return null;
   // =================== QUERY GRAPHQL ===================
   const { ncmazMenuCustomFields } = menuItemData;
   const [temrActiveId, setTemrActiveId] = useState(

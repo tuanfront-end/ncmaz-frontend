@@ -48,6 +48,7 @@ declare global {
   };
   //
   var DATE_I18N: any;
+  var NUMBER_INIT_SECTION: number;
   //
   var frontendObject: {
     restUrl: string;

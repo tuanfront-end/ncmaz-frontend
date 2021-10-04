@@ -1,17 +1,4 @@
 import React, { Suspense } from "react";
-import {
-  GutenbergApiAttr_BlockTermGrid,
-  GutenbergApiAttr_BlockTermSlider,
-  GutenbergAttr__BlockUsersGrid,
-  GutenbergAttr__BlockUsersSlider,
-  GutenbergApiAttr_BlockMagazine,
-  GutenbergApiAttr_BlockPostsGrid,
-  GutenbergApiAttr_BlockPostsSlider,
-  GutenbergApiAttr_BlockVideos,
-  GutenbergApiAttr_BlockWidgetPots,
-  GutenbergApiAttr_BlockWidgetUsers,
-  GutenbergApiAttr_BlockWidgetTerms,
-} from "data/gutenbergAttrType";
 
 const FactoryBlockMagazineLazy = React.lazy(
   () => import("containers/FactorySections/FactoryBlockMagazine")
@@ -52,266 +39,175 @@ const gutenbergDomNodes = document.querySelectorAll(
   "[data-nc-gutenberg-section=true]"
 );
 
-let blockMagazines: Element[] = [];
-let blockPostsSlider: Element[] = [];
-let blockPostsGrid: Element[] = [];
-let blockTermsSlider: Element[] = [];
-let blockTermsGrid: Element[] = [];
-let blockUserSlider: Element[] = [];
-let blockUserGrid: Element[] = [];
-let blockVideos: Element[] = [];
-let blockWidgetPosts: Element[] = [];
-let blockWidgetUsers: Element[] = [];
-let blockWidgetTerms: Element[] = [];
-
-Array.from(gutenbergDomNodes).map((item) => {
-  const attrSectionType =
-    item.getAttribute("data-nc-gutenberg-section-type") || "";
-
-  switch (attrSectionType) {
-    case "block-magazine":
-      blockMagazines = [...blockMagazines, item];
-      break;
-    case "block-posts-slider":
-      blockPostsSlider = [...blockPostsSlider, item];
-      break;
-    case "block-posts-grid":
-      blockPostsGrid = [...blockPostsGrid, item];
-      break;
-    case "block-terms-slider":
-      blockTermsSlider = [...blockTermsSlider, item];
-      break;
-    case "block-terms-grid":
-      blockTermsGrid = [...blockTermsGrid, item];
-      break;
-    case "block-users-slider":
-      blockUserSlider = [...blockUserSlider, item];
-      break;
-    case "block-users-grid":
-      blockUserGrid = [...blockUserGrid, item];
-      break;
-    case "block-videos":
-      blockVideos = [...blockVideos, item];
-      break;
-    case "block-widget-posts":
-      blockWidgetPosts = [...blockWidgetPosts, item];
-      break;
-    case "block-widget-users":
-      blockWidgetUsers = [...blockWidgetUsers, item];
-      break;
-    case "block-widget-terms":
-      blockWidgetTerms = [...blockWidgetTerms, item];
-      break;
-    default:
-      break;
-  }
-});
-
 const GutenbergSections = () => {
+  // DECLARE INIT NUMBER SECTION
+  window.NUMBER_INIT_SECTION = 6;
+  let sectionIndex = 0;
   return (
     <>
-      {/* ----- RENDER BLOCK MAGAZINE ----- */}
-      {blockMagazines.map((domNode, index) => {
+      {Array.from(gutenbergDomNodes).map((domNode, index) => {
         const apiAttrStr = domNode.getAttribute(
           "data-nc-gutenberg-section-api"
         );
         if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockMagazine = JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockMagazineLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
+        const apiAttr: any = JSON.parse(apiAttrStr);
 
-      {/* ----- RENDER BLOCK POSTS SLIDER ----- */}
-      {blockPostsSlider.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockPostsSlider =
-          JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockPostsSliderLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
+        const attrSectionType =
+          domNode.getAttribute("data-nc-gutenberg-section-type") || "";
 
-      {/* ----- RENDER BLOCK POSTS GRID ----- */}
-      {blockPostsGrid.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockPostsGrid = JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockPostsGridLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
-
-      {/* ----- RENDER BLOCK TERMS SLIDER ----- */}
-      {blockTermsSlider.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockTermSlider =
-          JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockTermsSliderLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
-
-      {/* ----- RENDER BLOCK TERMS GRID ----- */}
-      {blockTermsGrid.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockTermGrid = JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockTermsGridLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
-
-      {/* ----- RENDER BLOCK USERS SLIDER ----- */}
-      {blockUserSlider.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergAttr__BlockUsersSlider = JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockUsersSliderLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
-
-      {/* ----- RENDER BLOCK USERS GRID ----- */}
-      {blockUserGrid.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergAttr__BlockUsersGrid = JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockUsersGridLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
-
-      {/* ----- RENDER BLOCK USERS GRID ----- */}
-      {blockVideos.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockVideos = JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockVideosLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
-
-      {/* ----- RENDER BLOCK WIDGET POSTS ----- */}
-      {blockWidgetPosts.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockWidgetPots =
-          JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockWidgetPostsLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
-
-      {/* ----- RENDER BLOCK WIDGET USERS ----- */}
-      {blockWidgetUsers.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockWidgetUsers =
-          JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockWidgetUsersLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
-      })}
-
-      {/* ----- RENDER BLOCK WIDGET USERS ----- */}
-      {blockWidgetTerms.map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
-        );
-        if (!apiAttrStr) return null;
-        const apiAttr: GutenbergApiAttr_BlockWidgetTerms =
-          JSON.parse(apiAttrStr);
-        return (
-          <Suspense key={index} fallback={<div />}>
-            <FactoryBlockWidgetTermsLazy
-              key={index}
-              domNode={domNode}
-              apiSettings={apiAttr}
-            />
-          </Suspense>
-        );
+        // ===========================================
+        if (attrSectionType === "block-magazine") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockMagazineLazy
+                key={index}
+                sectionIndex={sectionIndex}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-posts-slider") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockPostsSliderLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-posts-grid") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockPostsGridLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-terms-slider") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockTermsSliderLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-terms-grid") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockTermsGridLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-users-slider") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockUsersSliderLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-users-grid") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockUsersGridLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-videos") {
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockVideosLazy
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-widget-posts") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockWidgetPostsLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-widget-users") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockWidgetUsersLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        // ===========================================
+        if (attrSectionType === "block-widget-terms") {
+          sectionIndex += 1;
+          return (
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockWidgetTermsLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          );
+        }
+        return null;
       })}
     </>
   );
