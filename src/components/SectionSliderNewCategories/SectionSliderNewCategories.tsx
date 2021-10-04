@@ -35,7 +35,7 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
   isLoading,
   categoriesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1],
 }) => {
-  const UNIQUE_CLASS = "glide_" + ncNanoId();
+  const UNIQUE_CLASS = "SectionSliderNewCategories" + ncNanoId();
 
   useEffect(() => {
     new Glide(`.${UNIQUE_CLASS}`, {

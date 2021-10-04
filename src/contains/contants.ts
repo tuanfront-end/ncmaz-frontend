@@ -147,6 +147,7 @@ const GQL_QUERY_GET_POSTS_BY_FILTER = `
     $categoryIn: [ID] = []
     $tagIn: [ID] = []
     $authorIn: [ID] = []
+    $notIn: [ID] = []
     $last: Int = null
     $first: Int = 10
     $before: String = ""
@@ -158,6 +159,7 @@ const GQL_QUERY_GET_POSTS_BY_FILTER = `
         categoryIn: $categoryIn
         tagIn: $tagIn
         authorIn: $authorIn
+        notIn: $notIn
       }
       last: $last
       first: $first

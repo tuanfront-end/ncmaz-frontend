@@ -1,17 +1,29 @@
 import { useEffect, useRef } from "react";
-import useIntersectionObserver from "./useIntersectionObserver";
+import useIntersectionObserver, {
+  UseIntersectionObserverArgs,
+} from "./useIntersectionObserver";
 
-function useGqlQuerySection(gqlQueryGetPosts: Function, sectionIndex: number) {
+const NUMBER_INIT_SECTION = 6;
+
+function useGqlQuerySection(
+  gqlQueryGetPosts: Function,
+  sectionIndex: number,
+  args: UseIntersectionObserverArgs = {
+    freezeOnceVisible: true,
+    rootMargin: "1000px",
+  }
+) {
   // =========================================================
   useEffect(() => {
-    if (sectionIndex <= 3) {
+    if (sectionIndex <= NUMBER_INIT_SECTION) {
       gqlQueryGetPosts();
     }
   }, []);
   //
   const ref = useRef<HTMLDivElement | null>(null);
-  const entry = useIntersectionObserver(ref, {});
-  const isVisible = sectionIndex > 3 ? !!entry?.isIntersecting : false;
+  const entry = useIntersectionObserver(ref, args);
+  const isVisible =
+    sectionIndex > NUMBER_INIT_SECTION ? !!entry?.isIntersecting : false;
 
   useEffect(() => {
     if (isVisible) {

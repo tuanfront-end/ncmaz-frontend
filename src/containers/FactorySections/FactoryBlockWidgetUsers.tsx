@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { GutenbergApiAttr_BlockWidgetUsers } from "data/gutenbergAttrType";
@@ -10,7 +10,6 @@ import {
   GQL_QUERY_GET_USERS_BY_FILTER,
   GQL_QUERY_GET_USERS_BY_SPECIFIC,
 } from "contains/contants";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 interface Data {
@@ -51,9 +50,6 @@ const FactoryBlockWidgetUsers: FC<FactoryBlockWidgetUsersProps> = ({
   const queryGql = gql`
     ${GQL_QUERY__string}
   `;
-  // const { loading, error, data } = useQuery<Data>(queryGql, {
-  //   variables: graphQLvariables.variables,
-  // });
 
   const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
     useLazyQuery<Data>(queryGql, {

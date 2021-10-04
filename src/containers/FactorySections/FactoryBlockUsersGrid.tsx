@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { GutenbergAttr__BlockUsersGrid } from "data/gutenbergAttrType";
 import SectionGridAuthorBox from "components/SectionGridAuthorBox/SectionGridAuthorBox";
@@ -11,7 +11,6 @@ import {
   GQL_QUERY_GET_USERS_BY_FILTER,
   GQL_QUERY_GET_USERS_BY_SPECIFIC,
 } from "contains/contants";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 interface Data {
@@ -53,11 +52,6 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
     ${GQL_QUERY__string}
   `;
 
-  // const { loading, error, data } = useQuery<Data>(queryGql, {
-  //   notifyOnNetworkStatusChange: true,
-  //   variables: graphQLvariables.variables,
-  // } );
-
   const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
     useLazyQuery<Data>(queryGql, {
       notifyOnNetworkStatusChange: true,
@@ -93,7 +87,6 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
         }  ${className}`}
         ref={ref}
       >
-        <h2 className="text-3xl font-bold underline">--{sectionIndex}</h2>
         {hasBackground && <BackgroundSection />}
 
         <div className="relative">

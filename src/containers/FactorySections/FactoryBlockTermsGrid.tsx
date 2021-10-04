@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
 import { GutenbergApiAttr_BlockTermGrid } from "data/gutenbergAttrType";
@@ -11,7 +11,6 @@ import {
   GQL_QUERY_GET_TAGS_BY_FILTER,
   GQL_QUERY_GET_TAGS_BY_SPECIFIC,
 } from "contains/contants";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 export interface FactoryBlockTermsGridProps {
@@ -45,10 +44,6 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
   const queryGql = gql`
     ${GQL_QUERY__string}
   `;
-  // const { loading, error, data } = useQuery(queryGql, {
-  //   notifyOnNetworkStatusChange: true,
-  //   variables: graphQLvariables.variables,
-  // } );
 
   const [gqlQueryGetPosts, { loading, error, data, fetchMore }] = useLazyQuery(
     queryGql,
@@ -85,7 +80,6 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
         }  ${className}`}
         ref={ref}
       >
-        <h2 className="text-3xl font-bold underline">--{sectionIndex}</h2>
         {isBg && <BackgroundSection />}
 
         <div className="relative">

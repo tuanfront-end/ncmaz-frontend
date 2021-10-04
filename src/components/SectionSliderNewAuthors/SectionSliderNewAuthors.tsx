@@ -33,7 +33,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
   isLoading,
   authorNodesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1],
 }) => {
-  const UNIQUE_CLASS = "glide_" + ncNanoId();
+  const UNIQUE_CLASS = "SectionSliderNewAuthors" + ncNanoId();
 
   useEffect(() => {
     new Glide(`.${UNIQUE_CLASS}`, {
@@ -62,7 +62,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
         },
       },
     }).mount();
-  }, []);
+  }, [authorNodes]);
 
   const isLayout2 = blockLayoutStyle === "layout-2";
 

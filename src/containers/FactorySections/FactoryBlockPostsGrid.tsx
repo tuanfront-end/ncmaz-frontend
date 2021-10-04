@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import { ListPosts, PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -33,7 +33,6 @@ import {
   GQL_QUERY_GET_POSTS_BY_FILTER,
   GQL_QUERY_GET_POSTS_BY_SPECIFIC,
 } from "contains/contants";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 export interface FactoryBlockPostsGridProps {
@@ -89,10 +88,6 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     });
   }, [tabActiveId]);
 
-  // const { loading, error, data, fetchMore } = useQuery<Data>(queryGql, {
-  //   notifyOnNetworkStatusChange: true,
-  //   variables: variablesFilter,
-  // });
   const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
     useLazyQuery<Data>(queryGql, {
       notifyOnNetworkStatusChange: true,
@@ -101,10 +96,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
 
   // =========================================================
   const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
-
   // =========================================================
-
-  //
   const LISTS_POSTS = data?.posts.edges || [];
   const IS_SKELETON = loading && !LISTS_POSTS.length;
 
@@ -250,7 +242,6 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
         }  ${className}`}
         ref={ref}
       >
-        <h2 className="text-3xl font-bold underline">--{sectionIndex}</h2>
         {isBg && <BackgroundSection />}
 
         <div className="relative">

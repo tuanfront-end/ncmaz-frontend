@@ -149,7 +149,9 @@ $section = array(
                 \"viewAll\": \"View All\",
                 \"articles\": \"Articles\",
                 \"showMeMore\": \"Show me more\",
-                \"showAllPhotos\": \"Show all photos\"
+                \"showAllPhotos\": \"Show all photos\",
+                \"relatedPosts\": \"Related Posts\",
+                \"moreFromAuthor\": \"More from author\",
             }"
         ],
     ),

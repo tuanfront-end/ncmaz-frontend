@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import { ListPosts } from "data/postCardType";
 import { GutenbergApiAttr_BlockWidgetPots } from "data/gutenbergAttrType";
 import WidgetPosts from "components/WidgetPosts/WidgetPosts";
@@ -9,7 +9,6 @@ import {
   GQL_QUERY_GET_POSTS_BY_FILTER,
   GQL_QUERY_GET_POSTS_BY_SPECIFIC,
 } from "contains/contants";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 interface Data {
@@ -40,10 +39,6 @@ const FactoryBlockWidgetPosts: FC<FactoryBlockWidgetPostsProps> = ({
   const queryGql = gql`
     ${GQL_QUERY__string}
   `;
-
-  // const { loading, error, data } = useQuery<Data>(queryGql, {
-  //   variables: graphQLvariables.variables,
-  // } );
 
   const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
     useLazyQuery<Data>(queryGql, {

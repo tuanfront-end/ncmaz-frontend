@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
@@ -23,7 +23,6 @@ import {
   GQL_QUERY_GET_POSTS_BY_FILTER,
   GQL_QUERY_GET_POSTS_BY_SPECIFIC,
 } from "contains/contants";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 export interface FactoryBlockMagazineProps {
@@ -173,7 +172,6 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
         }  ${className}`}
         ref={ref}
       >
-        <h2 className="text-3xl font-bold underline">--{sectionIndex}</h2>
         {isBg && <BackgroundSection />}
 
         <div className="relative">

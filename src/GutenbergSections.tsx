@@ -41,7 +41,6 @@ const gutenbergDomNodes = document.querySelectorAll(
 
 const GutenbergSections = () => {
   // DECLARE INIT NUMBER SECTION
-  window.NUMBER_INIT_SECTION = 6;
   let sectionIndex = 0;
   return (
     <>
