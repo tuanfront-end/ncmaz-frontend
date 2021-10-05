@@ -1,4 +1,8 @@
 .nc-Footer .nc-Footer-item {
+  .wp-block-group__inner-container {
+    @apply mb-6;
+  }
+  //
   .ncmaz-footer-sidebar-title,
   .widget-title,
   > div > h2 {

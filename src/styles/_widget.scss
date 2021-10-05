@@ -130,8 +130,34 @@ select {
 }
 
 ul.wp-block-archives-list,
-ul.wp-block-archives {
+ul.wp-block-archives,
+ul.wp-block-latest-posts__list.wp-block-latest-posts,
+.wp-block-latest-comments,
+.wp-block-page-list {
   @apply space-y-4;
+  li {
+    @apply space-y-4;
+    ul {
+      @apply space-y-4 pl-4;
+    }
+    a {
+      @apply text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-200;
+      line-height: 1.5;
+    }
+  }
+}
+
+// wp-block-latest-comments__comment
+.wp-block-latest-comments__comment {
+  article {
+    @apply text-neutral-400;
+    line-height: 1.5;
+  }
+}
+
+//
+span.wp-block-page-list__submenu-icon {
+  display: none;
 }
 
 // MY CUSTOM WIDGET
