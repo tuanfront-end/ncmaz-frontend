@@ -341,7 +341,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     ),
                     'show_in_graphql' => 1,
                     'default_value' => '[favorite_button]',
-                    'tabs' => 'all',
+                    'tabs' => 'text',
                     'toolbar' => 'basic',
                     'media_upload' => 0,
                     'delay' => 0,
@@ -363,7 +363,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'default_value' => '[rt_reading_time label="" postfix="minutes" postfix_singular="minute"]',
                     'tabs' => 'text',
                     'media_upload' => 0,
-                    'toolbar' => 'full',
+                    'toolbar' => 'basic',
                     'delay' => 0,
                 ),
                 array(
