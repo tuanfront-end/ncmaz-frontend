@@ -3,7 +3,7 @@ import useIntersectionObserver, {
   UseIntersectionObserverArgs,
 } from "./useIntersectionObserver";
 
-const NUMBER_INIT_SECTION = 6;
+const NUMBER_INIT_SECTION = 5;
 
 function useGqlQuerySection(
   gqlQueryGetPosts: Function,

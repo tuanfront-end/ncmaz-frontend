@@ -1,3 +1,62 @@
+import {
+  EDGES_POST_COMMONT_FIELDS,
+  EDGES_USER_COMMONT_FIELDS,
+} from "contains/contants";
+
+const POSTS_SECTION_BY_FILTER__string = `
+  query MyQueryPostsOnArchivePage(
+    $field: PostObjectsConnectionOrderbyEnum = AUTHOR,
+    $order: OrderEnum = ASC,
+    $in: [ID] = null,
+    $categoryIn: [ID] = [],
+    $tagIn: [ID] = [],
+    $authorIn: [ID] = [],
+    $last: Int = null,
+    $first: Int = 10,
+    $before: String = null,
+    $after: String = null,
+    $notIn: [ID] = null,
+    $year: Int = null,
+    $month: Int = null,
+    $day: Int = null,
+    $search: String = null
+    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
+    $featuredImage_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+  ) {
+    posts(
+      where: {
+        in: $in
+        orderby: { field: $field, order: $order },
+        categoryIn: $categoryIn,
+        tagIn: $tagIn,
+        authorIn: $authorIn,
+        notIn: $notIn,
+        dateQuery: {year: $year, month: $month, day: $day},
+        search: $search
+      },
+      last: $last,
+      first: $first,
+      before: $before,
+      after: $after
+    ) {
+     ${EDGES_POST_COMMONT_FIELDS}
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        endCursor
+        startCursor
+        total
+      }
+    }
+  }
+`;
+
+// ===================================== TERMS =================================
 const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
   $after: String = "",
   $before: String = "",
@@ -6,7 +65,10 @@ const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
   $orderby: TermObjectsConnectionOrderbyEnum = NAME,
   $parent: Int = null,
   $search: String = null,
-  $exclude: [ID] = ""
+  $exclude: [ID] = "",
+  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
+    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+  }
   ) {
   categories(
     after: $after,
@@ -30,7 +92,7 @@ const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
         ncTaxonomyMeta {
           color
           featuredImage {
-            sourceUrl
+            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
           }
         }
       }
@@ -52,7 +114,10 @@ const GET_LIST_TAGS = `query GET_LIST_TAGS(
   $first: Int = 30,
   $last: Int = null,
   $search: String = null,
-  $exclude: [ID] = ""
+  $exclude: [ID] = "",
+  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
+    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+  }
   ) {
   tags(
     after: $after,
@@ -75,7 +140,7 @@ const GET_LIST_TAGS = `query GET_LIST_TAGS(
         ncTaxonomyMeta {
           color
           featuredImage {
-            sourceUrl
+            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
           }
         }
       }
@@ -91,188 +156,7 @@ const GET_LIST_TAGS = `query GET_LIST_TAGS(
 }
 `;
 
-const postFields = ` edges {
-  node {
-    id
-    link
-    author {
-      node {
-        id
-        avatar {
-          url
-        }
-        url
-        uri
-        username
-        name
-        slug
-        ncUserMeta {
-          featuredImage {
-            sourceUrl
-          }
-        }
-      }
-    }
-    categories {
-      edges {
-        node {
-          id
-          link
-          name
-          uri
-          slug
-          count
-          categoryId
-          ncTaxonomyMeta {
-            color
-          }
-        }
-      }
-    }
-    commentCount
-    date
-    excerpt
-    featuredImage {
-      node {
-        id
-        altText
-        caption
-        sourceUrl
-      }
-    }
-    postFormats {
-      edges {
-        node {
-          id
-          name
-        }
-      }
-    }
-    postId
-    slug
-    title
-    ncmazVideoUrl {
-      fieldGroupName
-      videoUrl
-    }
-    ncmazAudioUrl {
-      fieldGroupName
-      audioUrl
-    }
-    ncPostMetaData {
-      favoriteButtonShortcode
-      readingTimeShortcode
-      viewsCount
-      fieldGroupName
-    }
-    ncmazGalleryImgs {
-      fieldGroupName
-      image1 {
-        id
-        sourceUrl
-      }
-      image2 {
-        id
-        sourceUrl
-      }
-      image3 {
-        id
-        sourceUrl
-      }
-      image4 {
-        id
-        sourceUrl
-      }
-      image5 {
-        id
-        sourceUrl
-      }
-      image6 {
-        id
-        sourceUrl
-      }
-      image7 {
-        id
-        sourceUrl
-      }
-      image8 {
-        id
-        sourceUrl
-      }
-    }
-  }
-}`;
-
-const POSTS_SECTION_BY_FILTER__string = `
-  query MyQueryPostsOnArchivePage(
-    $field: PostObjectsConnectionOrderbyEnum = AUTHOR,
-    $order: OrderEnum = ASC,
-    $in: [ID] = null,
-    $categoryIn: [ID] = [],
-    $tagIn: [ID] = [],
-    $authorIn: [ID] = [],
-    $last: Int = null,
-    $first: Int = 10,
-    $before: String = null,
-    $after: String = null,
-    $notIn: [ID] = null,
-    $year: Int = null,
-    $month: Int = null,
-    $day: Int = null,
-    $search: String = null
-  ) {
-    posts(
-      where: {
-        in: $in
-        orderby: { field: $field, order: $order },
-        categoryIn: $categoryIn,
-        tagIn: $tagIn,
-        authorIn: $authorIn,
-        notIn: $notIn,
-        dateQuery: {year: $year, month: $month, day: $day},
-        search: $search
-      },
-      last: $last,
-      first: $first,
-      before: $before,
-      after: $after
-    ) {
-     ${postFields}
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        endCursor
-        startCursor
-        total
-      }
-    }
-  }
-`;
-
-const GQLUserCommon = `edges {
-	node {
-		id
-		avatar {
-			url
-		}
-		name
-		username
-		userId
-		url
-		uri
-		ncUserMeta {
-			color
-			ncBio
-			featuredImage {
-				sourceUrl
-				id
-			}
-      backgroundImage {
-				sourceUrl
-			}
-		}
-	}
-}`;
+// ===========================USER============================
 
 const USERS_QUERY_FILTER__string = `query GET_USERS_QUERY_FILTER(
 	$after: String = "",
@@ -283,7 +167,11 @@ const USERS_QUERY_FILTER__string = `query GET_USERS_QUERY_FILTER(
 	$order: OrderEnum = ASC,
 	$roleIn: [UserRoleEnum] = [],
   $search: String = null,
-  $exclude: [Int] = null
+  $exclude: [Int] = null,
+  $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL,
+  $author_ncUserMeta_backgroundImage_size: MediaItemSizeEnum = ${
+    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+  }
 ) {
 	users(
 		where: {
@@ -297,7 +185,7 @@ const USERS_QUERY_FILTER__string = `query GET_USERS_QUERY_FILTER(
 		before: $before
 		after: $after
 	) {
-		${GQLUserCommon}
+		${EDGES_USER_COMMONT_FIELDS}
     pageInfo {
       endCursor
       hasNextPage

@@ -1,8 +1,9 @@
+import FactoryBlockMagazine from "containers/FactorySections/FactoryBlockMagazine";
 import React, { Suspense } from "react";
 
-const FactoryBlockMagazineLazy = React.lazy(
-  () => import("containers/FactorySections/FactoryBlockMagazine")
-);
+// const FactoryBlockMagazineLazy = React.lazy(
+//   () => import("containers/FactorySections/FactoryBlockMagazine")
+// );
 const FactoryBlockPostsGridLazy = React.lazy(
   () => import("containers/FactorySections/FactoryBlockPostsGrid")
 );
@@ -58,14 +59,12 @@ const GutenbergSections = () => {
         if (attrSectionType === "block-magazine") {
           sectionIndex += 1;
           return (
-            <Suspense key={index} fallback={<div />}>
-              <FactoryBlockMagazineLazy
-                key={index}
-                sectionIndex={sectionIndex}
-                domNode={domNode}
-                apiSettings={apiAttr}
-              />
-            </Suspense>
+            <FactoryBlockMagazine
+              key={index}
+              sectionIndex={sectionIndex}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
           );
         }
         // ===========================================

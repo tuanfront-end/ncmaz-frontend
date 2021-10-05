@@ -13,14 +13,10 @@ const postFields = ` edges {
           count
           categoryId
           ncTaxonomyMeta {
-            color
-            __typename
-          }
-          __typename
-        }
-        __typename
-      }
-      __typename
+            color 
+          } 
+        } 
+      } 
     }
     commentCount
     date
@@ -30,28 +26,21 @@ const postFields = ` edges {
         id
         altText
         caption
-        sourceUrl
-        __typename
-      }
-      __typename
+        sourceUrl(size: $featuredImage_size) 
+      } 
     }
     postFormats {
       edges {
         node {
           id
-          name
-          __typename
-        }
-        __typename
-      }
-      __typename
+          name 
+        } 
+      } 
     }
     postId
     slug
-    title
-    __typename
-  }
-  __typename
+    title 
+  } 
 }`;
 
 const POSTS_SECTION_BY_FILTER__string = `
@@ -65,6 +54,7 @@ const POSTS_SECTION_BY_FILTER__string = `
     $first: Int = 10
     $before: String = null
     $after: String = null
+    $featuredImage_size: MediaItemSizeEnum = MEDIUM
   ) {
     posts(
       where: {
@@ -83,16 +73,17 @@ const POSTS_SECTION_BY_FILTER__string = `
         hasNextPage
         hasPreviousPage
         endCursor
-        startCursor
-        __typename
-      }
-      __typename
+        startCursor 
+      } 
     }
   }
 `;
 
 const POSTS_SECTION_SPECIFIC__string = `
-  query Megamenu_Specific($nameIn: [String] = "") {
+  query Megamenu_Specific(
+    $nameIn: [String] = ""
+    $featuredImage_size: MediaItemSizeEnum = MEDIUM
+    ) {
     posts(where: { nameIn: $nameIn }) {
       ${postFields}
     }

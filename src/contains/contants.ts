@@ -45,7 +45,7 @@ const EDGES_POST_COMMONT_FIELDS = ` edges {
         slug
         ncUserMeta {
           featuredImage {
-            sourceUrl
+            sourceUrl(size: $author_ncUserMeta_featuredImage_size)
           }
         }
       }
@@ -74,7 +74,7 @@ const EDGES_POST_COMMONT_FIELDS = ` edges {
         id
         altText
         caption
-        sourceUrl
+        sourceUrl(size: $featuredImage_size)
       }
     }
     postFormats {
@@ -106,35 +106,35 @@ const EDGES_POST_COMMONT_FIELDS = ` edges {
       fieldGroupName
       image1 {
         id
-        sourceUrl
+        sourceUrl(size: $ncmazGalleryImgs_size)
       }
       image2 {
         id
-        sourceUrl
+         sourceUrl(size: $ncmazGalleryImgs_size)
       }
       image3 {
         id
-        sourceUrl
+         sourceUrl(size: $ncmazGalleryImgs_size)
       }
       image4 {
         id
-        sourceUrl
+         sourceUrl(size: $ncmazGalleryImgs_size)
       }
       image5 {
         id
-        sourceUrl
+         sourceUrl(size: $ncmazGalleryImgs_size)
       }
       image6 {
         id
-        sourceUrl
+         sourceUrl(size: $ncmazGalleryImgs_size)
       }
       image7 {
         id
-        sourceUrl
+         sourceUrl(size: $ncmazGalleryImgs_size)
       }
       image8 {
         id
-        sourceUrl
+         sourceUrl(size: $ncmazGalleryImgs_size)
       }
     }
   }
@@ -152,6 +152,13 @@ const GQL_QUERY_GET_POSTS_BY_FILTER = `
     $first: Int = 10
     $before: String = ""
     $after: String = ""
+    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
+    $featuredImage_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
   ) {
     posts(
       where: {
@@ -178,7 +185,16 @@ const GQL_QUERY_GET_POSTS_BY_FILTER = `
 `;
 
 const GQL_QUERY_GET_POSTS_BY_SPECIFIC = `
-  query GQL_QUERY_GET_POSTS_BY_SPECIFIC($nameIn: [String] = "") {
+  query GQL_QUERY_GET_POSTS_BY_SPECIFIC(
+    $nameIn: [String] = ""
+    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
+    $featuredImage_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+    ) {
     posts(where: { nameIn: $nameIn }) { ${EDGES_POST_COMMONT_FIELDS} }
   }
 `;
@@ -196,11 +212,11 @@ const EDGES_USER_COMMONT_FIELDS = `edges {
 			color
 			ncBio
 			featuredImage {
-				sourceUrl
+				sourceUrl(size: $author_ncUserMeta_featuredImage_size)
 				id
 			}
 			backgroundImage {
-				sourceUrl
+				sourceUrl(size: $author_ncUserMeta_backgroundImage_size)
 			}
 		}
 	}
@@ -214,6 +230,10 @@ const GQL_QUERY_GET_USERS_BY_FILTER = `query GQL_QUERY_GET_USERS_BY_FILTER(
 	$field: UsersConnectionOrderbyEnum = DISPLAY_NAME
 	$order: OrderEnum = ASC
 	$roleIn: [UserRoleEnum] = []
+  $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
+  $author_ncUserMeta_backgroundImage_size: MediaItemSizeEnum = ${
+    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+  }
 ) {
 	users(
 		where: { orderby: { field: $field, order: $order }, roleIn: $roleIn }
@@ -224,7 +244,13 @@ const GQL_QUERY_GET_USERS_BY_FILTER = `query GQL_QUERY_GET_USERS_BY_FILTER(
 	) { ${EDGES_USER_COMMONT_FIELDS} }
 }`;
 
-const GQL_QUERY_GET_USERS_BY_SPECIFIC = `query GQL_QUERY_GET_USERS_BY_SPECIFIC($include: [Int] = null) {
+const GQL_QUERY_GET_USERS_BY_SPECIFIC = `query GQL_QUERY_GET_USERS_BY_SPECIFIC(
+  $include: [Int] = null
+  $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
+  $author_ncUserMeta_backgroundImage_size: MediaItemSizeEnum = ${
+    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+  }
+  ) {
 	users(where: { include: $include }) { ${EDGES_USER_COMMONT_FIELDS} }
 }`;
 
@@ -240,7 +266,7 @@ const EDGES_TERMS_COMMONT_FIELDS = `edges {
         ncTaxonomyMeta {
             color                                     
             featuredImage {
-                sourceUrl
+              sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
             }
         }
     }
@@ -254,6 +280,9 @@ const GQL_QUERY_GET_CATEGORIES_BY_FILTER = `
 		$before: String = null
 		$first: Int = 10
 		$last: Int = null
+    $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
 	) {
 		categories(
 			where: { order: $order, orderby: $orderby }
@@ -266,7 +295,12 @@ const GQL_QUERY_GET_CATEGORIES_BY_FILTER = `
 `;
 
 const GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC = `
-	query GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC($termTaxonomId: [ID] = "") {
+	query GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC(
+    $termTaxonomId: [ID] = ""
+    $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+    ) {
 		categories(where: { termTaxonomId: $termTaxonomId }) { ${EDGES_TERMS_COMMONT_FIELDS} }
 	}
 `;
@@ -280,6 +314,9 @@ const GQL_QUERY_GET_TAGS_BY_FILTER = `
 		$before: String = null
 		$first: Int = 10
 		$last: Int = null
+    $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
 	) {
 		tags(
 			where: { order: $order, orderby: $orderby }
@@ -292,7 +329,12 @@ const GQL_QUERY_GET_TAGS_BY_FILTER = `
 `;
 
 const GQL_QUERY_GET_TAGS_BY_SPECIFIC = `
-	query GQL_QUERY_GET_TAGS_BY_SPECIFIC($termTaxonomId: [ID] = "") {
+	query GQL_QUERY_GET_TAGS_BY_SPECIFIC(
+    $termTaxonomId: [ID] = ""
+    $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+    ) {
 		tags(where: { termTaxonomId: $termTaxonomId }) { ${EDGES_TERMS_COMMONT_FIELDS} }
 	}
 `;

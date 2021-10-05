@@ -1,11 +1,12 @@
 import React, { FC, useState } from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import ReactDOM from "react-dom";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
 import { ListPosts } from "data/postCardType";
 import Card18 from "components/Card18/Card18";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import Card18Skeleton from "components/Card18/Card18Skeleton";
+import useGqlQuerySection from "hooks/useGqlQuerySection";
 
 interface Data {
   posts: ListPosts;
@@ -43,7 +44,6 @@ export interface MegamenuItemProps {
 }
 
 const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
-  return null;
   // =================== QUERY GRAPHQL ===================
   const { ncmazMenuCustomFields } = menuItemData;
   const [temrActiveId, setTemrActiveId] = useState(
@@ -76,10 +76,20 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     ${POSTS_SECTION_BY_FILTER__string}
   `;
 
-  const { loading, error, data, fetchMore } = useQuery<Data>(gqlQuery, {
-    notifyOnNetworkStatusChange: true,
-    variables,
-  });
+  // const { loading, error, data, fetchMore } = useQuery<Data>(gqlQuery, {
+  //   notifyOnNetworkStatusChange: true,
+  //   variables,
+  // } );
+
+  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
+    useLazyQuery<Data>(gqlQuery, {
+      notifyOnNetworkStatusChange: true,
+      variables,
+    });
+
+  // =========================================================
+  const { ref } = useGqlQuerySection(gqlQueryGetPosts, 99);
+  // =========================================================
 
   const pageInfo = data?.posts?.pageInfo;
   const POSTS = data?.posts.edges || [];
@@ -111,15 +121,16 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
           className={btnClassName}
           disabled={!pageInfo.hasPreviousPage}
           onClick={() => {
-            fetchMore({
-              variables: {
-                first: null,
-                after: null,
-                last: Number(numberOfPosts),
-                before: pageInfo.startCursor || null,
-              },
-              updateQuery,
-            });
+            fetchMore &&
+              fetchMore({
+                variables: {
+                  first: null,
+                  after: null,
+                  last: Number(numberOfPosts),
+                  before: pageInfo.startCursor || null,
+                },
+                updateQuery,
+              });
           }}
         >
           <i className="las la-angle-left"></i>
@@ -128,15 +139,16 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
           className={btnClassName}
           disabled={!pageInfo.hasNextPage}
           onClick={() => {
-            fetchMore({
-              variables: {
-                first: Number(numberOfPosts),
-                after: pageInfo.endCursor || null,
-                last: null,
-                before: null,
-              },
-              updateQuery,
-            });
+            fetchMore &&
+              fetchMore({
+                variables: {
+                  first: Number(numberOfPosts),
+                  after: pageInfo.endCursor || null,
+                  last: null,
+                  before: null,
+                },
+                updateQuery,
+              });
           }}
         >
           <i className="las la-angle-right"></i>
@@ -216,7 +228,10 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
 
   const renderContent = () => {
     return (
-      <div className="nc-megamenu-item absolute top-full py-3 -inset-x-10">
+      <div
+        ref={ref}
+        className="nc-megamenu-item absolute top-full py-3 -inset-x-10"
+      >
         <div className="w-full flex overflow-hidden rounded-2xl shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 ">
           {showTabFilter && renderLeft()}
           {renderRight()}

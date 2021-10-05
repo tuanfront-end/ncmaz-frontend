@@ -1,1 +1,0 @@
-import{E as e}from"./EmptyState.98e2bbcc.js";import{R as t}from"./vendor.061fbf51.js";const a=({data:a=[],isSkeleton:l,error:s,className:r=""})=>s||!l&&!a.length?t.createElement("div",{className:r},s&&t.createElement("pre",{className:"text-xs"},t.createElement("code",null,s.message)),!l&&!a.length&&t.createElement(e,null)):null;export{a as D};
