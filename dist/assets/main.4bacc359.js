@@ -668,7 +668,7 @@ const ve = ({
     window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
   }\n    ) {\n    posts(where: { nameIn: $nameIn }) { ${Ne} }\n  }\n`,
   ye =
-    "edges {\n\tnode {\n\t\tid\n\t\tname\n\t\tusername\n\t\tuserId\n\t\turl\n\t\turi\n\t\tncUserMeta {\n\t\t\tcolor\n\t\t\tncBio\n\t\t\tfeaturedImage {\n\t\t\t\tsourceUrl(size: $author_ncUserMeta_featuredImage_size)\n\t\t\t\tid\n\t\t\t}\n\t\t\tbackgroundImage {\n\t\t\t\tsourceUrl(size: $author_ncUserMeta_backgroundImage_size)\n\t\t\t}\n\t\t}\n\t}\n}",
+    "edges {\n\tnode {\n\t\tid\n\t\tname\n\t\tusername\n\t\tuserId\n\t\turl\n\t\turi\n\t\tncUserMeta {\n\t\t\tcolor\n\t\t\tncBio\n\t\t\tfeaturedImage {\n\t\t\t\tsourceUrl(size: $author_ncUserMeta_featuredImage_size)\n\t\t\t\tid\n\t\t\t}\n\t\t\tbackgroundImage {\n\t\t\t\tsourceUrl(size: $author_ncUserMeta_backgroundImage_size)\n\t\t\t}\n\t\t}\n    posts {\n      pageInfo {\n        total\n      }\n    }\n\t}\n}",
   Ce = `query GQL_QUERY_GET_USERS_BY_FILTER(\n\t$after: String = ""\n\t$before: String = ""\n\t$first: Int = 10\n\t$last: Int = null\n\t$field: UsersConnectionOrderbyEnum = DISPLAY_NAME\n\t$order: OrderEnum = ASC\n\t$roleIn: [UserRoleEnum] = []\n  $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL\n  $author_ncUserMeta_backgroundImage_size: MediaItemSizeEnum = ${
     window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
   }\n) {\n\tusers(\n\t\twhere: { orderby: { field: $field, order: $order }, roleIn: $roleIn }\n\t\tlast: $last\n\t\tfirst: $first\n\t\tbefore: $before\n\t\tafter: $after\n\t) { ${ye} }\n}`,
@@ -4598,73 +4598,73 @@ const Yt = ({
   },
   Wt = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockPostsGrid.ead3a17d.js"),
+      () => import("./FactoryBlockPostsGrid.db609493.js"),
       [
-        "assets/FactoryBlockPostsGrid.ead3a17d.js",
+        "assets/FactoryBlockPostsGrid.db609493.js",
         "assets/vendor.3078d0a1.js",
-        "assets/Card14Skeleton.91101f62.js",
-        "assets/ButtonPrimary.187b12c2.js",
+        "assets/Card14Skeleton.58a8e030.js",
+        "assets/ButtonPrimary.3d816abd.js",
       ]
     )
   ),
   Qt = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockPostsSlider.ac1ed781.js"),
+      () => import("./FactoryBlockPostsSlider.1f4566ee.js"),
       [
-        "assets/FactoryBlockPostsSlider.ac1ed781.js",
+        "assets/FactoryBlockPostsSlider.1f4566ee.js",
         "assets/vendor.3078d0a1.js",
-        "assets/Card14Skeleton.91101f62.js",
+        "assets/Card14Skeleton.58a8e030.js",
       ]
     )
   ),
   Zt = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockTermsSlider.feecca36.js"),
+      () => import("./FactoryBlockTermsSlider.d7a3f7c8.js"),
       [
-        "assets/FactoryBlockTermsSlider.feecca36.js",
+        "assets/FactoryBlockTermsSlider.d7a3f7c8.js",
         "assets/vendor.3078d0a1.js",
-        "assets/CardCategory5Skeleton.feb52394.js",
+        "assets/CardCategory5Skeleton.fbe998d9.js",
       ]
     )
   ),
   qt = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockTermsGrid.6b395cce.js"),
+      () => import("./FactoryBlockTermsGrid.72f60d6c.js"),
       [
-        "assets/FactoryBlockTermsGrid.6b395cce.js",
+        "assets/FactoryBlockTermsGrid.72f60d6c.js",
         "assets/vendor.3078d0a1.js",
-        "assets/SectionGridCategoryBox.1d6d3cc4.js",
-        "assets/CardCategory5Skeleton.feb52394.js",
+        "assets/SectionGridCategoryBox.82737b24.js",
+        "assets/CardCategory5Skeleton.fbe998d9.js",
       ]
     )
   ),
   Jt = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockUsersSlider.8bc48537.js"),
+      () => import("./FactoryBlockUsersSlider.d1fda112.js"),
       [
-        "assets/FactoryBlockUsersSlider.8bc48537.js",
+        "assets/FactoryBlockUsersSlider.d1fda112.js",
         "assets/vendor.3078d0a1.js",
-        "assets/CardAuthorBox2Skeleton.5a7e626c.js",
-        "assets/CardAuthorBoxSkeleton.8c571c1f.js",
+        "assets/CardAuthorBox2Skeleton.c0b9487e.js",
+        "assets/CardAuthorBoxSkeleton.5da32ee5.js",
       ]
     )
   ),
   Xt = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockUsersGrid.d321f90a.js"),
+      () => import("./FactoryBlockUsersGrid.c0968a73.js"),
       [
-        "assets/FactoryBlockUsersGrid.d321f90a.js",
+        "assets/FactoryBlockUsersGrid.c0968a73.js",
         "assets/vendor.3078d0a1.js",
-        "assets/CardAuthorBoxSkeleton.8c571c1f.js",
-        "assets/CardAuthorBox2Skeleton.5a7e626c.js",
+        "assets/CardAuthorBoxSkeleton.5da32ee5.js",
+        "assets/CardAuthorBox2Skeleton.c0b9487e.js",
       ]
     )
   ),
   Kt = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockVideos.e8c2aa71.js"),
+      () => import("./FactoryBlockVideos.33d897c0.js"),
       [
-        "assets/FactoryBlockVideos.e8c2aa71.js",
+        "assets/FactoryBlockVideos.33d897c0.js",
         "assets/vendor.3078d0a1.js",
         "assets/NcPlayIcon.30c19541.js",
       ]
@@ -4672,9 +4672,9 @@ const Yt = ({
   ),
   ea = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockWidgetPosts.5422c7a7.js"),
+      () => import("./FactoryBlockWidgetPosts.d7f7a68c.js"),
       [
-        "assets/FactoryBlockWidgetPosts.5422c7a7.js",
+        "assets/FactoryBlockWidgetPosts.d7f7a68c.js",
         "assets/vendor.3078d0a1.js",
         "assets/WidgetHeading1.55ac0e3e.js",
       ]
@@ -4682,9 +4682,9 @@ const Yt = ({
   ),
   ta = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockWidgetUsers.9021296a.js"),
+      () => import("./FactoryBlockWidgetUsers.88684e27.js"),
       [
-        "assets/FactoryBlockWidgetUsers.9021296a.js",
+        "assets/FactoryBlockWidgetUsers.88684e27.js",
         "assets/vendor.3078d0a1.js",
         "assets/WidgetHeading1.55ac0e3e.js",
       ]
@@ -4692,11 +4692,11 @@ const Yt = ({
   ),
   aa = d.lazy(() =>
     ee(
-      () => import("./FactoryBlockWidgetTerms.cdc1e45e.js"),
+      () => import("./FactoryBlockWidgetTerms.143dfffc.js"),
       [
-        "assets/FactoryBlockWidgetTerms.cdc1e45e.js",
+        "assets/FactoryBlockWidgetTerms.143dfffc.js",
         "assets/vendor.3078d0a1.js",
-        "assets/Tag.08852ae8.js",
+        "assets/Tag.fe93ab46.js",
         "assets/WidgetHeading1.55ac0e3e.js",
       ]
     )
@@ -5436,7 +5436,7 @@ const ua = ({ data: e, footData: t }) => {
     return d.createElement(
       d.Fragment,
       null,
-      d.createElement(j, { className: "relative" }, ({ open: t }) => {
+      d.createElement(j, { className: "sm:relative" }, ({ open: t }) => {
         var a;
         return (
           t &&
@@ -5451,7 +5451,7 @@ const ua = ({ data: e, footData: t }) => {
               j.Button,
               {
                 className:
-                  "text-2xl md:text-[28px] sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center",
+                  "text-2xl md:text-[28px] sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center",
               },
               d.createElement("i", { className: "las la-search" })
             ),
@@ -5471,7 +5471,8 @@ const ua = ({ data: e, footData: t }) => {
                 j.Panel,
                 {
                   static: !0,
-                  className: "absolute right-0 z-10 w-screen max-w-sm mt-3",
+                  className:
+                    "absolute right-2.5 sm:right-0 z-10 w-screen max-w-[300px] sm:max-w-sm mt-3",
                 },
                 d.createElement(
                   "form",
@@ -5521,7 +5522,7 @@ const ua = ({ data: e, footData: t }) => {
         onClick: () => {
           (localStorage.theme = t ? "light" : "dark"), a(!t);
         },
-        className: `text-2xl md:text-3xl rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ${e}`,
+        className: `text-2xl md:text-3xl rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ${e}`,
       },
       d.createElement("span", { className: "sr-only" }, "Enable dark mode"),
       t
@@ -5531,17 +5532,17 @@ const ua = ({ data: e, footData: t }) => {
   },
   Ea = d.lazy(() =>
     ee(
-      () => import("./HeaderSingleAudio.b799b827.js"),
-      ["assets/HeaderSingleAudio.b799b827.js", "assets/vendor.3078d0a1.js"]
+      () => import("./HeaderSingleAudio.4e9262a8.js"),
+      ["assets/HeaderSingleAudio.4e9262a8.js", "assets/vendor.3078d0a1.js"]
     )
   ),
   ha = d.lazy(() =>
     ee(
-      () => import("./HeaderSingleGallery.2abc8ef7.js"),
+      () => import("./HeaderSingleGallery.29159470.js"),
       [
-        "assets/HeaderSingleGallery.2abc8ef7.js",
+        "assets/HeaderSingleGallery.29159470.js",
         "assets/vendor.3078d0a1.js",
-        "assets/ButtonClose.6cb48841.js",
+        "assets/ButtonClose.0fccd11a.js",
       ]
     )
   ),
@@ -5557,84 +5558,84 @@ const ua = ({ data: e, footData: t }) => {
   ),
   xa = d.lazy(() =>
     ee(
-      () => import("./PageArchiveDate.bea333cf.js"),
+      () => import("./PageArchiveDate.0a4e50e5.js"),
       [
-        "assets/PageArchiveDate.bea333cf.js",
+        "assets/PageArchiveDate.0a4e50e5.js",
         "assets/vendor.3078d0a1.js",
-        "assets/PageArchive.e2ddbaf3.js",
-        "assets/ButtonClose.6cb48841.js",
-        "assets/ButtonPrimary.187b12c2.js",
-        "assets/Tag.08852ae8.js",
-        "assets/SectionGridCategoryBox.1d6d3cc4.js",
-        "assets/CardCategory5Skeleton.feb52394.js",
+        "assets/PageArchive.658e5131.js",
+        "assets/ButtonClose.0fccd11a.js",
+        "assets/ButtonPrimary.3d816abd.js",
+        "assets/Tag.fe93ab46.js",
+        "assets/SectionGridCategoryBox.82737b24.js",
+        "assets/CardCategory5Skeleton.fbe998d9.js",
       ]
     )
   ),
   ba = d.lazy(() =>
     ee(
-      () => import("./PageSearch.f8c46869.js"),
+      () => import("./PageSearch.938519f5.js"),
       [
-        "assets/PageSearch.f8c46869.js",
+        "assets/PageSearch.938519f5.js",
         "assets/vendor.3078d0a1.js",
-        "assets/PageArchive.e2ddbaf3.js",
-        "assets/ButtonClose.6cb48841.js",
-        "assets/ButtonPrimary.187b12c2.js",
-        "assets/Tag.08852ae8.js",
-        "assets/SectionGridCategoryBox.1d6d3cc4.js",
-        "assets/CardCategory5Skeleton.feb52394.js",
-        "assets/CardAuthorBox2Skeleton.5a7e626c.js",
+        "assets/PageArchive.658e5131.js",
+        "assets/ButtonClose.0fccd11a.js",
+        "assets/ButtonPrimary.3d816abd.js",
+        "assets/Tag.fe93ab46.js",
+        "assets/SectionGridCategoryBox.82737b24.js",
+        "assets/CardCategory5Skeleton.fbe998d9.js",
+        "assets/CardAuthorBox2Skeleton.c0b9487e.js",
       ]
     )
   ),
   Na = d.lazy(() =>
     ee(
-      () => import("./SingleMoreFromAuthorGridPosts.ac519a49.js"),
+      () => import("./SingleMoreFromAuthorGridPosts.73c32b89.js"),
       [
-        "assets/SingleMoreFromAuthorGridPosts.ac519a49.js",
+        "assets/SingleMoreFromAuthorGridPosts.73c32b89.js",
         "assets/vendor.3078d0a1.js",
-        "assets/DataStatementBlock.d50be478.js",
+        "assets/DataStatementBlock.3e769c38.js",
       ]
     )
   ),
   ka = d.lazy(() =>
     ee(
-      () => import("./SingleRelatedGridPosts.eb16a51d.js"),
+      () => import("./SingleRelatedGridPosts.9c35e200.js"),
       [
-        "assets/SingleRelatedGridPosts.eb16a51d.js",
+        "assets/SingleRelatedGridPosts.9c35e200.js",
         "assets/vendor.3078d0a1.js",
-        "assets/DataStatementBlock.d50be478.js",
+        "assets/DataStatementBlock.3e769c38.js",
       ]
     )
   ),
   wa = d.lazy(() =>
     ee(
-      () => import("./PageArchiveAuthor.8b6366ba.js"),
+      () => import("./PageArchiveAuthor.3b54ba98.js"),
       [
-        "assets/PageArchiveAuthor.8b6366ba.js",
+        "assets/PageArchiveAuthor.3b54ba98.js",
         "assets/vendor.3078d0a1.js",
-        "assets/ButtonPrimary.187b12c2.js",
-        "assets/PageArchive.e2ddbaf3.js",
-        "assets/ButtonClose.6cb48841.js",
-        "assets/Tag.08852ae8.js",
-        "assets/SectionGridCategoryBox.1d6d3cc4.js",
-        "assets/CardCategory5Skeleton.feb52394.js",
+        "assets/ButtonPrimary.3d816abd.js",
+        "assets/PageArchive.658e5131.js",
+        "assets/ButtonClose.0fccd11a.js",
+        "assets/Tag.fe93ab46.js",
+        "assets/SectionGridCategoryBox.82737b24.js",
+        "assets/CardCategory5Skeleton.fbe998d9.js",
       ]
     )
   ),
   ya = d.lazy(() =>
     ee(
       () =>
-        import("./PageArchive.e2ddbaf3.js").then(function (e) {
+        import("./PageArchive.658e5131.js").then(function (e) {
           return e.d;
         }),
       [
-        "assets/PageArchive.e2ddbaf3.js",
+        "assets/PageArchive.658e5131.js",
         "assets/vendor.3078d0a1.js",
-        "assets/ButtonClose.6cb48841.js",
-        "assets/ButtonPrimary.187b12c2.js",
-        "assets/Tag.08852ae8.js",
-        "assets/SectionGridCategoryBox.1d6d3cc4.js",
-        "assets/CardCategory5Skeleton.feb52394.js",
+        "assets/ButtonClose.0fccd11a.js",
+        "assets/ButtonPrimary.3d816abd.js",
+        "assets/Tag.fe93ab46.js",
+        "assets/SectionGridCategoryBox.82737b24.js",
+        "assets/CardCategory5Skeleton.fbe998d9.js",
       ]
     )
   ),
@@ -5750,8 +5751,8 @@ const ua = ({ data: e, footData: t }) => {
   },
   Ia = d.lazy(() =>
     ee(
-      () => import("./MediaRunningContainer.f5c6cb13.js"),
-      ["assets/MediaRunningContainer.f5c6cb13.js", "assets/vendor.3078d0a1.js"]
+      () => import("./MediaRunningContainer.5f9ca415.js"),
+      ["assets/MediaRunningContainer.5f9ca415.js", "assets/vendor.3078d0a1.js"]
     )
   );
 function Sa() {
