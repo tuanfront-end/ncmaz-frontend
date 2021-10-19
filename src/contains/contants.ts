@@ -219,6 +219,11 @@ const EDGES_USER_COMMONT_FIELDS = `edges {
 				sourceUrl(size: $author_ncUserMeta_backgroundImage_size)
 			}
 		}
+    posts {
+      pageInfo {
+        total
+      }
+    }
 	}
 }`;
 

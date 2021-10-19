@@ -1,3 +1,11 @@
+// My Custom page.php
+.page-template-page-custom.page-template-page-custom-php {
+  .wp-block-group.has-background {
+    padding: 0;
+    border-radius: 0;
+  }
+}
+
 // SAFE CLASS -- BECAUSE TAILWIND JIT CURRENT NOT SUPPORT YET
 .ncmaz-myCustomPage {
   .nc-SectionLatestPosts-hasSidebar {

@@ -34,35 +34,38 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
   authorNodesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1],
 }) => {
   const UNIQUE_CLASS = "SectionSliderNewAuthors" + ncNanoId();
+  const sliderConfiguration = {
+    perView: itemPerView,
+    gap: 32,
+    bound: true,
+    breakpoints: {
+      1280: {
+        perView: itemPerView - 1,
+      },
+      1023: {
+        gap: 24,
+        perView: 3,
+      },
+      767: {
+        gap: 20,
+        perView: 2,
+      },
+      639: {
+        gap: 20,
+        perView: 2,
+      },
+      500: {
+        gap: 20,
+        perView: 1.3,
+      },
+    },
+  };
+
+  const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
 
   useEffect(() => {
-    new Glide(`.${UNIQUE_CLASS}`, {
-      perView: itemPerView,
-      gap: 32,
-      bound: true,
-      breakpoints: {
-        1280: {
-          perView: itemPerView - 1,
-        },
-        1023: {
-          gap: 24,
-          perView: 3,
-        },
-        767: {
-          gap: 20,
-          perView: 2,
-        },
-        639: {
-          gap: 20,
-          perView: 2,
-        },
-        500: {
-          gap: 20,
-          perView: 1,
-        },
-      },
-    }).mount();
-  }, [authorNodes]);
+    glideSlider.mount();
+  }, [authorNodes, glideSlider]);
 
   const isLayout2 = blockLayoutStyle === "layout-2";
 

@@ -7,7 +7,7 @@ const SearchDropdown = () => {
 
   return (
     <React.Fragment>
-      <Popover className="relative">
+      <Popover className="sm:relative">
         {({ open }) => {
           if (open) {
             setTimeout(() => {
@@ -17,7 +17,7 @@ const SearchDropdown = () => {
 
           return (
             <>
-              <Popover.Button className="text-2xl md:text-[28px] sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center">
+              <Popover.Button className="text-2xl md:text-[28px] sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center">
                 <i className="las la-search"></i>
               </Popover.Button>
 
@@ -33,7 +33,7 @@ const SearchDropdown = () => {
               >
                 <Popover.Panel
                   static
-                  className="absolute right-0 z-10 w-screen max-w-sm mt-3"
+                  className="absolute right-2.5 sm:right-0 z-10 w-screen max-w-[300px] sm:max-w-sm mt-3"
                 >
                   <form
                     role="search"

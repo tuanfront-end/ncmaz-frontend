@@ -5,7 +5,9 @@ import { SunIcon } from "@heroicons/react/outline";
 export interface SwitchDarkModeProps {
   className?: string;
 }
-const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({ className = "w-12 h-12" }) => {
+const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({
+  className = "w-12 h-12",
+}) => {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.theme === "dark" ||
       (!("theme" in localStorage) &&
@@ -39,7 +41,7 @@ const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({ className = "w-12 h-12"
   return (
     <button
       onClick={handleClick}
-      className={`text-2xl md:text-3xl rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ${className}`}
+      className={`text-2xl md:text-3xl rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ${className}`}
     >
       <span className="sr-only">Enable dark mode</span>
       {isDarkMode ? (

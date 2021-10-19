@@ -36,35 +36,37 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
   categoriesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1],
 }) => {
   const UNIQUE_CLASS = "SectionSliderNewCategories" + ncNanoId();
+  const sliderConfiguration = {
+    perView: itemPerRow,
+    gap: 32,
+    bound: true,
+    breakpoints: {
+      1280: {
+        perView: itemPerRow - 1,
+      },
+      1024: {
+        gap: 24,
+        perView: itemPerRow - 2,
+      },
+      768: {
+        gap: 20,
+        perView: itemPerRow - 2,
+      },
+      640: {
+        gap: 20,
+        perView: itemPerRow - 3,
+      },
+      500: {
+        gap: 20,
+        perView: 1.3,
+      },
+    },
+  };
+  const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
 
   useEffect(() => {
-    new Glide(`.${UNIQUE_CLASS}`, {
-      perView: itemPerRow,
-      gap: 32,
-      bound: true,
-      breakpoints: {
-        1280: {
-          perView: itemPerRow - 1,
-        },
-        1024: {
-          gap: 24,
-          perView: itemPerRow - 2,
-        },
-        768: {
-          gap: 20,
-          perView: itemPerRow - 2,
-        },
-        640: {
-          gap: 20,
-          perView: itemPerRow - 3,
-        },
-        500: {
-          gap: 20,
-          perView: 1,
-        },
-      },
-    }).mount();
-  }, [categories]);
+    glideSlider.mount();
+  }, [categories, glideSlider]);
 
   const renderCard = (item: CategoriesEdge2, index: number) => {
     const topIndex = index < 3 ? `#${index + 1}` : undefined;

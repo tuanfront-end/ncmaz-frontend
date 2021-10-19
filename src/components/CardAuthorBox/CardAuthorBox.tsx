@@ -9,7 +9,7 @@ export interface CardAuthorBoxProps {
 }
 
 const CardAuthorBox: FC<CardAuthorBoxProps> = ({ className = "", author }) => {
-  const { name, username, uri, avatar, ncUserMeta } = author;
+  const { name, username, uri, avatar, ncUserMeta, posts } = author;
 
   return (
     <a
@@ -30,11 +30,12 @@ const CardAuthorBox: FC<CardAuthorBoxProps> = ({ className = "", author }) => {
         <span
           className={`block mt-1 text-sm text-neutral-500 dark:text-neutral-400`}
         >
-          {ncUserMeta.ncBio}
+          {ncUserMeta.ncBio || " - "}
         </span>
       </div>
       <div className="py-2 px-4 mt-4 bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center leading-none text-xs font-medium">
-        <ArrowRightIcon className="w-5 h-5 text-yellow-600 " />
+        {posts?.pageInfo.total}
+        <ArrowRightIcon className="w-5 h-5 text-yellow-600 ml-3" />
       </div>
     </a>
   );

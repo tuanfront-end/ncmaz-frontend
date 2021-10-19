@@ -13,7 +13,7 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
   className = "",
   author,
 }) => {
-  const { name, username, uri, avatar, ncUserMeta } = author;
+  const { name, username, uri, avatar, ncUserMeta, posts } = author;
 
   return (
     <a
@@ -30,7 +30,8 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
         </div>
         <div className="absolute top-3 inset-x-3 flex">
           <div className=" py-1 px-4 bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center leading-none text-xs font-medium">
-            <ArrowRightIcon className="w-5 h-5 text-yellow-600 " />
+            {posts?.pageInfo.total}
+            <ArrowRightIcon className="w-5 h-5 text-yellow-600 ml-3" />
           </div>
         </div>
       </div>

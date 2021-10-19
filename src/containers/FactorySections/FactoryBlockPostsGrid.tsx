@@ -278,14 +278,14 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
 
           {enableLoadMoreButton ? (
             !!loadMoreButtonHref ? (
-              <div className="flex mt-20 justify-center items-center">
+              <div className="flex mt-12 md:mt-20 justify-center items-center">
                 <ButtonPrimary href={loadMoreButtonHref}>
                   {NCMAZ_TRANSLATE["showMeMore"]}
                 </ButtonPrimary>
               </div>
             ) : filterDataBy !== "by_specific" &&
               data?.posts.pageInfo?.hasNextPage ? (
-              <div className="flex mt-20 justify-center items-center">
+              <div className="flex mt-12 md:mt-20 justify-center items-center">
                 <ButtonPrimary
                   onClick={handleClickLoadmoreBtn}
                   loading={loading}

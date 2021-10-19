@@ -115,32 +115,34 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   const enableNexPrevOnFoot =
     settings.blockLayoutStyle === "layout-2" || settings.showFilterTab;
 
+  // ==================== GLIDE SLIDER SETTING ====================
   const perView = settings.itemPerView || 5;
-
-  useEffect(() => {
-    new Glide(`.${UNIQUE_CLASS}`, {
-      perView: perView,
-      gap: 32,
-      bound: true,
-      breakpoints: {
-        1280: {
-          perView: perView - 1,
-        },
-        1023: {
-          perView: perView - 2 || 1,
-          gap: 24,
-        },
-        767: {
-          perView: perView - 2 || 1,
-          gap: 20,
-        },
-        639: {
-          perView: 1,
-          gap: 20,
-        },
+  const sliderConfiguration = {
+    perView: perView,
+    gap: 32,
+    bound: true,
+    breakpoints: {
+      1280: {
+        perView: perView - 1,
       },
-    }).mount();
-  }, [data]);
+      1023: {
+        perView: perView - 2 || 1.3,
+        gap: 24,
+      },
+      767: {
+        perView: perView - 2 || 1.3,
+        gap: 20,
+      },
+      639: {
+        perView: 1.3,
+        gap: 20,
+      },
+    },
+  };
+  const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
+  useEffect(() => {
+    glideSlider.mount();
+  }, [data, glideSlider]);
 
   const renderPostComponent = (post: PostNode) => {
     switch (apiSettings.settings.postCardName) {

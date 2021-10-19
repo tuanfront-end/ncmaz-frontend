@@ -83,6 +83,11 @@ export interface AuthorNode {
   username: string;
   description?: string;
   userId: number;
+  posts?: {
+    pageInfo: {
+      total: number;
+    };
+  };
 }
 
 export interface NcUserMeta {
