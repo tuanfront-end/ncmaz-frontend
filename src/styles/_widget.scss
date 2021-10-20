@@ -171,7 +171,8 @@ ul.wp-block-archives-list,
 ul.wp-block-archives,
 ul.wp-block-latest-posts__list.wp-block-latest-posts,
 .wp-block-latest-comments,
-.wp-block-page-list {
+.wp-block-page-list,
+ul.wp-block-categories-list.wp-block-categories {
   @apply space-y-4;
   li {
     @apply space-y-4;

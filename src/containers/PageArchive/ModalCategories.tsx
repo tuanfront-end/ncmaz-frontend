@@ -37,7 +37,7 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
 
   const handleClickOpen = () => {
     getListCats({
-      variables: { first: POST_PER_PAGE },
+      variables: { first: POST_PER_PAGE, orderby: null },
     });
   };
 
@@ -46,7 +46,9 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
     previousResult: Data,
     { fetchMoreResult }: { fetchMoreResult?: Data }
   ): Data => {
-    if (!fetchMoreResult?.categories?.edges.length) return previousResult;
+    if (!fetchMoreResult?.categories?.edges.length) {
+      return previousResult;
+    }
     return {
       ...fetchMoreResult,
       categories: {

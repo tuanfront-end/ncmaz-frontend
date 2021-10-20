@@ -2,7 +2,7 @@
 .xl\:prose-lg {
   // ------------------------------------------ aligncenter ------------------------------------------
   > * {
-    @apply max-w-screen-md;
+    @apply lg:max-w-screen-md;
   }
 
   .aligncenter {
@@ -18,8 +18,7 @@
   .alignleft {
     float: left;
     margin-top: 0;
-    margin-bottom: 2rem;
-    margin-right: 2rem;
+    @apply mb-4 mr-4 sm:mb-8 sm:mr-8;
   }
 
   // ------------------------------------------ alignright ------------------------------------------
@@ -29,8 +28,7 @@
   .alignright {
     float: right;
     margin-top: 0;
-    margin-bottom: 2rem;
-    margin-left: 2rem;
+    @apply mb-4 ml-4 sm:mb-8 sm:ml-8;
   }
   #emojics-root {
     clear: both;

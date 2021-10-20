@@ -258,7 +258,7 @@ div {
   }
 }
 
-//
+//CARD 11
 .nc-Card11 {
   .nc-card-title {
     overflow-wrap: break-word;
@@ -267,5 +267,22 @@ div {
     > a {
       @apply mr-2 my-1 transition-colors hover:text-white duration-300 relative inline-flex px-2.5 py-1 rounded-full font-medium text-xs text-red-800 bg-red-100 hover:bg-red-800;
     }
+  }
+}
+
+//
+/* EDEN CUSTOM SEARCH FORN */
+form.search-form {
+  @apply relative p-0 h-11 border-none bg-white rounded-full inline-flex w-96 max-w-full;
+  overflow: hidden;
+  > label:first-child {
+    @apply flex flex-grow;
+  }
+
+  input.search-field {
+    @apply h-full rounded-l-full border-neutral-200 ring-0 border border-solid focus:border-primary-500 dark:text-neutral-800 w-full;
+  }
+  input.search-submit {
+    @apply border-0 bg-neutral-200 ml-0 text-neutral-900 px-3 rounded-r-full hover:bg-neutral-300 cursor-pointer flex-shrink-0;
   }
 }
