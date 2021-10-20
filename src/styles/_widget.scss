@@ -17,6 +17,14 @@
       @apply absolute bottom-0 -left-10 w-screen border-b  border-neutral-200 dark:border-neutral-700;
     }
   }
+
+  .wp-block-group__inner-container > h2:first-child {
+    @apply relative  text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow mb-5 pb-4 xl:pb-5;
+    &::after {
+      content: "";
+      @apply absolute bottom-0 -left-10 w-screen border-b  border-neutral-200 dark:border-neutral-700;
+    }
+  }
   //
 }
 // ======================= END GROUP BLOCK ==============================
@@ -29,6 +37,52 @@
   }
 }
 // =====================================================================
+
+// SEARCH
+form.wp-block-search__text-button.wp-block-search {
+  @apply w-full;
+
+  &.wp-block-search__button-inside {
+    input.wp-block-search__input {
+      @apply py-2 px-3;
+    }
+  }
+
+  .wp-block-search__inside-wrapper {
+    @apply relative p-0 h-11 border-none bg-white rounded-full;
+    input.wp-block-search__input {
+      @apply rounded-l-full border-white ring-0 border border-solid focus:border-primary-500 dark:text-neutral-800;
+    }
+  }
+
+  .wp-block-search__button {
+    @apply border-0 bg-neutral-200 ml-0 text-neutral-900 px-3 rounded-r-full hover:bg-neutral-300;
+  }
+}
+
+form.wp-block-search__no-button.wp-block-search {
+  .wp-block-search__inside-wrapper {
+    @apply relative;
+
+    &::after {
+      @apply absolute right-3 -translate-y-1/2 top-1/2 text-neutral-700;
+      font-family: "Line Awesome Free";
+      font-weight: 900;
+      -webkit-font-smoothing: antialiased;
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+      content: "\f002";
+      font-size: 20px;
+    }
+
+    input.wp-block-search__input {
+      @apply pl-3 py-2 pr-8 rounded-full border-white ring-0 border border-solid focus:border-primary-500 dark:text-neutral-800;
+    }
+  }
+}
 
 // TEXT WIDGET
 .textwidget {
@@ -73,63 +127,6 @@
   }
 }
 
-// SEARCH INPUT
-.nc-WidgetItem,
-.nc-Footer-item,
-.wp-block-search {
-  .wp-block-search__input,
-  .search-field {
-    @apply inline-block rounded-full border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 #{!important};
-  }
-  .wp-block-search__button,
-  .search-submit {
-    @apply rounded-full min-w-[100px] dark:bg-neutral-700 dark:text-neutral-100;
-  }
-  input.search-submit {
-    min-height: 42px;
-  }
-}
-
-.ncWidget-mobile-sidebar-menu {
-  .wp-block-search__inside-wrapper {
-    position: relative;
-    input.wp-block-search__input {
-      font-size: 14px;
-      @apply border-neutral-200 dark:bg-neutral-700 dark:text-neutral-100 dark:placeholder-neutral-300 dark:border-neutral-6000 #{!important};
-    }
-  }
-
-  .wp-block-search__button {
-    @apply bg-white dark:bg-neutral-700;
-    font-size: 0;
-    width: 40px;
-    height: calc(100% - 4px);
-    padding: 0;
-    position: absolute;
-    right: 2px;
-    top: 50%;
-    transform: translateY(-50%);
-    min-width: unset;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    &::after {
-      font-family: "Line Awesome Free";
-      font-weight: 900;
-      -webkit-font-smoothing: antialiased;
-      display: inline-block;
-      font-style: normal;
-      font-variant: normal;
-      text-rendering: auto;
-      line-height: 1;
-      content: "\f002";
-
-      font-size: 20px;
-    }
-  }
-}
-
 //
 .widget {
   .widgettitle {
@@ -165,7 +162,7 @@ select {
       @apply space-y-4 pl-4;
     }
     a {
-      @apply text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-200 capitalize;
+      @apply text-neutral-800 dark:text-neutral-300 hover:text-primary-6000 dark:hover:text-primary-500 transition-colors duration-200 capitalize;
     }
   }
 }
@@ -182,7 +179,7 @@ ul.wp-block-latest-posts__list.wp-block-latest-posts,
       @apply space-y-4 pl-4;
     }
     a {
-      @apply text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-200;
+      @apply text-neutral-800 dark:text-neutral-300 hover:text-primary-6000 dark:hover:text-primary-500 transition-colors duration-200;
       line-height: 1.5;
     }
   }
@@ -193,6 +190,9 @@ ul.wp-block-latest-posts__list.wp-block-latest-posts,
   article {
     @apply text-neutral-400;
     line-height: 1.5;
+  }
+  .wp-block-latest-comments__comment-excerpt {
+    @apply text-neutral-6000 dark:text-neutral-400;
   }
 }
 

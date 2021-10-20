@@ -3,9 +3,13 @@
     @apply mb-6;
   }
   //
+  //TITLE
+  .wp-block-group__inner-container > h2:first-child {
+    @apply font-semibold text-neutral-700 dark:text-neutral-200 mb-5;
+  }
   .ncmaz-footer-sidebar-title,
   .widget-title,
-  > div > h2 {
+  > div > h2:first-child {
     @apply font-semibold text-neutral-700 dark:text-neutral-200 mb-5;
   }
 
@@ -23,5 +27,14 @@
 
   a {
     @apply text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white;
+  }
+
+  form.wp-block-search {
+    .wp-block-search__inside-wrapper {
+      @apply relative p-0 h-11 border-none bg-white rounded-full;
+      input.wp-block-search__input {
+        @apply rounded-l-full border-neutral-200 ring-0 border border-solid focus:border-primary-500 dark:text-neutral-800;
+      }
+    }
   }
 }
