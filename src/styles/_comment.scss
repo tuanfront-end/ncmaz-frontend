@@ -18,11 +18,16 @@
 
 .trackback,
 .pingback {
-  .comment-author.vcard {
+  .comment-author.vcard,
+  .comment-body__dot,
+  .comment-body__date {
     display: none;
   }
   .nc-CommentCard > .relative.flex-grow {
     margin-left: 0;
+  }
+  .comment-body__author-link {
+    flex-shrink: 1;
   }
 }
 

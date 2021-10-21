@@ -162,7 +162,7 @@ select {
       @apply space-y-4 pl-4;
     }
     a {
-      @apply text-neutral-800 dark:text-neutral-300 hover:text-primary-6000 dark:hover:text-primary-500 transition-colors duration-200 capitalize;
+      // @apply text-neutral-800 dark:text-neutral-300 hover:text-primary-6000 dark:hover:text-primary-500 transition-colors duration-200 capitalize;
     }
   }
 }
@@ -180,7 +180,7 @@ ul.wp-block-categories-list.wp-block-categories {
       @apply space-y-4 pl-4;
     }
     a {
-      @apply text-neutral-800 dark:text-neutral-300 hover:text-primary-6000 dark:hover:text-primary-500 transition-colors duration-200;
+      // @apply text-neutral-800 dark:text-neutral-300 hover:text-primary-6000 dark:hover:text-primary-500 transition-colors duration-200;
       line-height: 1.5;
     }
   }
@@ -191,6 +191,9 @@ ul.wp-block-categories-list.wp-block-categories {
   article {
     @apply text-neutral-400;
     line-height: 1.5;
+  }
+  a {
+    @apply text-neutral-900 dark:text-neutral-200 hover:text-primary-6000 dark:hover:text-primary-500 transition-colors duration-200;
   }
   .wp-block-latest-comments__comment-excerpt {
     @apply text-neutral-6000 dark:text-neutral-400;

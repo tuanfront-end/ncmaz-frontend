@@ -1,14 +1,14 @@
 .prose,
 .xl\:prose-lg {
   // ---------------------------------- ##    Table ----------------------------------
-  .wp-block-table {
+  table {
     td,
     th {
-      @apply border-none;
+      @apply border border-neutral-200 dark:border-neutral-700 p-2 sm:p-3 #{!important};
     }
   }
   thead {
-    @apply dark:text-neutral-100;
+    @apply bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100;
   }
   tbody tr {
     @apply dark:border-neutral-6000;

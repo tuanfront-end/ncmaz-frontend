@@ -1,6 +1,6 @@
 {
   "src/main.tsx": {
-    "file": "assets/main.2dee2a54.js",
+    "file": "assets/main.5384b733.js",
     "src": "src/main.tsx",
     "isEntry": true,
     "imports": [
@@ -25,18 +25,18 @@
       "src/containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts.tsx",
       "src/containers/SingleRelatedGridPosts/SingleRelatedGridPosts.tsx",
       "src/containers/PageArchive/PageArchiveAuthor.tsx",
-      "_PageArchive.6547b533.js",
+      "_PageArchive.e6472a42.js",
       "src/containers/MediaRunningContainer/MediaRunningContainer.tsx"
     ],
     "css": [
-      "assets/main.58f6034d.css"
+      "assets/main.79593e36.css"
     ]
   },
   "_vendor.3078d0a1.js": {
     "file": "assets/vendor.3078d0a1.js"
   },
   "src/containers/MediaRunningContainer/MediaRunningContainer.tsx": {
-    "file": "assets/MediaRunningContainer.537480f5.js",
+    "file": "assets/MediaRunningContainer.10aab234.js",
     "src": "src/containers/MediaRunningContainer/MediaRunningContainer.tsx",
     "isDynamicEntry": true,
     "imports": [
@@ -45,114 +45,114 @@
     ]
   },
   "src/containers/FactorySections/FactoryBlockPostsGrid.tsx": {
-    "file": "assets/FactoryBlockPostsGrid.09893331.js",
+    "file": "assets/FactoryBlockPostsGrid.b7b03a5f.js",
     "src": "src/containers/FactorySections/FactoryBlockPostsGrid.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx",
-      "_Card14Skeleton.1a5b1c87.js",
-      "_ButtonPrimary.07e081ec.js"
+      "_Card14Skeleton.e1db40c1.js",
+      "_ButtonPrimary.a0863047.js"
     ]
   },
-  "_Card14Skeleton.1a5b1c87.js": {
-    "file": "assets/Card14Skeleton.1a5b1c87.js",
+  "_Card14Skeleton.e1db40c1.js": {
+    "file": "assets/Card14Skeleton.e1db40c1.js",
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx"
     ]
   },
-  "_ButtonPrimary.07e081ec.js": {
-    "file": "assets/ButtonPrimary.07e081ec.js",
+  "_ButtonPrimary.a0863047.js": {
+    "file": "assets/ButtonPrimary.a0863047.js",
     "imports": [
       "src/main.tsx",
       "_vendor.3078d0a1.js"
     ]
   },
   "src/containers/FactorySections/FactoryBlockPostsSlider.tsx": {
-    "file": "assets/FactoryBlockPostsSlider.ca0aaadc.js",
+    "file": "assets/FactoryBlockPostsSlider.a16536d0.js",
     "src": "src/containers/FactorySections/FactoryBlockPostsSlider.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx",
-      "_Card14Skeleton.1a5b1c87.js"
+      "_Card14Skeleton.e1db40c1.js"
     ]
   },
   "src/containers/FactorySections/FactoryBlockTermsSlider.tsx": {
-    "file": "assets/FactoryBlockTermsSlider.a078acde.js",
+    "file": "assets/FactoryBlockTermsSlider.95174ac2.js",
     "src": "src/containers/FactorySections/FactoryBlockTermsSlider.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx",
-      "_CardCategory5Skeleton.ca4bca99.js"
+      "_CardCategory5Skeleton.f9cafaf9.js"
     ]
   },
-  "_CardCategory5Skeleton.ca4bca99.js": {
-    "file": "assets/CardCategory5Skeleton.ca4bca99.js",
+  "_CardCategory5Skeleton.f9cafaf9.js": {
+    "file": "assets/CardCategory5Skeleton.f9cafaf9.js",
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx"
     ]
   },
   "src/containers/FactorySections/FactoryBlockTermsGrid.tsx": {
-    "file": "assets/FactoryBlockTermsGrid.47698a3d.js",
+    "file": "assets/FactoryBlockTermsGrid.69b4a665.js",
     "src": "src/containers/FactorySections/FactoryBlockTermsGrid.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx",
-      "_SectionGridCategoryBox.fbaea8ac.js",
-      "_CardCategory5Skeleton.ca4bca99.js"
+      "_SectionGridCategoryBox.07748cc6.js",
+      "_CardCategory5Skeleton.f9cafaf9.js"
     ]
   },
-  "_SectionGridCategoryBox.fbaea8ac.js": {
-    "file": "assets/SectionGridCategoryBox.fbaea8ac.js",
+  "_SectionGridCategoryBox.07748cc6.js": {
+    "file": "assets/SectionGridCategoryBox.07748cc6.js",
     "imports": [
-      "_CardCategory5Skeleton.ca4bca99.js",
+      "_CardCategory5Skeleton.f9cafaf9.js",
       "src/main.tsx",
       "_vendor.3078d0a1.js"
     ]
   },
   "src/containers/FactorySections/FactoryBlockUsersSlider.tsx": {
-    "file": "assets/FactoryBlockUsersSlider.3e127225.js",
+    "file": "assets/FactoryBlockUsersSlider.dc44b934.js",
     "src": "src/containers/FactorySections/FactoryBlockUsersSlider.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx",
-      "_CardAuthorBox2Skeleton.29f94d58.js",
-      "_CardAuthorBoxSkeleton.da416c6c.js"
+      "_CardAuthorBox2Skeleton.d19748a5.js",
+      "_CardAuthorBoxSkeleton.394d5df5.js"
     ]
   },
-  "_CardAuthorBox2Skeleton.29f94d58.js": {
-    "file": "assets/CardAuthorBox2Skeleton.29f94d58.js",
+  "_CardAuthorBox2Skeleton.d19748a5.js": {
+    "file": "assets/CardAuthorBox2Skeleton.d19748a5.js",
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx"
     ]
   },
-  "_CardAuthorBoxSkeleton.da416c6c.js": {
-    "file": "assets/CardAuthorBoxSkeleton.da416c6c.js",
+  "_CardAuthorBoxSkeleton.394d5df5.js": {
+    "file": "assets/CardAuthorBoxSkeleton.394d5df5.js",
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx"
     ]
   },
   "src/containers/FactorySections/FactoryBlockUsersGrid.tsx": {
-    "file": "assets/FactoryBlockUsersGrid.453d626d.js",
+    "file": "assets/FactoryBlockUsersGrid.df0e62d4.js",
     "src": "src/containers/FactorySections/FactoryBlockUsersGrid.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx",
-      "_CardAuthorBoxSkeleton.da416c6c.js",
-      "_CardAuthorBox2Skeleton.29f94d58.js"
+      "_CardAuthorBoxSkeleton.394d5df5.js",
+      "_CardAuthorBox2Skeleton.d19748a5.js"
     ]
   },
   "src/containers/FactorySections/FactoryBlockVideos.tsx": {
-    "file": "assets/FactoryBlockVideos.3ade0cec.js",
+    "file": "assets/FactoryBlockVideos.0ed8e704.js",
     "src": "src/containers/FactorySections/FactoryBlockVideos.tsx",
     "isDynamicEntry": true,
     "imports": [
@@ -168,7 +168,7 @@
     ]
   },
   "src/containers/FactorySections/FactoryBlockWidgetPosts.tsx": {
-    "file": "assets/FactoryBlockWidgetPosts.f5619786.js",
+    "file": "assets/FactoryBlockWidgetPosts.fd6bb948.js",
     "src": "src/containers/FactorySections/FactoryBlockWidgetPosts.tsx",
     "isDynamicEntry": true,
     "imports": [
@@ -184,7 +184,7 @@
     ]
   },
   "src/containers/FactorySections/FactoryBlockWidgetUsers.tsx": {
-    "file": "assets/FactoryBlockWidgetUsers.f0cc3c20.js",
+    "file": "assets/FactoryBlockWidgetUsers.6d19dbdd.js",
     "src": "src/containers/FactorySections/FactoryBlockWidgetUsers.tsx",
     "isDynamicEntry": true,
     "imports": [
@@ -194,25 +194,25 @@
     ]
   },
   "src/containers/FactorySections/FactoryBlockWidgetTerms.tsx": {
-    "file": "assets/FactoryBlockWidgetTerms.30557678.js",
+    "file": "assets/FactoryBlockWidgetTerms.a9c3403a.js",
     "src": "src/containers/FactorySections/FactoryBlockWidgetTerms.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
-      "_Tag.5e4bd5f7.js",
+      "_Tag.5cb728f9.js",
       "_WidgetHeading1.55ac0e3e.js",
       "src/main.tsx"
     ]
   },
-  "_Tag.5e4bd5f7.js": {
-    "file": "assets/Tag.5e4bd5f7.js",
+  "_Tag.5cb728f9.js": {
+    "file": "assets/Tag.5cb728f9.js",
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx"
     ]
   },
   "src/components/HeaderSingleAudio/HeaderSingleAudio.tsx": {
-    "file": "assets/HeaderSingleAudio.77e2af5d.js",
+    "file": "assets/HeaderSingleAudio.68b3c38a.js",
     "src": "src/components/HeaderSingleAudio/HeaderSingleAudio.tsx",
     "isDynamicEntry": true,
     "imports": [
@@ -221,17 +221,17 @@
     ]
   },
   "src/components/HeaderSingleGallery/HeaderSingleGallery.tsx": {
-    "file": "assets/HeaderSingleGallery.e6f85964.js",
+    "file": "assets/HeaderSingleGallery.5557d5e5.js",
     "src": "src/components/HeaderSingleGallery/HeaderSingleGallery.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx",
-      "_ButtonClose.aef35a0a.js"
+      "_ButtonClose.24cf4f0a.js"
     ]
   },
-  "_ButtonClose.aef35a0a.js": {
-    "file": "assets/ButtonClose.aef35a0a.js",
+  "_ButtonClose.24cf4f0a.js": {
+    "file": "assets/ButtonClose.24cf4f0a.js",
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx"
@@ -247,88 +247,88 @@
     ]
   },
   "src/containers/PageArchive/PageArchiveDate.tsx": {
-    "file": "assets/PageArchiveDate.fe001562.js",
+    "file": "assets/PageArchiveDate.9de301b2.js",
     "src": "src/containers/PageArchive/PageArchiveDate.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
-      "_PageArchive.6547b533.js",
-      "_ButtonPrimary.07e081ec.js",
+      "_PageArchive.e6472a42.js",
+      "_ButtonPrimary.a0863047.js",
       "src/main.tsx",
-      "_ButtonClose.aef35a0a.js",
-      "_Tag.5e4bd5f7.js",
-      "_SectionGridCategoryBox.fbaea8ac.js",
-      "_CardCategory5Skeleton.ca4bca99.js"
+      "_ButtonClose.24cf4f0a.js",
+      "_Tag.5cb728f9.js",
+      "_SectionGridCategoryBox.07748cc6.js",
+      "_CardCategory5Skeleton.f9cafaf9.js"
     ]
   },
-  "_PageArchive.6547b533.js": {
-    "file": "assets/PageArchive.6547b533.js",
+  "_PageArchive.e6472a42.js": {
+    "file": "assets/PageArchive.e6472a42.js",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
       "src/main.tsx",
-      "_ButtonClose.aef35a0a.js",
-      "_ButtonPrimary.07e081ec.js",
-      "_Tag.5e4bd5f7.js",
-      "_SectionGridCategoryBox.fbaea8ac.js"
+      "_ButtonClose.24cf4f0a.js",
+      "_ButtonPrimary.a0863047.js",
+      "_Tag.5cb728f9.js",
+      "_SectionGridCategoryBox.07748cc6.js"
     ]
   },
   "src/containers/PageArchive/PageSearch.tsx": {
-    "file": "assets/PageSearch.e67cd5f8.js",
+    "file": "assets/PageSearch.acdc68dd.js",
     "src": "src/containers/PageArchive/PageSearch.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
-      "_PageArchive.6547b533.js",
+      "_PageArchive.e6472a42.js",
       "src/main.tsx",
-      "_ButtonPrimary.07e081ec.js",
-      "_CardCategory5Skeleton.ca4bca99.js",
-      "_Tag.5e4bd5f7.js",
-      "_CardAuthorBox2Skeleton.29f94d58.js",
-      "_ButtonClose.aef35a0a.js",
-      "_SectionGridCategoryBox.fbaea8ac.js"
+      "_ButtonPrimary.a0863047.js",
+      "_CardCategory5Skeleton.f9cafaf9.js",
+      "_Tag.5cb728f9.js",
+      "_CardAuthorBox2Skeleton.d19748a5.js",
+      "_ButtonClose.24cf4f0a.js",
+      "_SectionGridCategoryBox.07748cc6.js"
     ]
   },
   "src/containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts.tsx": {
-    "file": "assets/SingleMoreFromAuthorGridPosts.6b666e85.js",
+    "file": "assets/SingleMoreFromAuthorGridPosts.f5391236.js",
     "src": "src/containers/SingleMoreFromAuthorGridPosts/SingleMoreFromAuthorGridPosts.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
-      "_DataStatementBlock.0684726e.js",
+      "_DataStatementBlock.df8a9d73.js",
       "src/main.tsx"
     ]
   },
-  "_DataStatementBlock.0684726e.js": {
-    "file": "assets/DataStatementBlock.0684726e.js",
+  "_DataStatementBlock.df8a9d73.js": {
+    "file": "assets/DataStatementBlock.df8a9d73.js",
     "imports": [
       "src/main.tsx",
       "_vendor.3078d0a1.js"
     ]
   },
   "src/containers/SingleRelatedGridPosts/SingleRelatedGridPosts.tsx": {
-    "file": "assets/SingleRelatedGridPosts.bc9100ee.js",
+    "file": "assets/SingleRelatedGridPosts.61fba690.js",
     "src": "src/containers/SingleRelatedGridPosts/SingleRelatedGridPosts.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
-      "_DataStatementBlock.0684726e.js",
+      "_DataStatementBlock.df8a9d73.js",
       "src/main.tsx"
     ]
   },
   "src/containers/PageArchive/PageArchiveAuthor.tsx": {
-    "file": "assets/PageArchiveAuthor.5fe3b47c.js",
+    "file": "assets/PageArchiveAuthor.75f3a891.js",
     "src": "src/containers/PageArchive/PageArchiveAuthor.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_vendor.3078d0a1.js",
-      "_ButtonPrimary.07e081ec.js",
-      "_PageArchive.6547b533.js",
+      "_ButtonPrimary.a0863047.js",
+      "_PageArchive.e6472a42.js",
       "src/main.tsx",
-      "_ButtonClose.aef35a0a.js",
-      "_Tag.5e4bd5f7.js",
-      "_SectionGridCategoryBox.fbaea8ac.js",
-      "_CardCategory5Skeleton.ca4bca99.js"
+      "_ButtonClose.24cf4f0a.js",
+      "_Tag.5cb728f9.js",
+      "_SectionGridCategoryBox.07748cc6.js",
+      "_CardCategory5Skeleton.f9cafaf9.js"
     ]
   }
 }

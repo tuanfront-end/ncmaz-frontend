@@ -146,7 +146,6 @@ function ncmazFrontend_enqueueScriptCustomize()
 }
 add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 // 
-// 
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
 add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
@@ -168,7 +167,6 @@ function ncmazFrontend_registerScripts()
     // CSS
     wp_enqueue_style('ncmaz-vitebuild-css', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssFileUrl, [], _NCMAZ_FRONTEND_VERSION, 'all');
 }
-
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
 // add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');

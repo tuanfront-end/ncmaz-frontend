@@ -27,16 +27,21 @@
     }
   }
 }
+
 //
 .post-password-form {
-  input[name="post_password"] {
-    @apply inline-block rounded-md border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+  @apply relative flex flex-col items-start sm:flex-row sm:flex-wrap;
+  .post-password-form__label {
+    @apply block w-full mb-1;
   }
-  input[name="Submit"] {
-    min-height: 42px;
-    @apply px-4 rounded-md cursor-pointer;
+  .post-password-form__input {
+    @apply h-11 inline-block rounded-md border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-transparent flex-grow w-full max-w-md;
+  }
+  .post-password-form__submit {
+    @apply flex-shrink-0 mt-2.5 sm:mt-0 sm:ml-2.5 h-11 px-8 rounded-md cursor-pointer bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700;
   }
 }
+
 //
 .prose {
   audio,
