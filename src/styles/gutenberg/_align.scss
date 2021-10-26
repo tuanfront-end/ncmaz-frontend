@@ -2,7 +2,7 @@
 .xl\:prose-lg {
   // ------------------------------------------ aligncenter ------------------------------------------
   > * {
-    @apply lg:max-w-screen-md;
+    @apply lg:max-w-screen-md my-[1.1428571em] sm:my-[1.3333333em];
   }
 
   .aligncenter {

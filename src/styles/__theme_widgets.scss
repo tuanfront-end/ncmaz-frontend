@@ -13,20 +13,70 @@
     @apply font-semibold text-neutral-700 dark:text-neutral-200 mb-5;
   }
 
+  a {
+    @apply text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white;
+  }
+
+  .wp-block-latest-comments,
+  .wp-block-latest-posts {
+    a {
+      @apply text-neutral-900 dark:text-neutral-300 hover:text-primary-6000 dark:hover:text-primary-400 transition-colors duration-200;
+    }
+  }
+
+  // UL LIST
+  // .menu-item,
+  // .cat-item,
+  // .page_item,
+  // .widget_archive,
+  // .widget_categories,
+  // .widget_pages,
+  // .widget_meta,
+  // .widget_recent_comments,
+  // .widget_rss,
+  // .widget_nav_menu,
+  // .widget_recent_entries,
+  // .wp-block-archives-list,
+  // .wp-block-archives {
+  //   ul {
+  //     @apply space-y-4;
+  //   }
+  //   li {
+  //     @apply space-y-4;
+  //     ul {
+  //       @apply space-y-4 pl-4;
+  //     }
+  //   }
+  // }
+
+  ul.wp-block-archives-list,
+  ul.wp-block-archives,
+  .wp-block-latest-posts,
+  .wp-block-page-list,
+  .wp-block-categories-list {
+    @apply space-y-4;
+    li {
+      @apply space-y-4;
+      ul {
+        @apply space-y-4 pl-4;
+      }
+      a {
+        line-height: 1.5;
+      }
+    }
+  }
+
+  //
   ul,
   li {
     @apply space-y-4;
   }
-
+  //
   ul.wp-block-social-links {
     li {
       @apply space-y-0;
       margin: 4px 8px 4px 0 !important;
     }
-  }
-
-  a {
-    @apply text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white;
   }
 
   form.wp-block-search {
@@ -37,4 +87,37 @@
       }
     }
   }
+
+  // wp-block-latest-posts =================
+  .wp-block-latest-posts {
+    li {
+      @apply space-y-0.5;
+    }
+    &.has-author {
+      .wp-block-latest-posts__featured-image img {
+        @apply rounded-lg;
+      }
+      a {
+        @apply block text-sm font-medium leading-5 pt-1.5;
+      }
+      .wp-block-latest-posts__post-excerpt {
+        @apply text-xs text-neutral-500;
+      }
+    }
+  }
+
+  // wp-block-latest-comments =================
+  .wp-block-latest-comments {
+    .wp-block-latest-comments__comment-meta {
+      @apply text-neutral-400 leading-6;
+    }
+    .wp-block-latest-comments__comment-date {
+      @apply block mb-2 mt-1;
+    }
+    .wp-block-latest-comments__comment-excerpt {
+      @apply text-neutral-500;
+    }
+  }
+
+  // ENDDDDDDDDDDDDDDDDDDD =========================
 }
