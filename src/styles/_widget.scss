@@ -10,14 +10,7 @@
 // ======================= GROUP BLOCK ==============================
 .widget-block,
 .nc-WidgetItem {
-  .widget-title {
-    @apply relative  text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow mb-5 pb-4 xl:pb-5;
-    &::after {
-      content: "";
-      @apply absolute bottom-0 -left-10 w-screen border-b  border-neutral-200 dark:border-neutral-700;
-    }
-  }
-
+  .widget-title,
   .wp-block-group__inner-container > h2:first-child {
     @apply relative  text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow mb-5 pb-4 xl:pb-5;
     &::after {
@@ -25,6 +18,7 @@
       @apply absolute bottom-0 -left-10 w-screen border-b  border-neutral-200 dark:border-neutral-700;
     }
   }
+
   //
 }
 // ======================= END GROUP BLOCK ==============================
