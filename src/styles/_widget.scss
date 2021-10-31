@@ -193,7 +193,13 @@ span.wp-block-page-list__submenu-icon {
   .wp-block-categories-list,
   .wp-block-latest-comments,
   &.widget_nav_menu .menu,
+  &.widget_rss > ul,
+  &.widget_recent_entries > ul,
+  &.widget_recent_comments  > ul,
   &.widget_meta > ul,
+  &.widget_archive > ul,
+  &.widget_categories > ul,
+  &.widget_pages  > ul,
   .wp-block-archives-list,
   .wp-block-latest-posts {
     @apply -m-4 xl:-m-5;
@@ -209,8 +215,12 @@ span.wp-block-page-list__submenu-icon {
   .wp-block-categories-list,
   &.widget_nav_menu,
   &.widget_meta,
+  &.widget_archive,
+  &.widget_categories ,
+  &.widget_pages,
   .wp-block-archives-list,
-  .wp-block-latest-posts:not(.has-dates) {
+  .wp-block-latest-posts:not(.has-dates)
+   {
     li {
       a {
         @apply relative block px-4 xl:px-5 py-3.5 z-[1];
@@ -227,7 +237,10 @@ span.wp-block-page-list__submenu-icon {
 
   //
   .wp-block-categories-list,
-  .wp-block-archives-list {
+  .wp-block-archives-list,  
+  &.widget_archive,
+  &.widget_categories 
+   {
     li {
       @apply flex items-center flex-wrap text-sm;
       a {
@@ -278,8 +291,39 @@ span.wp-block-page-list__submenu-icon {
     }
   }
 
+  // ============================ widget_recent_entries   ============================
+  &.widget_recent_entries   > ul:not(.wp-block-latest-posts__list) {
+    @apply divide-y divide-neutral-200 dark:divide-neutral-700;
+    > li {
+      @apply m-0 px-4 xl:px-5 py-4 text-neutral-500;
+      line-height: 1.7;
+      .post-date {
+        @apply block text-neutral-6000 dark:text-neutral-400 text-sm mt-1;
+        p:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // ============================ widget_rss  ============================
+  &.widget_rss  > ul {
+    @apply divide-y divide-neutral-200 dark:divide-neutral-700;
+    > li {
+      @apply m-0 px-4 xl:px-5 py-4 text-neutral-500;
+      line-height: 1.7;
+      .rssSummary {
+        @apply text-neutral-6000 dark:text-neutral-400;
+        p:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
   // ============================ wp-block-latest-comments ============================
-  .wp-block-latest-comments {
+  .wp-block-latest-comments, 
+  &.widget_recent_comments > ul {
     @apply divide-y divide-neutral-200 dark:divide-neutral-700;
     > li {
       @apply m-0 px-4 xl:px-5 py-4 text-neutral-400;
