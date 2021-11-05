@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
-import SocialsShare from "components/SocialsShare/SocialsShare";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import Skeleton from "react-loading-skeleton";
 

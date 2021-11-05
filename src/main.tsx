@@ -61,6 +61,7 @@ declare global {
     currentObject: {
       id: number;
     };
+    socialsShare: string[];
     allSettings?: {
       discussionSettingsDefaultCommentStatus: string;
       discussionSettingsDefaultPingStatus: string;

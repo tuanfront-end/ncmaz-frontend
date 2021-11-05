@@ -17,7 +17,7 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full", post }) => {
       data-nc-id="Card3Small"
     >
       <a href={link} className=" absolute inset-0" title={title}></a>
-      <div className="relative space-y-2">
+      <div className="grid grid-cols-1 relative space-y-2">
         <PostCardMeta className="w-full" meta={{ ...post }} />
         <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100">
           <a href={link} className=" line-clamp-2" title={title}>

@@ -65,6 +65,7 @@ function getCurrentUserGraphql()
     ]);
 }
 
+
 function getAllSettingsGraphql()
 {
     if (!function_exists('graphql')) {
@@ -92,6 +93,7 @@ function getAllSettingsGraphql()
         }'
     ]);
 }
+ 
 
 // JAVASCRIPT
 function ncmazFrontend_enqueueScriptCustomize()
@@ -126,6 +128,7 @@ function ncmazFrontend_enqueueScriptCustomize()
             'placeholderImg'        => get_template_directory_uri() . '/placeholder-small.png',
             'graphQLBasePath'       => get_site_url(null, '/graphql'),
             'frontendTranslate'     => $ncmaz_redux_demo['nc-general-settings--translate-js-editor'],
+            'socialsShare'          => $ncmaz_redux_demo['nc-general-settings--multi-socials-share'],
             'homeURL'               => get_site_url(),
             'currentUser'           => $currentUser ? $currentUser['data']['user'] : null,
             'allSettings'           => $allSettings ? $allSettings['data']['allSettings'] : null,
@@ -148,7 +151,7 @@ add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 // 
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
+add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
 function ncmazFrontend_registerScripts()
 {
     $manifestJS = false;
@@ -169,7 +172,7 @@ function ncmazFrontend_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

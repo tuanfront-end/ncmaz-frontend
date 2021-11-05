@@ -123,6 +123,48 @@ $section = array(
 );
 Redux::set_section($opt_name, $section);
 
+// ===========================SOCIALS SHARE SETTING__SUB ========================
+$section = array(
+    'title'      => esc_html__('Social share', 'ncmaz-frontend'),
+    'desc'       => esc_html__('All setting for socials share setting', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--social-share',
+    'subsection' => true,
+    'fields'     => array(
+        [
+                'id'       => 'nc-general-settings--multi-socials-share',
+                'type'     => 'select',
+                'multi'    => true,
+                'title'    => __( 'Multi Select Socials ', 'ncmaz-frontend' ), 
+                'subtitle' => __( 'Select multi Socials you want enable for share on theme', 'ncmaz-frontend' ),
+                'options'  => [
+                    'Facebook'              => 'Facebook',
+                    // 'Facebook-Messenger'    => 'Facebook Messenger',
+                    'Twitter'               => 'Twitter',
+                    'Telegram'              => 'Telegram',
+                    'Whatsapp'              => 'Whatsapp',
+                    'LinkedIn'              => 'LinkedIn',
+                    'Pinterest'              => 'Pinterest',
+                    'VK'              => 'VK',
+                    'Odnoklassniki'              => 'Odnoklassniki',
+                    'Reddit'              => 'Reddit',
+                    'Reddit'              => 'Reddit',
+                    'MailRu'              => 'Mail.Ru',
+                    'LiveJournal'              => 'LiveJournal',
+                    'Viber'              => 'Viber',
+                    'Workplace'              => 'Workplace',
+                    'Line'              => 'Line',
+                    'Weibo'              => 'Weibo',
+                    'Pocket'              => 'Pocket',
+                    'Instapaper'              => 'Instapaper',
+                    'Hatena'              => 'Hatena',
+                    'email'              => 'email',
+                ],
+                'default'  => array( 'Facebook', 'Twitter', 'Telegram','Whatsapp' )
+        ],
+    ),
+);
+Redux::set_section($opt_name, $section);
+
 
 // ===========================GENERAL SETTING__SUB2 GENRAL ========================
 $section = array(
