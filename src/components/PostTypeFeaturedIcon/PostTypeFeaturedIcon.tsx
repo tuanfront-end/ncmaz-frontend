@@ -17,7 +17,7 @@ const PostTypeFeaturedIcon: FC<PostTypeFeaturedIconProps> = ({
   iconSize = "w-6 h-6",
 }) => {
   const renderMediaIcon = () => {
-    if (postType === "Video") {
+    if (postType === "post-format-video") {
       return (
         <svg
           className={iconSize}
@@ -37,7 +37,7 @@ const PostTypeFeaturedIcon: FC<PostTypeFeaturedIconProps> = ({
       );
     }
 
-    if (postType === "Audio") {
+    if (postType === "post-format-audio") {
       return (
         <svg
           className={iconSize}
@@ -84,7 +84,7 @@ const PostTypeFeaturedIcon: FC<PostTypeFeaturedIconProps> = ({
       );
     }
 
-    if (postType === "Gallery") {
+    if (postType === "post-format-gallery") {
       return (
         <svg
           className={iconSize}

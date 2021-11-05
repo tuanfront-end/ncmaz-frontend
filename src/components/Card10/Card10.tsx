@@ -39,8 +39,8 @@ const Card10: FC<Card10Props> = ({ className = "h-full", post }) => {
         />
       </div>
 
-      <div className="space-y-2.5 mt-4">
-        <PostCardMetaV2 className="leading-none" meta={post} />
+      <div className="space-y-2.5 mt-4 ">
+        <PostCardMetaV2 className="leading-none w-full" meta={post} />
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ const Card10V3: FC<Card10V3Props> = ({
   const renderGallery2 = () => {
     if (!galleryImgs) return null;
     return (
-      <div className="w-full h-full grid grid-rows-2 gap-2">
+      <div className="w-full h-full grid grid-cols-1 grid-rows-2 gap-2">
         <div className="grid grid-cols-3 gap-2 ">
           <NcImage
             containerClassName="relative col-span-2"
@@ -108,7 +108,7 @@ const Card10V3: FC<Card10V3Props> = ({
     >
       <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-16 sm:aspect-h-9 overflow-hidden">
         <div>
-          {postFormats?.edges[0]?.node.name !== "Gallery" &&
+          {postFormats?.edges[0]?.node.slug !== "post-format-gallery" &&
           !!galleryImgs?.length ? (
             <PostFeaturedMedia post={post} isHover={isHover} />
           ) : galleryType === 1 ? (
@@ -131,7 +131,7 @@ const Card10V3: FC<Card10V3Props> = ({
         />
       </div>
 
-      <div className="space-y-2.5 mt-4 px-4">
+      <div className="space-y-2.5 mt-4 px-4 flex flex-col">
         <h2 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
           <a href={link} className="line-clamp-1" title={title}>
             {title}

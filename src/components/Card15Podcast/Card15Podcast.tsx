@@ -13,7 +13,7 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
   post,
 }) => {
   const { title, link, featuredImage, postFormats, excerpt } = post;
-  const postFormatName = postFormats?.edges[0]?.node.name;
+  const postFormatName = postFormats?.edges[0]?.node.slug;
 
   const renderIcon = (state?: "loading" | "playing") => {
     switch (state) {
@@ -118,7 +118,7 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
           </span>
         ) : null}
 
-        {(postFormatName === "Video" || postFormatName === "Audio") && (
+        {(postFormatName === "post-format-video" || postFormatName === "post-format-audio") && (
           <ButtonPlayMusicRunningContainer
             post={post}
             className=""

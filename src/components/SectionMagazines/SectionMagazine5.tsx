@@ -15,13 +15,13 @@ const SectionMagazine5: FC<SectionMagazine5Props> = ({
   isLoading,
 }) => {
   return (
-    <div className="grid lg:grid-cols-2 gap-5 md:gap-7">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-7">
       {isLoading ? (
         <Card12Skeleton />
       ) : listPosts[0] ? (
         <Card12 post={listPosts[0].node} />
       ) : null}
-      <div className="grid gap-5 md:gap-7">
+      <div className="grid grid-cols-1 gap-5 md:gap-7">
         {isLoading
           ? [1, 2, 3].map((_, index) => <Card13Skeleton key={index} />)
           : listPosts

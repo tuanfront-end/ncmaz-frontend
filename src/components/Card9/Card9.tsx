@@ -27,18 +27,18 @@ const Card9: FC<Card9Props> = ({
   const renderMeta = () => {
     return (
       <div className="inline-flex items-center text-xs text-neutral-300">
-        <a href={link} className="block relative">
+        <a href={link} className="block relative overflow-hidden">
           <h2 className="block text-lg font-semibold text-white ">
             <span className="line-clamp-2" title={title}>
               {title}
             </span>
           </h2>
-          <div className="flex mt-2.5">
+          <div className="flex mt-2.5 truncate">
             <span className="block text-neutral-200 hover:text-white font-medium truncate">
               {author?.node.name}
             </span>
             <span className="mx-[6px] font-medium">·</span>
-            <span className="font-normal truncate">
+            <span className="font-normal flex-shrink-0">
               {ncFormatDate(date || "")}
             </span>
           </div>
@@ -60,7 +60,7 @@ const Card9: FC<Card9Props> = ({
         />
       </div>
       <div className={`flex items-start relative w-full ${ratio}`}></div>
-      {postFormats?.edges[0]?.node.name === "Audio" ? (
+      {postFormats?.edges[0]?.node.slug === "post-format-audio" ? (
         <div className="absolute inset-0">
           <PostFeaturedMedia post={post} />
         </div>
@@ -73,7 +73,7 @@ const Card9: FC<Card9Props> = ({
           />
           <PostTypeFeaturedIcon
             className="absolute top-3 left-3 group-hover:hidden"
-            postType={postFormats?.edges[0]?.node.name}
+            postType={postFormats?.edges[0]?.node.slug}
             wrapSize="w-7 h-7"
             iconSize="w-4 h-4"
           />

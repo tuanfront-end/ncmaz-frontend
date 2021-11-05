@@ -65,7 +65,7 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
           <PostTypeFeaturedIcon
             wrapSize="h-7 w-7"
             iconSize="h-4 w-4"
-            postType={postFormats?.edges[0]?.node.name}
+            postType={postFormats?.edges[0]?.node.slug}
           />
         </span>
       </a>

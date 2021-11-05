@@ -19,14 +19,14 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
   const { date, author, title, link } = meta;
   return (
     <div
-      className={`nc-PostCardMetaV2 inline-flex items-center flex-wrap text-neutral-800 dark:text-neutral-200 ${
+      className={`nc-PostCardMetaV2 inline-flex items-center flex-wrap text-neutral-800 dark:text-neutral-200 overflow-hidden ${
         size === "normal" ? "text-xs" : "text-sm"
       } ${className}`}
       data-nc-id="PostCardMetaV2"
     >
-      <div className="relative flex items-center space-x-2">
+      <div className="relative flex items-center space-x-2 overflow-hidden">
         {!hiddenAvatar && (
-          <a href={frontendObject.homeURL + author?.node.uri}>
+          <a className="flex flex-shrink-0" href={frontendObject.homeURL + author?.node.uri}>
             <Avatar
               radius="rounded-full"
               sizeClass={
@@ -40,7 +40,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
             />
           </a>
         )}
-        <a href={link} className="block">
+        <a href={link} className="grid grid-cols-1 overflow-hidden">
           <h2
             className={`block font-semibold ${
               size === "normal" ? "text-base" : "text-lg"
@@ -49,14 +49,14 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
             <span className="line-clamp-1">{title}</span>
           </h2>
 
-          <div className="flex mt-1.5">
-            <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium">
+          <div className="flex mt-1.5 truncate">
+            <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium truncate">
               {author?.node.name}
             </span>
             <span className="text-neutral-500 dark:text-neutral-400 mx-[6px] font-medium">
               ·
             </span>
-            <span className="text-neutral-500 dark:text-neutral-400 font-normal">
+            <span className="text-neutral-500 dark:text-neutral-400 font-normal flex-shrink-0">
               {ncFormatDate(date || "")}
             </span>
           </div>

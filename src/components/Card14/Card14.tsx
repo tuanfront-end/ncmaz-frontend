@@ -21,7 +21,7 @@ const Card14: FC<Card14Props> = ({
 }) => {
   const { title, link, featuredImage, categories, author, date, postFormats } =
     post;
-  const postType = postFormats?.edges[0]?.node.name;
+  const postType = postFormats?.edges[0]?.node.slug;
   return (
     <div
       className={`nc-Card14 relative flex flex-col group rounded-3xl overflow-hidden ${hoverClass} ${className}`}

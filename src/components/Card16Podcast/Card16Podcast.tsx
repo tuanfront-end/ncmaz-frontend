@@ -4,7 +4,7 @@ import PostCardLikeAndComment from "components/PostCardLikeAndComment/PostCardLi
 import musicWave from "images/musicWave.png";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
 import NcImage from "components/NcImage/NcImage";
-import { PostNode } from "data/postCardType";
+import { PostFormatsType, PostNode } from "data/postCardType";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 
 export interface Card16PodcastProps {
@@ -19,7 +19,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
   ratio = "aspect-w-3 xl:aspect-w-4 aspect-h-3",
 }) => {
   const { title, link, categories, excerpt, featuredImage, postFormats } = post;
-  const postFormatName = postFormats?.edges[0]?.node.name;
+  const postFormatName:PostFormatsType |undefined = postFormats?.edges[0]?.node.slug;
   const renderIcon = (state?: "playing" | "loading") => {
     if (!state) {
       return (
@@ -88,7 +88,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
           <div className="flex-grow ">
             <img src={musicWave} alt="musicWave" />
           </div>
-          {(postFormatName === "Video" || postFormatName === "Audio") && (
+          {(postFormatName === "post-format-video" || postFormatName === "post-format-audio") && (
             <ButtonPlayMusicRunningContainer
               post={post}
               renderDefaultBtn={() => renderListenButtonDefault()}

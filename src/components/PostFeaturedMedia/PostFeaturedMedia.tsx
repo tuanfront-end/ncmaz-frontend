@@ -26,11 +26,11 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     ncmazGalleryImgs,
   } = post;
 
-  const postType = postFormats?.edges[0]?.node?.name;
+  const postType = postFormats?.edges[0]?.node?.slug;
 
   const isPostMedia = () => {
     if (!postFormats?.edges[0]) return false;
-    return postType === "Video" || postType === "Audio";
+    return postType === "post-format-video" || postType === "post-format-audio";
   };
 
   const renderGallerySlider = () => {
@@ -42,17 +42,17 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
 
   const renderContent = () => {
     // GALLERY
-    if (postType === "Gallery") {
+    if (postType === "post-format-gallery") {
       return renderGallerySlider();
     }
 
     // VIDEO
-    if (postType === "Video" && !!ncmazVideoUrl.videoUrl && isHover) {
+    if (postType === "post-format-video" && !!ncmazVideoUrl.videoUrl && isHover) {
       return <MediaVideo isHover videoUrl={ncmazVideoUrl.videoUrl} />;
     }
 
     // AUDIO
-    if (postType === "Audio" && !!ncmazAudioUrl.audioUrl) {
+    if (postType === "post-format-audio" && !!ncmazAudioUrl.audioUrl) {
       return <MediaAudio post={post} />;
     }
 

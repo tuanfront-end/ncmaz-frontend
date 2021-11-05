@@ -186,14 +186,15 @@ interface Node4 {
   __typename: string;
 }
 
-export type PostFormatsType = "Gallery" | "Video" | "Audio" | "Standard";
+export type PostFormatsType = "post-format-gallery" | "post-format-video" | "post-format-audio" | "Standard";
 
 interface PostFormats {
   edges:
     | {
         node: {
           id: string;
-          name: PostFormatsType;
+          // name: string;
+          slug: PostFormatsType;
         };
       }[]
     | [];

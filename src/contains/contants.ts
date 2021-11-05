@@ -82,6 +82,7 @@ const EDGES_POST_COMMONT_FIELDS = ` edges {
         node {
           id
           name
+          slug
         }
       }
     }

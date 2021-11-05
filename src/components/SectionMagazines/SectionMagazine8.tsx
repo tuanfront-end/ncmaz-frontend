@@ -15,7 +15,7 @@ const SectionMagazine8: FC<SectionMagazine8Props> = ({
   isLoading,
 }) => {
   return (
-    <div className={`grid sm:grid-cols-6 gap-6 md:gap-8`}>
+    <div className={`grid grid-cols-1 sm:grid-cols-6 gap-6 md:gap-8`}>
       {isLoading ? (
         <Card16PodcastSkeleton className="sm:col-span-3 lg:col-span-2" />
       ) : listPosts[0] ? (

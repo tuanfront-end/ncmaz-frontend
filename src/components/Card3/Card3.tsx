@@ -28,7 +28,7 @@ const Card3: FC<Card3Props> = ({
     ncPostMetaData,
   } = post;
 
-  const postType = postFormats?.edges[0]?.node.name;
+  const postType = postFormats?.edges[0]?.node.slug;
 
   return (
     <div
@@ -59,7 +59,7 @@ const Card3: FC<Card3Props> = ({
             )}
           </div>
 
-          <PostCardMeta meta={{ ...post }} />
+          <PostCardMeta className="w-full" meta={{ ...post }} />
         </div>
         <div className="flex items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment postData={post} />

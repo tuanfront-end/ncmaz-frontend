@@ -11,7 +11,7 @@ export interface Card18Props {
 
 const Card18: FC<Card18Props> = ({ className = "h-full", post }) => {
   const { link, categories, title, featuredImage, postFormats } = post;
-  const postType = postFormats?.edges[0]?.node.name;
+  const postType = postFormats?.edges[0]?.node.slug;
 
   return (
     <div

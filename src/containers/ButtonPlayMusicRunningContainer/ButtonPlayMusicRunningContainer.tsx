@@ -92,7 +92,7 @@ const ButtonPlayMusicRunningContainer: FC<ButtonPlayMusicRunningContainerProps> 
       return (
         <PostTypeFeaturedIcon
           className="z-20 hover:scale-105 transform cursor-pointer transition-transform nc-will-change-transform"
-          postType="Audio"
+          postType="post-format-audio"
         />
       );
     };

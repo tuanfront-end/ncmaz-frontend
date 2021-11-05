@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
-import { PostNode } from "data/postCardType";
+import { PostFormatsType, PostNode } from "data/postCardType";
 
 export interface Card17PodcastProps {
   className?: string;
@@ -10,7 +10,7 @@ export interface Card17PodcastProps {
 
 const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
   const { title, link, featuredImage, postFormats, excerpt } = post;
-  const postFormatName = postFormats?.edges[0]?.node.name;
+  const postFormatName:PostFormatsType |undefined  = postFormats?.edges[0]?.node.slug;
 
   const renderIcon = (state?: "loading" | "playing") => {
     switch (state) {
@@ -106,7 +106,7 @@ const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
         </div>
       </a>
 
-      {(postFormatName === "Video" || postFormatName === "Audio") && (
+      {(postFormatName === "post-format-video" || postFormatName === "post-format-audio") && (
         <ButtonPlayMusicRunningContainer
           post={post}
           className=""

@@ -19,14 +19,14 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
   const { date, author } = meta;
   return (
     <div
-      className={`nc-PostCardMeta inline-flex items-center flex-wrap text-neutral-800 dark:text-neutral-200 ${
+      className={`nc-PostCardMeta inline-flex items-center text-neutral-800 dark:text-neutral-200 ${
         size === "normal" ? "text-xs" : "text-base"
       } ${className}`}
       data-nc-id="PostCardMeta"
     >
       <a
         href={frontendObject.homeURL + author?.node.uri}
-        className="relative flex items-center space-x-2"
+        className="relative flex items-center space-x-2 truncate"
       >
         {!hiddenAvatar && (
           <Avatar
@@ -41,7 +41,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
             userName={author?.node.username}
           />
         )}
-        <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium">
+        <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium py-1 truncate">
           {author?.node.name}
         </span>
       </a>
@@ -49,7 +49,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
         <span className="text-neutral-500 dark:text-neutral-400 mx-[6px] font-medium">
           ·
         </span>
-        <span className="text-neutral-500 dark:text-neutral-400 font-normal">
+        <span className="text-neutral-500 dark:text-neutral-400 font-normal flex-shrink-0">
           {date ? ncFormatDate(date) : null}
         </span>
       </>

@@ -33,11 +33,11 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
         imgUrl={node.ncUserMeta?.featuredImage?.sourceUrl || node.avatar?.url}
         userName={node.username}
       />
-      <div>
+      <div className="overflow-hidden">
         <h2
-          className={`text-sm text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium`}
+          className={`text-sm text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium truncate`}
         >
-          {node.name}
+          {node?.name}
         </h2>
         <span
           className={`flex items-center mt-1 text-xs text-neutral-500 dark:text-neutral-400`}

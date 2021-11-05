@@ -15,8 +15,8 @@ const SectionMagazine2: FC<SectionMagazine2Props> = ({
   isLoading,
 }) => {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      <div className="grid gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {isLoading
           ? [1, 1].map((_, index) => (
               <Card11Skeleton ratio="aspect-w-5 aspect-h-3" key={index} />
