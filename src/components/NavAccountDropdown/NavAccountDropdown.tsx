@@ -26,8 +26,8 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
       <div className="flex-shrink-0 sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ">
         <Avatar
           imgUrl={getAvatarUrlDefaultWordpress(
-            currentUser?.avatar.url,
-            currentUser?.ncUserMeta.featuredImage?.sourceUrl
+            currentUser?.avatar?.url,
+            currentUser?.ncUserMeta?.featuredImage?.sourceUrl
           )}
           userName={currentUser?.name}
           radius="rounded-full"
@@ -60,8 +60,8 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
             >
               <Avatar
                 imgUrl={getAvatarUrlDefaultWordpress(
-                  currentUser?.avatar.url,
-                  currentUser?.ncUserMeta.featuredImage?.sourceUrl
+                  currentUser?.avatar?.url,
+                  currentUser?.ncUserMeta?.featuredImage?.sourceUrl
                 )}
                 userName={currentUser?.name}
                 radius="rounded-full"
@@ -72,7 +72,7 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
                   {currentUser?.name}
                 </span>
                 <span className="text-neutral-500 dark:text-neutral-400 truncate leading-tight">
-                  {currentUser?.ncUserMeta.ncBio}
+                  {currentUser?.ncUserMeta?.ncBio}
                 </span>
               </div>
             </a>

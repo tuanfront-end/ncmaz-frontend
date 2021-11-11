@@ -132,55 +132,12 @@ form.wp-block-search__no-button.wp-block-search {
 select {
   @apply block w-full mt-1 rounded-md border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-neutral-900;
 }
-
-// UL LIST
-// .menu-item,
-// .cat-item,
-// .page_item,
-// .widget_archive,
-// // .widget_categories,
-// .widget_pages,
-// // .widget_meta,
-// .widget_recent_comments,
-// .widget_rss,
-// // .widget_nav_menu,
-// .widget_recent_entries,
-// // .wp-block-archives-list,
-// .wp-block-archives {
-//   ul {
-//     @apply space-y-4;
-//   }
-//   li {
-//     @apply space-y-4;
-//     ul {
-//       @apply space-y-4 pl-4;
-//     }
-//   }
-// }
-
-// ul.wp-block-archives-list,
-// ul.wp-block-archives,
-// ul.wp-block-latest-posts__list.wp-block-latest-posts,
-// .wp-block-page-list,
-// .wp-block-categories-list {
-//   @apply space-y-4;
-//   li {
-//     @apply space-y-4;
-//     ul {
-//       @apply space-y-4 pl-4;
-//     }
-//     a {
-//       line-height: 1.5;
-//     }
-//   }
-// }
-
+ 
 //
 span.wp-block-page-list__submenu-icon {
   display: none;
 }
 
-// MY CUSTOM WIDGET
 // MY CUSTOM WIDGET
 // MY CUSTOM WIDGET
 // MY CUSTOM WIDGET

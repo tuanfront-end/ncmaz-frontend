@@ -9,13 +9,13 @@ import "./index.css";
 import "./styles/index.scss";
 
 interface User {
-  avatar: {
+  avatar?: {
     url: string;
   };
   databaseId: number;
-  email: string;
-  name: string;
-  ncUserMeta: {
+  email?: string;
+  name?: string;
+  ncUserMeta?: {
     color: string;
     ncBio: string;
     featuredImage?: {
@@ -27,10 +27,10 @@ interface User {
   uri: string;
   url: string;
   userId: number;
-  username: string;
-  nicename: string;
-  nickname: string;
-  locale: string;
+  username?: string;
+  nicename?: string;
+  nickname?: string;
+  locale?: string;
 }
 
 declare global {
