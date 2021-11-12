@@ -134,7 +134,7 @@ function ncmazFrontend_enqueueScriptCustomize()
             'allSettings'           => $allSettings ? $allSettings['data']['allSettings'] : null,
             'currentObject'         => [
                 'id'        => get_the_ID()
-            ]
+            ],
         )
     );
 

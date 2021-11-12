@@ -9,7 +9,7 @@ export interface GallerySliderProps {
 }
 
 const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
-  const UNIQUE_CLASS = "glide_" + ncNanoId();
+  const UNIQUE_CLASS = ncNanoId("gallerySlider_");
 
   useEffect(() => {
     if (!UNIQUE_CLASS) return;

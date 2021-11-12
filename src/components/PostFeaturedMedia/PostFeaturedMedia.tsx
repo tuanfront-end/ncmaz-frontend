@@ -47,7 +47,11 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     }
 
     // VIDEO
-    if (postType === "post-format-video" && !!ncmazVideoUrl.videoUrl && isHover) {
+    if (
+      postType === "post-format-video" &&
+      !!ncmazVideoUrl.videoUrl &&
+      isHover
+    ) {
       return <MediaVideo isHover videoUrl={ncmazVideoUrl.videoUrl} />;
     }
 
@@ -78,7 +82,11 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     >
       <NcImage
         containerClassName="absolute inset-0"
-        src={featuredImage?.node.sourceUrl || "."}
+        src={
+          postType !== "post-format-gallery"
+            ? featuredImage?.node.sourceUrl || "."
+            : "."
+        }
       />
       {renderContent()}
     </div>

@@ -34,14 +34,14 @@ const Card11: FC<Card11Props> = ({
       <div
         className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden ${ratio}`}
       >
-        <div>
+        <a href={link} className="block">
           <PostFeaturedMedia post={post} isHover={isHover} />
-        </div>
+        </a>
       </div>
-      <a href={link} className="absolute inset-0"></a>
-      <span className="absolute top-3 inset-x-3">
+      <span className="absolute top-3 inset-x-3 z-10">
         <CategoryBadgeList categories={categories} />
       </span>
+      <a href={link} className="absolute inset-0"></a>
 
       <div className="p-4 h-full flex flex-col flex-grow">
         {!hiddenAuthor ? (
