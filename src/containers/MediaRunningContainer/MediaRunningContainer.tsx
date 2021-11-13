@@ -65,6 +65,9 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
   };
 
   const handleClickToggle = () => {
+    if (currentMediaRunning.state === "loading") {
+      return;
+    }
     if (currentMediaRunning.state === "playing") {
       return dispatch(changeStateMediaRunning("paused"));
     } else {
@@ -77,11 +80,16 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
   };
 
   const renderPlayer = () => {
-    if (!currentMediaRunning.postData) return null;
+    // if (!currentMediaRunning.postData) return null;
+
     return (
       <ReactPlayer
         ref={playerRef}
-        url={getMediaUrl(currentMediaRunning.postData)}
+        url={
+          currentMediaRunning.postData
+            ? getMediaUrl(currentMediaRunning.postData)
+            : ""
+        }
         playing={
           currentMediaRunning.state === "playing" ||
           currentMediaRunning.state === "loading"
@@ -90,7 +98,8 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
         width="100px"
         height="100px"
         onEnded={() => dispatch(changeStateMediaRunning("ended"))}
-        onStart={() => dispatch(changeStateMediaRunning("playing"))}
+        // onStart={() => dispatch( changeStateMediaRunning( "playing" ) )}
+        onReady={() => dispatch(changeStateMediaRunning("playing"))}
         onDuration={(d) => setDurationSeconds(d)}
         onProgress={(e) => {
           setPlayed(e.played);
@@ -101,18 +110,15 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
     );
   };
 
-  if (!currentMediaRunning.postData) {
-    return null;
-  }
+  const renderPlayerControl = () => {
+    if (!currentMediaRunning.postData) {
+      return null;
+    }
 
-  const { title, featuredImage, categories, postId, link, ncPostMetaData } =
-    currentMediaRunning.postData;
-  const mediaState = currentMediaRunning.state;
-  return (
-    <div
-      className={`nc-MediaRunningContainer fixed bottom-0 inset-x-0 flex bg-neutral-900 border-t border-neutral-700 z-30 ${className}`}
-      data-nc-id="MediaRunningContainer"
-    >
+    const { title, featuredImage, categories, postId, link, ncPostMetaData } =
+      currentMediaRunning.postData;
+    const mediaState = currentMediaRunning.state;
+    return (
       <div className="h-16 w-full flex items-center justify-between">
         {/* LEFT */}
         <div className="w-1/2 pl-2 md:w-1/4 lg:w-[30%] 2xl:w-1/4 flex items-center flex-shrink-0">
@@ -254,7 +260,15 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
           </div>
         </div>
       </div>
+    );
+  };
 
+  return (
+    <div
+      className={`nc-MediaRunningContainer fixed bottom-0 inset-x-0 flex bg-neutral-900 border-t border-neutral-700 z-30 ${className}`}
+      data-nc-id="MediaRunningContainer"
+    >
+      {renderPlayerControl()}
       {/* PLAYER -- HIDDEN */}
       {renderPlayer()}
     </div>

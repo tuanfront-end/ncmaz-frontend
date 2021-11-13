@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import NcImage from "components/NcImage/NcImage";
 import GallerySlider from "./GallerySlider";
 import MediaVideo from "./MediaVideo";
@@ -24,6 +24,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     ncmazVideoUrl,
     ncmazAudioUrl,
     ncmazGalleryImgs,
+    link,
   } = post;
 
   const postType = postFormats?.edges[0]?.node?.slug;
@@ -35,9 +36,22 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
 
   const renderGallerySlider = () => {
     const galleryImgs = getImgsFromNcmazGalleryImgs(ncmazGalleryImgs);
-    if (!galleryImgs.length) return null;
+    if (!galleryImgs.length)
+      return (
+        <NcImage
+          containerClassName="absolute inset-0"
+          src={featuredImage?.node.sourceUrl || "."}
+        />
+      );
 
-    return <GallerySlider galleryImgs={galleryImgs} />;
+    return (
+      <Fragment>
+        <NcImage containerClassName="absolute inset-0" src={"."} />
+        <a href={link}>
+          <GallerySlider galleryImgs={galleryImgs} />
+        </a>
+      </Fragment>
+    );
   };
 
   const renderContent = () => {
@@ -80,14 +94,12 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
       className={`nc-PostFeaturedMedia relative ${className}`}
       data-nc-id="PostFeaturedMedia"
     >
-      <NcImage
-        containerClassName="absolute inset-0"
-        src={
-          postType !== "post-format-gallery"
-            ? featuredImage?.node.sourceUrl || "."
-            : "."
-        }
-      />
+      {postType !== "post-format-gallery" ? (
+        <NcImage
+          containerClassName="absolute inset-0"
+          src={featuredImage?.node.sourceUrl || "."}
+        />
+      ) : null}
       {renderContent()}
     </div>
   );

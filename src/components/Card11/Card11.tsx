@@ -34,9 +34,9 @@ const Card11: FC<Card11Props> = ({
       <div
         className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden ${ratio}`}
       >
-        <a href={link} className="block">
+        <div>
           <PostFeaturedMedia post={post} isHover={isHover} />
-        </a>
+        </div>
       </div>
       <span className="absolute top-3 inset-x-3 z-10">
         <CategoryBadgeList categories={categories} />

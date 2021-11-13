@@ -69,6 +69,7 @@ const ButtonPlayMusicRunningContainer: FC<ButtonPlayMusicRunningContainerProps> 
 
     const handleClickButton = () => {
       // IF NOT EXIST MEDIA
+      console.log(112233, currentMediaRunning.state);
       if (!currentMediaRunning.postData || !currentMediaRunning.state) {
         return handleClickNewAudio();
       }
@@ -80,6 +81,10 @@ const ButtonPlayMusicRunningContainer: FC<ButtonPlayMusicRunningContainerProps> 
 
       if (currentMediaRunning.state === "playing") {
         return dispatch(changeStateMediaRunning("paused"));
+      }
+
+      if (currentMediaRunning.state === "loading") {
+        return;
       }
 
       return dispatch(changeStateMediaRunning("playing"));
