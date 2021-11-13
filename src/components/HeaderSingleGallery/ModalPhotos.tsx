@@ -37,7 +37,7 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
       <div className={`${UNIQUE_CLASS} group relative z-10 w-full h-full`}>
         {/*  */}
         <div
-          className="controls_nav glide__bullets my-5"
+          className="controls_nav glide__bullets mt-8 mb-5"
           data-glide-el="controls[nav]"
         >
           {imgs.map((_, index) => (
@@ -49,7 +49,10 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
         </div>
         {/*  */}
 
-        <div className="glide__track h-full" data-glide-el="track">
+        <div
+          className="glide__track h-full relative z-50"
+          data-glide-el="track"
+        >
           <ul className="glide__slides h-full">
             {imgs.map((item, index) => (
               <li className="glide__slide h-full" key={index}>
@@ -60,11 +63,19 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
         </div>
         {/*  */}
         <div
-          className="fixed group-hover:opacity-100 z-20 inset-x-4 max-w-7xl mx-auto top-1/2 transform -translate-y-1/2 flex justify-between glide__arrows"
+          className="xl:absolute z-20 xl:-inset-x-20 max-w-6xl my-2 mx-auto top-full xl:top-1/2 transform xl:-translate-y-1/2 flex xl:justify-between glide__arrows"
           data-glide-el="controls"
         >
-          <NextPrev onlyPrev btnClassName="w-8 h-8 sm:w-10 sm:h-10" />
-          <NextPrev onlyNext btnClassName="w-8 h-8 sm:w-10 sm:h-10" />
+          <NextPrev
+            onlyPrev
+            containerClassName="mr-1.5"
+            btnClassName="w-8 h-8 sm:w-10 sm:h-10 "
+          />
+          <NextPrev
+            onlyNext
+            containerClassName="ml-1.5"
+            btnClassName="w-8 h-8 sm:w-10 sm:h-10 "
+          />
         </div>
       </div>
     );
@@ -74,13 +85,13 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
     return (
       <Dialog
         as="div"
-        className="fixed inset-0 z-50 overflow-y-auto dark bg-neutral-800 text-neutral-200 hiddenScrollbar"
+        className="fixed inset-0 z-max overflow-y-auto dark bg-neutral-800 text-neutral-200 hiddenScrollbar"
         onClose={onClose}
         open={isOpen}
       >
         <div className="min-h-screen px-4 text-center">
           <Dialog.Overlay className="fixed inset-0 bg-white dark:bg-neutral-800" />
-          <div className="absolute left-2 top-2 md:top-4 md:left-4">
+          <div className="absolute left-2 top-2 md:top-4 md:left-4 z-max">
             <ButtonClose
               iconSize="w-6 h-6"
               className=" w-11 h-11"
@@ -95,7 +106,7 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
             &#8203;
           </span>
 
-          <div className="relative inline-block w-full max-w-6xl my-8 align-middle mx-auto">
+          <div className="relative inline-block w-full max-w-5xl my-8 align-middle mx-auto">
             {renderSlider()}
           </div>
         </div>
