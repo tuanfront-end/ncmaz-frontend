@@ -23,9 +23,13 @@ const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({
       (!("theme" in localStorage) &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
-      rootEl.classList.add("dark");
+      if (!rootEl.classList.contains("dark")) {
+        rootEl.classList.add("dark");
+      }
     } else {
-      rootEl.classList.remove("dark");
+      if (rootEl.classList.contains("dark")) {
+        rootEl.classList.remove("dark");
+      }
     }
   }, [isDarkMode]);
 

@@ -98,6 +98,9 @@ function getAllSettingsGraphql()
 // JAVASCRIPT
 function ncmazFrontend_enqueueScriptCustomize()
 {
+    // 
+    wp_enqueue_script('ncmaz-frontend-darkmode-js', _NCMAZ_FRONTEND_DIR_URL . 'public/js/darkmode.js', array(), _NCMAZ_FRONTEND_VERSION, false);
+    // 
     wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
     $currentUser = getCurrentUserGraphql();
     $allSettings = getAllSettingsGraphql();
