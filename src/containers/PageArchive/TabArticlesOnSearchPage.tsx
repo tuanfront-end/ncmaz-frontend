@@ -98,7 +98,7 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
 
       {/* LOOP ITEMS */}
       {IS_SKELETON || POSTS.length ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8 ">
           {IS_SKELETON &&
             Array.from("88888888").map((_, index) => (
               <Card11Skeleton key={index} />

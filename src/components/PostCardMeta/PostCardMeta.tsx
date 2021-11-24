@@ -32,7 +32,9 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
           <Avatar
             radius="rounded-full"
             sizeClass={
-              size === "normal" ? "h-7 w-7 text-sm" : "h-10 w-10 text-xl"
+              size === "normal"
+                ? "h-5 w-5 sm:h-7 sm:w-7 text-xs sm:text-sm"
+                : "h-8 w-8 sm:h-10 sm:w-10 text-base sm:text-xl"
             }
             imgUrl={
               author?.node.ncUserMeta?.featuredImage?.sourceUrl ||

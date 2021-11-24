@@ -99,7 +99,7 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
         error={error}
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 2xl:gap-8 ">
         {IS_SKELETON &&
           Array.from("iiiiiiiiiiiiiiiiiiii").map((_, i) => (
             <CardAuthorBox2Skeleton key={i} />

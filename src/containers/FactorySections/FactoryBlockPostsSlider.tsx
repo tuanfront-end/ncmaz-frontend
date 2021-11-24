@@ -122,19 +122,23 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
     gap: 32,
     bound: true,
     breakpoints: {
+      1440: {
+        gap: 24,
+      },
       1280: {
         perView: perView - 1,
+        gap: 24,
       },
       1023: {
-        perView: perView - 2 || 1.3,
+        perView: perView - 2 || 1.2,
         gap: 24,
       },
       767: {
-        perView: perView - 2 || 1.3,
+        perView: perView - 2 || 1.2,
         gap: 20,
       },
       639: {
-        perView: 1.3,
+        perView: 1.2,
         gap: 20,
       },
     },

@@ -104,7 +104,7 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
       </div>
 
       <div className="flex flex-col flex-grow ml-4 overflow-hidden">
-        <h2 className={`nc-card-title block font-semibold text-lg`}>
+        <h2 className={`nc-card-title block font-semibold text-sm sm:text-lg`}>
           <a href={link} className="line-clamp-1" title={title}>
             {title}
           </a>
@@ -118,7 +118,8 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
           </span>
         ) : null}
 
-        {(postFormatName === "post-format-video" || postFormatName === "post-format-audio") && (
+        {(postFormatName === "post-format-video" ||
+          postFormatName === "post-format-audio") && (
           <ButtonPlayMusicRunningContainer
             post={post}
             className=""

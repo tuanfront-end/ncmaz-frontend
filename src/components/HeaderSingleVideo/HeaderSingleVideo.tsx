@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect } from "react";
+import React, { FC } from "react";
 import ReactPlayer from "react-player";
 import NcPlayIcon from "components/NcPlayIcon/NcPlayIcon";
 

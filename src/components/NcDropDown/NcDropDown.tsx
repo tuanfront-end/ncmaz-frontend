@@ -21,7 +21,7 @@ export interface NcDropDownProps {
 }
 
 const NcDropDown: FC<NcDropDownProps> = ({
-  className = `h-8 w-8 bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center ${twFocusClass()}`,
+  className = `h-7 w-7 sm:h-8 sm:w-8 bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center ${twFocusClass()}`,
   iconClass = "h-[18px] w-[18px]",
   panelMenusClass = " w-56 top-0 right-0 origin-top-right",
   title = "More",

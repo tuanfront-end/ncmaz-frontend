@@ -28,7 +28,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
         <Badge
           color={index === "#1" ? "red" : index === "#2" ? "purple" : "green"}
           name={index}
-          className="absolute -top-2 sm:top-3 left-3"
+          className="absolute top-3 left-3"
         />
       )}
       <NcImage

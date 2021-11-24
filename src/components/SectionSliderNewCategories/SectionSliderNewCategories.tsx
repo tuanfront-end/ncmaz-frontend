@@ -41,24 +41,28 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
     gap: 32,
     bound: true,
     breakpoints: {
+      1440: {
+        gap: 24,
+      },
       1280: {
         perView: itemPerRow - 1,
+        gap: 24,
       },
       1024: {
-        gap: 24,
         perView: itemPerRow - 2,
+        gap: 24,
       },
       768: {
         gap: 20,
         perView: itemPerRow - 2,
       },
       640: {
-        gap: 20,
         perView: itemPerRow - 3,
+        gap: 20,
       },
       500: {
+        perView: 1.2,
         gap: 20,
-        perView: 1.3,
       },
     },
   };

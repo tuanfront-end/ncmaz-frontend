@@ -2,7 +2,6 @@ import React, { FC, Fragment } from "react";
 import NcImage from "components/NcImage/NcImage";
 import GallerySlider from "./GallerySlider";
 import MediaVideo from "./MediaVideo";
-import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import MediaAudio from "./MediaAudio";
 import { PostNode } from "data/postCardType";
 import getImgsFromNcmazGalleryImgs from "utils/getImgsFromNcmazGalleryImgs";
@@ -18,38 +17,28 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
   post,
   isHover = false,
 }) => {
-  const {
-    featuredImage,
-    postFormats,
-    ncmazVideoUrl,
-    ncmazAudioUrl,
-    ncmazGalleryImgs,
-    link,
-  } = post;
+  const { featuredImage, postFormats, ncmazVideoUrl, ncmazGalleryImgs, link } =
+    post;
 
   const postType = postFormats?.edges[0]?.node?.slug;
 
-  const isPostMedia = () => {
-    if (!postFormats?.edges[0]) return false;
-    return postType === "post-format-video" || postType === "post-format-audio";
-  };
-
   const renderGallerySlider = () => {
     const galleryImgs = getImgsFromNcmazGalleryImgs(ncmazGalleryImgs);
-    if (!galleryImgs.length)
+    if (!galleryImgs.length) {
       return (
         <NcImage
           containerClassName="absolute inset-0"
           src={featuredImage?.node.sourceUrl || "."}
         />
       );
+    }
 
     return (
       <Fragment>
         <NcImage containerClassName="absolute inset-0" src={"."} />
-        <a href={link}>
-          <GallerySlider galleryImgs={galleryImgs} />
-        </a>
+        {/* <a href={link}> */}
+        <GallerySlider galleryImgs={galleryImgs} />
+        {/* </a> */}
       </Fragment>
     );
   };
@@ -61,30 +50,28 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     }
 
     // VIDEO
-    if (
-      postType === "post-format-video" &&
-      !!ncmazVideoUrl.videoUrl &&
-      isHover
-    ) {
-      return <MediaVideo isHover videoUrl={ncmazVideoUrl.videoUrl} />;
+    if (postType === "post-format-video") {
+      return (
+        <MediaVideo
+          featuredImage={featuredImage}
+          isHover={isHover}
+          videoUrl={ncmazVideoUrl.videoUrl}
+        />
+      );
     }
 
     // AUDIO
-    if (postType === "post-format-audio" && !!ncmazAudioUrl.audioUrl) {
+    if (postType === "post-format-audio") {
       return <MediaAudio post={post} />;
     }
 
-    // ICON
+    // DEFAULT - OTHER
     return (
       <div className="absolute inset-0">
-        {isPostMedia() && (
-          <span className="absolute inset-0 flex items-center justify-center ">
-            <PostTypeFeaturedIcon
-              className="hover:scale-105 transform cursor-pointer transition-transform nc-will-change-transform"
-              postType={postType}
-            />
-          </span>
-        )}
+        <NcImage
+          containerClassName="absolute inset-0"
+          src={featuredImage?.node.sourceUrl || "."}
+        />
       </div>
     );
   };
@@ -94,12 +81,6 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
       className={`nc-PostFeaturedMedia relative ${className}`}
       data-nc-id="PostFeaturedMedia"
     >
-      {postType !== "post-format-gallery" ? (
-        <NcImage
-          containerClassName="absolute inset-0"
-          src={featuredImage?.node.sourceUrl || "."}
-        />
-      ) : null}
       {renderContent()}
     </div>
   );

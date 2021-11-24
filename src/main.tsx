@@ -4,7 +4,14 @@ import App from "./App";
 import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+  from,
+} from "@apollo/client";
+import { RetryLink } from "@apollo/client/link/retry";
 import "./index.css";
 import "./styles/index.scss";
 
@@ -92,15 +99,36 @@ if (
 ) {
   const cache = new InMemoryCache({
     typePolicies: {
-      Query: {
-        fields: {},
+      // Post: {
+      //   keyFields: [
+      //     "ncmazVideoUrl",
+      //     "ncmazAudioUrl",
+      //     "ncPostMetaData",
+      //     "ncmazGalleryImgs",
+      //   ],
+      // },
+      User: {
+        keyFields: ["ncUserMeta"],
+      },
+      Category: {
+        keyFields: ["ncTaxonomyMeta"],
+      },
+      Tag: {
+        keyFields: ["ncTaxonomyMeta"],
       },
     },
+  });
+
+  const link = new RetryLink();
+
+  const httpLink = new HttpLink({
+    uri: window.frontendObject.graphQLBasePath,
   });
 
   const client = new ApolloClient({
     uri: window.frontendObject.graphQLBasePath,
     cache,
+    link: from([link, httpLink]),
   });
 
   //

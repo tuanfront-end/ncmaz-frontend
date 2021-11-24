@@ -17,7 +17,7 @@ export interface Card9Props {
 
 const Card9: FC<Card9Props> = ({
   className = "h-full",
-  ratio = "aspect-w-3 aspect-h-3 sm:aspect-h-4",
+  ratio = "aspect-w-6 aspect-h-5 sm:aspect-w-3 sm:aspect-h-4",
   post,
   hoverClass = "",
 }) => {
@@ -28,7 +28,7 @@ const Card9: FC<Card9Props> = ({
     return (
       <div className="inline-flex items-center text-xs text-neutral-300">
         <a href={link} className="block relative overflow-hidden">
-          <h2 className="block text-lg font-semibold text-white ">
+          <h2 className="block text-base sm:text-lg font-semibold text-white ">
             <span className="line-clamp-2" title={title}>
               {title}
             </span>

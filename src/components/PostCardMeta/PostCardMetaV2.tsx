@@ -26,7 +26,10 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
     >
       <div className="relative flex items-center space-x-2 overflow-hidden">
         {!hiddenAvatar && (
-          <a className="flex flex-shrink-0" href={frontendObject.homeURL + author?.node.uri}>
+          <a
+            className="flex flex-shrink-0"
+            href={frontendObject.homeURL + author?.node.uri}
+          >
             <Avatar
               radius="rounded-full"
               sizeClass={
@@ -43,7 +46,9 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
         <a href={link} className="grid grid-cols-1 overflow-hidden">
           <h2
             className={`block font-semibold ${
-              size === "normal" ? "text-base" : "text-lg"
+              size === "normal"
+                ? "text-sm sm:text-base"
+                : "text-base sm:text-lg"
             }`}
           >
             <span className="line-clamp-1">{title}</span>

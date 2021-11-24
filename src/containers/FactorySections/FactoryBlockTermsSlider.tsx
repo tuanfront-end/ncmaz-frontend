@@ -45,13 +45,11 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
     ${GQL_QUERY__string}
   `;
 
-  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] = useLazyQuery(
-    queryGql,
-    {
+  const [gqlQueryGetPosts, { loading, error, data, networkStatus }] =
+    useLazyQuery(queryGql, {
       notifyOnNetworkStatusChange: true,
       variables: graphQLvariables.variables,
-    }
-  );
+    });
 
   // =========================================================
   const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);

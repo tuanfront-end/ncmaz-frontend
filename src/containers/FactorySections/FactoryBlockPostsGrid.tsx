@@ -161,13 +161,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   const renderCard = (post: PostNode) => {
     switch (apiSettings.settings.postCardName) {
       case "card3":
-        return (
-          <Card3
-            key={post.id}
-            className="p-3 sm:p-5 2xl:p-6 [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ]"
-            post={post}
-          />
-        );
+        return <Card3 key={post.id} post={post} className="mb-3 sm:mb-0" />;
       case "card4":
         return <Card4 key={post.id} post={post} />;
       case "card7":
@@ -258,7 +252,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
             renderHeading()
           )}
           <div
-            className={`grid gap-6 md:gap-8 ${
+            className={`grid grid-cols-1 gap-6 2xl:gap-8 ${
               !!gridClassCustom ? gridClassCustom : gridClass
             }`}
           >

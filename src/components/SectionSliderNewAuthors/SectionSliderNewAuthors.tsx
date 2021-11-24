@@ -39,24 +39,28 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
     gap: 32,
     bound: true,
     breakpoints: {
+      1440: {
+        gap: 24,
+      },
       1280: {
         perView: itemPerView - 1,
+        gap: 24,
       },
       1023: {
-        gap: 24,
         perView: 3,
+        gap: 24,
       },
       767: {
         gap: 20,
         perView: 2,
       },
       639: {
-        gap: 20,
         perView: 2,
+        gap: 20,
       },
       500: {
+        perView: 1.2,
         gap: 20,
-        perView: 1.3,
       },
     },
   };

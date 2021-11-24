@@ -26,7 +26,7 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
       return;
     }
     new Glide(`.${UNIQUE_CLASS}`, {
-      gap: 0,
+      gap: 10,
       perView: 1,
       startAt: initFocus,
     }).mount();
@@ -34,14 +34,16 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
 
   const renderSlider = () => {
     return (
-      <div className={`${UNIQUE_CLASS} group relative z-10 w-full h-full`}>
+      <div
+        className={`${UNIQUE_CLASS} group relative flex flex-col z-10 w-full h-full`}
+      >
         {/*  */}
         <div
           className="controls_nav glide__bullets mt-8 mb-5"
           data-glide-el="controls[nav]"
         >
           {imgs.map((_, index) => (
-            <div className="text-left hidden">
+            <div key={index} className="text-center hidden">
               <span className="text-3xl font-semibold"> {index + 1}</span>
               <span> / {imgs.length}</span>
             </div>
@@ -50,13 +52,17 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
         {/*  */}
 
         <div
-          className="glide__track h-full relative z-50"
+          className="glide__track max-h-full h-full relative z-50"
           data-glide-el="track"
         >
           <ul className="glide__slides h-full">
             {imgs.map((item, index) => (
-              <li className="glide__slide h-full" key={index}>
-                <NcImage src={item} containerClassName="w-full h-full" />
+              <li className="glide__slide relative h-full" key={index}>
+                <NcImage
+                  src={item}
+                  containerClassName=" w-full h-full"
+                  className="absolute object-contain w-full max-h-screen"
+                />
               </li>
             ))}
           </ul>
@@ -106,7 +112,7 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
             &#8203;
           </span>
 
-          <div className="relative inline-block w-full max-w-5xl my-8 align-middle mx-auto">
+          <div className="relative inline-block w-full max-w-5xl py-8 h-screen align-middle mx-auto">
             {renderSlider()}
           </div>
         </div>

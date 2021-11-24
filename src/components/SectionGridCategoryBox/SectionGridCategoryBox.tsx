@@ -32,8 +32,7 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
   gridClass = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
   isLoadingSkeleton,
   isLoadingSkeletonArr = Array.from("iiiiiiiiii"),
-} ) => {
-  
+}) => {
   const renderCardSkeleton = (_: any, index: number) => {
     switch (categoryCardType) {
       case "card2":
@@ -77,7 +76,7 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
       <Heading desc={subHeading} isCenter={headingCenter}>
         {heading}
       </Heading>
-      <div className={`grid ${gridClass} gap-6 md:gap-8`}>
+      <div className={`grid ${gridClass} gap-6 2xl:gap-8`}>
         {isLoadingSkeleton
           ? isLoadingSkeletonArr.map(renderCardSkeleton)
           : categories.map(renderCard)}

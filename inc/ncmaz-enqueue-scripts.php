@@ -17,7 +17,7 @@ function addModuleTypeForScripts($tag, $handle, $src)
         '@vite-client-js' === $handle ||
         $handle === 'ncmaz-frontend-src-main-tsx' ||
         boolval(preg_match(
-            '/^edentuan-xxx-vitejs-module--/',
+            '/^vitejs-main-module--/',
             $handle,
         ))
     ) {
@@ -167,9 +167,9 @@ function ncmazFrontend_registerScripts()
 
     $jsFileUrl = (string) $manifestJS['src/main.tsx']['file'];
     $cssFileUrl = (string) $manifestJS['src/main.tsx']['css'][0];
-    $name = 'edentuan-xxx-vitejs-module--' . _NCMAZ_FRONTEND_PREFIX . $jsFileUrl;
+    $name = 'vitejs-main-module--' . $jsFileUrl;
     // JS
-    wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, [], _NCMAZ_FRONTEND_VERSION, true);
+    wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, [], null, true);
     // CSS
     wp_enqueue_style('ncmaz-vitebuild-css', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssFileUrl, [], _NCMAZ_FRONTEND_VERSION, 'all');
 }

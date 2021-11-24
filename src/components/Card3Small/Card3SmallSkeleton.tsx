@@ -11,10 +11,10 @@ const Card3SmallSkeleton: FC<Card3SmallSkeletonProps> = ({
 }) => {
   return (
     <div
-      className={`nc-Card3SmallSkeleton relative flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center ${className}`}
+      className={`nc-Card3SmallSkeleton relative flex justify-between sm:items-center ${className}`}
       data-nc-id="Card3SmallSkeleton"
     >
-      <div className="relative flex-grow space-y-2">
+      <div className="relative  space-y-2 flex-grow overflow-hidden">
         <Skeleton width="50%" />
         <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100">
           <Skeleton width="80%" />
@@ -22,9 +22,9 @@ const Card3SmallSkeleton: FC<Card3SmallSkeletonProps> = ({
       </div>
 
       <div
-        className={`block sm:w-20 flex-shrink-0 relative rounded-lg overflow-hidden mb-5 sm:ml-4 sm:mb-0 group`}
+        className={`block w-20 flex-shrink-0 relative rounded-lg overflow-hidden ml-4 group`}
       >
-        <div className={`w-full h-0 aspect-w-16 aspect-h-9 sm:aspect-h-16`}>
+        <div className={`w-full h-0 aspect-w-16 aspect-h-16`}>
           <NcImage
             containerClassName="absolute inset-0"
             className="nc-will-change-transform object-cover w-full h-full group-hover:scale-110 transform transition-transform duration-300"

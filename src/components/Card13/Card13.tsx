@@ -18,7 +18,9 @@ const Card13: FC<Card13Props> = ({ className = "", post }) => {
       data-nc-id="Card13"
     >
       <div className="flex flex-col py-2">
-        <h2 className={`nc-card-title block font-semibold text-base`}>
+        <h2
+          className={`nc-card-title block font-semibold text-sm sm:text-base`}
+        >
           <a href={link} className="line-clamp-2" title={title}>
             {title}
           </a>
@@ -31,7 +33,7 @@ const Card13: FC<Card13Props> = ({ className = "", post }) => {
             />
           </span>
         )}
-        <span className="mt-4 block sm:hidden text-sm text-neutral-500 ">
+        <span className="mt-4 block sm:hidden text-xs text-neutral-500 ">
           {date}
         </span>
         <div className="mt-auto hidden sm:block">

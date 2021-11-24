@@ -15,7 +15,7 @@ export interface Card7Props {
 
 const Card7: FC<Card7Props> = ({
   className = "h-full",
-  ratio = "aspect-w-5 aspect-h-5 sm:aspect-h-7",
+  ratio = "aspect-w-5 aspect-h-6 sm:aspect-h-7",
   post,
   hoverClass = "",
 }) => {
@@ -59,11 +59,11 @@ const Card7: FC<Card7Props> = ({
         <span className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity"></span>
       </a>
 
-      <div className="absolute bottom-3 inset-x-3 p-4 bg-white dark:bg-neutral-900 flex flex-col flex-grow rounded-3xl group-hover:shadow-2xl transition-shadow">
+      <div className="absolute bottom-2 sm:bottom-3 inset-x-2 sm:inset-x-3 p-2.5 sm:p-4 bg-white dark:bg-neutral-900 flex flex-col flex-grow rounded-3xl group-hover:shadow-2xl transition-shadow">
         <a href={link} className="absolute inset-0"></a>
         <div className="space-y-2.5 mb-3">
           <CategoryBadgeList categories={categories} />
-          <h2 className="block text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
+          <h2 className="block text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
             <a href={link} className="line-clamp-2" title={title}>
               {title}
             </a>

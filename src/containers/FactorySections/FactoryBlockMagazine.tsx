@@ -79,16 +79,18 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     });
   }, [tabActiveId]);
 
-  const [gqlQueryGetPosts, { loading, error, data }] = useLazyQuery<Data>(
-    queryGql,
-    {
+  const [gqlQueryGetPosts, { loading, error, data, networkStatus, client }] =
+    useLazyQuery<Data>(queryGql, {
       notifyOnNetworkStatusChange: true,
       variables: variablesFilter,
-    }
-  );
+    });
 
   // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
+  const { ref } = useGqlQuerySection(() => {
+    console.log(77, { sectionIndex });
+
+    gqlQueryGetPosts();
+  }, sectionIndex);
   // =========================================================
   //
   const LISTS_POSTS = data?.posts.edges || [];

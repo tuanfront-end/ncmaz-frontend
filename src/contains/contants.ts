@@ -90,21 +90,17 @@ const EDGES_POST_COMMONT_FIELDS = ` edges {
     slug
     title
     ncmazVideoUrl {
-      fieldGroupName
       videoUrl
     }
     ncmazAudioUrl {
-      fieldGroupName
       audioUrl
     }
     ncPostMetaData {
       favoriteButtonShortcode
       readingTimeShortcode
       viewsCount
-      fieldGroupName
     }
     ncmazGalleryImgs {
-      fieldGroupName
       image1 {
         id
         sourceUrl(size: $ncmazGalleryImgs_size)

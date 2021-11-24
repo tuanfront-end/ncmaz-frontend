@@ -102,6 +102,7 @@ module.exports = {
       padding: {
         DEFAULT: "1rem",
         "2xl": "128px",
+        xl: "4rem",
       },
     },
     fontFamily: {
