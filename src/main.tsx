@@ -107,15 +107,16 @@ if (
       //     "ncmazGalleryImgs",
       //   ],
       // },
-      User: {
-        keyFields: ["ncUserMeta"],
-      },
-      Category: {
-        keyFields: ["ncTaxonomyMeta"],
-      },
-      Tag: {
-        keyFields: ["ncTaxonomyMeta"],
-      },
+      // VI TRONG 1 Trang thuong chi co 1 section user
+      // User: {
+      //   keyFields: ["ncUserMeta"],
+      // },
+      // Category: {
+      //   keyFields: ["ncTaxonomyMeta"],
+      // },
+      // Tag: {
+      //   keyFields: ["ncTaxonomyMeta"],
+      // },
     },
   });
 

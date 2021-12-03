@@ -7,6 +7,7 @@ import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import CardAuthorBox2 from "components/CardAuthorBox2/CardAuthorBox2";
 import CardAuthorBox2Skeleton from "components/CardAuthorBox2/CardAuthorBox2Skeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   users: Users;
@@ -113,7 +114,7 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
       {data?.users.pageInfo.hasNextPage && (
         <div className="flex justify-center mt-12 lg:mt-16">
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         </div>
       )}

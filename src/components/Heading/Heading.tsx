@@ -27,9 +27,9 @@ const Heading: React.FC<HeadingProps> = ({
           isCenter ? "text-center w-full max-w-2xl mx-auto " : "max-w-2xl"
         }
       >
-        <h2 className={`text-3xl md:text-4xl font-semibold`} {...args}>
+        <h3 className={`text-3xl md:text-4xl font-semibold`} {...args}>
           {children}
-        </h2>
+        </h3>
         {desc && (
           <span className="mt-2 md:mt-3 font-normal block text-base sm:text-xl text-neutral-500 dark:text-neutral-400">
             {desc}

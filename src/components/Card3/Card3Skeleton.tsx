@@ -16,11 +16,11 @@ const Card3Skeleton: FC<Card3SkeletonProps> = ({ className = "h-full" }) => {
         <div className="space-y-3.5 mb-4">
           <Skeleton width="30%" />
           <div>
-            <h2
+            <h3
               className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-xl`}
             >
               <Skeleton width="80%" />
-            </h2>
+            </h3>
             <div className="hidden sm:block sm:mt-2">
               <span className="text-neutral-500 dark:text-neutral-400 text-base line-clamp-1">
                 <Skeleton width="90%" />

@@ -29,13 +29,13 @@ const Card2Skeleton: FC<Card2SkeletonProps> = ({
       <div className="p-4 sm:p-5 flex flex-col">
         <div className="space-y-3">
           <Skeleton width="30%" />
-          <h2
+          <h3
             className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors ${
               size === "large" ? "text-lg sm:text-2xl" : "text-base"
             }`}
           >
             <Skeleton width="90%" />
-          </h2>
+          </h3>
           <div className="block text-neutral-500 dark:text-neutral-400 text-sm line-clamp-2">
             <Skeleton width="70%" />
           </div>

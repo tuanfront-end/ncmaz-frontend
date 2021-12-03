@@ -4,7 +4,10 @@ import React, { FC } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { PageInfo } from "containers/SingleComments/commentType";
 import { CategoriesNode3 } from "data/postCardType";
-import { GET_LIST_CATEGORIES } from "./queryGraphql";
+import {
+  GET_LIST_CATEGORIES,
+  GET_LIST_CATEGORIES_NO_PARENT,
+} from "./queryGraphql";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import { SectionCategoriesTrendingArchivePageOption } from "./PageArchive";
 
@@ -42,8 +45,8 @@ const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
   if (!enable) return null;
 
   // GET CATEGORIES FOR SECTION CAT_TRENDING
-  const Q_LIST_CATS = gql`
-    ${GET_LIST_CATEGORIES}
+  let Q_LIST_CATS = gql`
+    ${GET_LIST_CATEGORIES_NO_PARENT}
   `;
 
   let filterOrderby: null | string = "NAME";
@@ -55,6 +58,9 @@ const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
     filterOrderby = "TERM_ORDER";
   }
   if (orderBy === "is_child") {
+    Q_LIST_CATS = gql`
+      ${GET_LIST_CATEGORIES}
+    `;
     if (isCategory && parentId) {
       filterOrderby = null;
       filterByParentId = parentId;
@@ -65,11 +71,17 @@ const SectionTrendingCategories: FC<SectionTrendingCategoriesProps> = ({
 
   const { data, error, loading } = useQuery<QCatsData>(Q_LIST_CATS, {
     notifyOnNetworkStatusChange: true,
-    variables: {
-      first: Number(itemPerPage) || 5,
-      orderby: filterOrderby,
-      parent: filterByParentId,
-    },
+    variables:
+      filterByParentId === null
+        ? {
+            first: Number(itemPerPage) || 5,
+            orderby: filterOrderby,
+          }
+        : {
+            first: Number(itemPerPage) || 5,
+            orderby: filterOrderby,
+            parent: filterByParentId,
+          },
   });
 
   DATA = data?.categories.edges || [];

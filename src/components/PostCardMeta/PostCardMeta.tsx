@@ -26,7 +26,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
     >
       <a
         href={frontendObject.homeURL + author?.node.uri}
-        className="relative flex items-center space-x-2 truncate"
+        className="relative flex items-center space-x-2 "
       >
         {!hiddenAvatar && (
           <Avatar
@@ -43,8 +43,8 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
             userName={author?.node.username}
           />
         )}
-        <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium py-1 truncate">
-          {author?.node.name}
+        <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium py-1 ">
+          <span className="line-clamp-1"> {author?.node.name}</span>
         </span>
       </a>
       <>

@@ -105,11 +105,11 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
           />
         </div>
         <div className="p-5 mt-5 bg-white dark:bg-neutral-900 shadow-xl dark:shadow-2xl rounded-3xl rounded-tl-none flex flex-col flex-grow ">
-          <h2 className="nc-card-title block text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
+          <h3 className="nc-card-title block text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
             <a href={link} className="line-clamp-1" title={title}>
               {title}
             </a>
-          </h2>
+          </h3>
           <span className="block text-sm text-neutral-500 dark:text-neutral-400 mt-3 mb-5">
             {excerpt && (
               <span

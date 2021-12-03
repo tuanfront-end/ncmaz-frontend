@@ -31,9 +31,9 @@ const Card7Skeleton: FC<Card7SkeletonProps> = ({
       <div className="absolute bottom-3 inset-x-3 p-4 bg-white dark:bg-neutral-900 flex flex-col flex-grow rounded-3xl group-hover:shadow-2xl transition-shadow">
         <div className="space-y-2.5 mb-3">
           <Skeleton width="30%" />
-          <h2 className="block text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
+          <h3 className="block text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
             <Skeleton width="80%" />
-          </h2>
+          </h3>
         </div>
         <div className="opacity-0">aa</div>
       </div>

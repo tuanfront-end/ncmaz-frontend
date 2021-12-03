@@ -11,6 +11,7 @@ import LoadingVideo from "components/LoadingVideo/LoadingVideo";
 import { PostNode } from "data/postCardType";
 import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface MediaRunningContainerProps {
   className?: string;
@@ -29,6 +30,9 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
   const [playedSeconds, setPlayedSeconds] = useState(0);
   const [played, setPlayed] = useState(0);
   const [loaded, setLoaded] = useState(0);
+  //
+  // Player cannot play audio on this posts
+  const [postsError, setpostsError] = useState<PostNode["postId"][]>([]);
   //
 
   const getMediaUrl = (postData: PostNode) => {
@@ -76,29 +80,30 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
   };
 
   const handleClickClose = () => {
+    if (playerRef.current) {
+      playerRef.current.seekTo(0);
+    }
     dispatch(removeMediaRunning());
   };
 
   const renderPlayer = () => {
-    // if (!currentMediaRunning.postData) return null;
-
+    if (!currentMediaRunning.postData) {
+      return null;
+    }
+    const cPost = currentMediaRunning.postData;
     return (
       <ReactPlayer
         ref={playerRef}
-        url={
-          currentMediaRunning.postData
-            ? getMediaUrl(currentMediaRunning.postData)
-            : ""
-        }
+        style={{ display: "none" }}
+        url={getMediaUrl(cPost)}
         playing={
           currentMediaRunning.state === "playing" ||
           currentMediaRunning.state === "loading"
         }
-        className="fixed bottom-0 left-0 opacity-0 z-[-1]"
-        width="100px"
-        height="100px"
+        onError={() => {
+          setpostsError([...postsError, cPost.postId]);
+        }}
         onEnded={() => dispatch(changeStateMediaRunning("ended"))}
-        // onStart={() => dispatch( changeStateMediaRunning( "playing" ) )}
         onReady={() => dispatch(changeStateMediaRunning("playing"))}
         onDuration={(d) => setDurationSeconds(d)}
         onProgress={(e) => {
@@ -110,132 +115,161 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
     );
   };
 
+  //
+  // ------------------------------------------------------------
+  const renderButtonControl = (
+    mediaState: "loading" | "playing" | "paused" | "ended" | null | undefined
+  ) => {
+    return (
+      <div
+        className="w-1/2 flex-shrink-0 flex items-center justify-center border-r border-neutral-700 cursor-pointer hover:bg-neutral-700"
+        onClick={handleClickToggle}
+      >
+        {/* LOADING */}
+        {mediaState === "loading" && (
+          <LoadingVideo className="transform scale-50 origin-center" />
+        )}
+
+        {/* PLAYING */}
+        {mediaState === "playing" && (
+          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="M15.25 6.75V17.25"
+            ></path>
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="M8.75 6.75V17.25"
+            ></path>
+          </svg>
+        )}
+
+        {/* PAUSED or ENDED */}
+        {mediaState !== "playing" && mediaState !== "loading" && (
+          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="M18.25 12L5.75 5.75V18.25L18.25 12Z"
+            ></path>
+          </svg>
+        )}
+      </div>
+    );
+  };
+
+  const renderLeft = (post: PostNode) => {
+    const { postId, link, featuredImage, categories, title, ncPostMetaData } =
+      post;
+
+    return (
+      <div
+        className={`w-1/2 pl-2 md:w-1/4 lg:w-[30%] 2xl:w-1/4  items-center flex-shrink-0 ${
+          postsError.includes(postId) ? "hidden md:flex" : "flex"
+        }`}
+      >
+        <a
+          href={link}
+          className="relative flex items-center max-w-[240px] xl:flex-grow space-x-3 pl-12"
+        >
+          <NcImage
+            containerClassName={`absolute left-0 h-full w-12 h-12 flex-shrink-0 transform transition-transform nc-will-change-transform nc-animation-spin rounded-full ${
+              currentMediaRunning.state === "playing" ? "playing" : ""
+            }`}
+            src={featuredImage?.node.sourceUrl}
+            className="object-cover w-full h-full rounded-full "
+          />
+          <div className="flex-grow overflow-hidden hidden xl:block">
+            <h3 className="text-base text-neutral-50 truncate">{title}</h3>
+            <span className="block text-xs text-neutral-400 truncate">
+              {categories?.edges[0]?.node.name}
+            </span>
+          </div>
+        </a>
+        <div className="hidden md:flex flex-shrink-0 px-6 dark text-white space-x-2.5">
+          <PostCardLikeAction
+            postId={postId}
+            favoriteButtonShortcode={
+              ncPostMetaData.favoriteButtonShortcode || ""
+            }
+          />
+
+          <PostCardDropdownShare
+            href={currentMediaRunning?.postData?.link || ""}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  // ------------------------------------------------------------
+
   const renderPlayerControl = () => {
     if (!currentMediaRunning.postData) {
       return null;
     }
 
-    const { title, featuredImage, categories, postId, link, ncPostMetaData } =
-      currentMediaRunning.postData;
+    const { postId } = currentMediaRunning.postData;
     const mediaState = currentMediaRunning.state;
     return (
       <div className="h-16 w-full flex items-center justify-between">
         {/* LEFT */}
-        <div className="w-1/2 pl-2 md:w-1/4 lg:w-[30%] 2xl:w-1/4 flex items-center flex-shrink-0">
-          <a
-            href={link}
-            className="relative flex items-center max-w-[240px] xl:flex-grow space-x-3 pl-12"
-          >
-            <NcImage
-              containerClassName="absolute left-0 h-full w-12 h-12 flex-shrink-0 transform"
-              src={featuredImage?.node.sourceUrl}
-              className="object-cover w-full h-full rounded-full "
-            />
-            <div className="flex-grow overflow-hidden hidden xl:block">
-              <h3 className="text-base text-neutral-50 truncate">{title}</h3>
-              <span className="block text-xs text-neutral-400 truncate">
-                {categories?.edges[0]?.node.name}
-              </span>
-            </div>
-          </a>
-          <div className="hidden md:flex flex-shrink-0 px-6 dark text-white space-x-2.5">
-            <PostCardLikeAction
-              postId={postId}
-              favoriteButtonShortcode={
-                ncPostMetaData.favoriteButtonShortcode || ""
-              }
-            />
 
-            <PostCardDropdownShare href={currentMediaRunning.postData.link} />
-          </div>
-        </div>
+        {renderLeft(currentMediaRunning.postData)}
 
         {/* CENTER */}
-        <div className="hidden md:flex flex-grow px-6 items-center justify-center space-x-2.5 text-xs tabular-nums tracking-widest">
-          <div className="flex-shrink-0 w-11 text-right truncate text-neutral-100">
-            {getConvertTime(Math.floor(playedSeconds))}
-          </div>
-          <div className="h-3 relative flex-grow bg-transparent">
-            <input
-              className="slider absolute z-10 opacity-0 inset-0 h-full w-full cursor-pointer"
-              type="range"
-              min={0}
-              max={0.999999}
-              step="any"
-              value={played}
-              onChange={handleSeekChange}
-              onMouseUp={handleSeekMouseUp}
-            />
-            <div className="absolute h-1 w-full top-1/2 transform -translate-y-1/2 transition-colors rounded-full bg-neutral-400"></div>
-            <div
-              className="absolute left-0 top-1/2 h-1 min-w-0 transform -translate-y-1/2 transition-colors rounded-full bg-emerald-500 bg-opacity-50"
-              style={{ width: loaded * 100 + "%" }}
-            ></div>
-            <div
-              className="absolute h-1 min-w-0 left-0 top-1/2 transform -translate-y-1/2 transition-colors rounded-full bg-emerald-500"
-              style={{ width: played * 100 + "%" }}
-            >
-              <span className="absolute -right-1.5 top-1/2 transform -translate-y-1/2 w-3 h-3 rounded-full bg-emerald-500"></span>
+        {postsError.includes(postId) ? (
+          <span className="flex pl-2 text-xs lg:text-sm text-red-500">
+            {NCMAZ_TRANSLATE["ThistrackwasnotfoundMaybeitHasBeenRemoved"] ||
+              `This track was not found. Maybe it has been removed!`}
+          </span>
+        ) : (
+          <div className="hidden md:flex flex-grow px-6 items-center justify-center space-x-2.5 text-xs tabular-nums tracking-widest">
+            <div className="flex-shrink-0 w-11 text-right truncate text-neutral-100">
+              {getConvertTime(Math.floor(playedSeconds))}
+            </div>
+            <div className="h-3 relative flex-grow bg-transparent">
+              <input
+                className="slider absolute z-10 opacity-0 inset-0 h-full w-full cursor-pointer"
+                type="range"
+                min={0}
+                max={0.999999}
+                step="any"
+                value={played}
+                onChange={handleSeekChange}
+                onMouseUp={handleSeekMouseUp}
+              />
+              <div className="absolute h-1 w-full top-1/2 transform -translate-y-1/2 transition-colors rounded-full bg-neutral-400"></div>
+              <div
+                className="absolute left-0 top-1/2 h-1 min-w-0 transform -translate-y-1/2 transition-colors rounded-full bg-emerald-500 bg-opacity-50"
+                style={{ width: loaded * 100 + "%" }}
+              ></div>
+              <div
+                className="absolute h-1 min-w-0 left-0 top-1/2 transform -translate-y-1/2 transition-colors rounded-full bg-emerald-500"
+                style={{ width: played * 100 + "%" }}
+              >
+                <span className="absolute -right-1.5 top-1/2 transform -translate-y-1/2 w-3 h-3 rounded-full bg-emerald-500"></span>
+              </div>
+            </div>
+            <div className="flex-shrink-0 w-11 text-left truncate text-neutral-400">
+              {getConvertTime(Math.floor(durationSeconds))}
             </div>
           </div>
-          <div className="flex-shrink-0 w-11 text-left truncate text-neutral-400">
-            {getConvertTime(Math.floor(durationSeconds))}
-          </div>
-        </div>
+        )}
 
         {/* RENDER RIGHT */}
-        <div className="w-1/2 md:w-1/4 lg:w-[30%] 2xl:w-1/4 pl-5 h-full relative">
+        <div className="w-1/2 md:w-1/4 lg:w-[30%] 2xl:w-1/4 pl-5 h-full relative flex-shrink-0">
           <div className="absolute right-0 inset-y-0 h-full w-36 max-w-full flex bg-neutral-800 text-neutral-100">
-            <div
-              className="w-1/2 flex-shrink-0 flex items-center justify-center border-r border-neutral-700 cursor-pointer hover:bg-neutral-700"
-              onClick={handleClickToggle}
-            >
-              {/* LOADING */}
-              {mediaState === "loading" && (
-                <LoadingVideo className="transform scale-50 origin-center" />
-              )}
+            {renderButtonControl(mediaState)}
 
-              {/* PLAYING */}
-              {mediaState === "playing" && (
-                <svg
-                  className="w-8 h-8"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M15.25 6.75V17.25"
-                  ></path>
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M8.75 6.75V17.25"
-                  ></path>
-                </svg>
-              )}
-
-              {/* PAUSED or ENDED */}
-              {mediaState !== "playing" && mediaState !== "loading" && (
-                <svg
-                  className="w-8 h-8"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M18.25 12L5.75 5.75V18.25L18.25 12Z"
-                  ></path>
-                </svg>
-              )}
-            </div>
             <div
               className="w-1/2 flex-shrink-0 flex items-center justify-center cursor-pointer hover:bg-neutral-700"
               onClick={handleClickClose}
@@ -270,7 +304,7 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
     >
       {renderPlayerControl()}
       {/* PLAYER -- HIDDEN */}
-      {renderPlayer()}
+      <div className="hidden">{renderPlayer()}</div>
     </div>
   );
 };

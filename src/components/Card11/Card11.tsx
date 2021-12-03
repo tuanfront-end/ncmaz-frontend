@@ -49,7 +49,7 @@ const Card11: FC<Card11Props> = ({
         ) : (
           <span className="text-xs text-neutral-500">{date}</span>
         )}
-        <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100 my-3">
+        <h3 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100 my-3">
           {!!title ? (
             <a
               href={link}
@@ -58,7 +58,7 @@ const Card11: FC<Card11Props> = ({
               title={title}
             ></a>
           ) : null}
-        </h2>
+        </h3>
         <div className="flex items-end justify-between mt-auto">
           <PostCardLikeAndComment
             onClickLike={onClickLike}

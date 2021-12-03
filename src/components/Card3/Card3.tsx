@@ -27,21 +27,24 @@ const Card3: FC<Card3Props> = ({ className = "", post }) => {
 
   return (
     <div
-      className={`nc-Card3 relative flex sm:items-center rounded-3xl group sm:p-5 2xl:p-6 [ sm:nc-box-has-hover ] [ sm:nc-dark-box-bg-has-hover ] ${className}`}
+      className={`nc-Card3 relative flex sm:items-center rounded-3xl group sm:p-5 2xl:p-6 [ sm:nc-box-has-hover ] [ sm:nc-dark-box-bg-has-hover ]  ${className}`}
       data-nc-id="Card3"
     >
       <a href={link} className="absolute inset-0"></a>
-      <div className="flex flex-col flex-grow overflow-hidden">
+      <div className="w-full flex flex-col flex-grow">
         <div className="space-y-2 sm:space-y-3.5 mb-3 sm:mb-4">
           <CategoryBadgeList categories={categories} />
           <div>
-            <h2
+            <h3
               className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-sm sm:text-base lg:text-xl`}
             >
-              <a href={link} className="line-clamp-2" title={title}>
-                {title}
-              </a>
-            </h2>
+              <a
+                href={link}
+                className="line-clamp-2"
+                title={title}
+                dangerouslySetInnerHTML={{ __html: title || "" }}
+              ></a>
+            </h3>
             {excerpt && (
               <div className="hidden sm:block sm:mt-2">
                 <span
@@ -67,9 +70,7 @@ const Card3: FC<Card3Props> = ({ className = "", post }) => {
         </div>
       </div>
 
-      <div
-        className={`block flex-shrink-0 ml-5 w-20 sm:w-44 2xl:w-56 overflow-hidden`}
-      >
+      <div className={`block flex-shrink-0 ml-5 w-20 sm:w-44 2xl:w-56 `}>
         <a
           href={link}
           className={`w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-2xl overflow-hidden`}

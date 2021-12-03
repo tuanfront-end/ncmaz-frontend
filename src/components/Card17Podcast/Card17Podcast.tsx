@@ -91,11 +91,11 @@ const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
           />
         </div>
         <div className="flex flex-col flex-grow">
-          <h2 className={`block font-semibold text-sm sm:text-lg`}>
+          <h3 className={`block font-semibold text-sm sm:text-lg`}>
             <span className="line-clamp-1" title={title}>
               {title}
             </span>
-          </h2>
+          </h3>
           {excerpt ? (
             <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 ">
               <span

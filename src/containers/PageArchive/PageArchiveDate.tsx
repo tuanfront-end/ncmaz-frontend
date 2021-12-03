@@ -15,6 +15,7 @@ import {
   ARCHIVE_PAGE_FILTERS,
   SectionCategoriesTrendingArchivePageOption,
 } from "./PageArchive";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   posts: ListPosts;
@@ -160,7 +161,7 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
           {data?.posts.pageInfo?.hasNextPage && (
             <div className="flex justify-center mt-12 lg:mt-16">
               <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
-                Show me more
+                {NCMAZ_TRANSLATE["showMeMore"]}
               </ButtonPrimary>
             </div>
           )}

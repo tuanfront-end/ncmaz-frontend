@@ -36,9 +36,9 @@ const CardCategory2: FC<CardCategory2Props> = ({
         src={featuredImage?.sourceUrl || "."}
       />
       <div className="mt-3 ">
-        <h2 className={`text-base sm:text-lg font-semibold `}>
+        <h4 className={`text-base sm:text-lg font-semibold `}>
           <span className="line-clamp-1">{name}</span>
-        </h2>
+        </h4>
         <span
           className={`block mt-[2px] text-sm text-neutral-500 dark:text-neutral-400`}
         >

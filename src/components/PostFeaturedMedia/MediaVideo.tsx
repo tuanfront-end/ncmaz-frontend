@@ -42,7 +42,7 @@ const MediaVideo: FC<MediaVideoProps> = ({
   const cardIntersectionObserver = useIntersectionObserver(videoRef, {
     freezeOnceVisible: false,
     threshold: 0.999,
-    rootMargin: "-100px 0px",
+    rootMargin: "-20px 0px",
   });
 
   useEffect(() => {
@@ -54,14 +54,6 @@ const MediaVideo: FC<MediaVideoProps> = ({
     //
     setPrevRatio(cardIntersectionObserver?.intersectionRatio || 0);
   }, [cardIntersectionObserver]);
-
-  useEffect(() => {
-    if (inViewd || !isPlaying) {
-      return;
-    }
-    setIsPlaying(false);
-  }, [isPlaying, inViewd]);
-  //
 
   useEffect(() => {
     if (!showDescUnmuted) {
@@ -80,8 +72,14 @@ const MediaVideo: FC<MediaVideoProps> = ({
   }, [showDescUnmuted]);
 
   //
-  const RUN_VIDEO = IS_MOBILE ? inViewd : isHover;
+  const START_LOAD_VIDEO = IS_MOBILE ? inViewd : isHover;
   //
+  // TRA LAI playing = false khi thoat video
+  useEffect(() => {
+    if (!START_LOAD_VIDEO) {
+      return setIsPlaying(false);
+    }
+  }, [START_LOAD_VIDEO]);
 
   const renderContent = () => {
     return (
@@ -98,8 +96,8 @@ const MediaVideo: FC<MediaVideoProps> = ({
           width="100%"
           height="100%"
           onStart={() => {
-            setShowDescUnmuted(true);
-            setIsPlaying(true);
+            setShowDescUnmuted(() => true);
+            setIsPlaying(() => true);
           }}
         />
         <div
@@ -134,13 +132,13 @@ const MediaVideo: FC<MediaVideoProps> = ({
 
   return (
     <div className="nc-MediaVideo absolute inset-0" ref={videoRef}>
-      {(!videoUrl || !RUN_VIDEO) && (
+      {(!videoUrl || !START_LOAD_VIDEO) && (
         <NcImage
           containerClassName="absolute inset-0"
           src={featuredImage?.node.sourceUrl || "."}
         />
       )}
-      {!!videoUrl && !RUN_VIDEO && (
+      {!!videoUrl && !START_LOAD_VIDEO && (
         <span className="absolute inset-0 flex items-center justify-center ">
           <PostTypeFeaturedIcon
             className="hover:scale-105 transform cursor-pointer transition-transform nc-will-change-transform"
@@ -149,7 +147,7 @@ const MediaVideo: FC<MediaVideoProps> = ({
         </span>
       )}
 
-      {!!videoUrl && RUN_VIDEO && renderContent()}
+      {!!videoUrl && START_LOAD_VIDEO && renderContent()}
     </div>
   );
 };

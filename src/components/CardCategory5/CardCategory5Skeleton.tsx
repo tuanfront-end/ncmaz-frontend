@@ -31,11 +31,11 @@ const CardCategory5Skeleton: FC<CardCategory5SkeletonProps> = ({
         }
       />
       <div className="absolute inset-0 flex items-center justify-center">
-        <h2
+        <h4
           className={`text-base font-medium px-4 py-2 sm:px-6 sm:py-3 bg-white text-neutral-900 bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-full border-2 border-white border-opacity-60`}
         >
           <Skeleton width="100px" />
-        </h2>
+        </h4>
       </div>
     </div>
   );

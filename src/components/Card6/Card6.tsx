@@ -31,11 +31,11 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
       <div className="flex flex-col flex-grow">
         <div className="space-y-1.5 sm:space-y-3 mb-2 sm:mb-4">
           <CategoryBadgeList categories={categories} />
-          <h2 className={`block font-semibold text-sm sm:text-base`}>
+          <h3 className={`block font-semibold text-sm sm:text-base`}>
             <a href={link} className="line-clamp-2" title={title}>
               {title}
             </a>
-          </h2>
+          </h3>
           <PostCardMeta meta={{ ...post }} />
         </div>
         <div className="flex items-center flex-wrap justify-between mt-auto">

@@ -63,11 +63,11 @@ const Card7: FC<Card7Props> = ({
         <a href={link} className="absolute inset-0"></a>
         <div className="space-y-2.5 mb-3">
           <CategoryBadgeList categories={categories} />
-          <h2 className="block text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
+          <h3 className="block text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
             <a href={link} className="line-clamp-2" title={title}>
               {title}
             </a>
-          </h2>
+          </h3>
         </div>
         <CardAuthor2
           hoverReadingTime={false}

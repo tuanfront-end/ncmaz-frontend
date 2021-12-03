@@ -28,10 +28,10 @@ const Card18Skeleton: FC<Card18SkeletonProps> = ({ className = "h-full" }) => {
         <Skeleton width="40%" />
       </div>
 
-      <h2 className={`block mt-2 font-medium text-sm`}>
+      <h3 className={`block mt-2 font-medium text-sm`}>
         <Skeleton width="80%" />
         <Skeleton width="60%" />
-      </h2>
+      </h3>
     </div>
   );
 };

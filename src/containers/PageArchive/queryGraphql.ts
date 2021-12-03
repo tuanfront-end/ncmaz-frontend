@@ -108,6 +108,56 @@ const GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
 }
 `;
 
+const GET_LIST_CATEGORIES_NO_PARENT = `query GET_LIST_CATEGORIES_NO_PARENT(
+  $after: String = "",
+  $before: String = "",
+  $first: Int = 30,
+  $last: Int = null,
+  $orderby: TermObjectsConnectionOrderbyEnum = NAME,
+  $search: String = null,
+  $exclude: [ID] = "",
+  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
+    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+  }
+  ) {
+  categories(
+    after: $after,
+    before: $before,
+    first: $first,
+    last: $last,
+    where: { orderby: $orderby, order: DESC, search: $search, exclude: $exclude }
+    ) {
+    edges {
+      node {
+        id
+        categoryId
+        count
+        databaseId
+        description
+        name
+        link
+        termTaxonomyId
+        parentId
+        parentDatabaseId
+        ncTaxonomyMeta {
+          color
+          featuredImage {
+            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
+          }
+        }
+      }
+    }
+    pageInfo {
+      endCursor
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      total
+    }
+  }
+}
+`;
+
 const GET_LIST_TAGS = `query GET_LIST_TAGS(
   $after: String = "",
   $before: String = "",
@@ -199,6 +249,7 @@ const USERS_QUERY_FILTER__string = `query GET_USERS_QUERY_FILTER(
 export {
   POSTS_SECTION_BY_FILTER__string,
   GET_LIST_CATEGORIES,
+  GET_LIST_CATEGORIES_NO_PARENT,
   GET_LIST_TAGS,
   USERS_QUERY_FILTER__string,
 };

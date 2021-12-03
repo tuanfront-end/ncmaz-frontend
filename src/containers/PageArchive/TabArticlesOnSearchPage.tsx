@@ -6,6 +6,7 @@ import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   posts: ListPosts;
@@ -113,7 +114,7 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
       {data?.posts.pageInfo?.hasNextPage && (
         <div className="flex justify-center mt-12 lg:mt-16">
           <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         </div>
       )}

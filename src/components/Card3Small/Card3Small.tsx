@@ -19,11 +19,14 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full", post }) => {
       <a href={link} className=" absolute inset-0" title={title}></a>
       <div className="grid grid-cols-1 relative space-y-2 overflow-hidden flex-grow">
         <PostCardMeta className="w-full" meta={{ ...post }} />
-        <h2 className="nc-card-title block text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100">
-          <a href={link} className="line-clamp-2" title={title}>
-            {title}
-          </a>
-        </h2>
+        <h3 className="nc-card-title block text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100">
+          <a
+            href={link}
+            className="line-clamp-2"
+            title={title}
+            dangerouslySetInnerHTML={{ __html: title || "" }}
+          ></a>
+        </h3>
       </div>
 
       <a

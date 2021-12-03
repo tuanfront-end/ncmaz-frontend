@@ -59,15 +59,18 @@ const Card2: FC<Card2Props> = ({
       <div className="p-4 sm:p-5 flex flex-col">
         <div className="space-y-3">
           <CategoryBadgeList categories={categories} />
-          <h2
+          <h3
             className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors ${
               size === "large" ? "text-lg sm:text-2xl" : "text-base"
             }`}
           >
-            <a href={link} className="line-clamp-2" title={title}>
-              {title}
-            </a>
-          </h2>
+            <a
+              href={link}
+              className="line-clamp-2"
+              title={title}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
+            ></a>
+          </h3>
           {excerpt ? (
             <div
               className="block text-neutral-500 dark:text-neutral-400 text-sm line-clamp-2"

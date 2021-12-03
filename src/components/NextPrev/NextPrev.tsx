@@ -1,3 +1,4 @@
+import NCMAZ_TRANSLATE from "contains/translate";
 import React, { FC } from "react";
 import twFocusClass from "utils/twFocusClass";
 
@@ -34,7 +35,7 @@ const NextPrev: FC<NextPrevProps> = ({
         <button
           className={`${btnClassName} bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-6000 dark:hover:border-neutral-500 rounded-full flex items-center justify-center hover:border-neutral-300 disabled:opacity-60 disabled:cursor-not-allowed ${twFocusClass()}`}
           onClick={onClickPrev}
-          title="Prev"
+          title={NCMAZ_TRANSLATE["prev"]}
           data-glide-dir="<"
           disabled={disablePrev}
         >
@@ -45,7 +46,7 @@ const NextPrev: FC<NextPrevProps> = ({
         <button
           className={`${btnClassName} bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-6000 dark:hover:border-neutral-500 rounded-full flex items-center justify-center hover:border-neutral-300 disabled:opacity-60 disabled:cursor-not-allowed ${twFocusClass()}`}
           onClick={onClickNext}
-          title="Next"
+          title={NCMAZ_TRANSLATE["next"]}
           data-glide-dir=">"
           disabled={disableNext}
         >

@@ -44,7 +44,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
           </a>
         )}
         <a href={link} className="grid grid-cols-1 overflow-hidden">
-          <h2
+          <h4
             className={`block font-semibold ${
               size === "normal"
                 ? "text-sm sm:text-base"
@@ -52,7 +52,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
             }`}
           >
             <span className="line-clamp-1">{title}</span>
-          </h2>
+          </h4>
 
           <div className="flex mt-1.5 truncate">
             <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium truncate">

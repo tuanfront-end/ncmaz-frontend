@@ -132,11 +132,11 @@ const Card10V3: FC<Card10V3Props> = ({
       </div>
 
       <div className="space-y-2.5 mt-4 px-4 flex flex-col">
-        <h2 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
+        <h3 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
           <a href={link} className="line-clamp-1" title={title}>
             {title}
           </a>
-        </h2>
+        </h3>
         <CardAuthor2
           className="mt-3"
           author={author}

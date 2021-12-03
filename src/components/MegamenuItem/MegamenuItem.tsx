@@ -162,11 +162,12 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     return (
       <div className="w-1/5 py-8 flex-shrink-0  ">
         <div className="flow-root">
-          <ul className="">
+          <div>
             {(taxonomies || []).map((item) => {
               const isActive = item.categoryId === temrActiveId;
               return (
-                <li
+                <a
+                  href={item.link}
                   className={`py-2.5 px-5 flex items-center !m-0 relative ${
                     isActive ? "bg-neutral-100 dark:bg-neutral-800 " : ""
                   }`}
@@ -177,10 +178,10 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
                     <span className="absolute left-0 w-1 h-full top-0 bg-primary-500"></span>
                   )}
                   {item.name}
-                </li>
+                </a>
               );
             })}
-          </ul>
+          </div>
         </div>
       </div>
     );

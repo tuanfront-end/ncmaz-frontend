@@ -16,9 +16,9 @@ const Card3SmallSkeleton: FC<Card3SmallSkeletonProps> = ({
     >
       <div className="relative  space-y-2 flex-grow overflow-hidden">
         <Skeleton width="50%" />
-        <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100">
+        <h3 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100">
           <Skeleton width="80%" />
-        </h2>
+        </h3>
       </div>
 
       <div

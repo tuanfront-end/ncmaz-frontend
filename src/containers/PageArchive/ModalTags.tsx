@@ -8,6 +8,7 @@ import ButtonPrimary from "components/Button/ButtonPrimary";
 import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import Skeleton from "react-loading-skeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   tags: Tags;
@@ -98,7 +99,7 @@ const ModalTags: FC<ModalTagsProps> = () => {
 
         {data?.tags.pageInfo.hasNextPage && (
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         )}
       </div>

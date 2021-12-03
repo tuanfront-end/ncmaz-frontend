@@ -5,6 +5,7 @@ import { PostNode } from "data/postCardType";
 export interface MediaRunningState {
   postData?: PostNode;
   state?: "loading" | "playing" | "paused" | "ended" | null;
+  listPostAudio?: PostNode[];
 }
 
 const initialState: MediaRunningState = {};
@@ -31,8 +32,17 @@ export const mediaRunningSlice = createSlice({
         state: action.payload,
       };
     },
-    removeMediaRunning: () => {
-      return {};
+    removeMediaRunning: (state) => {
+      return {
+        listPostAudio: state.listPostAudio,
+      };
+    },
+    //
+    addNewListPostAudio: (state, action: PayloadAction<PostNode>) => {
+      return {
+        ...state,
+        listPostAudio: [...(state.listPostAudio || []), action.payload],
+      };
     },
   },
 });
@@ -42,6 +52,7 @@ export const {
   changeCurrentMediaRunning,
   changeStateMediaRunning,
   removeMediaRunning,
+  addNewListPostAudio,
 } = mediaRunningSlice.actions;
 
 export const selectCurrentMediaRunning = (state: RootState) =>

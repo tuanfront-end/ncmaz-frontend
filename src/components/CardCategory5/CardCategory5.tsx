@@ -42,11 +42,11 @@ const CardCategory5: FC<CardCategory5Props> = ({
         }
       />
       <div className="absolute inset-0 flex items-center justify-center">
-        <h2
+        <h3
           className={`text-base font-medium px-4 py-2 sm:px-6 sm:py-3 bg-white text-neutral-900 bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-full border-2 border-white border-opacity-60`}
         >
           <span className="line-clamp-1"> {name}</span>
-        </h2>
+        </h3>
       </div>
     </a>
   );

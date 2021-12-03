@@ -1,5 +1,6 @@
 import { Popover, Transition } from "@headlessui/react";
 import Input from "components/Input/Input";
+import NCMAZ_TRANSLATE from "contains/translate";
 import React, { Fragment } from "react";
 
 const SearchDropdown = () => {
@@ -45,7 +46,7 @@ const SearchDropdown = () => {
                       name="s"
                       ref={inputRef}
                       type="search"
-                      placeholder="Type and press enter"
+                      placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
                     />
                     <input type="submit" hidden value="" />
                   </form>

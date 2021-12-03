@@ -17,8 +17,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
   post,
   isHover = false,
 }) => {
-  const { featuredImage, postFormats, ncmazVideoUrl, ncmazGalleryImgs, link } =
-    post;
+  const { featuredImage, postFormats, ncmazVideoUrl, ncmazGalleryImgs } = post;
 
   const postType = postFormats?.edges[0]?.node?.slug;
 

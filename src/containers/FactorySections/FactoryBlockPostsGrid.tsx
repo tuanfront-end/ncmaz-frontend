@@ -161,7 +161,11 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   const renderCard = (post: PostNode) => {
     switch (apiSettings.settings.postCardName) {
       case "card3":
-        return <Card3 key={post.id} post={post} className="mb-3 sm:mb-0" />;
+        return (
+          <div className="w-full" key={post.id}>
+            <Card3 post={post} className="mb-3 sm:mb-0" />
+          </div>
+        );
       case "card4":
         return <Card4 key={post.id} post={post} />;
       case "card7":

@@ -12,6 +12,7 @@ import { ListBoxItemType } from "components/NcListBox/NcListBox";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import SectionTrendingCategories from "./SectionTrendingCategories";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   posts: ListPosts;
@@ -39,10 +40,10 @@ export interface PageArchiveProps {
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
 export const ARCHIVE_PAGE_FILTERS = [
-  { name: "Most Recent", value: "DATE" },
-  { name: "Most Liked", value: "FAVORITES_COUNT" },
-  { name: "Most Discussed", value: "COMMENT_COUNT" },
-  { name: "Most Viewed", value: "VIEWS_COUNT" },
+  { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
+  { name: NCMAZ_TRANSLATE["mostLiked"], value: "FAVORITES_COUNT" },
+  { name: NCMAZ_TRANSLATE["mostDiscussed"], value: "COMMENT_COUNT" },
+  { name: NCMAZ_TRANSLATE["mostViewed"], value: "VIEWS_COUNT" },
 ];
 
 const FILTERS = ARCHIVE_PAGE_FILTERS;
@@ -162,7 +163,7 @@ const PageArchive: FC<PageArchiveProps> = ({
               {termData.name}
             </h2>
             <span className="block mt-4 text-neutral-300">
-              {termData.count || 0} Articles
+              {`${termData.count || 0} ${NCMAZ_TRANSLATE["articles"]}`}
             </span>
           </div>
         </div>
@@ -210,7 +211,7 @@ const PageArchive: FC<PageArchiveProps> = ({
           {data?.posts.pageInfo?.hasNextPage && (
             <div className="flex justify-center mt-12 lg:mt-16">
               <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
-                Show me more
+                {NCMAZ_TRANSLATE["showMeMore"]}
               </ButtonPrimary>
             </div>
           )}

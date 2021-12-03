@@ -43,12 +43,12 @@ const Card18: FC<Card18Props> = ({ className = "h-full", post }) => {
         />
       </div>
 
-      <h2 className={`block mt-2 font-medium text-sm`}>
+      <h3 className={`block mt-2 font-medium text-sm`}>
         <span
           className="line-clamp-2"
           dangerouslySetInnerHTML={{ __html: title }}
         />
-      </h2>
+      </h3>
       <a href={link} className={`absolute inset-0`} />
     </div>
   );

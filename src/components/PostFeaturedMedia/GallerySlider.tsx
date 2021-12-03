@@ -1,7 +1,8 @@
 import Glide from "@glidejs/glide";
 import NcImage from "components/NcImage/NcImage";
 import NextPrev from "components/NextPrev/NextPrev";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
+import debounce from "utils/debounce";
 import ncNanoId from "utils/ncNanoId";
 
 export interface GallerySliderProps {
@@ -9,47 +10,102 @@ export interface GallerySliderProps {
 }
 
 const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
-  const UNIQUE_CLASS = ncNanoId("gallerySlider_");
+  const galleryScrollerRef = useRef<HTMLDivElement>(null);
+  const btnNextRef = useRef<HTMLDivElement>(null);
+  const btnPrevRef = useRef<HTMLDivElement>(null);
+
+  const [scrollEndedRight, setScrollEndedRight] = useState(false);
+  const [scrollEndedLeft, setScrollEndedLeft] = useState(true);
+  const [scrollIndex, setScrollIndex] = useState(0);
 
   useEffect(() => {
-    if (!UNIQUE_CLASS) return;
-    new Glide("." + UNIQUE_CLASS, {
-      gap: 0,
-      perView: 1,
-    }).mount();
-  }, []);
+    ncHorizontalSnapScroll();
+  }, [galleryImgs]);
+
+  function ncHorizontalSnapScroll() {
+    const gallery_scroller = galleryScrollerRef.current;
+    if (!gallery_scroller) {
+      return;
+    }
+
+    const galleryItemSize =
+      gallery_scroller.querySelector("div")?.clientWidth || 0;
+    const scrollToNextPage = () => {
+      gallery_scroller.scrollTo(
+        gallery_scroller.scrollLeft + galleryItemSize,
+        0
+      );
+    };
+    const scrollToPrevPage = () => {
+      gallery_scroller.scrollTo(
+        gallery_scroller.scrollLeft - galleryItemSize,
+        0
+      );
+    };
+
+    btnNextRef.current?.addEventListener("click", scrollToNextPage);
+    btnPrevRef.current?.addEventListener("click", scrollToPrevPage);
+
+    gallery_scroller.addEventListener("scroll", function () {
+      handleScrollPostion();
+    });
+
+    const handleScrollPostion = debounce(function () {
+      setScrollEndedLeft(false);
+      setScrollEndedRight(false);
+      setScrollIndex(Math.floor(gallery_scroller.scrollLeft / galleryItemSize));
+
+      if (
+        gallery_scroller.clientWidth + gallery_scroller.scrollLeft >=
+        gallery_scroller.scrollWidth
+      ) {
+        setScrollEndedRight(true);
+      } else if (gallery_scroller.scrollLeft === 0) {
+        setScrollEndedLeft(true);
+      }
+    }, 500);
+  }
 
   return (
-    <div className={`${UNIQUE_CLASS} group relative z-10 w-full h-full`}>
-      <div className="glide__track h-full" data-glide-el="track">
-        <ul className="glide__slides h-full">
-          {galleryImgs.map((item, index) => (
-            <li className="glide__slide h-full" key={index}>
-              <NcImage src={item} containerClassName="w-full h-full" />
-            </li>
-          ))}
-        </ul>
+    <div
+      className={`nc-gallerySlider group relative z-10 xl:z-auto w-full h-full`}
+    >
+      <div
+        className=" h-full gallery_scroller hiddenScrollbar scrollBehaviorSmooth"
+        ref={galleryScrollerRef}
+      >
+        {galleryImgs.map((item, index) => (
+          <div className=" h-full w-full flex-shrink-0 " key={index}>
+            <NcImage src={item} containerClassName="w-full h-full" />
+          </div>
+        ))}
       </div>
       {/*  */}
-      <div
-        className="absolute opacity-0 group-hover:opacity-100 z-20 inset-x-2 top-1/2 transform -translate-y-1/2 flex justify-between glide__arrows"
-        data-glide-el="controls"
-      >
-        <NextPrev onlyPrev btnClassName="w-8 h-8" />
-        <NextPrev onlyNext btnClassName="w-8 h-8" />
+      {/* <div className="absolute opacity-0 group-hover:opacity-100 z-20 inset-x-2 top-1/2 transform -translate-y-1/2 flex justify-between glide__arrows"> */}
+      <div className="">
+        <div
+          ref={btnPrevRef}
+          className="absolute opacity-0 group-hover:opacity-100 z-20 left-2 top-1/2 transform -translate-y-1/2 "
+        >
+          {!scrollEndedLeft && <NextPrev onlyPrev btnClassName="w-8 h-8" />}
+        </div>
+        <div
+          ref={btnNextRef}
+          className="absolute opacity-0 group-hover:opacity-100 z-20 right-2 top-1/2 transform -translate-y-1/2 "
+        >
+          {!scrollEndedRight && <NextPrev onlyNext btnClassName="w-8 h-8" />}
+        </div>
       </div>
       {/*  */}
-      <div className="absolute w-full left-0 bottom-0 h-8 bg-gradient-to-t from-neutral-700"></div>
-      <div
-        className="absolute z-10 bottom-3 left-0 w-full flex items-center justify-center glide__bullets"
-        data-glide-el="controls[nav]"
-      >
+      <div className="absolute w-full left-0 bottom-0 h-6 bg-gradient-to-t from-neutral-800/50"></div>
+      <div className="absolute z-10 bottom-3 left-0 w-full flex items-center justify-center glide__bullets">
         {galleryImgs.map((_, index) => (
-          <button
+          <div
             key={index}
-            className="glide__bullet w-1.5 h-1.5 bg-neutral-200 bg-opacity-70 rounded-full mx-0.5"
-            data-glide-dir={`=${index}`}
-          ></button>
+            className={`glide__bullet w-[5px] h-[5px] bg-neutral-200 bg-opacity-50 rounded-full mx-0.5 ${
+              index === scrollIndex ? "glide__bullet--active" : ""
+            }`}
+          ></div>
         ))}
       </div>
     </div>

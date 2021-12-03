@@ -87,8 +87,6 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
 
   // =========================================================
   const { ref } = useGqlQuerySection(() => {
-    console.log(77, { sectionIndex });
-
     gqlQueryGetPosts();
   }, sectionIndex);
   // =========================================================

@@ -2,12 +2,13 @@ import React, { FC } from "react";
 import NcModal from "components/NcModal/NcModal";
 import { CategoriesNode3 } from "data/postCardType";
 import { useLazyQuery, gql } from "@apollo/client";
-import { GET_LIST_CATEGORIES } from "./queryGraphql";
+import { GET_LIST_CATEGORIES_NO_PARENT } from "./queryGraphql";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import CardCategory1 from "components/CardCategory1/CardCategory1";
 import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import CardCategory1Skeleton from "components/CardCategory1/CardCategory1Skeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   categories: Categories;
@@ -27,7 +28,7 @@ export interface ModalCategoriesProps {}
 const ModalCategories: FC<ModalCategoriesProps> = () => {
   const POST_PER_PAGE = 20;
   const Q_LIST_CATS = gql`
-    ${GET_LIST_CATEGORIES}
+    ${GET_LIST_CATEGORIES_NO_PARENT}
   `;
 
   const [getListCats, { loading, error, data, fetchMore }] = useLazyQuery<Data>(
@@ -101,7 +102,7 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
 
         {data?.categories.pageInfo.hasNextPage && (
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         )}
       </div>

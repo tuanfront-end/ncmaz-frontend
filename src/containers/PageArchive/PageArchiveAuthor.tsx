@@ -19,6 +19,7 @@ import Avatar from "components/Avatar/Avatar";
 import SocialsList from "components/SocialsList/SocialsList";
 import { ListBoxItemType } from "components/NcListBox/NcListBox";
 import { SocialType } from "components/SocialsShare/SocialsShare";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   posts: ListPosts;
@@ -203,7 +204,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
         {data?.posts.pageInfo?.hasNextPage && (
           <div className="flex justify-center mt-12 lg:mt-16">
             <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
-              Show me more
+              {NCMAZ_TRANSLATE["showMeMore"]}
             </ButtonPrimary>
           </div>
         )}

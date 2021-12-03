@@ -1,6 +1,7 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import {
+  addNewListPostAudio,
   changeCurrentMediaRunning,
   changeStateMediaRunning,
   MediaRunningState,
@@ -10,6 +11,7 @@ import LoadingVideo from "components/LoadingVideo/LoadingVideo";
 import iconPlaying from "images/icon-playing.gif";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
+import isSafariBrowser from "utils/isSafariBrowser";
 
 export interface ButtonPlayMusicRunningContainerProps {
   className?: string;
@@ -37,6 +39,16 @@ const ButtonPlayMusicRunningContainer: FC<ButtonPlayMusicRunningContainerProps> 
 
     // STATE
     const mediaState = currentMediaRunning.state;
+
+    //
+    useEffect(() => {
+      // check safari
+      if (!post || !isSafariBrowser()) {
+        return;
+      }
+      dispatch(addNewListPostAudio(post));
+    }, [post]);
+    //
 
     const handleClickNewAudio = () => {
       return dispatch(

@@ -15,9 +15,9 @@ const Card6Skeleton: FC<Card6SkeletonProps> = ({ className = "h-full" }) => {
       <div className="flex flex-col flex-grow">
         <div className="space-y-1.5 sm:space-y-3 mb-2 sm:mb-4">
           <Skeleton width="30%" />
-          <h2 className={`block font-semibold text-sm sm:text-base`}>
+          <h3 className={`block font-semibold text-sm sm:text-base`}>
             <Skeleton width="80%" />
-          </h2>
+          </h3>
           <div className="opacity-0">meta</div>
         </div>
         <div className="opacity-0">me</div>

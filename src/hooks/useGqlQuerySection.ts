@@ -9,6 +9,8 @@ function useGqlQuerySection(
   gqlQueryGetPosts: Function,
   sectionIndex: number,
   args: UseIntersectionObserverArgs = {
+    root: null,
+    threshold: 0,
     freezeOnceVisible: true,
     rootMargin: "1000px",
   }

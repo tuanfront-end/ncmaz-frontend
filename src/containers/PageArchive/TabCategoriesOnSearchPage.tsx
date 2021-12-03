@@ -7,6 +7,7 @@ import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import CardCategory2 from "components/CardCategory2/CardCategory2";
 import CardCategory2Skeleton from "components/CardCategory2/CardCategory2Skeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   categories: Categories;
@@ -116,7 +117,7 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
       {data?.categories.pageInfo.hasNextPage && (
         <div className="flex justify-center mt-12 lg:mt-16">
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         </div>
       )}

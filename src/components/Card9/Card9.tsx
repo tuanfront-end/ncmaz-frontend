@@ -28,11 +28,11 @@ const Card9: FC<Card9Props> = ({
     return (
       <div className="inline-flex items-center text-xs text-neutral-300">
         <a href={link} className="block relative overflow-hidden">
-          <h2 className="block text-base sm:text-lg font-semibold text-white ">
+          <h3 className="block text-base sm:text-lg font-semibold text-white ">
             <span className="line-clamp-2" title={title}>
               {title}
             </span>
-          </h2>
+          </h3>
           <div className="flex mt-2.5 truncate">
             <span className="block text-neutral-200 hover:text-white font-medium truncate">
               {author?.node.name}

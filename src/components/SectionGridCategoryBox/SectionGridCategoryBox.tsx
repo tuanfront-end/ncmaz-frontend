@@ -1,3 +1,5 @@
+import CardCategory1 from "components/CardCategory1/CardCategory1";
+import CardCategory1Skeleton from "components/CardCategory1/CardCategory1Skeleton";
 import CardCategory2 from "components/CardCategory2/CardCategory2";
 import CardCategory2Skeleton from "components/CardCategory2/CardCategory2Skeleton";
 import CardCategory3 from "components/CardCategory3/CardCategory3";
@@ -16,7 +18,7 @@ export interface SectionGridCategoryBoxProps {
   gridClass?: string;
   categories: CategoriesEdge2[];
   headingCenter?: boolean;
-  categoryCardType?: "card2" | "card3" | "card4" | "card5";
+  categoryCardType?: "card1" | "card2" | "card3" | "card4" | "card5";
   className?: string;
   isLoadingSkeleton?: boolean;
   isLoadingSkeletonArr?: any[];
@@ -35,6 +37,8 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
 }) => {
   const renderCardSkeleton = (_: any, index: number) => {
     switch (categoryCardType) {
+      case "card1":
+        return <CardCategory1Skeleton key={index} />;
       case "card2":
         return <CardCategory2Skeleton key={index} />;
       case "card3":
@@ -53,6 +57,8 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
     const topIndex = index < 3 ? `#${index + 1}` : undefined;
 
     switch (categoryCardType) {
+      case "card1":
+        return <CardCategory1 key={index} taxonomy={item.node} />;
       case "card2":
         return (
           <CardCategory2 key={index} index={topIndex} taxonomy={item.node} />

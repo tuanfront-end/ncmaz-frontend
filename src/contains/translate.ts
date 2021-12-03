@@ -7,6 +7,15 @@ let NCMAZ_TRANSLATE = {
   showAllPhotos: "Show all photos",
   relatedPosts: "Related Posts",
   moreFromAuthor: "More from author",
+  ThistrackwasnotfoundMaybeitHasBeenRemoved:
+    "This track was not found. Maybe it has been removed!",
+  mostRecent: "Most Recent",
+  mostLiked: "Most Liked",
+  mostDiscussed: "Most Discussed",
+  mostViewed: "Most Viewed",
+  typeAndPressEnter: "Type and press enter",
+  next: "Next",
+  prev: "Prev",
 };
 
 //
@@ -25,7 +34,7 @@ try {
     }
   }
 } catch (error) {
-  console.log("----translate frontend file error ----", error);
+  console.warn("----translate frontend file error ----", error);
 }
 
 export default NCMAZ_TRANSLATE;

@@ -30,13 +30,13 @@ const CardCategory1: FC<CardCategory1Props> = ({
         src={featuredImage?.sourceUrl || "."}
       />
       <div>
-        <h2
+        <h4
           className={`${
             size === "large" ? "text-lg" : "text-base"
           } nc-card-title text-neutral-900 dark:text-neutral-100 font-semibold`}
         >
           {name}
-        </h2>
+        </h4>
         <span
           className={`${
             size === "large" ? "text-sm" : "text-xs"
