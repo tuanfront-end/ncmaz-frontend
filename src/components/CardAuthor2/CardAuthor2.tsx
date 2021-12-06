@@ -40,7 +40,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
           {node?.name}
         </h4>
         <span
-          className={`flex items-center mt-1 text-xs text-neutral-500 dark:text-neutral-400`}
+          className={`flex items-center mt-1 text-xs text-neutral-500 dark:text-neutral-400 truncate`}
         >
           <span>{ncFormatDate(date || "")}</span>
           {readingTimeShortcode && (
@@ -53,7 +53,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
                 ·
               </span>
               <span
-                className={`hidden lg:inline transition-opacity ${
+                className={`hidden lg:inline transition-opacity truncate ${
                   hoverReadingTime ? "opacity-0 group-hover:opacity-100" : ""
                 }`}
                 dangerouslySetInnerHTML={{ __html: readingTimeShortcode }}

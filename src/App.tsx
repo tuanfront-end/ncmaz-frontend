@@ -3,6 +3,7 @@ import GutenbergSections from "GutenbergSections";
 import HeaderFactory from "HeaderFactory";
 import FactoryComponents from "containers/FactoryComponents/FactoryComponents";
 import isSafariBrowser from "utils/isSafariBrowser";
+import ErrorBoundary from "ErrorBoundary";
 //
 const MediaRunningContainerForSafariLazy = React.lazy(
   () =>
@@ -16,7 +17,9 @@ const MediaRunningContainerLazy = React.lazy(
 function App() {
   return (
     <>
-      <HeaderFactory />
+      <ErrorBoundary>
+        <HeaderFactory />
+      </ErrorBoundary>
 
       {/* ------- */}
       <FactoryComponents />
@@ -25,14 +28,16 @@ function App() {
       <GutenbergSections />
 
       {/* ---------- */}
-      <Suspense fallback={<div />}>
-        {/* //is Safari on an apple touch-screen device */}
-        {isSafariBrowser() ? (
-          <MediaRunningContainerForSafariLazy />
-        ) : (
-          <MediaRunningContainerLazy />
-        )}
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<div />}>
+          {/* //is Safari on an apple touch-screen device */}
+          {isSafariBrowser() ? (
+            <MediaRunningContainerForSafariLazy />
+          ) : (
+            <MediaRunningContainerLazy />
+          )}
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }

@@ -3,6 +3,7 @@ import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDrop
 import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
+import ErrorBoundary from "ErrorBoundary";
 
 import React, { FC, Suspense } from "react";
 import ReactDOM from "react-dom";
@@ -67,100 +68,131 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
     switch (conponentName) {
       case "PostCardDropdownShare":
         return ReactDOM.createPortal(
-          <PostCardDropdownShare {...componentProps} />,
+          <ErrorBoundary key={index}>
+            <PostCardDropdownShare {...componentProps} />
+          </ErrorBoundary>,
           dom
         );
 
       case "SocialsShare":
-        return ReactDOM.createPortal(<SocialsShare {...componentProps} />, dom);
+        return ReactDOM.createPortal(
+          <ErrorBoundary key={index}>
+            <SocialsShare {...componentProps} />
+          </ErrorBoundary>,
+          dom
+        );
 
       case "SingleRelatedGridPosts":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <SingleRelatedGridPostsLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <SingleRelatedGridPostsLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "SingleMoreFromAuthorGridPosts":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <SingleMoreFromAuthorGridPostsLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <SingleMoreFromAuthorGridPostsLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "HeaderSingleGallery":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <HeaderSingleGalleryLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <HeaderSingleGalleryLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "HeaderSingleVideo":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <HeaderSingleVideoLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <HeaderSingleVideoLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "HeaderSingleAudio":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <HeaderSingleAudioLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <HeaderSingleAudioLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "PageArchive":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <PageArchiveLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <PageArchiveLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "PageArchiveDate":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <PageArchiveDateLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <PageArchiveDateLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "PageArchiveAuthor":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <PageArchiveAuthorLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <PageArchiveAuthorLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "PageSearch":
         return ReactDOM.createPortal(
-          <Suspense fallback={<div />}>
-            <PageSearchLazy {...componentProps} />
-          </Suspense>,
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <PageSearchLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
           dom
         );
 
       case "SwitchDarkMode":
         return ReactDOM.createPortal(
-          <SwitchDarkMode {...componentProps} />,
+          <ErrorBoundary key={index}>
+            <SwitchDarkMode {...componentProps} />
+          </ErrorBoundary>,
           dom
         );
 
       case "SearchDropdown":
         return ReactDOM.createPortal(
-          <SearchDropdown {...componentProps} />,
+          <ErrorBoundary key={index}>
+            <SearchDropdown {...componentProps} />
+          </ErrorBoundary>,
           dom
         );
 
       case "NavAccountDropdown":
         return ReactDOM.createPortal(
-          <NavAccountDropdown {...componentProps} />,
+          <ErrorBoundary key={index}>
+            <NavAccountDropdown {...componentProps} />
+          </ErrorBoundary>,
           dom
         );
 

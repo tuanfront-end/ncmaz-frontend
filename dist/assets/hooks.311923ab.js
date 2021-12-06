@@ -1,1 +1,0 @@
-import{R as e,ai as a,aj as l}from"./vendor.3b208adb.js";const s=({className:a=""})=>e.createElement("div",{className:`nc-LoadingVideo lds-ellipsis lds-ellipsis-video ${a}`,"data-nc-id":"LoadingVideo"},e.createElement("div",null),e.createElement("div",null),e.createElement("div",null),e.createElement("div",null)),i=()=>a(),d=l;export{s as L,i as a,d as u};

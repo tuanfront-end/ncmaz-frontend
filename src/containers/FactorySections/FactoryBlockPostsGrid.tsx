@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery } from "@apollo/client";
-import { ListPosts, PostNode } from "data/postCardType";
+
+import { PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
@@ -17,7 +17,10 @@ import Card14 from "components/Card14/Card14";
 import Card15Podcast from "components/Card15Podcast/Card15Podcast";
 import Card3 from "components/Card3/Card3";
 import ButtonPrimary from "components/Button/ButtonPrimary";
-import { GutenbergApiAttr_BlockPostsGrid } from "data/gutenbergAttrType";
+import {
+  GutenbergApiAttr_BlockPostsGrid,
+  ListPostsGQLResultData,
+} from "data/gutenbergAttrType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import Card3Skeleton from "components/Card3/Card3Skeleton";
 import Card4Skeleton from "components/Card4/Card4Skeleton";
@@ -29,11 +32,8 @@ import Card11Skeleton from "components/Card11/Card11Skeleton";
 import Card14Skeleton from "components/Card14/Card14Skeleton";
 import Card15PodcastSkeleton from "components/Card15Podcast/Card15PodcastSkeleton";
 import NCMAZ_TRANSLATE from "contains/translate";
-import {
-  GQL_QUERY_GET_POSTS_BY_FILTER,
-  GQL_QUERY_GET_POSTS_BY_SPECIFIC,
-} from "contains/contants";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
+import useGutenbergSectionWithGQLGetPosts from "hooks/useGutenbergSectionWithGQLGetPosts";
 
 export interface FactoryBlockPostsGridProps {
   className?: string;
@@ -42,63 +42,40 @@ export interface FactoryBlockPostsGridProps {
   sectionIndex: number;
 }
 
-interface Data {
-  posts: ListPosts;
-}
-
 const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   className = "",
   domNode,
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, settings } = apiSettings;
+  // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
+  const { graphQLvariables, settings, graphQLData } = apiSettings;
 
-  const [tabActiveId, setTabActiveId] = useState<number>(-1);
-  const [variablesFilter, setVariablesFilter] = useState(
-    graphQLvariables.variables || {}
-  );
+  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
   //
+  const {
+    funcGqlQueryGetPosts,
+    loading,
+    IS_SKELETON,
+    LISTS_POSTS,
+    data,
+    error,
+    fetchMore,
+    setTabActiveId,
+    tabActiveId,
+  } = useGutenbergSectionWithGQLGetPosts({
+    graphQLData,
+    graphQLvariables,
+  });
 
-  useEffect(() => {
-    setVariablesFilter(graphQLvariables.variables);
-  }, [graphQLvariables]);
-
-  let GQL_QUERY__string = "";
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_FILTER;
+  //
+  let ref: React.RefObject<HTMLDivElement> | null = null;
+  if (IS_SPECIFIC_DATA) {
+    ref = useRef<HTMLDivElement>(null);
+  } else {
+    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
   }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
-  }
-  const queryGql = gql`
-    ${GQL_QUERY__string}
-  `;
-
-  useEffect(() => {
-    setVariablesFilter((variables) => {
-      return {
-        ...variables,
-        categoryIn:
-          tabActiveId === -1
-            ? graphQLvariables.variables?.categoryIn
-            : [tabActiveId],
-      };
-    });
-  }, [tabActiveId]);
-
-  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
-    useLazyQuery<Data>(queryGql, {
-      notifyOnNetworkStatusChange: true,
-      variables: variablesFilter,
-    });
-
-  // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
-  // =========================================================
-  const LISTS_POSTS = data?.posts.edges || [];
-  const IS_SKELETON = loading && !LISTS_POSTS.length;
 
   //
   const {
@@ -128,9 +105,9 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
 
   // Function to update the query with the new results
   const updateQuery = (
-    previousResult: Data,
-    { fetchMoreResult }: { fetchMoreResult?: Data }
-  ): Data => {
+    previousResult: ListPostsGQLResultData,
+    { fetchMoreResult }: { fetchMoreResult?: ListPostsGQLResultData }
+  ): ListPostsGQLResultData => {
     if (!fetchMoreResult?.posts?.edges.length) return previousResult;
     return {
       ...fetchMoreResult,

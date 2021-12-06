@@ -1,9 +1,7 @@
-import Glide from "@glidejs/glide";
 import NcImage from "components/NcImage/NcImage";
 import NextPrev from "components/NextPrev/NextPrev";
 import React, { FC, useEffect, useRef, useState } from "react";
 import debounce from "utils/debounce";
-import ncNanoId from "utils/ncNanoId";
 
 export interface GallerySliderProps {
   galleryImgs: string[];
@@ -87,13 +85,17 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
           ref={btnPrevRef}
           className="absolute opacity-0 group-hover:opacity-100 z-20 left-2 top-1/2 transform -translate-y-1/2 "
         >
-          {!scrollEndedLeft && <NextPrev onlyPrev btnClassName="w-8 h-8" />}
+          {!scrollEndedLeft && (
+            <NextPrev isOfGlide={false} onlyPrev btnClassName="w-8 h-8" />
+          )}
         </div>
         <div
           ref={btnNextRef}
           className="absolute opacity-0 group-hover:opacity-100 z-20 right-2 top-1/2 transform -translate-y-1/2 "
         >
-          {!scrollEndedRight && <NextPrev onlyNext btnClassName="w-8 h-8" />}
+          {!scrollEndedRight && (
+            <NextPrev isOfGlide={false} onlyNext btnClassName="w-8 h-8" />
+          )}
         </div>
       </div>
       {/*  */}

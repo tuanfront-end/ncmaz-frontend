@@ -4,6 +4,10 @@ export interface ListPosts {
   edges: Post[];
   pageInfo?: PageInfo;
 }
+export interface ListTerms {
+  edges: CategoriesEdge2[];
+  pageInfo?: PageInfo;
+}
 
 interface Post {
   node: PostNode;
@@ -186,7 +190,11 @@ interface Node4 {
   __typename: string;
 }
 
-export type PostFormatsType = "post-format-gallery" | "post-format-video" | "post-format-audio" | "Standard";
+export type PostFormatsType =
+  | "post-format-gallery"
+  | "post-format-video"
+  | "post-format-audio"
+  | "Standard";
 
 interface PostFormats {
   edges:

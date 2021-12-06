@@ -1,6 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery } from "@apollo/client";
 import { ListPosts, PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -26,15 +25,8 @@ import Card10Skeleton from "components/Card10/Card10Skeleton";
 import Card10V2Skeleton from "components/Card10/Card10V2Skeleton";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import Card14Skeleton from "components/Card14/Card14Skeleton";
-import {
-  GQL_QUERY_GET_POSTS_BY_FILTER,
-  GQL_QUERY_GET_POSTS_BY_SPECIFIC,
-} from "contains/contants";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
-
-interface Data {
-  posts: ListPosts;
-}
+import useGutenbergSectionWithGQLGetPosts from "hooks/useGutenbergSectionWithGQLGetPosts";
 
 export interface FactoryBlockPostsSliderProps {
   className?: string;
@@ -50,56 +42,33 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   sectionIndex,
 }) => {
   const UNIQUE_CLASS = "FactoryBlockPostsSlider" + ncNanoId();
-
-  const { graphQLvariables, settings } = apiSettings;
-
-  const [tabActiveId, setTabActiveId] = useState<number>(-1);
-  const [variablesFilter, setVariablesFilter] = useState(
-    graphQLvariables.variables || {}
-  );
+  // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
+  const { graphQLvariables, settings, graphQLData } = apiSettings;
+  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
   //
-  useEffect(() => {
-    setVariablesFilter(graphQLvariables.variables);
-  }, [graphQLvariables]);
+  const {
+    funcGqlQueryGetPosts,
+    loading,
+    IS_SKELETON,
+    LISTS_POSTS,
+    data,
+    error,
+    fetchMore,
+    setTabActiveId,
+    tabActiveId,
+  } = useGutenbergSectionWithGQLGetPosts({
+    graphQLData,
+    graphQLvariables,
+  });
 
-  let GQL_QUERY__string = "";
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_FILTER;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
-  }
-  const queryGql = gql`
-    ${GQL_QUERY__string}
-  `;
-
-  useEffect(() => {
-    setVariablesFilter((variables) => {
-      return {
-        ...variables,
-        categoryIn:
-          tabActiveId === -1
-            ? graphQLvariables.variables?.categoryIn
-            : [tabActiveId],
-      };
-    });
-  }, [tabActiveId]);
-
-  const [gqlQueryGetPosts, { loading, error, data }] = useLazyQuery<Data>(
-    queryGql,
-    {
-      notifyOnNetworkStatusChange: true,
-      variables: variablesFilter,
-    }
-  );
-
-  // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
-  // =========================================================
   //
-  const LISTS_POSTS = data?.posts.edges || [];
-  const IS_SKELETON = loading && !LISTS_POSTS.length;
+  let ref: React.RefObject<HTMLDivElement> | null = null;
+  if (IS_SPECIFIC_DATA) {
+    ref = useRef<HTMLDivElement>(null);
+  } else {
+    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
+  }
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
