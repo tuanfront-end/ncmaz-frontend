@@ -99,14 +99,14 @@ if (
 ) {
   const cache = new InMemoryCache({
     typePolicies: {
-      Post: {
-        keyFields: [
-          "ncmazVideoUrl",
-          "ncmazAudioUrl",
-          "ncPostMetaData",
-          "ncmazGalleryImgs",
-        ],
-      },
+      // Post: {
+      //   keyFields: [
+      //     "ncmazVideoUrl",
+      //     "ncmazAudioUrl",
+      //     "ncPostMetaData",
+      //     "ncmazGalleryImgs",
+      //   ],
+      // },
       // VI TRONG 1 Trang thuong chi co 1 section user
       // User: {
       //   keyFields: ["ncUserMeta"],

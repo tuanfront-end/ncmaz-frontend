@@ -1,3 +1,5 @@
+import { Alert } from "components/Alert/Alert";
+import NCMAZ_TRANSLATE from "contains/translate";
 import React from "react";
 class ErrorBoundary extends React.Component {
   constructor(props: any) {
@@ -18,7 +20,14 @@ class ErrorBoundary extends React.Component {
   render() {
     // @ts-ignore
     if (this.state.hasError) {
-      return <h4 className="">Something went wrong.</h4>;
+      return (
+        <div className="max-w-xs xl:max-w-lg">
+          <Alert
+            type="error"
+            children={NCMAZ_TRANSLATE["somethingWentWrong"]}
+          />
+        </div>
+      );
     }
 
     return this.props.children;

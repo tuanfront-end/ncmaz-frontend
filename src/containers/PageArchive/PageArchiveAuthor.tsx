@@ -38,7 +38,7 @@ export interface PageArchiveAuthorProps {
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
 const FILTERS = ARCHIVE_PAGE_FILTERS;
 //
-const TABS = ["Articles", "Liked Articles"];
+const TABS = [NCMAZ_TRANSLATE["articles"], NCMAZ_TRANSLATE["LikedArticles"]];
 
 // Tag and category have same data type - we will use one demo data
 const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({

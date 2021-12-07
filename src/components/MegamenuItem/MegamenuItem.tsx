@@ -76,11 +76,6 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     ${POSTS_SECTION_BY_FILTER__string}
   `;
 
-  // const { loading, error, data, fetchMore } = useQuery<Data>(gqlQuery, {
-  //   notifyOnNetworkStatusChange: true,
-  //   variables,
-  // } );
-
   const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
     useLazyQuery<Data>(gqlQuery, {
       notifyOnNetworkStatusChange: true,

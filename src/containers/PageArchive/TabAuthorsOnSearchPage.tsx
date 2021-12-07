@@ -57,7 +57,10 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
     if (typeof data?.users.pageInfo?.total !== "number") {
       return;
     }
-    onUpdateTotal(`${data?.users.edges.length} authors` || `0 authors`);
+    onUpdateTotal(
+      `${data?.users.edges.length} ${NCMAZ_TRANSLATE["authors"]}` ||
+        `0 ${NCMAZ_TRANSLATE["author"]}`
+    );
   }, [data]);
 
   // Function to update the query with the new results

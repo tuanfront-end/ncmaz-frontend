@@ -1,8 +1,13 @@
 let NCMAZ_TRANSLATE = {
   nothingWeFound: "Nothing we found!",
+  author: "author",
+  authors: "authors",
   all: "All",
   viewAll: "View All",
   articles: "Articles",
+  categories: "categories",
+  category: "category",
+  tags: "tags",
   showMeMore: "Show me more",
   showAllPhotos: "Show all photos",
   relatedPosts: "Related Posts",
@@ -16,6 +21,11 @@ let NCMAZ_TRANSLATE = {
   typeAndPressEnter: "Type and press enter",
   next: "Next",
   prev: "Prev",
+  filters: "Filters",
+  wereFoundForKeyword: "were found for keyword",
+  LikedArticles: "Liked Articles",
+  suggestions: "Suggestions",
+  somethingWentWrong: "Something went wrong",
 };
 
 //

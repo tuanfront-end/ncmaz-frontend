@@ -154,7 +154,7 @@ add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 // 
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
+// add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
 function ncmazFrontend_registerScripts()
 {
     $manifestJS = false;
@@ -175,7 +175,7 @@ function ncmazFrontend_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

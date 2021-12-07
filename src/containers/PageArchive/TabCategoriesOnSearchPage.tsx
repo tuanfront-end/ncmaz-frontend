@@ -58,8 +58,8 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
       return;
     }
     const s = data.categories.pageInfo.hasNextPage
-      ? `${data?.categories.edges.length}+ categories`
-      : `${data?.categories.edges.length} categories`;
+      ? `${data?.categories.edges.length}+ ${NCMAZ_TRANSLATE["categories"]}`
+      : `${data?.categories.edges.length} ${NCMAZ_TRANSLATE["categories"]}`;
     onUpdateTotal(s);
   }, [data]);
 

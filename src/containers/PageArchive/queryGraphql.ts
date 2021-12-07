@@ -3,6 +3,42 @@ import {
   EDGES_USER_COMMONT_FIELDS,
 } from "contains/contants";
 
+const POSTS_SECTION_BY_SEARCH_NO_FILTER__string = `
+  query MyQueryPostsOnArchivePageNoFilter(
+    $last: Int = null,
+    $first: Int = 10,
+    $before: String = null,
+    $after: String = null,
+    $search: String = null
+    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
+    $featuredImage_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
+      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+    }
+  ) {
+    posts(
+      where: {
+        search: $search
+      },
+      last: $last,
+      first: $first,
+      before: $before,
+      after: $after
+    ) {
+     ${EDGES_POST_COMMONT_FIELDS}
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        endCursor
+        startCursor
+        total
+      }
+    }
+  }
+`;
+
 const POSTS_SECTION_BY_FILTER__string = `
   query MyQueryPostsOnArchivePage(
     $field: PostObjectsConnectionOrderbyEnum = AUTHOR,
@@ -247,6 +283,7 @@ const USERS_QUERY_FILTER__string = `query GET_USERS_QUERY_FILTER(
 }`;
 
 export {
+  POSTS_SECTION_BY_SEARCH_NO_FILTER__string,
   POSTS_SECTION_BY_FILTER__string,
   GET_LIST_CATEGORIES,
   GET_LIST_CATEGORIES_NO_PARENT,

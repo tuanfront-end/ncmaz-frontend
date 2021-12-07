@@ -59,8 +59,8 @@ const TabTagsOnSearchPage: FC<TabTagsOnSearchPageProps> = ({
       return;
     }
     const s = data.tags.pageInfo.hasNextPage
-      ? `${data?.tags.edges.length}+ tags`
-      : `${data?.tags.edges.length} tags`;
+      ? `${data?.tags.edges.length}+ ${NCMAZ_TRANSLATE["tags"]}`
+      : `${data?.tags.edges.length} ${NCMAZ_TRANSLATE["tags"]}`;
     onUpdateTotal(s);
   }, [data]);
 

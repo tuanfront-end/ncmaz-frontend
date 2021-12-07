@@ -2,10 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import ArchiveFilterListBox from "components/ArchiveFilterListBox/ArchiveFilterListBox";
 import { ListBoxItemType } from "components/NcListBox/NcListBox";
 import SectionTrendingCategories from "./SectionTrendingCategories";
-import {
-  ARCHIVE_PAGE_FILTERS,
-  SectionCategoriesTrendingArchivePageOption,
-} from "./PageArchive";
+import { SectionCategoriesTrendingArchivePageOption } from "./PageArchive";
 import ButtonCircle from "components/Button/ButtonCircle";
 import Input from "components/Input/Input";
 import NcImage from "components/NcImage/NcImage";
@@ -16,6 +13,7 @@ import TabArticlesOnSearchPage from "./TabArticlesOnSearchPage";
 import TabTagsOnSearchPage from "./TabTagsOnSearchPage";
 import TabAuthorsOnSearchPage from "./TabAuthorsOnSearchPage";
 import Skeleton from "react-loading-skeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface PageSearchProps {
   className?: string;
@@ -28,7 +26,13 @@ export interface PageSearchProps {
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
-const FILTERS = ARCHIVE_PAGE_FILTERS;
+const FILTERS = [
+  { name: NCMAZ_TRANSLATE["filters"], value: "" },
+  { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
+  { name: NCMAZ_TRANSLATE["mostLiked"], value: "FAVORITES_COUNT" },
+  { name: NCMAZ_TRANSLATE["mostDiscussed"], value: "COMMENT_COUNT" },
+  { name: NCMAZ_TRANSLATE["mostViewed"], value: "VIEWS_COUNT" },
+];
 
 //
 type TabType = "Articles" | "Categories" | "Tags" | "Authors";
@@ -149,7 +153,7 @@ const PageSearch: FC<PageSearchProps> = ({
                 <div className="w-full text-sm text-left mt-4 text-neutral-500 dark:text-neutral-300">
                   <div className="inline-block text-primary-500">
                     <span className="mr-2.5 text-neutral-700">
-                      Suggestions:
+                      {NCMAZ_TRANSLATE["suggestions"]}:
                     </span>
 
                     {listSuggestions.map((item, index) => (
@@ -172,7 +176,9 @@ const PageSearch: FC<PageSearchProps> = ({
   };
 
   const renderContent = () => {
-    let s = ` were found for keyword <strong>${searchText || `" "`}</strong>`;
+    let s = ` ${NCMAZ_TRANSLATE["wereFoundForKeyword"]} <strong>${
+      searchText || `" "`
+    }</strong>`;
     switch (tabActive) {
       case "Articles":
         return (
@@ -244,7 +250,10 @@ const PageSearch: FC<PageSearchProps> = ({
                   isActive={tabActive === item}
                   onClick={() => handleClickTab(item)}
                 >
-                  {item}
+                  {item === "Articles" && NCMAZ_TRANSLATE["articles"]}
+                  {item === "Authors" && NCMAZ_TRANSLATE["authors"]}
+                  {item === "Categories" && NCMAZ_TRANSLATE["categories"]}
+                  {item === "Tags" && NCMAZ_TRANSLATE["tags"]}
                 </NavItem>
               ))}
             </Nav>
