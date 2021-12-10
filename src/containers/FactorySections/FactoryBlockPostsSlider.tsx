@@ -87,6 +87,11 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   // ==================== GLIDE SLIDER SETTING ====================
   const perView = settings.itemPerView || 5;
   const sliderConfiguration = {
+    // @ts-ignore
+    direction:
+      document.querySelector("html")?.getAttribute("dir") === "rtl"
+        ? "rtl"
+        : "ltr",
     perView: perView,
     gap: 32,
     bound: true,
@@ -112,6 +117,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       },
     },
   };
+  // @ts-ignore
   const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
   useEffect(() => {
     glideSlider.mount();

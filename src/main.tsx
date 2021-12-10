@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { persistor, store } from "./app/store";
@@ -14,6 +14,9 @@ import {
 import { RetryLink } from "@apollo/client/link/retry";
 import "./index.css";
 import "./styles/index.scss";
+//
+const RtlImportCssLazy = React.lazy(() => import("./RtlImportCss"));
+//
 
 interface User {
   avatar?: {
@@ -139,6 +142,13 @@ if (
         <PersistGate loading={null} persistor={persistor}>
           <ApolloProvider client={client}>
             <App />
+
+            {/* LOAD RTL CSS WHEN RTL MODE ENABLE */}
+            {document.querySelector("html")?.getAttribute("dir") === "rtl" && (
+              <Suspense fallback={<div />}>
+                <RtlImportCssLazy />
+              </Suspense>
+            )}
           </ApolloProvider>
         </PersistGate>
       </Provider>

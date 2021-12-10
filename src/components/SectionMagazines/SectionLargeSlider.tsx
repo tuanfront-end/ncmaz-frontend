@@ -42,11 +42,27 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
             <CardLarge1
               key={index}
               isShowing={indexActive === index}
-              onClickNext={handleClickNext}
-              onClickPrev={handleClickPrev}
+              onClickNext={
+                document.querySelector("html")?.getAttribute("dir") === "rtl"
+                  ? handleClickPrev
+                  : handleClickNext
+              }
+              onClickPrev={
+                document.querySelector("html")?.getAttribute("dir") === "rtl"
+                  ? handleClickNext
+                  : handleClickPrev
+              }
               post={item.node}
-              hasNext={listPosts.length > index + 1}
-              hasPrev={index > 0}
+              hasNext={
+                document.querySelector("html")?.getAttribute("dir") === "rtl"
+                  ? index > 0
+                  : listPosts.length > index + 1
+              }
+              hasPrev={
+                document.querySelector("html")?.getAttribute("dir") === "rtl"
+                  ? listPosts.length > index + 1
+                  : index > 0
+              }
             />
           );
         })

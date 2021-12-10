@@ -37,6 +37,11 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 }) => {
   const UNIQUE_CLASS = "SectionSliderNewCategories" + ncNanoId();
   const sliderConfiguration = {
+    // @ts-ignore
+    direction:
+      document.querySelector("html")?.getAttribute("dir") === "rtl"
+        ? "rtl"
+        : "ltr",
     perView: itemPerRow,
     gap: 32,
     bound: true,
@@ -66,6 +71,8 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
       },
     },
   };
+
+  // @ts-ignore
   const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
 
   useEffect(() => {

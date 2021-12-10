@@ -31,7 +31,9 @@
     &[data-is-megamenu="true"] {
       > a::after {
         content: "";
-        @apply block border-solid border-r border-b border-neutral-800 dark:border-neutral-200 ml-2 mb-1 w-2 h-2 z-[1] transition-transform rotate-45;
+        @apply block border-solid border-b border-neutral-800 dark:border-neutral-200 ml-2 mb-1 w-2 h-2 z-[1] transition-transform rotate-45;
+        /* @noflip */
+        border-right-width: 1px !important;
       }
     }
 

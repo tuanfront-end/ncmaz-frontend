@@ -26,6 +26,11 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
       return;
     }
     new Glide(`.${UNIQUE_CLASS}`, {
+      // @ts-ignore
+      direction:
+        document.querySelector("html")?.getAttribute("dir") === "rtl"
+          ? "rtl"
+          : "ltr",
       gap: 10,
       perView: 1,
       startAt: initFocus,

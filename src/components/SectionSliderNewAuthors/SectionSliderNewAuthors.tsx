@@ -35,6 +35,11 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
 }) => {
   const UNIQUE_CLASS = "SectionSliderNewAuthors" + ncNanoId();
   const sliderConfiguration = {
+    // @ts-ignore
+    direction:
+      document.querySelector("html")?.getAttribute("dir") === "rtl"
+        ? "rtl"
+        : "ltr",
     perView: itemPerView,
     gap: 32,
     bound: true,
@@ -65,6 +70,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
     },
   };
 
+  // @ts-ignore
   const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
 
   useEffect(() => {

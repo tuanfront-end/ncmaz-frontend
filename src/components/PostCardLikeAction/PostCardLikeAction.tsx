@@ -19,7 +19,7 @@ const PostCardLikeAction: FC<PostCardLikeActionProps> = ({
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
 
-  let _timeOut: number | null = null;
+  let _timeOut: NodeJS.Timeout | null = null;
 
   useEffect(() => {
     return () => {

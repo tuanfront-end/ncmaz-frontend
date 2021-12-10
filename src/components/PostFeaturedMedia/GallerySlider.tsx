@@ -1,5 +1,6 @@
 import NcImage from "components/NcImage/NcImage";
 import NextPrev from "components/NextPrev/NextPrev";
+import NCMAZ_TRANSLATE from "contains/translate";
 import React, { FC, useEffect, useRef, useState } from "react";
 import debounce from "utils/debounce";
 
@@ -12,8 +13,12 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
   const btnNextRef = useRef<HTMLDivElement>(null);
   const btnPrevRef = useRef<HTMLDivElement>(null);
 
-  const [scrollEndedRight, setScrollEndedRight] = useState(false);
-  const [scrollEndedLeft, setScrollEndedLeft] = useState(true);
+  const [scrollEndedRight, setScrollEndedRight] = useState(
+    document.querySelector("html")?.getAttribute("dir") === "rtl"
+  );
+  const [scrollEndedLeft, setScrollEndedLeft] = useState(
+    document.querySelector("html")?.getAttribute("dir") !== "rtl"
+  );
   const [scrollIndex, setScrollIndex] = useState(0);
 
   useEffect(() => {
@@ -51,15 +56,31 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
     const handleScrollPostion = debounce(function () {
       setScrollEndedLeft(false);
       setScrollEndedRight(false);
-      setScrollIndex(Math.floor(gallery_scroller.scrollLeft / galleryItemSize));
-
-      if (
-        gallery_scroller.clientWidth + gallery_scroller.scrollLeft >=
-        gallery_scroller.scrollWidth
-      ) {
-        setScrollEndedRight(true);
-      } else if (gallery_scroller.scrollLeft === 0) {
-        setScrollEndedLeft(true);
+      // IF RTL
+      if (document.querySelector("html")?.getAttribute("dir") === "rtl") {
+        setScrollIndex(
+          Math.floor(-gallery_scroller.scrollLeft / galleryItemSize)
+        );
+        if (
+          gallery_scroller.clientWidth - gallery_scroller.scrollLeft >=
+          gallery_scroller.scrollWidth
+        ) {
+          setScrollEndedLeft(true);
+        } else if (gallery_scroller.scrollLeft === 0) {
+          setScrollEndedRight(true);
+        }
+      } else {
+        setScrollIndex(
+          Math.floor(gallery_scroller.scrollLeft / galleryItemSize)
+        );
+        if (
+          gallery_scroller.clientWidth + gallery_scroller.scrollLeft >=
+          gallery_scroller.scrollWidth
+        ) {
+          setScrollEndedRight(true);
+        } else if (gallery_scroller.scrollLeft === 0) {
+          setScrollEndedLeft(true);
+        }
       }
     }, 500);
   }
@@ -79,11 +100,11 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
         ))}
       </div>
       {/*  */}
-      {/* <div className="absolute opacity-0 group-hover:opacity-100 z-20 inset-x-2 top-1/2 transform -translate-y-1/2 flex justify-between glide__arrows"> */}
       <div className="">
         <div
           ref={btnPrevRef}
-          className="absolute opacity-0 group-hover:opacity-100 z-20 left-2 top-1/2 transform -translate-y-1/2 "
+          className="nc-gallerySlider__prevBtn absolute opacity-0 group-hover:opacity-100 z-20 left-2 top-1/2 transform -translate-y-1/2 "
+          title={NCMAZ_TRANSLATE["prev"]}
         >
           {!scrollEndedLeft && (
             <NextPrev isOfGlide={false} onlyPrev btnClassName="w-8 h-8" />
@@ -91,7 +112,8 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
         </div>
         <div
           ref={btnNextRef}
-          className="absolute opacity-0 group-hover:opacity-100 z-20 right-2 top-1/2 transform -translate-y-1/2 "
+          className="nc-gallerySlider__nextBtn absolute opacity-0 group-hover:opacity-100 z-20 right-2 top-1/2 transform -translate-y-1/2 "
+          title={NCMAZ_TRANSLATE["next"]}
         >
           {!scrollEndedRight && (
             <NextPrev isOfGlide={false} onlyNext btnClassName="w-8 h-8" />

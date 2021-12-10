@@ -21,6 +21,7 @@ body .ncmaz-myDashboardPage {
 
   [type="text"],
   [type="email"],
+  [type="url"],
   [type="password"],
   textarea {
     @apply w-full rounded-xl border-neutral-300 dark:border-neutral-6000 shadow-sm focus:border-primary-300 
