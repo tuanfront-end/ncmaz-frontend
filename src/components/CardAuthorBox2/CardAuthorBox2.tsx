@@ -20,6 +20,9 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
       href={frontendObject.homeURL + uri}
       className={`nc-CardAuthorBox2 flex flex-col overflow-hidden [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="CardAuthorBox2"
+      onDragEnd={() => console.log(222)}
+      onDragLeave={() => console.log(222)}
+      onDragOver={() => console.log(222)}
     >
       <div className="relative flex-shrink-0 ">
         <div>

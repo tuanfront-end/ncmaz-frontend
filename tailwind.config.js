@@ -15,86 +15,52 @@ function customColors(cssVar) {
 }
 
 const safelist = [
-  "grid-cols-4",
-  "grid-cols-5",
-  "grid-cols-6",
-  "grid-cols-7",
-  "grid-cols-8",
+  {
+    pattern: /grid-cols-(1|2|3|4|5|6|7|8|12)/,
+    variants: ["sm", "md", "lg", "xl", "2xl"],
+  },
+  {
+    pattern: /m-(1|2|3|4|5|6|7|8|10|11|12|13|14)/,
+    variants: ["sm", "md", "lg", "xl", "2xl"],
+  },
+  {
+    pattern: /mt-(0|16|24)/,
+    variants: ["sm", "md", "lg", "xl", "2xl"],
+  },
+  {
+    pattern: /space-y-(7|16|28)/,
+    variants: ["sm", "md", "lg", "xl", "2xl"],
+  },
+  {
+    pattern: /w-(2\/5|3\/5|1\/3|2\/3)/,
+    variants: ["sm", "md", "lg", "xl", "2xl"],
+  },
   //
-  "sm:grid-cols-4",
-  "sm:grid-cols-5",
-  "sm:grid-cols-6",
-  "sm:grid-cols-7",
-  "sm:grid-cols-8",
-  //
-  "md:grid-cols-4",
-  "md:grid-cols-5",
-  "md:grid-cols-6",
-  "md:grid-cols-7",
-  "md:grid-cols-8",
-  //
-  "lg:grid-cols-4",
-  "lg:grid-cols-5",
-  "lg:grid-cols-6",
-  "lg:grid-cols-7",
-  "lg:grid-cols-8",
-  //
-  "xl:grid-cols-4",
-  "xl:grid-cols-5",
-  "xl:grid-cols-6",
-  "xl:grid-cols-7",
-  "xl:grid-cols-8",
-  //
-  "2xl:grid-cols-4",
-  "2xl:grid-cols-5",
-  "2xl:grid-cols-6",
-  "2xl:grid-cols-7",
-  "2xl:grid-cols-8",
-  //
-  //
-  "space-y-28",
-  //
-  //
-  "m-0",
-  "m-1",
-  "m-2",
-  //
-  "w-full",
-  "space-y-7",
-  "mt-24",
-  "lg:mt-0",
-  "lg:w-2/5",
   "lg:pl-10",
   "xl:pl-0",
-  "xl:w-1/3",
-  "lg:w-3/5",
-  "xl:w-2/3",
   "xl:pr-14",
   "flex-1",
 ];
 
 module.exports = {
-  mode: "jit",
-  purge: {
-    content: [
-      "./index.html",
-      "./src/**/*.{js,jsx,ts,tsx}",
-      "./*.php",
-      "./**/*.php",
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./*.php",
+    "./**/*.php",
 
-      // CORE PLUGIN -----
-      // lam dieu nay vi trong core co nhieu block render HTML ma theme khong the phat hien class
-      "../ncmaz-core/index.html",
-      "../ncmaz-core/src/**/*.{js,jsx,ts,tsx}",
+    // CORE PLUGIN -----
+    // lam dieu nay vi trong core co nhieu block render HTML ma theme khong the phat hien class
+    "../ncmaz-core/index.html",
+    "../ncmaz-core/src/**/*.{js,jsx,ts,tsx}",
 
-      // THEME -----
-      "../../themes/ncmaz/assets/**/*.{js,jsx,ts,tsx}",
-      "../../themes/ncmaz/*.php",
-      "../../themes/ncmaz/inc/**/*.php",
-      "../../themes/ncmaz/template-parts/**/*.php",
-    ],
-    safelist,
-  },
+    // THEME -----
+    "../../themes/ncmaz/assets/**/*.{js,jsx,ts,tsx}",
+    "../../themes/ncmaz/*.php",
+    "../../themes/ncmaz/inc/**/*.php",
+    "../../themes/ncmaz/template-parts/**/*.php",
+  ],
+  safelist,
   darkMode: "class", // or 'media' or 'class',
   theme: {
     container: {
@@ -151,66 +117,7 @@ module.exports = {
       },
     },
 
-    extend: {
-      screens: {
-        "dark-mode": { raw: "(prefers-color-scheme: dark)" },
-      },
-      typography: (theme) => ({
-        DEFAULT: {
-          css: {
-            color: theme("colors.neutral.700"),
-            a: {
-              color: theme("colors.primary.6000"),
-              "&:hover": {
-                color: theme("colors.primary.6000"),
-              },
-            },
-          },
-        },
-        dark: {
-          css: {
-            color: theme("colors.neutral.300"),
-            a: {
-              color: theme("colors.primary.500"),
-              "&:hover": {
-                color: theme("colors.primary.500"),
-              },
-            },
-
-            h1: {
-              color: theme("colors.neutral.200"),
-            },
-            h2: {
-              color: theme("colors.neutral.200"),
-            },
-            h3: {
-              color: theme("colors.neutral.200"),
-            },
-            h4: {
-              color: theme("colors.neutral.200"),
-            },
-            h5: {
-              color: theme("colors.neutral.300"),
-            },
-            h6: {
-              color: theme("colors.neutral.300"),
-            },
-            strong: {
-              color: theme("colors.neutral.300"),
-            },
-            code: {
-              color: theme("colors.neutral.300"),
-            },
-            blockquote: {
-              color: theme("colors.neutral.200"),
-            },
-            figcaption: {
-              color: theme("colors.neutral.400"),
-            },
-          },
-        },
-      }),
-    },
+    extend: {},
   },
   variants: {},
   plugins: [

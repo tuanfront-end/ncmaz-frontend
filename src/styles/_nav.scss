@@ -176,7 +176,7 @@
   }
 
   a {
-    @apply flex w-full items-center px-4 font-medium  tracking-wide text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg;
+    @apply flex w-full items-center px-4 font-medium tracking-wide text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg;
     > span {
       @apply py-2.5;
     }

@@ -11,21 +11,14 @@ const HeaderSite = () => {
   const mainMenuChildRef: HTMLDivElement | null = document.querySelector(
     ".nc-Header__MainNav1 .nc-MainNav1"
   );
-
-  const headerSinglePage: HTMLDivElement | null = document.querySelector(
-    ".nc-SingleHeaderMenu"
-  );
-  const progressBarRef: HTMLDivElement | null = document.querySelector(
-    ".nc-SingleHeaderMenu__progress-bar"
-  );
-
   let wpadminbarRef: HTMLDivElement | null =
     document.querySelector("#wpadminbar");
   //
 
-  const windowSize = useWindowSize();
+  const { width } = useWindowSize();
+  const windowSizeWidth = width;
 
-  if (windowSize.width <= 600) {
+  if (windowSizeWidth <= 600) {
     wpadminbarRef = null;
   } else {
     wpadminbarRef = document.querySelector("#wpadminbar");
@@ -33,24 +26,11 @@ const HeaderSite = () => {
 
   let prevScrollpos = window.pageYOffset;
   //
-  const showSingleMenu = !!headerSinglePage;
-  //
-  const [isSingleHeaderShowing, setIsSingleHeaderShowing] = useState(false);
   const [isTop, setIsTop] = useState(true);
 
   useEffect(() => {
-    if (!headerSinglePage) return;
-
-    if (isSingleHeaderShowing) {
-      headerSinglePage.style.display = "block";
-      return;
-    }
-    headerSinglePage.style.display = "none";
-  }, [isSingleHeaderShowing]);
-
-  //
-  useEffect(() => {
     if (!mainMenuChildRef) return;
+
     if (isTop && !mainMenuChildRef.classList.contains("onTop")) {
       mainMenuChildRef.classList.remove("notOnTop");
       mainMenuChildRef.classList.add("onTop");
@@ -71,56 +51,17 @@ const HeaderSite = () => {
       mainMenuHeight = mainMenuHeight - wpadminbarRef.offsetHeight;
     }
 
-    window.onscroll = function () {
+    // FIRST TIME DIDMOUNT
+    let winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop;
+    if (winScroll > 0) {
+      setIsTop(false);
+    }
+    //
+    window.addEventListener("scroll", function () {
       showHideHeaderMenu(mainMenuHeight);
-    };
-  }, [windowSize.width]);
-
-  useEffect(() => {
-    if (showSingleMenu) {
-      setTimeout(() => {
-        //  BECAUSE DIV HAVE TRANSITION 100ms
-        window.addEventListener("scroll", showHideSingleHeader);
-      }, 200);
-    } else {
-      window.removeEventListener("scroll", showHideSingleHeader);
-    }
-  }, [showSingleMenu]);
-
-  const handleProgressIndicator = () => {
-    const entryContent = document.querySelector(
-      "#ncmaz-single-entry-content"
-    ) as HTMLDivElement | null;
-
-    if (!showSingleMenu || !entryContent) {
-      return;
-    }
-
-    const totalEntryH = entryContent.offsetTop + entryContent.offsetHeight;
-    let winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
-    let scrolled = (winScroll / totalEntryH) * 100;
-    if (!progressBarRef || scrolled > 140) {
-      return;
-    }
-
-    scrolled = scrolled > 100 ? 100 : scrolled;
-
-    progressBarRef.style.width = scrolled + "%";
-  };
-
-  const showHideSingleHeader = () => {
-    handleProgressIndicator();
-    // SHOW _ HIDE SINGLE DESC MENU
-    let winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
-
-    if (winScroll > 200) {
-      setIsSingleHeaderShowing(true);
-    } else {
-      setIsSingleHeaderShowing(false);
-    }
-  };
+    });
+  }, [windowSizeWidth]);
 
   const showHideHeaderMenu = (mainMenuHeight: number) => {
     let currentScrollPos = window.pageYOffset;

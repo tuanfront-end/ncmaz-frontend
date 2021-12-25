@@ -35,11 +35,11 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
 }) => {
   const UNIQUE_CLASS = "SectionSliderNewAuthors" + ncNanoId();
   const sliderConfiguration = {
-    // @ts-ignore
     direction:
       document.querySelector("html")?.getAttribute("dir") === "rtl"
         ? "rtl"
         : "ltr",
+    //
     perView: itemPerView,
     gap: 32,
     bound: true,
@@ -70,12 +70,10 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
     },
   };
 
-  // @ts-ignore
-  const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
-
   useEffect(() => {
-    glideSlider.mount();
-  }, [authorNodes, glideSlider]);
+    // @ts-ignore
+    new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration).mount();
+  }, [authorNodes]);
 
   const isLayout2 = blockLayoutStyle === "layout-2";
 
@@ -145,16 +143,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
             {isLoading
-              ? authorNodesLoading.map((_, index) => (
-                  <li
-                    key={index}
-                    className={`glide__slide ${
-                      !isLayout2 ? "pb-12 md:pb-16" : ""
-                    }`}
-                  >
-                    {renderCardSkeleton()}
-                  </li>
-                ))
+              ? null
               : authorNodes.map((item, index) => (
                   <li
                     key={index}

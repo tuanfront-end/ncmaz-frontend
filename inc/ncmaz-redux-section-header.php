@@ -24,6 +24,15 @@ $section = array(
             'subtitle' => __('Enable/Disable SignIn/SignUp button on header', 'ncmaz-frontend'),
             'default'  => true,
         ],
+        [
+            'id'       => 'nc-header-settings--general--fixed-notify',
+            'type'     => 'textarea',
+            'title'    => __('Header fixed notifycation', 'ncmaz-frontend'),
+            'subtitle' => __('Some HTML is allowed in here.', 'ncmaz-frontend'),
+            'desc'          => esc_html__('Important notice, will be displayed in the header', 'ncmaz-frontend'),
+            'placeholder'   => __('Some HTML is allowed in here.', 'ncmaz-frontend'),
+            'default'       => '',
+        ],
     ],
 );
 Redux::set_section($opt_name, $section);

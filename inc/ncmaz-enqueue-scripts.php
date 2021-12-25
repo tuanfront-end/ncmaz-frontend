@@ -101,7 +101,8 @@ function ncmazFrontend_enqueueScriptCustomize()
     // STYLE
     wp_enqueue_style('glide-core', _NCMAZ_FRONTEND_DIR_URL . 'dist/css/glide.core.min.css', [], '3.5.2', 'all');
     // 
-    wp_enqueue_script('ncmaz-frontend-darkmode-js', _NCMAZ_FRONTEND_DIR_URL . 'public/js/darkmode.js', array(), _NCMAZ_FRONTEND_VERSION, false);
+    wp_enqueue_script('ncmaz-frontend-darkmode', _NCMAZ_FRONTEND_DIR_URL . 'public/js/darkmode.js', array(), _NCMAZ_FRONTEND_VERSION, false);
+    wp_enqueue_script('ncmaz-frontend-customizerOnHeader', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizerOnHeader.js', ['jquery'], _NCMAZ_FRONTEND_VERSION, false);
     // 
     wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
     $currentUser = getCurrentUserGraphql();
@@ -156,7 +157,7 @@ add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 // 
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
+// add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
 function ncmazFrontend_registerScripts()
 {
     $manifestJS = false;
@@ -179,7 +180,7 @@ function ncmazFrontend_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">
@@ -190,7 +191,7 @@ function ncmaz_frontend_enqueue_script($hook)
     window.__vite_plugin_react_preamble_installed__ = true
 </script>';
 
-    wp_enqueue_script('@vite-client-js', 'http://localhost:3000/@vite/client', [], null, true);
-    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:3000/src/main.tsx', [], null, true);
+    wp_enqueue_script('@vite-client-js', 'http://localhost:3000/@vite/client', [], null, false);
+    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:3000/src/main.tsx', [], null, false);
 }
 // --------------------------------------------------------------------------------------

@@ -346,3 +346,10 @@ form.search-form {
     position: relative;
   }
 }
+
+// ----------------------header-notice-message
+.header-notice-message {
+  a {
+    @apply text-blue-500 underline;
+  }
+}

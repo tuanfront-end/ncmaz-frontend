@@ -10,7 +10,6 @@
     }
   }
   pre {
-    @apply dark:border dark:border-neutral-6000 overflow-x-auto;
     strong {
       color: inherit;
     }
@@ -20,7 +19,6 @@
 //
 .prose-sm {
   pre {
-    @apply dark:border dark:border-neutral-6000 overflow-x-auto;
     strong {
       color: inherit;
     }

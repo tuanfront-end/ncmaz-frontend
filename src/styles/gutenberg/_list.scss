@@ -4,13 +4,6 @@
   .wp-block-categories-list.aligncenter {
     text-align: left;
   }
-  ul {
-    li {
-      &::before {
-        @apply dark:bg-neutral-6000;
-      }
-    }
-  }
 
   .wp-block-latest-comments {
     @apply list-none;

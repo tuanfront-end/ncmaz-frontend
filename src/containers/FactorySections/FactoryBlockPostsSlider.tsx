@@ -87,7 +87,6 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   // ==================== GLIDE SLIDER SETTING ====================
   const perView = settings.itemPerView || 5;
   const sliderConfiguration = {
-    // @ts-ignore
     direction:
       document.querySelector("html")?.getAttribute("dir") === "rtl"
         ? "rtl"
@@ -117,11 +116,10 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       },
     },
   };
-  // @ts-ignore
-  const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
   useEffect(() => {
-    glideSlider.mount();
-  }, [data, glideSlider]);
+    // @ts-ignore
+    new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration).mount();
+  }, [data]);
 
   const renderPostComponent = (post: PostNode) => {
     switch (apiSettings.settings.postCardName) {

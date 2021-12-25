@@ -7,7 +7,13 @@
 //
 .site-logo {
   img {
-    max-width: 90px;
-    max-height: 50px;
+    max-width: 80px;
+    max-height: 40px;
+  }
+  @screen sm {
+    img {
+      max-width: 90px;
+      max-height: 48px;
+    }
   }
 }

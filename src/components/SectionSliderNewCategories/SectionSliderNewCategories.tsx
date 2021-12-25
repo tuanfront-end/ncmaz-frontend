@@ -37,11 +37,11 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 }) => {
   const UNIQUE_CLASS = "SectionSliderNewCategories" + ncNanoId();
   const sliderConfiguration = {
-    // @ts-ignore
     direction:
       document.querySelector("html")?.getAttribute("dir") === "rtl"
         ? "rtl"
         : "ltr",
+    //
     perView: itemPerRow,
     gap: 32,
     bound: true,
@@ -72,12 +72,10 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
     },
   };
 
-  // @ts-ignore
-  const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
-
   useEffect(() => {
-    glideSlider.mount();
-  }, [categories, glideSlider]);
+    // @ts-ignore
+    new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration).mount();
+  }, [categories]);
 
   const renderCard = (item: CategoriesEdge2, index: number) => {
     const topIndex = index < 3 ? `#${index + 1}` : undefined;
