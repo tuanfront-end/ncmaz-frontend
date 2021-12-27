@@ -1,6 +1,7 @@
-import FactoryBlockMagazine from "containers/FactorySections/FactoryBlockMagazine";
 import ErrorBoundary from "ErrorBoundary";
 import React, { Suspense } from "react";
+
+import FactoryBlockMagazine from "containers/FactorySections/FactoryBlockMagazine";
 
 const FactoryBlockPostsGridLazy = React.lazy(
   () => import("containers/FactorySections/FactoryBlockPostsGrid")

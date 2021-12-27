@@ -148,7 +148,7 @@ const PageArchive: FC<PageArchiveProps> = ({
     <div className={`nc-PageArchive ${className}`} data-nc-id="PageArchive">
       {/* HEADER */}
       <div className="w-full px-2 xl:max-w-screen-2xl mx-auto">
-        <div className="rounded-3xl relative aspect-w-16 aspect-h-16 sm:aspect-h-9 lg:aspect-h-8 xl:aspect-h-6 overflow-hidden ">
+        <div className="rounded-3xl relative aspect-w-16 aspect-h-12 sm:aspect-h-8 lg:aspect-h-7 xl:aspect-h-5 overflow-hidden ">
           <NcImage
             containerClassName="absolute inset-0"
             src={
@@ -158,11 +158,11 @@ const PageArchive: FC<PageArchiveProps> = ({
             className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-black text-white bg-opacity-30 flex flex-col items-center justify-center">
-            <h2 className="inline-block align-middle text-5xl font-semibold md:text-7xl ">
+            <h2 className="inline-block align-middle text-4xl sm:text-5xl font-semibold md:text-7xl ">
               {isTag ? "#" : ""}
               {termData.name}
             </h2>
-            <span className="block mt-4 text-neutral-300">
+            <span className="block mt-2 sm:mt-4 text-neutral-300">
               {`${termData.count || 0} ${NCMAZ_TRANSLATE["articles"]}`}
             </span>
           </div>
