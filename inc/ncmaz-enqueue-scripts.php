@@ -27,6 +27,15 @@ function addModuleTypeForScripts($tag, $handle, $src)
 }
 // =================================================================================
 
+// ENQUEUE FOR BACKEND EDITOR
+function ncmazFrontendEnqueueAdminStylesheet($hook)
+{
+    if ($hook !== 'post.php') {
+        return;
+    }
+    wp_enqueue_style('ncmazfrontend-mycustom-editor', _NCMAZ_FRONTEND_DIR_URL . 'dist/editor-css/mycustom.css', [], _NCMAZ_FRONTEND_VERSION, 'all');
+}
+add_action('admin_enqueue_scripts', 'ncmazFrontendEnqueueAdminStylesheet');
 
 
 function getCurrentUserGraphql()

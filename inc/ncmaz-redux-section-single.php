@@ -16,7 +16,19 @@ $section = array(
     'desc'       => esc_html__('General settings for single page', 'ncmaz-frontend'),
     'id'         => 'nc-single-page-settings--general',
     'subsection' => true,
-    'fields'     => array(),
+    'fields'     => [
+        [
+            'id'       => 'nc-single-page-settings--general-single-widget-opt',
+            'type'     => 'radio',
+            'title'    => esc_html__('Single-Widget Radio Option', 'ncmaz-frontend'),
+            'data'  => array(
+                'enable'    => 'Enable single-widget for all',
+                'disable'   => 'Disable single-widget for all',
+                'default'   => 'Default - Custom field setting'
+            ),
+            'default' => 'default'
+        ]
+    ],
 );
 Redux::set_section($opt_name, $section);
 

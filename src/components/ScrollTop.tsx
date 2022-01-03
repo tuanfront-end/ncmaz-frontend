@@ -37,6 +37,7 @@ const ScrollTop = () => {
       ref={ref}
       className={`ScrollTop w-10 h-10 bg-black/10 hover:bg-black/20 dark:bg-white/10 dark:hover:bg-white/20 items-center justify-center rounded-full text-xl fixed bottom-6 right-5 z-50 transition-opacity text-white dark:text-neutral-300`}
       onClick={handleClick}
+      style={{ display: "none" }}
     >
       <i className="las la-arrow-up"></i>
     </button>
