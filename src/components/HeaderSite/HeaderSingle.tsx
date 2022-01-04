@@ -42,9 +42,9 @@ const HeaderSingle = () => {
       document.body.scrollTop || document.documentElement.scrollTop;
 
     if (winScroll > 200) {
-      setIsSingleHeaderShowing(true);
+      !isSingleHeaderShowing && setIsSingleHeaderShowing(true);
     } else {
-      setIsSingleHeaderShowing(false);
+      isSingleHeaderShowing && setIsSingleHeaderShowing(false);
     }
   };
 

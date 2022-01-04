@@ -1,0 +1,3 @@
+import{M as r,O as a}from"./main.000f8665.js";import{_ as e,$ as n}from"./vendor.0f8da6c9.js";function o({graphQLvariables:o,graphQLData:s}){const t=!o&&!!s;let l="";"GQL_QUERY_GET_USERS_BY_SPECIFIC"===(null==o?void 0:o.queryString)&&(l=r),"GQL_QUERY_GET_USERS_BY_FILTER"===(null==o?void 0:o.queryString)&&(l=a);const i=t?"":e`
+        ${l}
+      `;let u,_,S,d=()=>{};if(t)u=s;else{const[r,a]=n(i,{notifyOnNetworkStatusChange:!0,variables:null==o?void 0:o.variables});d=r,u=a.data,_=a.loading,S=a.error}const E=(null==u?void 0:u.users.edges)||[];return{LISTS_DATA:E,IS_SKELETON:_&&!E.length,error:S,loading:_,funcGqlQueryGetUsers:d}}export{o as u};
