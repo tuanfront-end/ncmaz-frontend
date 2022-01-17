@@ -115,10 +115,15 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
         onOpenModal={handleClickOpen}
         triggerText={
           <span>
-            <span className="hidden sm:inline">Other</span> Categories
+            <span className="hidden sm:inline">
+              {NCMAZ_TRANSLATE["otherCategories"]}
+            </span>{" "}
+            <span className="inline sm:hidden">
+              {NCMAZ_TRANSLATE["categories"]}
+            </span>
           </span>
         }
-        modalTitle="Discover other categories"
+        modalTitle={NCMAZ_TRANSLATE["discoverOtherCategories"]}
         renderContent={renderModalContent}
       />
     </div>

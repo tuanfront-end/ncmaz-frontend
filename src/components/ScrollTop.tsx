@@ -19,6 +19,16 @@ const ScrollTop = () => {
       if (ref.current.style.display === "flex") {
         return;
       }
+
+      if (
+        Number(
+          document.querySelector(".nc-MediaRunningContainer")?.clientHeight
+        ) > 10
+      ) {
+        ref.current.style.bottom = "80px";
+      } else {
+        ref.current.style.bottom = "24px";
+      }
       ref.current.style.display = "flex";
     } else {
       if (ref.current.style.display === "none") {

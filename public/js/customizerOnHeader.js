@@ -8,7 +8,10 @@ jQuery(document).ready(function ($) {
       return;
     }
 
-    if (localStorage.getItem("ncHeaderNoticeMessage") === "isClosed") {
+    if (
+      localStorage.getItem("ncHeaderNoticeMessage") ===
+      JSON.stringify($(".header-notice-message").text() || "")
+    ) {
       $(".header-notice-message").remove();
     } else {
       $(".header-notice-message").addClass("flex");
@@ -17,8 +20,11 @@ jQuery(document).ready(function ($) {
 
     $(".header-notice-message__close").click(function (e) {
       e && e.preventDefault();
+      localStorage.setItem(
+        "ncHeaderNoticeMessage",
+        JSON.stringify($(".header-notice-message").text() || "")
+      );
       $(".header-notice-message").remove();
-      localStorage.setItem("ncHeaderNoticeMessage", "isClosed");
     });
   }
 });

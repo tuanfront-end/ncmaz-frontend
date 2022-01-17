@@ -26,6 +26,11 @@ let NCMAZ_TRANSLATE = {
   LikedArticles: "Liked Articles",
   suggestions: "Suggestions",
   somethingWentWrong: "Something went wrong",
+  other: "Other",
+  otherTags: "Other Tags",
+  otherCategories: "Other Categories",
+  discoverOtherTags: "Discover other tags",
+  discoverOtherCategories: "Discover other categories",
 };
 
 //

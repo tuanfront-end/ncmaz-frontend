@@ -113,10 +113,13 @@ const ModalTags: FC<ModalTagsProps> = () => {
         onOpenModal={handleClickOpen}
         triggerText={
           <span>
-            <span className="hidden sm:inline">Other</span> Tags
+            <span className="hidden sm:inline">
+              {NCMAZ_TRANSLATE["otherTags"]}
+            </span>{" "}
+            <span className="inline sm:hidden">{NCMAZ_TRANSLATE["tags"]}</span>
           </span>
         }
-        modalTitle="Discover other tags"
+        modalTitle={NCMAZ_TRANSLATE["discoverOtherTags"]}
         renderContent={renderModalContent}
       />
     </div>
