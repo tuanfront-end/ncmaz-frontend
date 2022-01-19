@@ -1,7 +1,7 @@
 import NcImage from "components/NcImage/NcImage";
 import NextPrev from "components/NextPrev/NextPrev";
 import NCMAZ_TRANSLATE from "contains/translate";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import debounce from "utils/debounce";
 
 export interface GallerySliderProps {
@@ -22,8 +22,12 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
   const [scrollIndex, setScrollIndex] = useState(0);
 
   useEffect(() => {
-    ncHorizontalSnapScroll();
-  }, [galleryImgs]);
+    ncHorizontalSnapScrollCallBack();
+  }, []);
+
+  const ncHorizontalSnapScrollCallBack = useCallback(ncHorizontalSnapScroll, [
+    galleryImgs,
+  ]);
 
   function ncHorizontalSnapScroll() {
     const gallery_scroller = galleryScrollerRef.current;
