@@ -182,21 +182,6 @@ $section = array(
     'desc'       => esc_html__('All setting translate for frontend', 'ncmaz-frontend'),
     'id'         => 'nc-general-settings--translate',
     'subsection' => true,
-    'fields'     => array(
-        [
-            'id'       => 'nc-general-settings--translate-js-editor',
-            'type'     => 'ace_editor',
-            'title'    => __('Translate JS code', 'ncmaz-frontend'),
-            'subtitle' => __('Change your translate text', 'ncmaz-frontend'),
-            'mode'     => 'javascript',
-            'theme'    => 'monokai',
-            'desc'     => 'Possible modes can be found at https://ace.c9.io/.',
-            'options'   => [
-                'minLines' => 22,
-                'maxLines' => 50
-            ],
-            'default'  => ""
-        ],
-    ),
+    'fields'     => array(),
 );
 Redux::set_section($opt_name, $section);
