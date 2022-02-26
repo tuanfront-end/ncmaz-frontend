@@ -125,7 +125,7 @@ const PageSearch: FC<PageSearchProps> = ({
                   <Input
                     id="ncmaz-search-input"
                     type="search"
-                    placeholder="Type and press enter"
+                    placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
                     sizeClass="pl-14 py-5 pr-5 md:pl-16"
                     defaultValue={searchText}
                   />

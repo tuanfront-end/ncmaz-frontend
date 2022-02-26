@@ -57,16 +57,21 @@ declare global {
     ];
   };
   //
+  var locales: Record<string, Record<string, string>>;
+  //
+  //
   var DATE_I18N: any;
   //
   var frontendObject: {
+    pll_current_language: string | null;
+    pll_themeoption_actived: string | null;
     restUrl: string;
     ajaxurl: string;
     stylesheetDirectory: string;
     placeholderImg: string;
     graphQLBasePath: string;
     homeURL: string;
-    frontendTranslate: Record<string, string>;
+    // frontendTranslate: Record<string, string>;
     currentUser?: User;
     currentObject: {
       id: number;

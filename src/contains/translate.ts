@@ -34,22 +34,44 @@ let NCMAZ_TRANSLATE = {
 };
 
 //
-try {
-  if (
-    frontendObject.frontendTranslate &&
-    typeof frontendObject.frontendTranslate === "string"
-  ) {
-    const jsF = JSON.parse(frontendObject.frontendTranslate);
+// try {
+//   if (
+//     frontendObject.frontendTranslate &&
+//     typeof frontendObject.frontendTranslate === "string"
+//   ) {
+//     const jsF = JSON.parse(frontendObject.frontendTranslate);
 
-    if (jsF && typeof jsF === "object") {
+//     if (jsF && typeof jsF === "object") {
+//       NCMAZ_TRANSLATE = {
+//         ...NCMAZ_TRANSLATE,
+//         ...jsF,
+//       };
+//     }
+//   }
+// } catch (error) {
+//   console.warn("----translate frontend file error ----", error);
+// }
+try {
+  //
+  if (!!window.locales && !!window.locales["DEFAULT"]) {
+    NCMAZ_TRANSLATE = {
+      ...NCMAZ_TRANSLATE,
+      ...(window.locales["DEFAULT"] as any),
+    };
+  }
+
+  //
+
+  if (!!window.locales && !!window.frontendObject.pll_current_language) {
+    if (window.locales[window.frontendObject.pll_current_language]) {
       NCMAZ_TRANSLATE = {
         ...NCMAZ_TRANSLATE,
-        ...jsF,
+        ...(window.locales[window.frontendObject.pll_current_language] as any),
       };
     }
   }
 } catch (error) {
-  console.warn("----translate frontend file error ----", error);
+  console.warn("----translate: locales files error format ----", error);
 }
 
 export default NCMAZ_TRANSLATE;

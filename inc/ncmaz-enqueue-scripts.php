@@ -168,7 +168,7 @@ function ncmazFrontend_enqueueScriptCustomize()
             'dateFormat'            => get_option('date_format'),
             'placeholderImg'        => get_template_directory_uri() . '/placeholder-small.png',
             'graphQLBasePath'       => get_site_url(null, '/graphql'),
-            'frontendTranslate'     => $ncmaz_redux_demo['nc-general-settings--translate-js-editor'],
+            // 'frontendTranslate'     => $ncmaz_redux_demo['nc-general-settings--translate-js-editor'],
             'socialsShare'          => $ncmaz_redux_demo['nc-general-settings--multi-socials-share'],
             'homeURL'               => get_site_url(),
             'currentUser'           => $currentUser ? $currentUser['data']['user'] : null,
@@ -176,6 +176,8 @@ function ncmazFrontend_enqueueScriptCustomize()
             'currentObject'         => [
                 'id'        => get_the_ID()
             ],
+            'pll_current_language'        => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
+            'pll_themeoption_actived'     => (function_exists('pll_current_language') && boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang'])) ? 'true' : null,
         )
     );
 
@@ -192,7 +194,7 @@ add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 //
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
+// add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
 function ncmazFrontend_registerScripts()
 {
     $manifestJS = false;
@@ -215,7 +217,7 @@ function ncmazFrontend_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

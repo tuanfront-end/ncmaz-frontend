@@ -17,7 +17,17 @@ $section = array(
     'desc'       => esc_html__('All setting general setting', 'ncmaz-frontend'),
     'id'         => 'nc-general-settings--general',
     'subsection' => true,
-    'fields'     => array(),
+    'fields'     => array(
+        [
+            'id'       => 'nc-general-settings--general-switch-polylang',
+            'type'     => 'switch',
+            'title'    => __('Active language (Polylang) in Graphql', 'ncmaz-frontend'),
+            'subtitle' => __('Enable/Disable LanguageCodeEnum in Graphql. Only compatible with Polylang plugin', 'ncmaz-frontend'),
+            'desc'     => __('If the theme has no need for multi-language (Polylang) then don\'t enable. <br>
+             The following plugins are required to use this feature: <a href="https://vi.wordpress.org/plugins/polylang/" target="_blank" rel="noopener noreferrer">Polylang</a>, <a href="https://wordpress.org/plugins/acf-options-for-polylang/" target="_blank" rel="noopener noreferrer">ACF Options for Polylang</a> ,<a href="https://www.wpgraphql.com/extenstion-plugins/wpgraphql-polylang/" target="_blank" rel="noopener noreferrer">WP GraphQL Polylang</a> ', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
+    ),
 );
 Redux::set_section($opt_name, $section);
 

@@ -739,7 +739,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'label' => 'Is Mega Menu',
                     'name' => 'is_mega_menu',
                     'type' => 'true_false',
-                    'instructions' => '',
+                    'instructions' => '(Only set/works to menu-location is Primary)',
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -849,7 +849,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     array(
                         'param' => 'nav_menu_item',
                         'operator' => '==',
-                        'value' => 'location/primary',
+                        'value' => 'all',
                     ),
                 ),
             ),
