@@ -5,7 +5,7 @@ import { PostNode } from "data/postCardType";
 export interface MediaRunningState {
   postData?: PostNode;
   state?: "loading" | "playing" | "paused" | "ended" | null;
-  listPostAudio?: PostNode[];
+  listAudioUrls?: string[];
 }
 
 const initialState: MediaRunningState = {};
@@ -34,14 +34,14 @@ export const mediaRunningSlice = createSlice({
     },
     removeMediaRunning: (state) => {
       return {
-        listPostAudio: state.listPostAudio,
+        listAudioUrls: state.listAudioUrls,
       };
     },
     //
-    addNewListPostAudio: (state, action: PayloadAction<PostNode>) => {
+    addNewListAudioUrls: (state, action: PayloadAction<string>) => {
       return {
         ...state,
-        listPostAudio: [...(state.listPostAudio || []), action.payload],
+        listAudioUrls: [...(state.listAudioUrls || []), action.payload],
       };
     },
   },
@@ -52,10 +52,22 @@ export const {
   changeCurrentMediaRunning,
   changeStateMediaRunning,
   removeMediaRunning,
-  addNewListPostAudio,
+  addNewListAudioUrls,
 } = mediaRunningSlice.actions;
 
 export const selectCurrentMediaRunning = (state: RootState) =>
   state.mediaRunning;
+
+export const selectCurrentAudioUrl = (state: RootState) =>
+  state.mediaRunning.postData?.ncmazAudioUrl.audioUrl;
+
+export const selectCurrentMediaState = (state: RootState) =>
+  state.mediaRunning.state;
+
+export const selectCurrentMediaPostData = (state: RootState) =>
+  state.mediaRunning.postData;
+
+export const selectCurrentMedialistAudioUrls = (state: RootState) =>
+  state.mediaRunning.listAudioUrls;
 
 export default mediaRunningSlice.reducer;
