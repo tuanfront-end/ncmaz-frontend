@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-import ReactDOM from "react-dom";
 import App from "./App";
 import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
@@ -11,6 +10,8 @@ import {
   HttpLink,
   from,
 } from "@apollo/client";
+import { createRoot } from "react-dom/client";
+
 import { RetryLink } from "@apollo/client/link/retry";
 import "./index.css";
 import "./styles/index.scss";
@@ -76,6 +77,8 @@ declare global {
     currentObject: {
       id: number;
     };
+    musicPlayerMediaSource: "html5" | "youtube" | "youtube-html5";
+    musicPlayerMode: "true" | null;
     socialsShare: string[];
     allSettings?: {
       discussionSettingsDefaultCommentStatus: string;
@@ -140,8 +143,10 @@ if (
     link: from([link, httpLink]),
   });
 
+  const container = document.getElementById("root") as HTMLElement;
+  const root = createRoot(container);
   //
-  ReactDOM.render(
+  root.render(
     <React.StrictMode>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
@@ -157,7 +162,6 @@ if (
           </ApolloProvider>
         </PersistGate>
       </Provider>
-    </React.StrictMode>,
-    document.getElementById("root")
+    </React.StrictMode>
   );
 }

@@ -4,6 +4,8 @@ import {
   changeStateMediaRunning,
   selectCurrentMediaState,
   selectCurrentMediaPostData,
+  removeMediaRunning,
+  selectCurrentMediaPlayerData,
 } from "app/mediaRunning/mediaRunning";
 import LoadingVideo from "components/LoadingVideo/LoadingVideo";
 import NcImage from "components/NcImage/NcImage";
@@ -13,7 +15,6 @@ import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDrop
 
 export interface PlayerContentProps {
   isError: boolean;
-  playedSeconds: number;
   handleSeekMouseUp: (
     e:
       | React.MouseEvent<HTMLInputElement, MouseEvent>
@@ -25,14 +26,8 @@ export interface PlayerContentProps {
       | React.TouchEvent<HTMLInputElement>
   ) => void;
   handleSeekChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  played: number;
-  loaded: number;
-  durationSeconds: number;
-  playbackRate: 1 | 1.5 | 2;
-  volume: number;
   handleVolumeChange: (e: number) => void;
   handleSetPlaybackRate: (e: 1 | 1.5 | 2) => void;
-  isMuted: boolean;
   handleSetMuted: (e: boolean) => void;
   handleClickBackwards10Sec: () => void;
   handleClickForwards15Sec: () => void;
@@ -40,18 +35,11 @@ export interface PlayerContentProps {
 
 const PlayerContent: FC<PlayerContentProps> = ({
   isError,
-  playedSeconds,
   handleSeekMouseUp,
   handleSeekMouseDown,
   handleSeekChange,
-  played,
-  loaded,
-  durationSeconds,
   handleVolumeChange,
-  volume,
-  playbackRate,
   handleSetPlaybackRate,
-  isMuted,
   handleSetMuted,
   handleClickBackwards10Sec,
   handleClickForwards15Sec,
@@ -63,6 +51,17 @@ const PlayerContent: FC<PlayerContentProps> = ({
 
   const mediaState = useAppSelector(selectCurrentMediaState);
   const post = useAppSelector(selectCurrentMediaPostData);
+  const currentMediaPlayerData = useAppSelector(selectCurrentMediaPlayerData);
+
+  const {
+    durationSeconds,
+    loaded,
+    muted,
+    playbackRate,
+    played,
+    playedSeconds,
+    volume,
+  } = currentMediaPlayerData;
 
   const getConvertTime = (sec: number) => {
     let minutes = Math.floor(sec / 60);
@@ -86,7 +85,8 @@ const PlayerContent: FC<PlayerContentProps> = ({
   };
 
   const handleClickClose = () => {
-    dispatch(changeStateMediaRunning(null));
+    // dispatch(changeStateMediaRunning(null));
+    dispatch(removeMediaRunning());
   };
 
   const renderLeft = () => {
@@ -96,10 +96,10 @@ const PlayerContent: FC<PlayerContentProps> = ({
 
     const { postId, featuredImage, title, link, ncPostMetaData } = post;
     return (
-      <div className="mr-2 flex items-center flex-grow lg:flex-shrink-0 lg:basis-48 ">
+      <div className="mr-2 flex items-center flex-grow lg:flex-shrink-0 basis-64 w-64 overflow-hidden lg:overflow-visible">
         <a
           href={link}
-          className="relative h-16 flex items-center space-x-3 pl-12"
+          className="relative h-16 flex items-center space-x-3 pl-12 overflow-hidden"
         >
           <NcImage
             containerClassName={`absolute left-0 w-12 h-12 flex-shrink-0 transform transition-transform will-change-transform nc-animation-spin rounded-full overflow-hidden ${
@@ -108,7 +108,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
             src={featuredImage?.node.sourceUrl}
             className="object-cover w-full h-full rounded-full shadow-md"
           />
-          <div className="flex-grow overflow-hidden max-w-xs">
+          <div className="flex-grow overflow-hidden ">
             <h3 className="text-base truncate">{title}</h3>
             <span className="block text-xs text-neutral-500 dark:text-neutral-400 truncate">
               {Math.floor((durationSeconds - playedSeconds) / 60)
@@ -407,10 +407,10 @@ const PlayerContent: FC<PlayerContentProps> = ({
               handleVolumeChange(0.8);
               return;
             }
-            handleSetMuted(!isMuted);
+            handleSetMuted(!muted);
           }}
         >
-          {!!volume && !isMuted && volume >= 0.5 && (
+          {!!volume && !muted && volume >= 0.5 && (
             <svg
               className="w-5 h-5 flex-shrink-0"
               viewBox="0 0 24 24"
@@ -438,7 +438,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
             </svg>
           )}
 
-          {!!volume && !isMuted && volume < 0.5 && (
+          {!!volume && !muted && volume < 0.5 && (
             <svg
               className="w-5 h-5 flex-shrink-0"
               viewBox="0 0 24 24"
@@ -459,7 +459,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
             </svg>
           )}
 
-          {(!volume || isMuted) && (
+          {(!volume || muted) && (
             <svg
               className="w-5 h-5 flex-shrink-0"
               viewBox="0 0 24 24"
@@ -519,13 +519,13 @@ const PlayerContent: FC<PlayerContentProps> = ({
           <div className="absolute left-0 top-1/2 h-0.5 min-w-0 w-full -translate-y-1/2 rounded-full bg-neutral-300 dark:bg-neutral-500"></div>
           <div
             className={`absolute h-0.5 min-w-0 left-0 top-1/2 -translate-y-1/2 rounded-full ${
-              !volume || isMuted ? "bg-neutral-400" : "bg-primary-500"
+              !volume || muted ? "bg-neutral-400" : "bg-primary-500"
             }`}
             style={{ width: volume * 100 + "%" }}
           >
             <span
               className={`absolute -right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full ${
-                !volume || isMuted ? "bg-neutral-400" : "bg-primary-500"
+                !volume || muted ? "bg-neutral-400" : "bg-primary-500"
               }`}
             ></span>
           </div>
@@ -537,7 +537,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
   const renderClose = () => {
     return (
       <button
-        className="flex-shrink-0 flex items-center justify-center rounded-full focus:outline-none focus:shadow-outline hover:bg-neutral-100 dark:hover:bg-black/10 w-10 h-10 md:w-12 md:h-12"
+        className="flex-shrink-0 flex items-center justify-center rounded-full focus:outline-none focus:shadow-outline hover:bg-neutral-100 dark:hover:bg-black/10 w-10 h-10 lg:w-12 lg:h-12"
         onClick={handleClickClose}
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
@@ -607,9 +607,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
           </svg>
         </div>
       </button>
-
       {renderDurationTime()}
-
       <div className="h-20 w-full flex justify-between">
         {/* LEFT */}
         {renderLeft()}
@@ -626,14 +624,13 @@ const PlayerContent: FC<PlayerContentProps> = ({
         </div>
 
         {/* RENDER RIGHT */}
-        <div className="ml-2 flex-shrink-0 lg:basis-48 lg:flex-grow flex items-center justify-end">
+        <div className="ml-2 flex-shrink-0 lg:basis-64 lg:flex-grow flex items-center justify-end">
           {renderVolumn()}
           {renderTiming()}
           {renderButtonControlMobile()}
           {renderClose()}
         </div>
       </div>
-
       <Transition
         className="h-16 flex lg:hidden justify-center border-t border-neutral-300 dark:border-neutral-700 transition-all will-change-transform "
         show={isShowContentOnMobile}
@@ -646,7 +643,12 @@ const PlayerContent: FC<PlayerContentProps> = ({
       >
         <div className="flex flex-grow items-center justify-evenly text-neutral-500 dark:text-neutral-300 max-w-xs sm:max-w-sm md:max-w-md ">
           <div className="w-12 flex justify-center">
-            {post && <PostCardDropdownShare href={post.link || ""} />}
+            {post && (
+              <PostCardDropdownShare
+                panelMenusClass="w-48 left-0 bottom-0 origin-bottom-left"
+                href={post.link || ""}
+              />
+            )}
           </div>
           {renderBackwards10S()}
           {renderButtonControl()}

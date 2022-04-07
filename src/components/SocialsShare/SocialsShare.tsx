@@ -97,7 +97,7 @@ const SocialsShare: FC<SocialsShareProps> = ({
             <WhatsappIcon round size={size} />
           </WhatsappShareButton>
         );
-      case "Linkedin":
+      case "LinkedIn":
         return (
           <LinkedinShareButton className={CLASSES} url={href}>
             <LinkedinIcon round size={size} />
@@ -213,6 +213,7 @@ const SocialsShare: FC<SocialsShareProps> = ({
         return null;
     }
   };
+  console.log(111, { SOCIALS_SHARE });
 
   return (
     <div className={`nc-SocialsShare ${className}`} data-nc-id="SocialsShare">

@@ -4,8 +4,8 @@ import {
   changeCurrentMediaRunning,
   changeStateMediaRunning,
   MediaRunningState,
-  addNewListAudioUrls,
-  selectCurrentMediaRunning,
+  selectCurrentMediaPostData,
+  selectCurrentMediaState,
 } from "app/mediaRunning/mediaRunning";
 import LoadingVideo from "components/LoadingVideo/LoadingVideo";
 import iconPlaying from "images/icon-playing.gif";
@@ -34,28 +34,10 @@ const ButtonPlayMusicRunningContainer: FC<
   renderLoadingBtn,
   renderPlayingBtn,
 }) => {
-  const currentMediaRunning = useAppSelector(selectCurrentMediaRunning);
+  const currentMediaState = useAppSelector(selectCurrentMediaState);
+  const currentMediaPostData = useAppSelector(selectCurrentMediaPostData);
   const dispatch = useAppDispatch();
-
   // STATE
-  const mediaState = currentMediaRunning.state;
-
-  const setAudioUrlToListUrls = () => {
-    // CHÍ UPLOAD 1 CÁI ĐẦU TIÊN
-    if (
-      currentMediaRunning.listAudioUrls &&
-      currentMediaRunning.listAudioUrls.length > 0
-    ) {
-      return;
-    }
-
-    if (!post || !post.ncmazAudioUrl.audioUrl) {
-      return;
-    }
-
-    // DAY LEN 1 BAI DE RENDER TRUOC PLAYER CHO IFRAME DO -- NEU KHONG SE KHONG HOAT DONG TREN SAFARI DUOC
-    dispatch(addNewListAudioUrls(post.ncmazAudioUrl.audioUrl));
-  };
 
   const handleClickNewAudio = () => {
     return dispatch(
@@ -69,7 +51,7 @@ const ButtonPlayMusicRunningContainer: FC<
   const handleClickNewAudioWhenMediaRunning = () => {
     if (
       post.ncmazAudioUrl.audioUrl ===
-      currentMediaRunning.postData?.ncmazAudioUrl.audioUrl
+      currentMediaPostData?.ncmazAudioUrl.audioUrl
     ) {
       return dispatch(
         changeCurrentMediaRunning({
@@ -88,20 +70,20 @@ const ButtonPlayMusicRunningContainer: FC<
 
   const handleClickButton = () => {
     // IF NOT EXIST MEDIA
-    if (!currentMediaRunning.postData || !currentMediaRunning.state) {
+    if (!currentMediaPostData || !currentMediaState) {
       return handleClickNewAudio();
     }
 
     // IF MEDIA RUNNING AND CLICK OTHER POST
-    if (currentMediaRunning.postData.id !== post.id) {
+    if (currentMediaPostData.id !== post.id) {
       return handleClickNewAudioWhenMediaRunning();
     }
 
-    if (currentMediaRunning.state === "playing") {
+    if (currentMediaState === "playing") {
       return dispatch(changeStateMediaRunning("paused"));
     }
 
-    if (currentMediaRunning.state === "loading") {
+    if (currentMediaState === "loading") {
       return;
     }
 
@@ -122,7 +104,7 @@ const ButtonPlayMusicRunningContainer: FC<
 
   const _renderLoadingBtn = () => {
     // RENDER DEFAULT IF IT NOT CURRENT
-    if (currentMediaRunning.postData?.id !== post.id) {
+    if (currentMediaPostData?.id !== post.id) {
       return _renderDefaultBtn();
     }
 
@@ -135,7 +117,7 @@ const ButtonPlayMusicRunningContainer: FC<
 
   const _renderPlayingBtn = () => {
     // RENDER DEFAULT IF IT NOT CURRENT
-    if (currentMediaRunning.postData?.id !== post.id) {
+    if (currentMediaPostData?.id !== post.id) {
       return _renderDefaultBtn();
     }
 
@@ -156,20 +138,21 @@ const ButtonPlayMusicRunningContainer: FC<
       className={`nc-ButtonPlayMusicRunningContainer select-none ${className}`}
       data-nc-id="ButtonPlayMusicRunningContainer"
       onClick={handleClickButton}
-      onMouseEnter={setAudioUrlToListUrls}
     >
       {renderChildren ? (
-        renderChildren(currentMediaRunning.postData?.id === post.id, mediaState)
+        renderChildren(currentMediaPostData?.id === post.id, currentMediaState)
       ) : (
         <>
-          {(!mediaState || mediaState === "paused" || mediaState === "ended") &&
+          {(!currentMediaState ||
+            currentMediaState === "paused" ||
+            currentMediaState === "ended") &&
             _renderDefaultBtn()}
 
           {/* LOADDING ICON */}
-          {mediaState === "loading" && _renderLoadingBtn()}
+          {currentMediaState === "loading" && _renderLoadingBtn()}
 
           {/* PLAYING ICON */}
-          {mediaState === "playing" && _renderPlayingBtn()}
+          {currentMediaState === "playing" && _renderPlayingBtn()}
         </>
       )}
     </div>

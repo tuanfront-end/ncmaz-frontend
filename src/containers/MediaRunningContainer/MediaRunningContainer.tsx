@@ -1,66 +1,96 @@
-import React, { FC, LegacyRef, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  LegacyRef,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from "react";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import {
+  changeDataPlayerMediaRunning,
   changeStateMediaRunning,
   selectCurrentAudioUrl,
+  selectCurrentMediaPlayerData,
   selectCurrentMediaState,
-  selectCurrentMediaPostData,
-  selectCurrentMedialistAudioUrls,
+  selectNewestAudioPlayerUrl,
 } from "app/mediaRunning/mediaRunning";
-import ReactPlayer from "react-player";
 import PlayerContent from "./PlayerContent";
 import _ from "lodash";
 import usePrevious from "react-use/lib/usePrevious";
+import ReactHtml5Player, { FilePlayerProps } from "react-player/file";
+import ReactYoutubePlayer, { YouTubePlayerProps } from "react-player/youtube";
 
 export interface MediaRunningContainerProps {
   className?: string;
 }
 
+const IS_IOS =
+  // @ts-ignore
+  /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+// SELECT YOUR MEDIA SOURCE : HTML5(MP3, MP4) OR YOUTUBE OR BOTH
+const MEDIA_SOURCE_FROM =
+  window.frontendObject.musicPlayerMediaSource || "html5";
+
 const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
   className = "",
 }) => {
-  const playerRef: LegacyRef<ReactPlayer> | undefined = useRef(null);
+  const playerRef:
+    | LegacyRef<ReactHtml5Player | ReactYoutubePlayer>
+    | undefined = useRef(null);
 
   const currentAudioUrl = useAppSelector(selectCurrentAudioUrl);
   const mediaRunningState = useAppSelector(selectCurrentMediaState);
-  const currentPostData = useAppSelector(selectCurrentMediaPostData);
-  const currentMedialistAudioUrls = useAppSelector(
-    selectCurrentMedialistAudioUrls
-  );
-
+  const currentMediaPlayerData = useAppSelector(selectCurrentMediaPlayerData);
+  const newestAudioPlayerUrl = useAppSelector(selectNewestAudioPlayerUrl);
   const prevAudioUrl = usePrevious(currentAudioUrl);
-
   const dispatch = useAppDispatch();
 
+  const {
+    durationSeconds,
+    muted,
+    playbackRate,
+    played,
+    playedSeconds,
+    volume,
+  } = currentMediaPlayerData;
+
   // STATE
-  const [durationSeconds, setDurationSeconds] = useState(0);
-  const [playedSeconds, setPlayedSeconds] = useState(0);
-  const [played, setPlayed] = useState(0);
-  const [loaded, setLoaded] = useState(0);
-  const [volume, setVolume] = useState(0.5);
-  const [playbackRate, setPlaybackRate] = useState<1 | 1.5 | 2>(1);
-  const [muted, setMuted] = useState(false);
   const [seeking, setSeeking] = useState(false);
-  const [isError, setIsError] = useState<boolean>(false);
-  //
-  const IS_NEW_AUDIO_URL = currentAudioUrl !== prevAudioUrl;
-  //
+  const [isError, setIsError] = useState(false);
+  const [isFirtTimeSeekTo, setIsFirtTimeSeekTo] = useState(false);
+
   //
   useEffect(() => {
-    if (!prevAudioUrl || IS_NEW_AUDIO_URL) {
+    // XỬ LÝ PHẦN NÀY DO LỖI PLAYER KHÔNG CHẠY ĐƯỢC ONPAUSE KHI LẦN ĐẦU CHẠY PLAYER VỚI DỮ LIỆU CŨ LƯU TRÊN REDUX
+    // VÌ VẬY MÌNH PHẢI TỰ HANDLE PAUSE
+    if (!newestAudioPlayerUrl && !!currentAudioUrl && !isFirtTimeSeekTo) {
+      if (mediaRunningState === "playing" || mediaRunningState === "paused") {
+        dispatch(changeStateMediaRunning("loading"));
+      }
+    }
+  }, [
+    newestAudioPlayerUrl,
+    currentAudioUrl,
+    mediaRunningState,
+    isFirtTimeSeekTo,
+  ]);
+
+  useEffect(() => {
+    if (!prevAudioUrl || currentAudioUrl === prevAudioUrl) {
       return;
     }
-
     setIsError(false);
-    setLoaded(0);
-    setPlayed(0);
-    setPlayedSeconds(0);
   }, [currentAudioUrl, prevAudioUrl]);
-  //
   //
 
   const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPlayed(parseFloat(e.currentTarget.value));
+    dispatch(
+      changeDataPlayerMediaRunning({
+        played: parseFloat(e.currentTarget.value),
+      })
+    );
   };
 
   const handleSeekMouseUp = (
@@ -86,108 +116,272 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
     playerRef.current?.seekTo(playedSeconds - 10 || 0, "seconds");
   };
 
-  const getAudioUrl = (): string => {
-    // LAY URL 1 DE RENDER TRUOC
-    if (!currentPostData) {
-      return currentMedialistAudioUrls ? currentMedialistAudioUrls[0] : "";
+  const getAudioUrl = (): {
+    html5: string;
+    youtube: string;
+    mediaSelected: "youtube" | "html5" | "none";
+  } => {
+    // BOTH YOUTUBE AND HTML5 SUPPORT
+    if (MEDIA_SOURCE_FROM === "youtube-html5") {
+      if (!currentAudioUrl) {
+        return {
+          html5: "none",
+          youtube: "https://www.youtube.com/watch?v=9xxxxxxxxxxx",
+          mediaSelected: "none",
+        };
+      }
+      if (currentAudioUrl.includes("https://www.youtube.com/")) {
+        return {
+          html5: "none",
+          youtube: currentAudioUrl,
+          mediaSelected: "youtube",
+        };
+      }
+      return {
+        html5: currentAudioUrl,
+        youtube: "https://www.youtube.com/watch?v=9xxxxxxxxxxx",
+        mediaSelected: "html5",
+      };
     }
 
-    // SAU KHI CLICK AUDIO THI LAY URL CUA POST
-    return currentAudioUrl || "";
+    // ONLY HTML5 SUPPORT
+    if (MEDIA_SOURCE_FROM === "html5") {
+      return {
+        html5: currentAudioUrl || "none",
+        youtube: "",
+        mediaSelected: "html5",
+      };
+    }
+
+    // ONLY YOUTUBE SUPPORT
+    return {
+      html5: "",
+      youtube:
+        currentAudioUrl || "https://www.youtube.com/watch?v=9xxxxxxxxxxx",
+      mediaSelected: "youtube",
+    };
   };
 
   const checkIsPlaying = (): boolean => {
-    if (!currentPostData) {
+    if (!currentAudioUrl) {
       return false;
     }
 
     return mediaRunningState === "loading" || mediaRunningState === "playing";
   };
 
-  const renderPlayer = () => {
-    return (
-      <ReactPlayer
-        width={0}
-        height={0}
-        style={{ display: "none" }}
-        controls
-        ref={playerRef}
-        url={getAudioUrl()}
-        playbackRate={playbackRate}
-        playing={checkIsPlaying()}
-        volume={volume}
-        muted={muted}
-        onEnded={() => {
-          dispatch(changeStateMediaRunning("ended"));
-          setLoaded(0.9999);
-          !seeking && setPlayed(0.9999);
-          setPlayedSeconds(durationSeconds);
-        }}
-        onReady={(e) => {
-          playerRef.current?.seekTo(0.0001);
-          // setDuration o day se co ket qua chinh xac hon tai onDuration
-          setDurationSeconds(e.getDuration());
-        }}
-        onStart={() => {
-          dispatch(changeStateMediaRunning("playing"));
-        }}
-        onPlay={() => {
-          mediaRunningState !== "playing" &&
-            dispatch(changeStateMediaRunning("playing"));
-        }}
-        onDuration={(e) => {
-          setDurationSeconds(e);
-        }}
-        onError={(error, data, hlsInstance, hlsGlobal) => {
-          if (error.code !== 20) {
-            console.log(789, "MyPlayer-error:", {
-              error,
-              data,
-              hlsInstance,
-              hlsGlobal,
-            });
-            setIsError(true);
-          }
-        }}
-        onProgress={(e) => {
-          if (mediaRunningState === "ended") {
-            return;
-          }
-          setLoaded(e.loaded);
-          !seeking && setPlayed(e.played);
-          setPlayedSeconds(e.playedSeconds);
-        }}
-      />
+  //
+  const onPause = () => {
+    if (!currentAudioUrl || mediaRunningState === "paused") {
+      return;
+    }
+    dispatch(changeStateMediaRunning("paused"));
+  };
+  const onEnded = () => {
+    dispatch(changeStateMediaRunning("ended"));
+    dispatch(
+      changeDataPlayerMediaRunning({
+        loaded: 0.9999,
+        playedSeconds: durationSeconds,
+        played: 0.9999,
+      })
     );
   };
+  const onReady = (e: FilePlayerProps | YouTubePlayerProps) => {
+    if (!currentAudioUrl) {
+      return;
+    }
 
-  return (
-    <div
-      className={`nc-MediaRunningContainer fixed bottom-0 inset-x-0 flex z-40 ${className}`}
-      data-nc-id="MediaRunningContainer"
-    >
+    !isFirtTimeSeekTo && setIsFirtTimeSeekTo(true);
+
+    // THUC HIEN KHI PLAYER CHAY NGAY SAU KHI PAGE RELOADED - CẦN SEEKING player ĐẾN ĐOẠN LOADED TRƯỚC ĐÓ
+    if (!newestAudioPlayerUrl && !isFirtTimeSeekTo) {
+      playerRef.current?.seekTo(played);
+      dispatch(changeStateMediaRunning("paused"));
+    } else if (mediaRunningState === "loading") {
+      dispatch(changeStateMediaRunning("playing"));
+    }
+
+    // setDuration o day se co ket qua chinh xac hon tai onDuration
+    dispatch(
+      changeDataPlayerMediaRunning({
+        durationSeconds: e.getDuration(),
+      })
+    );
+  };
+  const onPlay = () => {
+    mediaRunningState !== "playing" &&
+      dispatch(changeStateMediaRunning("playing"));
+  };
+  const onStart = () => {
+    dispatch(changeStateMediaRunning("playing"));
+  };
+  const onDuration = (e: number) => {
+    dispatch(
+      changeDataPlayerMediaRunning({
+        durationSeconds: e,
+      })
+    );
+  };
+  const onError = (error: any) => {
+    if (!!error.code && error.code !== 20) {
+      console.log(789, "MyPlayer-error:", {
+        error,
+      });
+      setIsError(true);
+    }
+  };
+  const onProgress = (e: {
+    played: number;
+    playedSeconds: number;
+    loaded: number;
+  }) => {
+    if (mediaRunningState === "ended" || !currentAudioUrl) {
+      return;
+    }
+    dispatch(
+      changeDataPlayerMediaRunning({
+        loaded: e.loaded,
+        playedSeconds: e.playedSeconds,
+      })
+    );
+    !seeking &&
+      dispatch(
+        changeDataPlayerMediaRunning({
+          played: e.played,
+        })
+      );
+  };
+  //
+  const myMemoYoutubePlayer = useMemo(() => {
+    if (MEDIA_SOURCE_FROM === "html5") {
+      return null;
+    }
+
+    const IS_ACTIVE_PLAYER = getAudioUrl().mediaSelected === "youtube";
+    return (
+      <ReactYoutubePlayer
+        url={getAudioUrl().youtube}
+        controls
+        style={{
+          opacity: 0,
+          zIndex: -1111,
+          visibility: "hidden",
+        }}
+        //SAME
+        ref={
+          IS_ACTIVE_PLAYER
+            ? (playerRef as LegacyRef<ReactYoutubePlayer>)
+            : undefined
+        }
+        onPause={IS_ACTIVE_PLAYER ? onPause : undefined}
+        playbackRate={IS_ACTIVE_PLAYER ? playbackRate : undefined}
+        playing={IS_ACTIVE_PLAYER ? checkIsPlaying() : undefined}
+        volume={volume}
+        muted={muted}
+        playsinline
+        onEnded={IS_ACTIVE_PLAYER ? onEnded : undefined}
+        onReady={IS_ACTIVE_PLAYER ? onReady : undefined}
+        onStart={IS_ACTIVE_PLAYER ? onStart : undefined}
+        onPlay={IS_ACTIVE_PLAYER ? onPlay : undefined}
+        onDuration={IS_ACTIVE_PLAYER ? onDuration : undefined}
+        onError={IS_ACTIVE_PLAYER ? onError : undefined}
+        onProgress={IS_ACTIVE_PLAYER ? onProgress : undefined}
+      />
+    );
+  }, [
+    currentAudioUrl,
+    mediaRunningState,
+    seeking,
+    playbackRate,
+    volume,
+    muted,
+    newestAudioPlayerUrl,
+    isFirtTimeSeekTo,
+  ]);
+
+  const myMemoHtml5Player = useMemo(() => {
+    if (MEDIA_SOURCE_FROM === "youtube") {
+      return null;
+    }
+
+    const IS_ACTIVE_PLAYER = getAudioUrl().mediaSelected === "html5";
+    return (
+      <ReactHtml5Player
+        url={getAudioUrl().html5}
+        controls
+        style={{
+          opacity: 0,
+          zIndex: -1111,
+          visibility: "hidden",
+        }}
+        // SAME
+        ref={
+          IS_ACTIVE_PLAYER
+            ? (playerRef as LegacyRef<ReactHtml5Player>)
+            : undefined
+        }
+        onPause={IS_ACTIVE_PLAYER ? onPause : undefined}
+        playbackRate={IS_ACTIVE_PLAYER ? playbackRate : undefined}
+        playing={IS_ACTIVE_PLAYER ? checkIsPlaying() : undefined}
+        volume={volume}
+        muted={muted}
+        playsinline
+        onEnded={IS_ACTIVE_PLAYER ? onEnded : undefined}
+        onReady={IS_ACTIVE_PLAYER ? onReady : undefined}
+        onStart={IS_ACTIVE_PLAYER ? onStart : undefined}
+        onPlay={IS_ACTIVE_PLAYER ? onPlay : undefined}
+        onDuration={IS_ACTIVE_PLAYER ? onDuration : undefined}
+        onError={IS_ACTIVE_PLAYER ? onError : undefined}
+        onProgress={IS_ACTIVE_PLAYER ? onProgress : undefined}
+      />
+    );
+  }, [
+    currentAudioUrl,
+    mediaRunningState,
+    seeking,
+    playbackRate,
+    volume,
+    muted,
+    newestAudioPlayerUrl,
+    isFirtTimeSeekTo,
+  ]);
+
+  //
+  const myMemoPlayerControls = useMemo(() => {
+    return (
       <PlayerContent
         isError={isError}
-        isMuted={muted}
-        handleSetMuted={(isMuted) => setMuted(isMuted)}
-        durationSeconds={durationSeconds}
-        playedSeconds={playedSeconds}
+        handleSetMuted={(isMuted) =>
+          dispatch(changeDataPlayerMediaRunning({ muted: isMuted }))
+        }
         handleSeekMouseUp={handleSeekMouseUp}
         handleSeekMouseDown={handleSeekMouseDown}
         handleSeekChange={handleSeekChange}
-        played={played}
-        loaded={loaded}
-        handleVolumeChange={(e) => setVolume(e)}
-        volume={volume}
-        playbackRate={playbackRate}
-        handleSetPlaybackRate={(e) => setPlaybackRate(e)}
+        handleVolumeChange={(e) =>
+          dispatch(changeDataPlayerMediaRunning({ volume: e }))
+        }
+        handleSetPlaybackRate={(e) =>
+          dispatch(changeDataPlayerMediaRunning({ playbackRate: e }))
+        }
         handleClickBackwards10Sec={_.debounce(onClickBackwards10Sec, 200)}
         handleClickForwards15Sec={_.debounce(onClickForwarkds15Sec, 200)}
       />
+    );
+  }, [isError]);
 
-      {/* PLAYER -- */}
-      <div className="hidden" hidden>
-        {renderPlayer()}
+  return (
+    <div
+      className={`nc-MediaRunningContainer w-full ${className}`}
+      data-nc-id="MediaRunningContainer"
+    >
+      {/* ---- PLAYER CONTROL ---- */}
+      {myMemoPlayerControls}
+
+      {/* ---- PLAYER ---- */}
+      <div className="fixed top-0 left-0 w-1 h-1 -z-50 opacity-0 overflow-hidden">
+        {myMemoYoutubePlayer}
+        {myMemoHtml5Player}
       </div>
     </div>
   );

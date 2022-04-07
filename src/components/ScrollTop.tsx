@@ -20,15 +20,6 @@ const ScrollTop = () => {
         return;
       }
 
-      if (
-        Number(
-          document.querySelector(".nc-MediaRunningContainer")?.clientHeight
-        ) > 10
-      ) {
-        ref.current.style.bottom = "80px";
-      } else {
-        ref.current.style.bottom = "24px";
-      }
       ref.current.style.display = "flex";
     } else {
       if (ref.current.style.display === "none") {
@@ -45,7 +36,9 @@ const ScrollTop = () => {
   return (
     <button
       ref={ref}
-      className={`ScrollTop w-10 h-10 bg-black/10 hover:bg-black/20 dark:bg-white/10 dark:hover:bg-white/20 items-center justify-center rounded-full text-xl fixed bottom-6 right-5 z-50 transition-opacity text-white dark:text-neutral-300`}
+      className={`ScrollTop flex-shrink-0 mb-2.5 mr-2.5 md:mb-5 md:mr-5 w-10 h-10 bg-black/10 
+      hover:bg-black/20 dark:bg-white/10 dark:hover:bg-white/20 
+      items-center justify-center rounded-full text-xl transition-opacity text-white dark:text-neutral-300`}
       onClick={handleClick}
       style={{ display: "none" }}
     >

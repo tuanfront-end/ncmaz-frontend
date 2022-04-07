@@ -63,7 +63,7 @@ $args = array(
     'global_variable'           => '',
 
     // Show the time the page took to load, etc.
-    'dev_mode'                  => true,
+    'dev_mode'                  => false,
 
     // Enable basic customizer support.
     'customizer'                => true,

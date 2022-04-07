@@ -207,7 +207,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
               }`}
             >
               {IS_SKELETON
-                ? Array.from(showTabFilter ? "88888888" : "8888888888").map(
+                ? Array.from(Array(Number(numberOfPosts) || 10).keys()).map(
                     (_, index) => <Card18Skeleton key={index} />
                   )
                 : POSTS.map((item) => (

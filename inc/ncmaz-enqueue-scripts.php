@@ -178,6 +178,8 @@ function ncmazFrontend_enqueueScriptCustomize()
             ],
             'pll_current_language'        => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
             'pll_themeoption_actived'     => (function_exists('pll_current_language') && boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang'])) ? 'true' : null,
+            'musicPlayerMode'           => $ncmaz_redux_demo['nc-general-settings--music-player-opt-switch'] ? "true" : null,
+            'musicPlayerMediaSource'      => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
         )
     );
 

@@ -24,14 +24,19 @@ function App() {
       <GutenbergSections />
 
       {/* ---------- */}
-      <ScrollTop />
 
-      {/* ---------- */}
-      <ErrorBoundary>
-        <Suspense fallback={<div />}>
-          <MediaRunningContainerLazy />
-        </Suspense>
-      </ErrorBoundary>
+      <div className="fixed bottom-0 inset-x-0 flex flex-col items-end z-30">
+        <ScrollTop />
+
+        {/* ---------- */}
+        {!!frontendObject.musicPlayerMode ? (
+          <ErrorBoundary>
+            <Suspense fallback={<div />}>
+              <MediaRunningContainerLazy />
+            </Suspense>
+          </ErrorBoundary>
+        ) : null}
+      </div>
     </>
   );
 }

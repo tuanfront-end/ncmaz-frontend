@@ -185,3 +185,35 @@ $section = array(
     'fields'     => array(),
 );
 Redux::set_section($opt_name, $section);
+
+// =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
+$section = array(
+    'title'      => esc_html__('Music Player', 'ncmaz-frontend'),
+    'desc'       => esc_html__('All setting for Music Player', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--music-player',
+    'subsection' => true,
+    'fields'     => array(
+        [
+            'id'       => 'nc-general-settings--music-player-opt-switch',
+            'type'     => 'switch',
+            'title'    => esc_html__('Switch On', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Music player on/off', 'ncmaz-frontend'),
+            'desc'      => __('Choose off if your site doesn\'t want to use the music player', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
+        [
+            'id'       => 'nc-general-settings--music-player-media-source',
+            'type'     => 'select',
+            'title'    => __('Select Meida source', 'ncmaz-frontend'),
+            'subtitle' => __('Select the source for your tracks', 'ncmaz-frontend'),
+            'desc' => __('Choose your source correctly, do not choose both options unless absolutely necessary  <br /> because then the performance of the player will not be as good as from only 1 source.', 'ncmaz-frontend'),
+            'options'  => [
+                'html5'              => 'Mp3/Mp4',
+                'youtube'            => 'Youtube',
+                'youtube-html5'      => 'Both options',
+            ],
+            'default'  => 'html5'
+        ],
+    ),
+);
+Redux::set_section($opt_name, $section);

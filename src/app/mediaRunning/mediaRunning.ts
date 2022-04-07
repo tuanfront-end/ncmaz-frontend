@@ -1,14 +1,43 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
 import { PostNode } from "data/postCardType";
+import persistReducer from "redux-persist/es/persistReducer";
+import storage from "redux-persist/lib/storage";
 
 export interface MediaRunningState {
   postData?: PostNode;
   state?: "loading" | "playing" | "paused" | "ended" | null;
-  listAudioUrls?: string[];
+  player: {
+    durationSeconds: number;
+    playedSeconds: number;
+    played: number;
+    loaded: number;
+    volume: number;
+    playbackRate: 1 | 2 | 1.5;
+    muted: boolean;
+  };
+  newestAudioPlayerUrl?: string;
 }
 
-const initialState: MediaRunningState = {};
+let initPlayer: MediaRunningState["player"] = {
+  durationSeconds: 0,
+  playedSeconds: 0,
+  played: 0,
+  loaded: 0,
+  volume: 0.5,
+  playbackRate: 1,
+  muted: false,
+};
+
+const initialState: MediaRunningState = {
+  player: initPlayer,
+};
+
+type KeysOfPlayerData = {
+  [K in keyof MediaRunningState["player"]]?: MediaRunningState["player"][K]; // so that it retains the types
+};
+
+type ChangeCurrentMedia = Pick<MediaRunningState, "postData" | "state">;
 
 export const mediaRunningSlice = createSlice({
   name: "mediaRunning",
@@ -16,11 +45,19 @@ export const mediaRunningSlice = createSlice({
   reducers: {
     changeCurrentMediaRunning: (
       state,
-      action: PayloadAction<MediaRunningState>
+      action: PayloadAction<ChangeCurrentMedia>
     ) => {
       return {
         ...state,
         ...action.payload,
+        player: {
+          ...state.player,
+          playedSeconds: 0,
+          played: 0,
+          loaded: 0,
+          playbackRate: 1,
+          durationSeconds: 0,
+        },
       };
     },
     changeStateMediaRunning: (
@@ -34,14 +71,27 @@ export const mediaRunningSlice = createSlice({
     },
     removeMediaRunning: (state) => {
       return {
-        listAudioUrls: state.listAudioUrls,
+        player: initPlayer,
+      };
+    },
+
+    changeNewestAudioPlayerUrl: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        newestAudioPlayerUrl: action.payload,
       };
     },
     //
-    addNewListAudioUrls: (state, action: PayloadAction<string>) => {
+    changeDataPlayerMediaRunning: (
+      state,
+      action: PayloadAction<KeysOfPlayerData>
+    ) => {
       return {
         ...state,
-        listAudioUrls: [...(state.listAudioUrls || []), action.payload],
+        player: {
+          ...(state.player || {}),
+          ...action.payload,
+        },
       };
     },
   },
@@ -51,12 +101,10 @@ export const mediaRunningSlice = createSlice({
 export const {
   changeCurrentMediaRunning,
   changeStateMediaRunning,
+  changeDataPlayerMediaRunning,
   removeMediaRunning,
-  addNewListAudioUrls,
+  changeNewestAudioPlayerUrl,
 } = mediaRunningSlice.actions;
-
-export const selectCurrentMediaRunning = (state: RootState) =>
-  state.mediaRunning;
 
 export const selectCurrentAudioUrl = (state: RootState) =>
   state.mediaRunning.postData?.ncmazAudioUrl.audioUrl;
@@ -67,7 +115,18 @@ export const selectCurrentMediaState = (state: RootState) =>
 export const selectCurrentMediaPostData = (state: RootState) =>
   state.mediaRunning.postData;
 
-export const selectCurrentMedialistAudioUrls = (state: RootState) =>
-  state.mediaRunning.listAudioUrls;
+export const selectCurrentMediaPlayerData = (state: RootState) =>
+  state.mediaRunning.player;
 
-export default mediaRunningSlice.reducer;
+export const selectNewestAudioPlayerUrl = (state: RootState) =>
+  state.mediaRunning.newestAudioPlayerUrl;
+
+const persistConfig = {
+  key: "mediaRunning",
+  storage: storage,
+  blacklist: ["newestAudioPlayerUrl"],
+};
+
+export default persistReducer(persistConfig, mediaRunningSlice.reducer);
+
+// export default mediaRunningSlice.reducer;
