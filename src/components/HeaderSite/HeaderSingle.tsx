@@ -1,51 +1,47 @@
 import React, { useState, useEffect } from "react";
+import _ from "lodash";
 
 // COMPOnent nay muc dich chi hide/show header va action voi single header
 const HeaderSingle = () => {
-  const headerSinglePage: HTMLElement | null = document.querySelector(
+  const headerSinglePage = document.querySelector<HTMLElement>(
     ".nc-SingleHeaderMenu"
   );
-  const progressBarRef: HTMLElement | null = document.querySelector(
+  const progressBarRef = document.querySelector<HTMLElement>(
     ".nc-SingleHeaderMenu__progress-bar"
   );
-  const entryContent = document.querySelector(
+  const entryContent = document.querySelector<HTMLElement>(
     "#ncmaz-single-entry-content"
-  ) as HTMLDivElement | null;
+  );
 
   if (!headerSinglePage) {
     return null;
   }
 
-  //
-  const [isSingleHeaderShowing, setIsSingleHeaderShowing] = useState(false);
-
-  useEffect(() => {
+  // -z-50 opacity-0 -translate-y-full
+  const _setIsSingleHeaderShowing = (isSingleHeaderShowing: boolean) => {
     if (isSingleHeaderShowing) {
-      headerSinglePage.classList.remove("hidden");
-      headerSinglePage.style.display = "block";
+      headerSinglePage.style.zIndex = "1";
+      headerSinglePage.style.opacity = "1";
       return;
     }
-    headerSinglePage.style.display = "none";
-  }, [isSingleHeaderShowing]);
+    headerSinglePage.style.zIndex = "-50";
+    headerSinglePage.style.opacity = "0";
+  };
 
   useEffect(() => {
+    //  BECAUSE DIV HAVE TRANSITION 100ms
     setTimeout(() => {
-      //  BECAUSE DIV HAVE TRANSITION 100ms
-      window.addEventListener("scroll", showHideSingleHeader);
-    }, 200);
+      window.addEventListener("scroll", function () {
+        window.requestAnimationFrame(handleProgressIndicator);
+      });
+      window.addEventListener("scroll", _.debounce(handleHeaderShowing, 100));
+    }, 100);
   }, []);
 
-  const showHideSingleHeader = () => {
-    handleProgressIndicator();
-    // SHOW _ HIDE SINGLE DESC MENU
+  const handleHeaderShowing = () => {
     let winScroll =
       document.body.scrollTop || document.documentElement.scrollTop;
-
-    if (winScroll > 200) {
-      !isSingleHeaderShowing && setIsSingleHeaderShowing(true);
-    } else {
-      isSingleHeaderShowing && setIsSingleHeaderShowing(false);
-    }
+    _setIsSingleHeaderShowing(winScroll > 400);
   };
 
   const handleProgressIndicator = () => {

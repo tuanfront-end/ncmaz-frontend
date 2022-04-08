@@ -27,6 +27,18 @@ $section = array(
              The following plugins are required to use this feature: <a href="https://vi.wordpress.org/plugins/polylang/" target="_blank" rel="noopener noreferrer">Polylang</a>, <a href="https://wordpress.org/plugins/acf-options-for-polylang/" target="_blank" rel="noopener noreferrer">ACF Options for Polylang</a> ,<a href="https://www.wpgraphql.com/extenstion-plugins/wpgraphql-polylang/" target="_blank" rel="noopener noreferrer">WP GraphQL Polylang</a> ', 'ncmaz-frontend'),
             'default'  => false,
         ],
+        [
+            'id'       => 'nc-general-settings--general-default-theme-mode',
+            'type'     => 'button_set',
+            'title'    => esc_html__('Set theme-mode default', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Select the default mode of the theme', 'ncmaz-frontend'),
+            'desc'     => esc_html__('The default mode will apply to first-time visitors or old visitors who have never clicked to the switch between modes.', 'ncmaz-frontend'),
+            'options' => array(
+                'light' => 'Light mode',
+                'dark' => 'Dark mode',
+            ),
+            'default' => 'light'
+        ]
     ),
 );
 Redux::set_section($opt_name, $section);

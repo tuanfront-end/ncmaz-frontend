@@ -27,7 +27,7 @@ const Card3SmallSkeleton: FC<Card3SmallSkeletonProps> = ({
         <div className={`w-full h-0 aspect-w-16 aspect-h-16`}>
           <NcImage
             containerClassName="absolute inset-0"
-            className="nc-will-change-transform object-cover w-full h-full group-hover:scale-110 transform transition-transform duration-300"
+            className="object-cover w-full h-full group-hover:scale-110 transform transition-transform duration-300"
             src={"."}
           />
         </div>

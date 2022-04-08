@@ -184,7 +184,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
         {mediaState === "loading" && (
           <LoadingVideo
             className="flex-shrink-0 transform scale-50 origin-center "
-            chilClassName="bg-neutral-500 dark:bg-neutral-100"
+            childClassName="bg-neutral-500 dark:bg-neutral-100"
           />
         )}
 
@@ -233,7 +233,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
         {/* LOADING */}
         {mediaState === "loading" && (
           <LoadingVideo
-            chilClassName="bg-neutral-500 dark:bg-neutral-100"
+            childClassName="bg-neutral-500 dark:bg-neutral-100"
             className="flex-shrink-0 transform scale-50 origin-center"
           />
         )}

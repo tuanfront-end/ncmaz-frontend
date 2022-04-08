@@ -47,7 +47,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
       <div className="md:absolute z-10 md:left-0 md:top-1/2 md:transform md:-translate-y-1/2 w-full -mt-8 md:mt-0 px-3 sm:px-6 md:px-0 md:w-3/5 lg:w-1/2 xl:w-2/5">
         <Transition.Child
           as={Fragment}
-          enter="transform nc-will-change-transform transition-all duration-500"
+          enter="transform transition-all duration-500"
           enterFrom="translate-y-4 opacity-0"
           enterTo="translate-y-0 opacity-100"
         >
@@ -78,7 +78,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
           <Transition.Child
             as="div"
             className="p-4 sm:pt-8 sm:px-10"
-            enter="transform nc-will-change-transform transition-all duration-500 delay-100"
+            enter="transform transition-all duration-500 delay-100"
             enterFrom="translate-y-4 opacity-0"
             enterTo="translate-y-0 opacity-100"
           >
@@ -95,7 +95,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
       <Transition.Child
         as="div"
         className="w-full md:w-4/5 lg:w-2/3"
-        enter="transform nc-will-change-transform transition-all duration-500 delay-200"
+        enter="transform transition-all duration-500 delay-200"
         enterFrom="translate-y-4 scale-105 opacity-0"
         enterTo="translate-y-0 scale-100 opacity-100"
       >

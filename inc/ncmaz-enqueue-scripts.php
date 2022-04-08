@@ -133,64 +133,66 @@ function getAllSettingsGraphql()
 // JAVASCRIPT
 function ncmazFrontend_enqueueScriptCustomize()
 {
+    global $wp_locale;
+    global $ncmaz_redux_demo;
+    $currentUser = getCurrentUserGraphql();
+    $allSettings = getAllSettingsGraphql();
+
     // STYLE
     wp_enqueue_style('glide-core', _NCMAZ_FRONTEND_DIR_URL . 'dist/css/glide.core.min.css', [], '3.5.2', 'all');
     //
     wp_enqueue_script('ncmaz-frontend-darkmode', _NCMAZ_FRONTEND_DIR_URL . 'public/js/darkmode.js', array(), _NCMAZ_FRONTEND_VERSION, false);
+    wp_add_inline_script('ncmaz-frontend-darkmode', 'window.ncmazFrontendDarkmode = ' . json_encode(
+        [
+            'defaultThemeMode'            => $ncmaz_redux_demo['nc-general-settings--general-default-theme-mode']
+        ]
+    ), 'before');
+    // 
     wp_enqueue_script('ncmaz-frontend-customizerOnHeader', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizerOnHeader.js', ['jquery'], _NCMAZ_FRONTEND_VERSION, false);
     //
     wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
-    $currentUser = getCurrentUserGraphql();
-    $allSettings = getAllSettingsGraphql();
-
-    global $wp_locale;
-    global $ncmaz_redux_demo;
 
     // =============
     $monthNames = array_map(array(&$wp_locale, 'get_month'), range(1, 12));
     $monthNamesShort = array_map(array(&$wp_locale, 'get_month_abbrev'), $monthNames);
     $dayNames = array_map(array(&$wp_locale, 'get_weekday'), range(0, 6));
     $dayNamesShort = array_map(array(&$wp_locale, 'get_weekday_abbrev'), $dayNames);
-    wp_localize_script("ncmaz-frontend-js", "DATE_I18N", array(
-        "month_names" => $monthNames,
-        "month_names_short" => $monthNamesShort,
-        "day_names" => $dayNames,
-        "day_names_short" => $dayNamesShort
-    ));
 
-    wp_localize_script(
-        'ncmaz-frontend-js',
-        'frontendObject',
-        array(
+    wp_add_inline_script('ncmaz-frontend-js', 'window.DATE_I18N = ' . json_encode(
+        [
+            "month_names" => $monthNames,
+            "month_names_short" => $monthNamesShort,
+            "day_names" => $dayNames,
+            "day_names_short" => $dayNamesShort
+        ]
+    ), 'before');
+
+    wp_add_inline_script('ncmaz-frontend-js', 'window.frontendObject = ' . json_encode(
+        [
             'ajaxurl'               => admin_url('admin-ajax.php'),
             'stylesheetDirectory'   => get_template_directory_uri(),
             'restUrl'               => get_rest_url(),
             'dateFormat'            => get_option('date_format'),
             'placeholderImg'        => get_template_directory_uri() . '/placeholder-small.png',
             'graphQLBasePath'       => get_site_url(null, '/graphql'),
-            // 'frontendTranslate'     => $ncmaz_redux_demo['nc-general-settings--translate-js-editor'],
             'socialsShare'          => $ncmaz_redux_demo['nc-general-settings--multi-socials-share'],
             'homeURL'               => get_site_url(),
             'currentUser'           => $currentUser ? $currentUser['data']['user'] : null,
             'allSettings'           => $allSettings ? $allSettings['data']['allSettings'] : null,
-            'currentObject'         => [
-                'id'        => get_the_ID()
-            ],
+            'currentObject'         => ['id'        => get_the_ID()],
             'pll_current_language'        => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
             'pll_themeoption_actived'     => (function_exists('pll_current_language') && boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang'])) ? 'true' : null,
-            'musicPlayerMode'           => $ncmaz_redux_demo['nc-general-settings--music-player-opt-switch'] ? "true" : null,
+            'musicPlayerMode'             => $ncmaz_redux_demo['nc-general-settings--music-player-opt-switch'] ? "true" : null,
             'musicPlayerMediaSource'      => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
-        )
-    );
+        ]
+    ), 'before');
 
-    wp_localize_script(
-        'ncmaz-frontend-js',
-        'ncmazFrontendVariables',
-        array(
+    wp_add_inline_script('ncmaz-frontend-js', 'window.ncmazFrontendVariables = ' . json_encode(
+        [
             'pluginDir' => _NCMAZ_FRONTEND_DIR_URL,
             'emptyStatePng' => _NCMAZ_FRONTEND_DIR_URL . 'public/images/empty.png'
-        )
-    );
+        ]
+    ), 'before');
 }
 add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 //
@@ -230,7 +232,7 @@ function ncmaz_frontend_enqueue_script($hook)
     window.__vite_plugin_react_preamble_installed__ = true
 </script>';
     // http://192.168.110.172:3000/
-    wp_enqueue_script('@vite-client-js', 'http://localhost:3000/@vite/client', [], null, false);
-    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:3000/src/main.tsx', [], null, false);
+    wp_enqueue_script('@vite-client-js', 'http://localhost:3000/@vite/client', [], null, true);
+    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:3000/src/main.tsx', [], null, true);
 }
 // --------------------------------------------------------------------------------------

@@ -2,6 +2,15 @@
 
 "use strict";
 
+if (!localStorage.theme) {
+  if (
+    window.frontendObject &&
+    window.frontendObject.defaultThemeMode === "dark"
+  ) {
+    localStorage.theme = "dark";
+  }
+}
+
 if (
   localStorage.theme === "dark" ||
   (!("theme" in localStorage) &&

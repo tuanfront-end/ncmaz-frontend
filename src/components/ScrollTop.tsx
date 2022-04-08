@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import debounce from "utils/debounce";
+import _ from "lodash";
 
 const ScrollTop = () => {
   const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    window.addEventListener("scroll", debounce(caculatorScroll, 300));
+    window.addEventListener("scroll", _.debounce(caculatorScroll, 500));
   }, []);
 
   function caculatorScroll() {

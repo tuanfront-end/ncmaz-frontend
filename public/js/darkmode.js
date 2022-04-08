@@ -2,12 +2,24 @@
 
 "use strict";
 
+if (!localStorage.theme) {
+  console.log(1111, window.frontendObject);
+
+  if (
+    ncmazFrontendDarkmode &&
+    ncmazFrontendDarkmode.defaultThemeMode === "dark"
+  ) {
+    localStorage.theme = "dark";
+  }
+}
+
 if (
   localStorage.theme === "dark" ||
   (!("theme" in localStorage) &&
     window.matchMedia("(prefers-color-scheme: dark)").matches)
 ) {
-  document.documentElement.classList.add("dark");
+  !document.documentElement.classList.contains("dark") &&
+    document.documentElement.classList.add("dark");
 } else {
   document.documentElement.classList.remove("dark");
 }

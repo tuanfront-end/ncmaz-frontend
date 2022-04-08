@@ -213,7 +213,6 @@ const SocialsShare: FC<SocialsShareProps> = ({
         return null;
     }
   };
-  console.log(111, { SOCIALS_SHARE });
 
   return (
     <div className={`nc-SocialsShare ${className}`} data-nc-id="SocialsShare">
