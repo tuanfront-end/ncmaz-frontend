@@ -1,48 +1,7 @@
 import NcDropDown, { NcDropDownItem } from "components/NcDropDown/NcDropDown";
+import SocialShareItem from "components/SocialShareItem";
 import React from "react";
 import { FC } from "react";
-import {
-  FacebookIcon,
-  FacebookShareButton,
-  TwitterShareButton,
-  TwitterIcon,
-  LinkedinIcon,
-  LinkedinShareButton,
-  PinterestIcon,
-  PinterestShareButton,
-  WhatsappIcon,
-  WhatsappShareButton,
-  MailruIcon,
-  TelegramShareButton,
-  TelegramIcon,
-  VKShareButton,
-  VKIcon,
-  OKShareButton,
-  OKIcon,
-  RedditShareButton,
-  RedditIcon,
-  TumblrShareButton,
-  TumblrIcon,
-  MailruShareButton,
-  LivejournalShareButton,
-  LivejournalIcon,
-  ViberShareButton,
-  ViberIcon,
-  WorkplaceShareButton,
-  WorkplaceIcon,
-  LineShareButton,
-  LineIcon,
-  WeiboShareButton,
-  WeiboIcon,
-  PocketShareButton,
-  PocketIcon,
-  InstapaperShareButton,
-  InstapaperIcon,
-  HatenaShareButton,
-  HatenaIcon,
-  EmailShareButton,
-  EmailIcon,
-} from "react-share";
 
 const SOCIALS_SHARE = frontendObject.socialsShare.map((item) => ({
   id: item,
@@ -91,171 +50,6 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
     );
   };
 
-  const renderSocialsItem = (item: NcDropDownItem, active: boolean) => {
-    const CLASSES = "flex items-center space-x-3 !px-3 !py-2 w-full";
-    switch (item.id) {
-      case "Facebook":
-        return (
-          <FacebookShareButton className={CLASSES} url={href}>
-            <FacebookIcon round size={24} />
-            <span>{item.name}</span>
-          </FacebookShareButton>
-        );
-      case "Twitter":
-        return (
-          <TwitterShareButton className={CLASSES} url={href}>
-            <TwitterIcon round size={24} />
-            <span>{item.name}</span>
-          </TwitterShareButton>
-        );
-      //
-      case "Telegram":
-        return (
-          <TelegramShareButton className={CLASSES} url={href}>
-            <TelegramIcon round size={24} />
-            <span>{item.name}</span>
-          </TelegramShareButton>
-        );
-      case "Whatsapp":
-        return (
-          <WhatsappShareButton url={href} className={CLASSES}>
-            <WhatsappIcon round size={24} />
-            <span>{item.name}</span>
-          </WhatsappShareButton>
-        );
-      case "Linkedin":
-        return (
-          <LinkedinShareButton className={CLASSES} url={href}>
-            <LinkedinIcon round size={24} />
-            <span>{item.name}</span>
-          </LinkedinShareButton>
-        );
-      case "Pinterest":
-        return (
-          <PinterestShareButton media="" className={CLASSES} url={href}>
-            <PinterestIcon round size={24} />
-            <span>{item.name}</span>
-          </PinterestShareButton>
-        );
-      //
-      case "VK":
-        return (
-          <VKShareButton className={CLASSES} url={href}>
-            <VKIcon round size={24} />
-            <span>{item.name}</span>
-          </VKShareButton>
-        );
-      //
-      case "Odnoklassniki":
-        return (
-          <OKShareButton className={CLASSES} url={href}>
-            <OKIcon round size={24} />
-            <span>{item.name}</span>
-          </OKShareButton>
-        );
-      //
-      case "Reddit":
-        return (
-          <RedditShareButton className={CLASSES} url={href}>
-            <RedditIcon round size={24} />
-            <span>{item.name}</span>
-          </RedditShareButton>
-        );
-      //
-      case "Tumblr":
-        return (
-          <TumblrShareButton className={CLASSES} url={href}>
-            <TumblrIcon round size={24} />
-            <span>{item.name}</span>
-          </TumblrShareButton>
-        );
-      //
-      case "MailRu":
-        return (
-          <MailruShareButton className={CLASSES} url={href}>
-            <MailruIcon round size={24} />
-            <span>{item.name}</span>
-          </MailruShareButton>
-        );
-      //
-      case "LiveJournal":
-        return (
-          <LivejournalShareButton className={CLASSES} url={href}>
-            <LivejournalIcon round size={24} />
-            <span>{item.name}</span>
-          </LivejournalShareButton>
-        );
-      //
-      case "Viber":
-        return (
-          <ViberShareButton className={CLASSES} url={href}>
-            <ViberIcon round size={24} />
-            <span>{item.name}</span>
-          </ViberShareButton>
-        );
-      //
-      case "Workplace":
-        return (
-          <WorkplaceShareButton className={CLASSES} url={href}>
-            <WorkplaceIcon round size={24} />
-            <span>{item.name}</span>
-          </WorkplaceShareButton>
-        );
-      //
-      case "Line":
-        return (
-          <LineShareButton className={CLASSES} url={href}>
-            <LineIcon round size={24} />
-            <span>{item.name}</span>
-          </LineShareButton>
-        );
-      //
-      case "Weibo":
-        return (
-          <WeiboShareButton className={CLASSES} url={href}>
-            <WeiboIcon round size={24} />
-            <span>{item.name}</span>
-          </WeiboShareButton>
-        );
-      //
-      case "Pocket":
-        return (
-          <PocketShareButton className={CLASSES} url={href}>
-            <PocketIcon round size={24} />
-            <span>{item.name}</span>
-          </PocketShareButton>
-        );
-      //
-      case "Instapaper":
-        return (
-          <InstapaperShareButton className={CLASSES} url={href}>
-            <InstapaperIcon round size={24} />
-            <span>{item.name}</span>
-          </InstapaperShareButton>
-        );
-      //
-      case "Hatena":
-        return (
-          <HatenaShareButton className={CLASSES} url={href}>
-            <HatenaIcon round size={24} />
-            <span>{item.name}</span>
-          </HatenaShareButton>
-        );
-      //
-      case "email":
-        return (
-          <EmailShareButton className={CLASSES} url={href}>
-            <EmailIcon round size={24} />
-            <span>{item.name}</span>
-          </EmailShareButton>
-        );
-      //
-
-      default:
-        return null;
-    }
-  };
-
   const renderItem = (item: NcDropDownItem, active: boolean) => {
     return (
       <div
@@ -265,7 +59,13 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
             : ""
         }`}
       >
-        {renderSocialsItem(item, active)}
+        <SocialShareItem
+          item={item}
+          href={href}
+          className="flex items-center space-x-3 !px-3 !py-2 w-full"
+          size={24}
+          hasName
+        />
       </div>
     );
   };

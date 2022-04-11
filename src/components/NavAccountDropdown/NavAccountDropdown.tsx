@@ -1,6 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
 import Avatar from "components/Avatar/Avatar";
-import NcDropDown from "components/NcDropDown/NcDropDown";
 import React, { FC, Fragment } from "react";
 import getAvatarUrlDefaultWordpress from "utils/getAvatarUrlWordpress";
 
@@ -52,7 +51,7 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-neutral-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-neutral-100  dark:divide-neutral-700 text-sm">
+        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-neutral-800 rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-neutral-100  dark:divide-neutral-700 text-sm">
           <div className="px-1 py-2">
             <a
               href={homeURL + currentUser?.uri}

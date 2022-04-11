@@ -3,9 +3,11 @@
 "use strict";
 
 if (!localStorage.theme) {
+  console.log(1111, window.frontendObject);
+
   if (
-    window.frontendObject &&
-    window.frontendObject.defaultThemeMode === "dark"
+    ncmazFrontendDarkmode &&
+    ncmazFrontendDarkmode.defaultThemeMode === "dark"
   ) {
     localStorage.theme = "dark";
   }
@@ -16,7 +18,8 @@ if (
   (!("theme" in localStorage) &&
     window.matchMedia("(prefers-color-scheme: dark)").matches)
 ) {
-  document.documentElement.classList.add("dark");
+  !document.documentElement.classList.contains("dark") &&
+    document.documentElement.classList.add("dark");
 } else {
   document.documentElement.classList.remove("dark");
 }

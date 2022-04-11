@@ -869,3 +869,28 @@ function ncmazFrontend_acf_add_local_field_groups()
 
     endif;
 }
+
+
+//  Set ACF default values for existing posts.
+add_action('admin_init', 'nc_set_default_acf_values');
+function nc_set_default_acf_values()
+{
+    if (!is_admin()) {
+        return;
+    }
+
+    $args = [
+        'post_type'      => 'post',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish'
+    ];
+    $posts = get_posts($args);
+    foreach ($posts as $post) {
+        if (empty(get_field('views_count', $post->ID))) {
+            update_field('views_count', 1, $post->ID);
+        }
+        if (empty(get_field('simplefavorites_count', $post->ID))) {
+            update_field('simplefavorites_count', 0, $post->ID);
+        }
+    }
+}

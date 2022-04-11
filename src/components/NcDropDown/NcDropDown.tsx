@@ -54,7 +54,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className={`absolute ${panelMenusClass} bg-white dark:bg-neutral-900 rounded-lg divide-y divide-neutral-100 shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 focus:outline-none z-40`}
+          className={`absolute ${panelMenusClass} bg-white dark:bg-neutral-900 rounded-2xl divide-y divide-neutral-100 shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 focus:outline-none z-40`}
         >
           <div className="px-1 py-2.5 text-sm text-neutral-6000 dark:text-neutral-300">
             {data.map((item) => (
