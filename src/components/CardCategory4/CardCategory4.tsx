@@ -49,7 +49,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
       data-nc-id="CardCategory4"
     >
       <div
-        className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-3xl overflow-hidden group`}
+        className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-3xl overflow-hidden z-0 group`}
       >
         <NcImage
           src={featuredImage?.sourceUrl || "."}

@@ -30,12 +30,7 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post }) => {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="block flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 rounded-t-xl overflow-hidden">
-        {/* <NcImage
-          containerClassName="absolute inset-0"
-          src={featuredImage?.node.sourceUrl || "."}
-        /> */}
-
+      <div className="block flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 rounded-t-xl overflow-hidden z-0">
         <div className="absolute inset-0">
           <PostFeaturedMedia post={post} isHover={isHover} />
         </div>

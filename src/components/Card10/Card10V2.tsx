@@ -20,7 +20,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = "h-full", post }) => {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden">
+      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden z-0">
         <div>
           <PostFeaturedMedia post={post} isHover={isHover} />
         </div>

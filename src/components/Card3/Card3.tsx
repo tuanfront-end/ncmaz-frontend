@@ -73,7 +73,7 @@ const Card3: FC<Card3Props> = ({ className = "", post }) => {
       <div className={`block flex-shrink-0 ml-5 w-20 sm:w-44 2xl:w-56 `}>
         <a
           href={link}
-          className={`w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-2xl overflow-hidden`}
+          className={`w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-2xl overflow-hidden z-0`}
         >
           <NcImage
             containerClassName="absolute inset-0"

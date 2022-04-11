@@ -20,7 +20,7 @@ const Card12: FC<Card12Props> = ({ className = "h-full", post }) => {
     >
       <a
         href={link}
-        className="block flex-shrink-0 flex-grow relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden"
+        className="block flex-shrink-0 flex-grow relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden z-0"
       >
         <NcImage
           containerClassName="absolute inset-0"

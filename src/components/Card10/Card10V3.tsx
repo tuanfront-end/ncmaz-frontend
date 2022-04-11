@@ -106,7 +106,7 @@ const Card10V3: FC<Card10V3Props> = ({
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden">
+      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden z-0">
         <div>
           {postFormats?.edges[0]?.node.slug !== "post-format-gallery" &&
           !!galleryImgs?.length ? (

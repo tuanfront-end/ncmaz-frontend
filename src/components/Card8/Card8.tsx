@@ -15,7 +15,7 @@ const Card8: FC<Card8Props> = ({ className = "h-full", post }) => {
 
   return (
     <div
-      className={`nc-Card8 group relative [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] overflow-hidden ${className}`}
+      className={`nc-Card8 group relative [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] overflow-hidden z-0 ${className}`}
       data-nc-id="Card8"
     >
       <SocialsShare

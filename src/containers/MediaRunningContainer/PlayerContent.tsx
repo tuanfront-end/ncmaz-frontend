@@ -96,13 +96,13 @@ const PlayerContent: FC<PlayerContentProps> = ({
 
     const { postId, featuredImage, title, link, ncPostMetaData } = post;
     return (
-      <div className="mr-2 flex items-center flex-grow lg:flex-shrink-0 basis-64 w-64 overflow-hidden lg:overflow-visible">
+      <div className="mr-2 flex items-center flex-grow lg:flex-shrink-0 basis-64 w-64 overflow-hidden z-0 lg:overflow-visible">
         <a
           href={link}
           className="relative h-16 flex items-center space-x-3 pl-12 overflow-hidden"
         >
           <NcImage
-            containerClassName={`absolute left-0 w-12 h-12 flex-shrink-0 transform transition-transform will-change-transform nc-animation-spin rounded-full overflow-hidden ${
+            containerClassName={`absolute left-0 w-12 h-12 flex-shrink-0 transform transition-transform nc-animation-spin rounded-full overflow-hidden z-0 ${
               mediaState === "playing" ? "playing" : ""
             }`}
             src={featuredImage?.node.sourceUrl}
@@ -576,7 +576,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
 
   return (
     <Transition
-      className="relative bg-white dark:bg-neutral-800 w-full flex flex-col px-2 sm:px-3 will-change-transform - nc-google-shadow"
+      className="relative bg-white dark:bg-neutral-800 w-full flex flex-col px-2 sm:px-3 - nc-google-shadow"
       show={!!post && !!post.ncmazAudioUrl.audioUrl && !!mediaState}
       enter="transition-transform duration-150"
       enterFrom="translate-y-full"
@@ -632,7 +632,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
         </div>
       </div>
       <Transition
-        className="h-16 flex lg:hidden justify-center border-t border-neutral-300 dark:border-neutral-700 transition-all will-change-transform "
+        className="h-16 flex lg:hidden justify-center border-t border-neutral-300 dark:border-neutral-700 transition-all "
         show={isShowContentOnMobile}
         enter="duration-150"
         enterFrom="-mb-16"

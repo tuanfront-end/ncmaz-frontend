@@ -26,7 +26,7 @@ const CardCategory1: FC<CardCategory1Props> = ({
       <NcImage
         containerClassName={`flex-shrink-0 ${
           size === "large" ? "w-20 h-20" : "w-12 h-12"
-        } rounded-lg mr-4 overflow-hidden`}
+        } rounded-lg mr-4 overflow-hidden z-0`}
         src={featuredImage?.sourceUrl || "."}
       />
       <div>

@@ -35,7 +35,7 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
       <header className="rounded-xl">
         <div className="relative grid grid-cols-3 sm:grid-cols-4 gap-2 my-10">
           <div
-            className="col-span-2 row-span-2 relative rounded-xl overflow-hidden cursor-pointer"
+            className="col-span-2 row-span-2 relative rounded-xl overflow-hidden z-0 cursor-pointer"
             onClick={() => handleOpenModal(0)}
           >
             <NcImage
@@ -48,7 +48,7 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
           {PHOTOS.filter((_, i) => i >= 1).map((item, index) => (
             <div
               key={index}
-              className={`relative rounded-xl overflow-hidden ${
+              className={`relative rounded-xl overflow-hidden z-0 ${
                 index >= 2 ? "hidden sm:block" : ""
               }`}
             >

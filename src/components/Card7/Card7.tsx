@@ -34,7 +34,7 @@ const Card7: FC<Card7Props> = ({
   const postType = postFormats?.edges[0]?.node.slug;
   return (
     <div
-      className={`nc-Card7 relative flex flex-col group rounded-3xl overflow-hidden ${hoverClass} ${className}`}
+      className={`nc-Card7 relative flex flex-col group rounded-3xl z-0 overflow-hidden ${hoverClass} ${className}`}
       data-nc-id="Card7"
     >
       {ncPostMetaData.favoriteButtonShortcode && (
@@ -46,7 +46,7 @@ const Card7: FC<Card7Props> = ({
       )}
       <a href={link} className={`flex items-start relative w-full ${ratio}`}>
         <NcImage
-          containerClassName="absolute inset-0 overflow-hidden"
+          containerClassName="absolute inset-0 overflow-hidden z-0"
           className="object-cover w-full h-full rounded-3xl "
           src={featuredImage?.node.sourceUrl || "."}
         />

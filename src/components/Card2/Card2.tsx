@@ -36,7 +36,7 @@ const Card2: FC<Card2Props> = ({
       className={`nc-Card2 group relative flex flex-col  [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] overflow-hidden ${className}`}
       data-nc-id="Card2"
     >
-      <span className="block flex-shrink-0 flex-grow relative w-full h-0 pt-[75%] sm:pt-[55%] rounded-xl sm:rounded-b-none overflow-hidden">
+      <span className="block flex-shrink-0 flex-grow relative w-full h-0 pt-[75%] sm:pt-[55%] rounded-xl sm:rounded-b-none overflow-hidden z-0">
         <NcImage
           containerClassName="absolute inset-0"
           src={featuredImage?.node.sourceUrl || "."}

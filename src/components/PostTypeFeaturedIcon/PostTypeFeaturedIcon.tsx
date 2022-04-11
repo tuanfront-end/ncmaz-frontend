@@ -159,7 +159,7 @@ const PostTypeFeaturedIcon: FC<PostTypeFeaturedIconProps> = ({
     >
       {!!postType && postType !== "Standard" && (
         <span
-          className={`bg-neutral-900 bg-opacity-60 rounded-full flex  items-center justify-center text-xl text-white border border-white ${wrapSize}`}
+          className={`bg-neutral-900 bg-opacity-60 rounded-full flex items-center justify-center text-xl text-white border border-white ${wrapSize}`}
         >
           {renderMediaIcon()}
         </span>

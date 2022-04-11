@@ -32,12 +32,12 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full", post }) => {
       <a
         href={link}
         title={title}
-        className={`block w-20 flex-shrink-0 relative rounded-lg overflow-hidden ml-4 group`}
+        className={`block w-20 flex-shrink-0 relative rounded-lg overflow-hidden ml-4 group z-0`}
       >
         <div className={`w-full h-0 aspect-w-16 aspect-h-16`}>
           <NcImage
             containerClassName="absolute inset-0"
-            className="nc-will-change-transform object-cover w-full h-full group-hover:scale-110 transform transition-transform duration-300"
+            className="object-cover w-full h-full group-hover:scale-110 transform transition-transform duration-300"
             src={featuredImage?.node.sourceUrl || "."}
             title={title}
           />

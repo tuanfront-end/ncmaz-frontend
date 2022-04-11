@@ -108,7 +108,7 @@ const MediaVideo: FC<MediaVideoProps> = ({
           <LoadingVideo />
         </div>
         <div
-          className={`absolute z-20 bottom-2 left-2 h-6 rounded-full bg-black bg-opacity-70 text-white flex items-center justify-center text-sm transform transition-transform nc-will-change-transform ${
+          className={`absolute z-20 bottom-2 left-2 h-6 rounded-full bg-black bg-opacity-70 text-white flex items-center justify-center text-sm transform transition-transform ${
             showDescUnmuted ? "pl-[6px] pr-2" : "w-6 hover:scale-125"
           }`}
           onClick={() => setIsMuted(!isMuted)}
@@ -141,7 +141,7 @@ const MediaVideo: FC<MediaVideoProps> = ({
       {!!videoUrl && !START_LOAD_VIDEO && (
         <span className="absolute inset-0 flex items-center justify-center ">
           <PostTypeFeaturedIcon
-            className="hover:scale-105 transform cursor-pointer transition-transform nc-will-change-transform"
+            className="hover:scale-105 transform cursor-pointer transition-transform "
             postType={"post-format-video"}
           />
         </span>

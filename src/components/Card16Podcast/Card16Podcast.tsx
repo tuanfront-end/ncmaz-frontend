@@ -71,7 +71,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
     >
       <a
         href={link}
-        className={`block flex-shrink-0 relative w-full rounded-3xl overflow-hidden ${ratio}`}
+        className={`block flex-shrink-0 relative w-full rounded-3xl overflow-hidden z-0 ${ratio}`}
       >
         <NcImage src={featuredImage?.node.sourceUrl || "."} />
         <span className="bg-neutral-900 bg-opacity-30"></span>

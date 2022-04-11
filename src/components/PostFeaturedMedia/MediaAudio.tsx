@@ -14,7 +14,7 @@ const MediaAudio: FC<MediaAudioProps> = ({ post }) => {
       return (
         <span className="absolute inset-0 flex items-center justify-center ">
           <PostTypeFeaturedIcon
-            className="hover:scale-105 transform cursor-pointer transition-transform nc-will-change-transform"
+            className="hover:scale-105 transform cursor-pointer transition-transform "
             postType={"post-format-audio"}
           />
         </span>

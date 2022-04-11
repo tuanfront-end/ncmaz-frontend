@@ -32,7 +32,7 @@ const Card11: FC<Card11Props> = ({
       onMouseLeave={() => setIsHover(false)}
     >
       <div
-        className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden ${ratio}`}
+        className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden z-0 ${ratio}`}
       >
         <div>
           <PostFeaturedMedia post={post} isHover={isHover} />

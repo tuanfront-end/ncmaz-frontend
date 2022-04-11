@@ -48,11 +48,11 @@ const HeaderSingleAudio: FC<HeaderSingleAudioProps> = ({
 
     return (
       <div
-        className={`aspect-w-1 aspect-h-1 rounded-full overflow-hidden shadow-2xl group cursor-pointer `}
+        className={`aspect-w-1 aspect-h-1 rounded-full overflow-hidden z-0 shadow-2xl group cursor-pointer `}
       >
         {featuredImage ? (
           <img
-            className={`w-full h-full object-cover group-hover:scale-105 transform transition-transform nc-will-change-transform nc-animation-spin ${
+            className={`w-full h-full object-cover group-hover:scale-105 transform transition-transform nc-animation-spin ${
               newState === "playing" ? "playing" : ""
             }`}
             src={featuredImage}
@@ -60,7 +60,7 @@ const HeaderSingleAudio: FC<HeaderSingleAudioProps> = ({
           />
         ) : (
           <div
-            className={`w-full h-full bg-neutral-300 group-hover:scale-105 transform transition-transform nc-will-change-transform nc-animation-spin ${
+            className={`w-full h-full bg-neutral-300 group-hover:scale-105 transform transition-transform nc-animation-spin ${
               newState === "playing" ? "playing" : ""
             }`}
           ></div>

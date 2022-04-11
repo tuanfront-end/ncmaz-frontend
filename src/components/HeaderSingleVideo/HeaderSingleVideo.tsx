@@ -19,7 +19,7 @@ const HeaderSingleVideo: FC<HeaderSingleVideoProps> = ({
     const [isPlay, setIsPlay] = useState(false);
 
     return (
-      <div className="aspect-w-16 aspect-h-16 sm:aspect-h-9 bg-neutral-800 rounded-3xl overflow-hidden border-4 border-white dark:border-neutral-900 sm:rounded-3xl shadow-2xl">
+      <div className="aspect-w-16 aspect-h-16 sm:aspect-h-9 bg-neutral-800 rounded-3xl overflow-hidden z-0 border-4 border-white dark:border-neutral-900 sm:rounded-3xl shadow-2xl">
         {isSafariBrowser() && !!featuredImage && !isPlay && (
           <div
             className="absolute inset-0 z-10 cursor-pointer rounded-[18px] overflow-hidden"
