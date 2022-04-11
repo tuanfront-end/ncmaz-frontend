@@ -101,14 +101,22 @@ export interface NcUserMeta {
     id: string;
     sourceUrl: string;
   };
-  //
-  twitterUrl?: string;
-  facebookUrl?: string;
-  instagramUrl?: string;
-  youtubeUrl?: string;
   backgroundImage?: {
     sourceUrl?: string;
   };
+  //
+  youtubeUrl?: string;
+  facebookUrl?: string;
+  mediumUrl?: string;
+  githubUrl?: string;
+  vimeoUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  pinterestUrl?: string;
+  twitchUrl?: string;
+  websiteUrl?: string;
+  buymeacoffeUrl?: string;
 }
 
 interface Avatar {

@@ -96,7 +96,7 @@ const PageSearch: FC<PageSearchProps> = ({
         </div>
         {/* CONTENT */}
         <div className="relative container -mt-20 lg:-mt-48">
-          <div className=" bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 p-5 lg:p-16 rounded-[40px] shadow-2xl flex items-center">
+          <div className=" bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 p-5 lg:p-12 rounded-[40px] shadow-2xl flex items-center">
             <header className="w-full max-w-3xl mx-auto text-center flex flex-col items-center">
               <h2 className="text-2xl sm:text-4xl font-semibold">
                 {searchText ? searchText : `" "`}
@@ -237,7 +237,7 @@ const PageSearch: FC<PageSearchProps> = ({
       {renderHeader()}
       {/* ====================== END HEADER ====================== */}
 
-      <div className="container py-16 lg:py-28 space-y-16 lg:space-y-28">
+      <div className="container py-16 lg:pb-28 lg:pt-24 space-y-16 lg:space-y-28">
         <div>
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">
             <Nav

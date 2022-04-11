@@ -170,7 +170,7 @@ const PageArchive: FC<PageArchiveProps> = ({
       </div>
       {/* ====================== END HEADER ====================== */}
 
-      <div className="container py-16 lg:py-28 space-y-16 lg:space-y-28">
+      <div className="container py-16 lg:pb-28 lg:pt-24 space-y-16 lg:space-y-28">
         <div>
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">
             <div className="flex space-x-2.5">

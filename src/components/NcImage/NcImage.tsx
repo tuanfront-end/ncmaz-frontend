@@ -28,7 +28,6 @@ const NcImage: FC<NcImageProps> = ({
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const _initActions = async () => {
-    // set__src(placeholderImage);
     _checkInViewPort();
   };
 
