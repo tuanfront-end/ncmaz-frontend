@@ -189,8 +189,8 @@ function ncmazFrontend_enqueueScriptCustomize()
 
     wp_add_inline_script('ncmaz-frontend-js', 'window.ncmazFrontendVariables = ' . json_encode(
         [
-            'pluginDir' => _NCMAZ_FRONTEND_DIR_URL,
-            'emptyStatePng' => _NCMAZ_FRONTEND_DIR_URL . 'public/images/empty.png'
+            'pluginDir'             => _NCMAZ_FRONTEND_DIR_URL,
+            'pluginDistImagesDir'   => _NCMAZ_FRONTEND_DIR_URL . 'dist/images/',
         ]
     ), 'before');
 }

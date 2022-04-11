@@ -28,7 +28,6 @@ import twitchpng from "images/IntegrationIcons/twitch.png";
 import twitterpng from "images/IntegrationIcons/twitter.png";
 import vimeopng from "images/IntegrationIcons/vimeo.png";
 import youtubepng from "images/IntegrationIcons/youtube.png";
-import buymeacoffeSvg from "images/buymeacoffee.svg";
 
 interface Data {
   posts: ListPosts;
@@ -302,7 +301,10 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
                   rel="noopener noreferrer"
                 >
                   <img
-                    src={buymeacoffeSvg}
+                    src={
+                      ncmazFrontendVariables.pluginDistImagesDir +
+                      "buymeacoffee.svg"
+                    }
                     alt="buy-me-a-coffee"
                     className="w-28 rounded-xl shadow-xl"
                   />
@@ -408,7 +410,10 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
                 title="buy-me-a-coffee"
               >
                 <img
-                  src={buymeacoffeSvg}
+                  src={
+                    ncmazFrontendVariables.pluginDistImagesDir +
+                    "buymeacoffee.svg"
+                  }
                   alt="buy-me-a-coffee"
                   className="w-36 rounded-xl shadow-xl hover:opacity-80 transition-opacity"
                 />

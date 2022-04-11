@@ -100,7 +100,8 @@ declare global {
   };
 
   var ncmazFrontendVariables: {
-    emptyStatePng: string;
+    pluginDir: string;
+    pluginDistImagesDir: string;
   };
 }
 

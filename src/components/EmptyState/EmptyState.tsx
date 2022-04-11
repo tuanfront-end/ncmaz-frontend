@@ -7,7 +7,7 @@ const EmptyState = () => {
       className={`inline-flex flex-col items-center justify-center text-center`}
     >
       <img
-        src={ncmazFrontendVariables.emptyStatePng}
+        src={ncmazFrontendVariables.pluginDistImagesDir + "empty.png"}
         className="w-36 sm:w-40"
         alt="empty state"
       />

@@ -6,7 +6,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   // change this line on dist/assets/main.js
-  // e = `${window.frontendObject.homeURL}/wp-content/plugins/ncmaz-frontend/dist/${e}`
+  // e = `${ncmazFrontendVariables.pluginDir}/wp-content/plugins/ncmaz-frontend/dist/${e}`
+  // t7 = `${ncmazFrontendVariables.pluginDir}dist/`
   base: "https://foooooooo.com/",
   build: {
     manifest: true,
@@ -14,7 +15,7 @@ export default defineConfig({
       input: "/src/main.tsx",
     },
   },
-  server: {
-    host: true,
-  },
+  // server: {
+  //   host: true,
+  // },
 });
