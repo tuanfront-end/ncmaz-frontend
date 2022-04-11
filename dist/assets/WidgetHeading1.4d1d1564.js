@@ -1,0 +1,1 @@
+import{d as e}from"./main.8b24c2f1.js";const a=({className:t="",title:r})=>e("div",{className:`nc-WidgetHeading1 flex items-center justify-between p-4 xl:p-5 border-b border-neutral-200 dark:border-neutral-700 ${t}`,"data-nc-id":"WidgetHeading1",children:e("h4",{className:"text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow",children:r})});export{a as W};
