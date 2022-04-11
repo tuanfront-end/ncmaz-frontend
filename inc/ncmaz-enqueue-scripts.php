@@ -141,16 +141,16 @@ function ncmazFrontend_enqueueScriptCustomize()
     // STYLE
     wp_enqueue_style('glide-core', _NCMAZ_FRONTEND_DIR_URL . 'dist/css/glide.core.min.css', [], '3.5.2', 'all');
     //
-    wp_enqueue_script('ncmaz-frontend-darkmode', _NCMAZ_FRONTEND_DIR_URL . 'public/js/darkmode.js', array(), _NCMAZ_FRONTEND_VERSION, false);
+    wp_enqueue_script('ncmaz-frontend-darkmode', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/darkmode.js', array(), _NCMAZ_FRONTEND_VERSION, false);
     wp_add_inline_script('ncmaz-frontend-darkmode', 'window.ncmazFrontendDarkmode = ' . json_encode(
         [
             'defaultThemeMode'            => $ncmaz_redux_demo['nc-general-settings--general-default-theme-mode']
         ]
     ), 'before');
     // 
-    wp_enqueue_script('ncmaz-frontend-customizerOnHeader', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizerOnHeader.js', ['jquery'], _NCMAZ_FRONTEND_VERSION, false);
+    wp_enqueue_script('ncmaz-frontend-customizerOnHeader', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizerOnHeader.js', ['jquery'], _NCMAZ_FRONTEND_VERSION, false);
     //
-    wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'public/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
+    wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
 
     // =============
     $monthNames = array_map(array(&$wp_locale, 'get_month'), range(1, 12));
