@@ -69,6 +69,10 @@ const ButtonPlayMusicRunningContainer: FC<
   };
 
   const handleClickButton = () => {
+    if (!window.frontendObject.musicPlayerMode) {
+      return;
+    }
+
     // IF NOT EXIST MEDIA
     if (!currentMediaPostData || !currentMediaState) {
       return handleClickNewAudio();

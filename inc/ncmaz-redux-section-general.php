@@ -211,7 +211,8 @@ $section = array(
             'title'    => esc_html__('Switch On', 'ncmaz-frontend'),
             'subtitle' => esc_html__('Music player on/off', 'ncmaz-frontend'),
             'desc'      => __('Choose off if your site doesn\'t want to use the music player', 'ncmaz-frontend'),
-            'default'  => false,
+            'default'  => true,
+            'disabled'  => true,
         ],
         [
             'id'       => 'nc-general-settings--music-player-media-source',
