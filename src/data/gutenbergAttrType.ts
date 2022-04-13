@@ -69,7 +69,13 @@ export interface GutenbergApiAttr_BlockTermSlider {
     heading: string;
     subHeading: string;
     hasBackground: boolean;
+    // slider settings =========================
     itemPerView: number;
+    sliderStartAt: number;
+    sliderAutoplayTime: number;
+    sliderHoverpause: boolean;
+    sliderAnimationDuration: number;
+    sliderRewind: boolean;
   };
 }
 // =========================_Block TERM SLider============================================
@@ -93,11 +99,17 @@ export interface GutenbergAttr__BlockUsersSlider {
   graphQLData?: ListUsersGQLResultData;
   settings: {
     userCardName: "card1" | "card2";
-    itemPerView: number;
     heading: string;
     blockLayoutStyle: "layout-1" | "layout-2";
     subHeading: string;
     hasBackground: boolean;
+    // slider settings =========================
+    itemPerView: number;
+    sliderStartAt: number;
+    sliderAutoplayTime: number;
+    sliderHoverpause: boolean;
+    sliderAnimationDuration: number;
+    sliderRewind: boolean;
   };
 }
 
@@ -144,13 +156,19 @@ export interface GutenbergApiAttr_BlockPostsSlider {
   settings: {
     blockLayoutStyle: "layout-1" | "layout-2";
     postCardName: string;
-    itemPerView: number;
     showFilterTab: boolean;
     viewMoreHref: string;
     heading: string;
     subHeading: string;
     hasBackground: boolean;
     categories: HeaderSectionFilterTabItem[];
+    // slider settings =========================
+    itemPerView: number;
+    sliderStartAt: number;
+    sliderAutoplayTime: number;
+    sliderHoverpause: boolean;
+    sliderAnimationDuration: number;
+    sliderRewind: boolean;
   };
 }
 

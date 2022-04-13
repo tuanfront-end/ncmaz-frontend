@@ -23,8 +23,13 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
   const { graphQLvariables, graphQLData, settings } = apiSettings;
   const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
-  const { IS_SKELETON, LIST_TERMS, error, funcGqlQueryGetTerms } =
-    useGutenbergSectionWithGQLGetTerms({ graphQLvariables, graphQLData });
+  const {
+    IS_SKELETON,
+    LIST_TERMS,
+    error,
+    funcGqlQueryGetTerms,
+    DONOT_ANY_THING,
+  } = useGutenbergSectionWithGQLGetTerms({ graphQLvariables, graphQLData });
 
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
@@ -35,8 +40,19 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
   }
 
   const renderContent = () => {
-    const { hasBackground, subHeading, heading, termCardName, itemPerView } =
-      settings;
+    const {
+      hasBackground,
+      subHeading,
+      heading,
+      termCardName,
+      //
+      itemPerView,
+      sliderAnimationDuration,
+      sliderAutoplayTime,
+      sliderHoverpause,
+      sliderRewind,
+      sliderStartAt,
+    } = settings;
     const isBg = hasBackground;
 
     return (
@@ -49,14 +65,22 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
         {isBg && <BackgroundSection />}
 
         <div className="relative">
-          <SectionSliderNewCategories
-            categories={LIST_TERMS}
-            heading={heading}
-            subHeading={subHeading}
-            categoryCardType={termCardName}
-            itemPerRow={itemPerView}
-            isLoading={IS_SKELETON}
-          />
+          {!DONOT_ANY_THING && (
+            <SectionSliderNewCategories
+              categories={LIST_TERMS}
+              heading={heading}
+              subHeading={subHeading}
+              categoryCardType={termCardName}
+              isLoading={IS_SKELETON}
+              //
+              itemPerView={itemPerView}
+              sliderAnimationDuration={sliderAnimationDuration}
+              sliderAutoplayTime={sliderAutoplayTime}
+              sliderHoverpause={sliderHoverpause}
+              sliderRewind={sliderRewind}
+              sliderStartAt={sliderStartAt}
+            />
+          )}
 
           {/* ------------ */}
           <DataStatementBlockV2

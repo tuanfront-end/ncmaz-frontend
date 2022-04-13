@@ -1,13 +1,12 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useDeferredValue, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { ListPosts, PostNode } from "data/postCardType";
+import { PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
 } from "components/HeaderSectionFilter/HeaderSectionFilter";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import Glide from "@glidejs/glide";
-import ncNanoId from "utils/ncNanoId";
 import Card4 from "components/Card4/Card4";
 import Card7 from "components/Card7/Card7";
 import Card9 from "components/Card9/Card9";
@@ -41,7 +40,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const UNIQUE_CLASS = "FactoryBlockPostsSlider" + ncNanoId();
+  const sliderRef = useRef(null);
   // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
   const { graphQLvariables, settings, graphQLData } = apiSettings;
   const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
@@ -52,6 +51,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
     loading,
     IS_SKELETON,
     LISTS_POSTS,
+    DONOT_ANY_THING,
     data,
     error,
     fetchMore,
@@ -86,12 +86,23 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
 
   // ==================== GLIDE SLIDER SETTING ====================
   const perView = settings.itemPerView || 5;
-  const sliderConfiguration = {
+  const sliderConfiguration: Glide.Options = {
+    // @ts-ignore
     direction:
       document.querySelector("html")?.getAttribute("dir") === "rtl"
         ? "rtl"
         : "ltr",
+    // data from gutenberg slider settings
     perView: perView,
+    startAt: IS_SKELETON || DONOT_ANY_THING ? 0 : settings.sliderStartAt,
+    hoverpause: settings.sliderHoverpause,
+    animationDuration: settings.sliderAnimationDuration || undefined,
+    rewind: settings.sliderRewind || true,
+    autoplay:
+      IS_SKELETON || DONOT_ANY_THING
+        ? false
+        : settings.sliderAutoplayTime || false,
+    // end data from gutenberg slider settings
     gap: 32,
     bound: true,
     breakpoints: {
@@ -116,10 +127,14 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       },
     },
   };
+
   useEffect(() => {
-    // @ts-ignore
-    new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration).mount();
-  }, [data]);
+    if (!sliderRef.current) {
+      return;
+    }
+
+    new Glide(sliderRef.current, sliderConfiguration).mount();
+  }, [data, sliderRef, settings]);
 
   const renderPostComponent = (post: PostNode) => {
     switch (apiSettings.settings.postCardName) {
@@ -226,7 +241,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       >
         {isBg && <BackgroundSection />}
 
-        <div className={`relative ${UNIQUE_CLASS}`}>
+        <div className={`relative `} ref={sliderRef}>
           {showFilterTab ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}

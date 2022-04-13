@@ -1,7 +1,6 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import Heading from "components/Heading/Heading";
 import Glide from "@glidejs/glide";
-import ncNanoId from "utils/ncNanoId";
 import CardAuthorBox2 from "components/CardAuthorBox2/CardAuthorBox2";
 import NextPrev from "components/NextPrev/NextPrev";
 import { AuthorNode } from "data/postCardType";
@@ -15,11 +14,17 @@ export interface SectionSliderNewAuthorsProps {
   subHeading: string;
   authorNodes: { node: AuthorNode }[];
   authorNodesLoading?: any[];
-  itemPerView: number;
   authorCardName: "card1" | "card2";
   blockLayoutStyle: "layout-1" | "layout-2";
   isLoading?: boolean;
   uniqueClass?: string;
+  //
+  itemPerView: number;
+  sliderAnimationDuration: number;
+  sliderAutoplayTime: number;
+  sliderHoverpause: boolean;
+  sliderRewind: boolean;
+  sliderStartAt: number;
 }
 
 const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
@@ -27,22 +32,36 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
   subHeading,
   className = "",
   authorNodes,
-  itemPerView = 5,
   authorCardName,
   blockLayoutStyle,
   isLoading,
   authorNodesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  itemPerView = 5,
+  sliderAnimationDuration,
+  sliderAutoplayTime,
+  sliderHoverpause,
+  sliderRewind,
+  sliderStartAt,
 }) => {
-  const UNIQUE_CLASS = "SectionSliderNewAuthors" + ncNanoId();
-  const sliderConfiguration = {
+  const sliderRef = useRef(null);
+
+  const sliderConfiguration: Glide.Options = {
+    // @ts-ignore
     direction:
       document.querySelector("html")?.getAttribute("dir") === "rtl"
         ? "rtl"
         : "ltr",
     //
-    perView: itemPerView,
     gap: 32,
     bound: true,
+    // data from gutenberg slider settings
+    perView: itemPerView,
+    startAt: sliderStartAt,
+    hoverpause: sliderHoverpause,
+    animationDuration: sliderAnimationDuration || undefined,
+    rewind: sliderRewind || true,
+    autoplay: sliderAutoplayTime || false,
+    // end data from gutenberg slider settings
     breakpoints: {
       1440: {
         gap: 24,
@@ -71,9 +90,20 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
   };
 
   useEffect(() => {
-    // @ts-ignore
-    new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration).mount();
-  }, [authorNodes]);
+    if (!sliderRef.current) {
+      return;
+    }
+    new Glide(sliderRef.current, sliderConfiguration).mount();
+  }, [
+    authorNodes,
+    sliderRef,
+    itemPerView,
+    sliderAnimationDuration,
+    sliderAutoplayTime,
+    sliderHoverpause,
+    sliderRewind,
+    sliderStartAt,
+  ]);
 
   const isLayout2 = blockLayoutStyle === "layout-2";
 
@@ -132,7 +162,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
 
   return (
     <div className={`nc-SectionSliderNewAuthors ${className}`}>
-      <div className={`${UNIQUE_CLASS}`}>
+      <div ref={sliderRef}>
         <Heading
           isCenter={!isLayout2}
           desc={subHeading}
@@ -143,7 +173,16 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
             {isLoading
-              ? null
+              ? authorNodesLoading.map((_, index) => (
+                  <li
+                    key={index}
+                    className={`glide__slide ${
+                      !isLayout2 ? "pb-12 md:pb-16" : ""
+                    }`}
+                  >
+                    {renderCardSkeleton()}
+                  </li>
+                ))
               : authorNodes.map((item, index) => (
                   <li
                     key={index}

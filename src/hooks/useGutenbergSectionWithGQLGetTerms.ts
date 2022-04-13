@@ -76,6 +76,7 @@ function useGutenbergSectionWithGQLGetTerms({
 
   const LIST_TERMS = data?.tags?.edges || data?.categories?.edges || [];
   const IS_SKELETON = loading && !LIST_TERMS.length;
+  const DONOT_ANY_THING = !data && !loading && !error;
 
   // =========================================================
   return {
@@ -85,6 +86,7 @@ function useGutenbergSectionWithGQLGetTerms({
     loading,
     error,
     funcGqlQueryGetTerms,
+    DONOT_ANY_THING,
   };
 }
 

@@ -23,8 +23,13 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
   const { graphQLvariables, graphQLData, settings } = apiSettings;
   const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
-  const { funcGqlQueryGetUsers, IS_SKELETON, LISTS_DATA, error } =
-    useGutenbergSectionWithGQLGetUsers({ graphQLvariables, graphQLData });
+  const {
+    funcGqlQueryGetUsers,
+    IS_SKELETON,
+    LISTS_DATA,
+    error,
+    DONOT_ANY_THING,
+  } = useGutenbergSectionWithGQLGetUsers({ graphQLvariables, graphQLData });
 
   // =========================================================
   //
@@ -40,9 +45,15 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
       hasBackground,
       subHeading,
       heading,
-      itemPerView,
       userCardName,
       blockLayoutStyle,
+      //
+      itemPerView,
+      sliderAnimationDuration,
+      sliderAutoplayTime,
+      sliderHoverpause,
+      sliderRewind,
+      sliderStartAt,
     } = settings;
 
     return (
@@ -56,15 +67,23 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
 
         <div className="relative">
           {/* ------------ */}
-          <SectionSliderNewAuthors
-            authorCardName={userCardName}
-            blockLayoutStyle={blockLayoutStyle}
-            itemPerView={itemPerView}
-            authorNodes={LISTS_DATA}
-            heading={heading}
-            subHeading={subHeading}
-            isLoading={IS_SKELETON}
-          />
+          {!DONOT_ANY_THING && (
+            <SectionSliderNewAuthors
+              authorCardName={userCardName}
+              blockLayoutStyle={blockLayoutStyle}
+              authorNodes={LISTS_DATA}
+              heading={heading}
+              subHeading={subHeading}
+              isLoading={IS_SKELETON}
+              //
+              itemPerView={itemPerView}
+              sliderAnimationDuration={sliderAnimationDuration}
+              sliderAutoplayTime={sliderAutoplayTime}
+              sliderHoverpause={sliderHoverpause}
+              sliderRewind={sliderRewind}
+              sliderStartAt={sliderStartAt}
+            />
+          )}
 
           {/* ------------ */}
           <DataStatementBlockV2

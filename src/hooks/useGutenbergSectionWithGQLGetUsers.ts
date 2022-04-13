@@ -68,6 +68,7 @@ function useGutenbergSectionWithGQLGetUsers({
 
   const LISTS_DATA = data?.users.edges || [];
   const IS_SKELETON = loading && !LISTS_DATA.length;
+  const DONOT_ANY_THING = !data && !loading && !error;
 
   return {
     LISTS_DATA,
@@ -75,6 +76,7 @@ function useGutenbergSectionWithGQLGetUsers({
     error,
     loading,
     funcGqlQueryGetUsers,
+    DONOT_ANY_THING,
   };
 }
 

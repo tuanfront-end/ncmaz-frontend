@@ -99,12 +99,15 @@ function useGutenbergSectionWithGQLGetPosts({
   // =========================================================
   const LISTS_POSTS = data?.posts.edges || [];
   const IS_SKELETON = loading && !LISTS_POSTS.length;
+  // SECTION CHUA LAM GI/HOAC CHUA VAO VIEW
+  const DONOT_ANY_THING = !data && !loading && !error;
 
   //
   // =========================================================
   return {
     IS_SKELETON,
     LISTS_POSTS,
+    DONOT_ANY_THING,
     fetchMore,
     error,
     loading,

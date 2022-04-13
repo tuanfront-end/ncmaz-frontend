@@ -1,7 +1,15 @@
 import { Alert } from "components/Alert/Alert";
 import NCMAZ_TRANSLATE from "contains/translate";
 import React from "react";
-class ErrorBoundary extends React.Component {
+
+interface MyProps {
+  children?: React.ReactNode;
+}
+interface MyState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends React.Component<MyProps, MyState> {
   constructor(props: any) {
     super(props);
     this.state = { hasError: false };
@@ -18,7 +26,6 @@ class ErrorBoundary extends React.Component {
   }
 
   render() {
-    // @ts-ignore
     if (this.state.hasError) {
       return (
         <div className="max-w-xs xl:max-w-lg">

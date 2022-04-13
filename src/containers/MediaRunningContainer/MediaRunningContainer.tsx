@@ -126,7 +126,7 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
       if (!currentAudioUrl) {
         return {
           html5: "none",
-          youtube: "https://www.youtube.com/watch?v=9xxxxxxxxxxx",
+          youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
           mediaSelected: "none",
         };
       }
@@ -139,7 +139,7 @@ const MediaRunningContainer: FC<MediaRunningContainerProps> = ({
       }
       return {
         html5: currentAudioUrl,
-        youtube: "https://www.youtube.com/watch?v=9xxxxxxxxxxx",
+        youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
         mediaSelected: "html5",
       };
     }
