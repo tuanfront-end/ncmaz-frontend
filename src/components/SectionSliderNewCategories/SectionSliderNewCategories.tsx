@@ -58,11 +58,11 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
     bound: true,
     // data from gutenberg slider settings
     perView: itemPerView,
-    startAt: sliderStartAt,
+    startAt: isLoading ? 0 : sliderStartAt,
     hoverpause: sliderHoverpause,
     animationDuration: sliderAnimationDuration || undefined,
     rewind: sliderRewind || true,
-    autoplay: sliderAutoplayTime || false,
+    autoplay: isLoading ? false : sliderAutoplayTime || false,
     // end data from gutenberg slider settings
     breakpoints: {
       1440: {
@@ -96,7 +96,10 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
       return;
     }
 
-    new Glide(sliderRef.current, sliderConfiguration).mount();
+    const slider = new Glide(sliderRef.current, sliderConfiguration);
+    slider.mount();
+    // @ts-ignore
+    return () => slider.destroy();
   }, [
     categories,
     sliderRef,

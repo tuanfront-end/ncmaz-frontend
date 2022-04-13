@@ -133,7 +133,10 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       return;
     }
 
-    new Glide(sliderRef.current, sliderConfiguration).mount();
+    const slider = new Glide(sliderRef.current, sliderConfiguration);
+    slider.mount();
+    // @ts-ignore
+    return () => slider.destroy();
   }, [data, sliderRef, settings]);
 
   const renderPostComponent = (post: PostNode) => {
