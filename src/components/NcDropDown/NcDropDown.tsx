@@ -1,5 +1,11 @@
 import { DotsHorizontalIcon } from "@heroicons/react/solid";
-import React, { FC, Fragment, ReactNode } from "react";
+import React, {
+  FC,
+  Fragment,
+  JSXElementConstructor,
+  ReactElement,
+  ReactNode,
+} from "react";
 import { Menu, Transition } from "@headlessui/react";
 import twFocusClass from "utils/twFocusClass";
 
@@ -14,8 +20,8 @@ export interface NcDropDownProps {
   panelMenusClass?: string;
   iconClass?: string;
   data: NcDropDownItem[];
-  renderTrigger?: () => ReactNode;
-  renderItem?: (item: NcDropDownItem, active: boolean) => ReactNode;
+  renderTrigger?: () => JSX.Element;
+  renderItem?: (item: NcDropDownItem, active: boolean) => JSX.Element;
   title?: string;
   onClick: (item: NcDropDownItem) => void;
 }

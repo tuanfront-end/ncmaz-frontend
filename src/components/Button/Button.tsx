@@ -1,4 +1,9 @@
-import React, { ButtonHTMLAttributes, FC, ReactHTMLElement } from "react";
+import React, {
+  ButtonHTMLAttributes,
+  FC,
+  ReactHTMLElement,
+  ReactNode,
+} from "react";
 import twFocusClass from "utils/twFocusClass";
 
 export interface ButtonProps {
@@ -13,6 +18,7 @@ export interface ButtonProps {
   href?: string;
   targetBlank?: boolean;
   onClick?: (e: React.MouseEvent<any, MouseEvent>) => void;
+  children: ReactNode;
 }
 
 const Button: FC<ButtonProps> = ({

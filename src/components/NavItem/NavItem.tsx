@@ -7,6 +7,7 @@ export interface NavItemProps {
   onClick?: () => void;
   isActive?: boolean;
   renderX?: ReactNode;
+  children?: ReactNode;
 }
 
 const NavItem: FC<NavItemProps> = ({

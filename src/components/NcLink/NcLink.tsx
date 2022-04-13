@@ -4,6 +4,7 @@ export interface NcLinkProps {
   className?: string;
   colorClass?: string;
   href?: string;
+  children: React.ReactNode;
 }
 
 const NcLink: FC<NcLinkProps> = ({

@@ -7,6 +7,7 @@ export interface LayoutPageProps {
   heading: string;
   headingEmoji?: string;
   subHeading?: string;
+  children: React.ReactNode;
 }
 
 const LayoutPage: FC<LayoutPageProps> = ({
