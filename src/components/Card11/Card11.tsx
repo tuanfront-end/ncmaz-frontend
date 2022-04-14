@@ -31,6 +31,7 @@ const Card11: FC<Card11Props> = ({
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
+      <a href={link} className="block absolute inset-0"></a>
       <div
         className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden z-0 ${ratio}`}
       >
@@ -41,7 +42,6 @@ const Card11: FC<Card11Props> = ({
       <span className="absolute top-3 inset-x-3 z-10">
         <CategoryBadgeList categories={categories} />
       </span>
-      <a href={link} className="absolute inset-0"></a>
 
       <div className="p-4 h-full flex flex-col flex-grow">
         {!hiddenAuthor ? (

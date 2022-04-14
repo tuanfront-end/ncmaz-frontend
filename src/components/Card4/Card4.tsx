@@ -30,10 +30,9 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post }) => {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
+      <a href={link} className="absolute block inset-0 "></a>
+
       <div className="block flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 rounded-t-xl overflow-hidden z-0">
-        <div className="absolute inset-0">
-          <PostFeaturedMedia post={post} isHover={isHover} />
-        </div>
         <div>
           {ncPostMetaData.favoriteButtonShortcode && (
             <PostCardLikeAction
@@ -43,9 +42,11 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post }) => {
             />
           )}
         </div>
-      </div>
 
-      <a href={link} className="absolute inset-0"></a>
+        <div className="absolute inset-0">
+          <PostFeaturedMedia post={post} isHover={isHover} />
+        </div>
+      </div>
 
       <div className="p-4 flex flex-col flex-grow">
         <div className="space-y-2.5 mb-4">

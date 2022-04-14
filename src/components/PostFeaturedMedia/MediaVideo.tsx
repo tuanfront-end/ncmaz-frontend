@@ -8,6 +8,7 @@ import ReactPlayer from "react-player";
 
 export interface MediaVideoProps {
   videoUrl?: string;
+  postLink: string;
   isHover: boolean;
   featuredImage: PostNode["featuredImage"];
 }
@@ -16,6 +17,7 @@ const MediaVideo: FC<MediaVideoProps> = ({
   videoUrl,
   isHover,
   featuredImage,
+  postLink,
 }) => {
   let _timeOut: any | null = null;
   const videoRef = useRef(null);
@@ -100,6 +102,7 @@ const MediaVideo: FC<MediaVideoProps> = ({
             setIsPlaying(() => true);
           }}
         />
+        <a className="absolute block inset-0" href={postLink}></a>
         <div
           className={`${
             isPlaying ? "opacity-0 hidden" : "opacity-100"

@@ -6,9 +6,10 @@ import debounce from "utils/debounce";
 
 export interface GallerySliderProps {
   galleryImgs: string[];
+  postLink: string;
 }
 
-const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
+const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs, postLink }) => {
   const galleryScrollerRef = useRef<HTMLDivElement>(null);
   const btnNextRef = useRef<HTMLDivElement>(null);
   const btnPrevRef = useRef<HTMLDivElement>(null);
@@ -98,9 +99,13 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs }) => {
         ref={galleryScrollerRef}
       >
         {galleryImgs.map((item, index) => (
-          <div className=" h-full w-full flex-shrink-0 " key={index}>
+          <a
+            href={postLink}
+            className="block h-full w-full flex-shrink-0 "
+            key={index}
+          >
             <NcImage src={item} containerClassName="w-full h-full" />
-          </div>
+          </a>
         ))}
       </div>
       {/*  */}

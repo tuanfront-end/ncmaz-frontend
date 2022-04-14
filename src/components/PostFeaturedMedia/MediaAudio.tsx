@@ -31,11 +31,14 @@ const MediaAudio: FC<MediaAudioProps> = ({ post }) => {
 
   return (
     <div>
-      <NcImage
-        containerClassName="absolute inset-0"
-        src={post.featuredImage?.node.sourceUrl || "."}
-      />
       {renderContent()}
+
+      <a className="block absolute inset-0" href={post.link}>
+        <NcImage
+          containerClassName="absolute inset-0"
+          src={post.featuredImage?.node.sourceUrl || "."}
+        />
+      </a>
     </div>
   );
 };

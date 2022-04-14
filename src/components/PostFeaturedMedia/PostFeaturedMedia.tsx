@@ -17,7 +17,8 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
   post,
   isHover = false,
 }) => {
-  const { featuredImage, postFormats, ncmazVideoUrl, ncmazGalleryImgs } = post;
+  const { featuredImage, postFormats, ncmazVideoUrl, ncmazGalleryImgs, link } =
+    post;
 
   const postType = postFormats?.edges[0]?.node?.slug;
 
@@ -36,7 +37,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
       <Fragment>
         <NcImage containerClassName="absolute inset-0" src={"."} />
         {/* <a href={link}> */}
-        <GallerySlider galleryImgs={galleryImgs} />
+        <GallerySlider galleryImgs={galleryImgs} postLink={link} />
         {/* </a> */}
       </Fragment>
     );
@@ -55,6 +56,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
           featuredImage={featuredImage}
           isHover={isHover}
           videoUrl={ncmazVideoUrl.videoUrl}
+          postLink={link}
         />
       );
     }
@@ -66,12 +68,12 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
 
     // DEFAULT - OTHER
     return (
-      <div className="absolute inset-0">
+      <a href={link} className="absolute inset-0">
         <NcImage
           containerClassName="absolute inset-0"
           src={featuredImage?.node.sourceUrl || "."}
         />
-      </div>
+      </a>
     );
   };
 

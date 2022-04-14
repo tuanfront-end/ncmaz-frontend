@@ -27,10 +27,10 @@ const Card10V2: FC<Card10V2Props> = ({ className = "h-full", post }) => {
 
         <a
           href={link}
-          className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 transition-opacity"
+          className="absolute block inset-0 bg-neutral-900 bg-opacity-20 opacity-0 transition-opacity"
         ></a>
       </div>
-      <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4">
+      <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4 z-10">
         <CategoryBadgeList categories={categories} />
         <PostCardLikeAction
           postId={postId}
