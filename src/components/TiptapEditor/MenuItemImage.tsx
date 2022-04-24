@@ -1,0 +1,179 @@
+import { Tab } from "@headlessui/react";
+import ButtonPrimary from "components/Button/ButtonPrimary";
+import ButtonThird from "components/Button/ButtonThird";
+import Input from "components/Input/Input";
+import Label from "components/Label/Label";
+import NcModal from "components/NcModal/NcModal";
+import React, { FC, ReactNode, useState } from "react";
+import { EditorItemImageAttrs } from "./MenuBar";
+
+interface MenuItemImageProps {
+  action: ({ url, alt, title }: EditorItemImageAttrs) => void;
+  isActive?: () => boolean;
+  icon: string;
+  title: string;
+}
+
+const MenuItemImage: FC<MenuItemImageProps> = ({
+  action,
+  isActive,
+  title,
+  icon,
+}) => {
+  let [isOpen, setIsOpen] = useState(true);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  let [catImages] = useState(["Inset from Url", "Upload"]);
+
+  const renderContent = () => {
+    return (
+      <div>
+        <div className="relative flex flex-col px-5 py-6 space-y-5">
+          {renderTabsTimeFlightTab()}
+        </div>
+        <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+          <ButtonThird onClick={closeModal} sizeClass="px-4 py-2 sm:px-5">
+            Cancel
+          </ButtonThird>
+          <ButtonPrimary onClick={closeModal} sizeClass="px-4 py-2 sm:px-5">
+            Apply
+          </ButtonPrimary>
+        </div>
+      </div>
+    );
+  };
+
+  const renderInsertFromUrl = () => {
+    return (
+      <div>
+        <div>
+          <Label>Image URL</Label>
+          <Input
+            className="mt-1"
+            rounded="rounded-xl"
+            type={"text"}
+            placeholder="Paste or type URL"
+          />
+        </div>
+        <div className="mt-5">
+          <Label>Alt text (alternative text)</Label>
+          <Input className="mt-1" rounded="rounded-xl" type={"text"} />
+        </div>
+      </div>
+    );
+  };
+  const renderInsertFromUpload = () => {
+    return (
+      <div>
+        <span className="text-base font-semibold">Upload image</span>
+        <label htmlFor="file-upload-2" className="block mt-3 cursor-pointer  ">
+          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-md">
+            <div className="space-y-1 text-center">
+              <svg
+                className="mx-auto h-12 w-12 text-neutral-400"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+              >
+                <path
+                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></path>
+              </svg>
+              <div className="flex text-sm text-neutral-6000 dark:text-neutral-300">
+                <label className="relative cursor-pointer  rounded-md font-medium text-primary-6000 dark:text-primary-400 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500">
+                  <span>Upload a file</span>
+                  <input
+                    id="file-upload-2"
+                    name="fileUpload"
+                    type="file"
+                    className="sr-only"
+                  />
+                </label>
+                <p className="pl-1">or drag and drop</p>
+              </div>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                PNG, JPG, GIF, WEBP, SVG ...
+              </p>
+            </div>
+          </div>
+        </label>
+      </div>
+    );
+  };
+
+  const renderTabsTimeFlightTab = () => {
+    return (
+      <div>
+        <Tab.Group>
+          <Tab.List className="flex p-1 space-x-1 bg-primary-900/10 dark:bg-primary-100/10 rounded-xl">
+            {catImages.map((category) => (
+              <Tab
+                key={category}
+                className={({ selected }) =>
+                  `w-full py-2.5 text-sm leading-5 font-medium rounded-lg focus:outline-none focus:ring-2 ring-offset-2 
+                  ring-offset-blue-400 ring-white/60 dark:ring-black/0 ${
+                    selected
+                      ? "bg-white dark:bg-neutral-900 text-primary-700 dark:text-primary-100 shadow"
+                      : " hover:bg-white/[0.15] dark:hover:bg-black/[0.15] text-neutral-6000 dark:text-primary-200 "
+                  }`
+                }
+              >
+                {category}
+              </Tab>
+            ))}
+          </Tab.List>
+          <Tab.Panels className="mt-2">
+            {catImages.map((posts, idx) => {
+              return (
+                <Tab.Panel
+                  key={idx}
+                  className={`bg-neutral-50 dark:bg-black/10 rounded-xl p-4 space-y-8 focus:outline-none 
+                  focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white/60 dark:ring-black/0`}
+                >
+                  {!idx ? renderInsertFromUrl() : renderInsertFromUpload()}
+                  {/* <span className=" text-neutral-6000 dark:text-neutral-300 text-sm">
+                    {idx ? " Tokyo to Singapore" : " Singapore to Tokyo"}
+                  </span> */}
+                </Tab.Panel>
+              );
+            })}
+          </Tab.Panels>
+        </Tab.Group>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <button
+        className={`menu-item${isActive && isActive() ? " is-active" : ""}`}
+        title={title}
+        onClick={openModal}
+      >
+        <div dangerouslySetInnerHTML={{ __html: icon }}></div>
+      </button>
+      <NcModal
+        contentPaddingClass=""
+        isOpenProp={isOpen}
+        onCloseModal={closeModal}
+        contentExtraClass="max-w-screen-md"
+        renderContent={renderContent}
+        renderTrigger={() => null}
+        modalTitle="Add Image"
+      />
+    </>
+  );
+};
+
+export default MenuItemImage;

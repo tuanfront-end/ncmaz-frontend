@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import {
   changeCurrentMediaRunning,
+  changeNewestAudioPlayerUrl,
   changeStateMediaRunning,
   MediaRunningState,
   selectCurrentMediaPostData,
@@ -71,6 +72,11 @@ const ButtonPlayMusicRunningContainer: FC<
   const handleClickButton = () => {
     if (!window.frontendObject.musicPlayerMode) {
       return;
+    }
+
+    //
+    if (post.ncmazAudioUrl.audioUrl) {
+      dispatch(changeNewestAudioPlayerUrl(post.ncmazAudioUrl.audioUrl));
     }
 
     // IF NOT EXIST MEDIA

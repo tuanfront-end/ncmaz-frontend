@@ -3,6 +3,8 @@ import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDrop
 import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
+import TiptapEditor from "components/TiptapEditor/TiptapEditor";
+import DemoTini from "containers/DemoTini";
 import ErrorBoundary from "ErrorBoundary";
 
 import React, { FC, Suspense } from "react";
@@ -200,6 +202,14 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
         return null;
     }
   };
+
+  //
+  return (
+    <div>
+      <TiptapEditor />
+    </div>
+  );
+  //
 
   return <>{Array.from(DOM_NODES).map(renderContent)}</>;
 };

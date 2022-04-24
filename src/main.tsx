@@ -15,6 +15,7 @@ import { RetryLink } from "@apollo/client/link/retry";
 //
 import "./index.css";
 import "./styles/index.scss";
+
 //
 const RtlImportCssLazy = React.lazy(() => import("./RtlImportCss"));
 //
@@ -148,21 +149,21 @@ if (
   const root = createRoot(container);
   //
   root.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ApolloProvider client={client}>
-            <App />
+    // <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ApolloProvider client={client}>
+          <App />
 
-            {/* LOAD RTL CSS WHEN RTL MODE ENABLE */}
-            {document.querySelector("html")?.getAttribute("dir") === "rtl" && (
-              <Suspense fallback={<div />}>
-                <RtlImportCssLazy />
-              </Suspense>
-            )}
-          </ApolloProvider>
-        </PersistGate>
-      </Provider>
-    </React.StrictMode>
+          {/* LOAD RTL CSS WHEN RTL MODE ENABLE */}
+          {document.querySelector("html")?.getAttribute("dir") === "rtl" && (
+            <Suspense fallback={<div />}>
+              <RtlImportCssLazy />
+            </Suspense>
+          )}
+        </ApolloProvider>
+      </PersistGate>
+    </Provider>
+    // </React.StrictMode>
   );
 }
