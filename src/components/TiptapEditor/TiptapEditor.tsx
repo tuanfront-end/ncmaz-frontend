@@ -28,16 +28,8 @@ export default () => {
         openOnClick: false,
       }),
       Placeholder.configure({
-        // Use a placeholder:
-        placeholder: "Write something …",
-        // Use different placeholders depending on the node type:
-        // placeholder: ({ node }) => {
-        //   if (node.type.name === 'heading') {
-        //     return 'What’s the title?'
-        //   }
-
-        //   return 'Can you add some further context?'
-        // },
+        placeholder: "Write your post content here…",
+        showOnlyCurrent: false,
       }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
@@ -49,20 +41,12 @@ export default () => {
         },
       }),
     ],
-    content: `
-      <p>
-        Try to select <em>this text</em> to see what we call the bubble menu.
-      </p>
-      <p>
-        Neat, isn’t it? Add an empty paragraph to see the floating menu.
-      </p>
-    `,
+    content: ` `,
   });
 
   return (
     <div className="entry-content prose prose-neutral lg:prose-lg mx-auto dark:prose-invert">
       <div className="nc-TiptapEditor">
-        <input type="file" name="afafa" id="xxx" />
         <div className="editor">
           {editor && <MenuBar editor={editor} />}
           <EditorContent

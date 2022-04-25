@@ -12,6 +12,7 @@ import {
 } from "@apollo/client";
 import { createRoot } from "react-dom/client";
 import { RetryLink } from "@apollo/client/link/retry";
+
 //
 import "./index.css";
 import "./styles/index.scss";
@@ -73,7 +74,6 @@ declare global {
     placeholderImg: string;
     graphQLBasePath: string;
     homeURL: string;
-    // frontendTranslate: Record<string, string>;
     currentUser?: User;
     currentObject: {
       id: number;
@@ -98,6 +98,9 @@ declare global {
       writingSettingsDefaultPostFormat: string;
       writingSettingsUseSmilies: boolean;
     };
+
+    restVarsEndpoint: string;
+    restVarsNonce: string;
   };
 
   var ncmazFrontendVariables: {

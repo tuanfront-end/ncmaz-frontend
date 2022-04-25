@@ -1,4 +1,14 @@
 let NCMAZ_TRANSLATE = {
+  "File type is not allowed": "File type is not allowed",
+  "Only image files are permitted": "Only image files are permitted",
+  Apply: "Apply",
+  Cancel: "Cancel",
+  Upload: "Upload",
+  "Insert from URL": "Insert from URL",
+  "Upload image": "Upload image",
+  "Image URL": "Image URL",
+  "Alt text (alternative text)": "Alt text (alternative text)",
+  //
   nothingWeFound: "Nothing we found!",
   author: "author",
   authors: "authors",

@@ -165,6 +165,8 @@ function ncmazFrontend_enqueueScriptCustomize()
         ]
     ), 'before');
 
+
+
     wp_add_inline_script('ncmaz-frontend-js', 'window.frontendObject = ' . json_encode(
         [
             'ajaxurl'               => admin_url('admin-ajax.php'),
@@ -182,6 +184,8 @@ function ncmazFrontend_enqueueScriptCustomize()
             'pll_themeoption_actived'     => (function_exists('pll_current_language') && boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang'])) ? 'true' : null,
             'musicPlayerMode'             => $ncmaz_redux_demo['nc-general-settings--music-player-opt-switch'] ? "true" : null,
             'musicPlayerMediaSource'      => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
+            'restVarsEndpoint'            => esc_url_raw(rest_url('/wp/v2/media/')),
+            'restVarsNonce'               => wp_create_nonce('wp_rest'),
         ]
     ), 'before');
 

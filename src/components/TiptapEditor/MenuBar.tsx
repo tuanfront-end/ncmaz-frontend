@@ -1,7 +1,7 @@
 import React, { Fragment, ReactNode, useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
-import "./MenuBar.scss";
 import { Editor } from "@tiptap/react";
+import "./MenuBar.scss";
 
 interface Item {
   icon: string;
@@ -186,19 +186,6 @@ export default ({ editor }: { editor: Editor }) => {
       editor.chain().focus().setIframe({ src: url }).run();
     }
   };
-
-  //   const [image, setImage] = useState(null);
-  //   const onImageChange = (event) => {
-  //     if (event.target.files && event.target.files[0]) {
-  //       setImage(URL.createObjectURL(event.target.files[0]));
-  //     }
-  //   };
-  //   return (
-  //     <div>
-  //       <input type="file" onChange={onImageChange} className="filetype" />
-  //       <img src={image} alt="preview image" />
-  //     </div>
-  //   );
 
   const addImage = ({ url, alt, title }: EditorItemImageAttrs) => {
     if (url) {

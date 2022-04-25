@@ -1,6 +1,6 @@
-import React, { FC, ReactNode, useEffect, useState } from "react";
-import "./MenuItem.scss";
+import React, { FC } from "react";
 import MenuItemImage from "./MenuItemImage";
+import "./MenuItem.scss";
 
 interface Props {
   icon: string;
