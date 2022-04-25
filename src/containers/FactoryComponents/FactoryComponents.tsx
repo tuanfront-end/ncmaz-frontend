@@ -68,6 +68,13 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
     }
 
     switch (conponentName) {
+      case "TiptapEditorPostSubmission":
+        return ReactDOM.createPortal(
+          <ErrorBoundary key={index}>
+            <TiptapEditor {...componentProps} />
+          </ErrorBoundary>,
+          dom
+        );
       case "PostCardDropdownShare":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
@@ -202,14 +209,6 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
         return null;
     }
   };
-
-  //
-  return (
-    <div>
-      <TiptapEditor />
-    </div>
-  );
-  //
 
   return <>{Array.from(DOM_NODES).map(renderContent)}</>;
 };

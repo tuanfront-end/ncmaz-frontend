@@ -12,17 +12,10 @@ import { EditorItemImageAttrs } from "./MenuBar";
 
 interface MenuItemImageProps {
   action: ({ url, alt, title }: EditorItemImageAttrs) => void;
-  isActive?: () => boolean;
-  icon: string;
-  title: string;
+  children?: React.ReactNode;
 }
 
-const MenuItemImage: FC<MenuItemImageProps> = ({
-  action,
-  isActive,
-  title,
-  icon,
-}) => {
+const MenuItemImage: FC<MenuItemImageProps> = ({ action, children }) => {
   let [isOpen, setIsOpen] = useState(false);
   let [catImages] = useState([
     NCMAZ_TRANSLATE["Insert from URL"],
@@ -217,7 +210,7 @@ const MenuItemImage: FC<MenuItemImageProps> = ({
                     onChange={handleUploadImageChange}
                   />
                 </label>
-                <p className="pl-1">or drag and drop</p>
+                <p className="hidden sm:block pl-1">or drag and drop</p>
               </div>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
                 PNG, JPG, GIF, WEBP, SVG ...
@@ -294,13 +287,9 @@ const MenuItemImage: FC<MenuItemImageProps> = ({
 
   return (
     <>
-      <button
-        className={`menu-item${isActive && isActive() ? " is-active" : ""}`}
-        title={title}
-        onClick={openModal}
-      >
-        <div dangerouslySetInnerHTML={{ __html: icon }}></div>
-      </button>
+      <div className="inline-flex" onClick={openModal}>
+        {children}
+      </div>
       <NcModal
         contentPaddingClass=""
         isOpenProp={isOpen}

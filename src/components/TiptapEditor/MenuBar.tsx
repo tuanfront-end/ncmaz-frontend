@@ -23,6 +23,80 @@ export interface EditorItemImageAttrs {
 export default ({ editor }: { editor: Editor }) => {
   const [itemsState] = useState<(Item | ItemDivider)[]>([
     {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M8 11h4.5a2.5 2.5 0 1 0 0-5H8v5zm10 4.5a4.5 4.5 0 0 1-4.5 4.5H6V4h6.5a4.5 4.5 0 0 1 3.256 7.606A4.498 4.498 0 0 1 18 15.5zM8 13v5h5.5a2.5 2.5 0 1 0 0-5H8z"/></svg>`,
+      title: "Bold",
+      action: () => editor.chain().focus().toggleBold().run(),
+      isActive: () => editor.isActive("bold"),
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 1 0-7.071-7.071L9.879 7.05 8.464 5.636 9.88 4.222a7 7 0 0 1 9.9 9.9l-1.415 1.414zm-2.828 2.828l-1.415 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 1 0 7.071 7.071l1.414-1.414 1.415 1.414zm-.708-10.607l1.415 1.415-7.071 7.07-1.415-1.414 7.071-7.07z"/></svg>`,
+      title: "Link",
+      action: () => setLink(),
+      isActive: () => editor.isActive("link"),
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M15 20H7v-2h2.927l2.116-12H9V4h8v2h-2.927l-2.116 12H15z"/></svg>`,
+      title: "Italic",
+      action: () => editor.chain().focus().toggleItalic().run(),
+      isActive: () => editor.isActive("italic"),
+    },
+
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M17 11V4h2v17h-2v-8H7v8H5V4h2v7z"/></svg>`,
+      title: "Heading 1",
+      action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+      isActive: () => editor.isActive("heading", { level: 1 }),
+    },
+
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/></svg>`,
+      title: "Blockquote",
+      action: () => editor.chain().focus().toggleBlockquote().run(),
+      isActive: () => editor.isActive("blockquote"),
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M8 4h13v2H8V4zm-5-.5h3v3H3v-3zm0 7h3v3H3v-3zm0 7h3v3H3v-3zM8 11h13v2H8v-2zm0 7h13v2H8v-2z"/></svg>`,
+      title: "Bullet List",
+      action: () => editor.chain().focus().toggleBulletList().run(),
+      isActive: () => editor.isActive("bulletList"),
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M8 4h13v2H8V4zM5 3v3h1v1H3V6h1V4H3V3h2zM3 14v-2.5h2V11H3v-1h3v2.5H4v.5h2v1H3zm2 5.5H3v-1h2V18H3v-1h3v4H3v-1h2v-.5zM8 11h13v2H8v-2zm0 7h13v2H8v-2z"/></svg>`,
+      title: "Ordered List",
+      action: () => editor.chain().focus().toggleOrderedList().run(),
+      isActive: () => editor.isActive("orderedList"),
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"/></svg>`,
+      title: "Code",
+      action: () => editor.chain().focus().toggleCode().run(),
+      isActive: () => editor.isActive("code"),
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h16V5H4zm16 7l-3.536 3.536-1.414-1.415L17.172 12 15.05 9.879l1.414-1.415L20 12zM6.828 12l2.122 2.121-1.414 1.415L4 12l3.536-3.536L8.95 9.88 6.828 12zm4.416 5H9.116l3.64-10h2.128l-3.64 10z"/></svg>`,
+      title: "Code Block",
+      action: () => editor.chain().focus().toggleCodeBlock().run(),
+      isActive: () => editor.isActive("codeBlock"),
+    },
+
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M4.828 21l-.02.02-.021-.02H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H4.828zM20 15V5H4v14L14 9l6 6zm0 2.828l-6-6L6.828 19H20v-1.172zM8 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>`,
+      title: "image",
+      action: ({ url, alt, title }: EditorItemImageAttrs) =>
+        addImage({ url, alt, title }),
+      isActive: () => editor.isActive("addImage"),
+    },
+
+    {
+      icon: `<svg class="crayons-icon c-btn__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 17a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm0-7a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm2-5a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"></path></svg>`,
+      title: "dropdowMore",
+      action: () => {},
+      isActive: () => editor.isActive("dropdowMore"),
+    },
+  ]);
+
+  const [moreItemsState] = useState<(Item | ItemDivider)[]>([
+    {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
       <path fill="none" d="M0 0h24v24H0z"/><path d="M3 3.993C3 3.445 3.445 3 3.993 3h16.014c.548 0 .993.445.993.993v16.014a.994.994 0 0 1-.993.993H3.993A.994.994 0 0 1 3 20.007V3.993zM5 5v14h14V5H5zm5.622 3.415l4.879 3.252a.4.4 0 0 1 0 .666l-4.88 3.252a.4.4 0 0 1-.621-.332V8.747a.4.4 0 0 1 .622-.332z"/></svg>`,
       title: "iframe",
@@ -179,6 +253,10 @@ export default ({ editor }: { editor: Editor }) => {
     },
   ]);
 
+  const [wpadminbarH] = useState(
+    document.getElementById("wpadminbar")?.clientHeight || 0
+  );
+
   const addIframe = () => {
     const url = window.prompt("URL");
 
@@ -222,16 +300,23 @@ export default ({ editor }: { editor: Editor }) => {
   }, [editor]);
 
   return (
-    <div className="editor__header">
-      {itemsState.map((item, index) => (
-        <Fragment key={index}>
-          {(item as ItemDivider).type === "divider" ? (
-            <div className="divider" />
-          ) : (
-            <MenuItem {...(item as Item)} />
-          )}
-        </Fragment>
-      ))}
+    <div
+      className="editor__header sticky bg-neutral-100 py-5 flex justify-center z-10"
+      style={{
+        top: wpadminbarH,
+      }}
+    >
+      <div className="flex items-center flex-wrap w-screen max-w-screen-md">
+        {itemsState.map((item, index) => (
+          <Fragment key={index}>
+            {(item as ItemDivider).type === "divider" ? (
+              <div className="divider" />
+            ) : (
+              <MenuItem {...(item as Item)} />
+            )}
+          </Fragment>
+        ))}
+      </div>
     </div>
   );
 };
