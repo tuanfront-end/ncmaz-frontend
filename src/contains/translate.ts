@@ -1,4 +1,7 @@
 let NCMAZ_TRANSLATE = {
+  "Add a core image": "Add a core image",
+  "Write your post content here…": "Write your post content here…",
+  "New post title here…": "New post title here…",
   "File type is not allowed": "File type is not allowed",
   "Only image files are permitted": "Only image files are permitted",
   Apply: "Apply",

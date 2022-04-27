@@ -7,28 +7,23 @@ interface Props {
   title: string;
   action: (args?: any) => void;
   isActive?: () => boolean;
+  className?: string;
 }
 
-const MenuItem: FC<Props> = ({ icon, action, title, isActive }) => {
-  if (title === "dropdowMore") {
-    return (
-      <button
-        className={`ml-auto menu-item${
-          isActive && isActive() ? " is-active" : ""
-        }`}
-        onClick={action}
-        title={title}
-      >
-        <div dangerouslySetInnerHTML={{ __html: icon }}></div>
-      </button>
-    );
-  }
-
+const MenuItem: FC<Props> = ({
+  icon,
+  action,
+  title,
+  isActive,
+  className = "mr-2",
+}) => {
   if (title === "image") {
     return (
       <MenuItemImage action={action}>
         <button
-          className={`menu-item${isActive && isActive() ? " is-active" : ""}`}
+          className={`menu-item ${className} ${
+            isActive && isActive() ? " is-active" : ""
+          }`}
           onClick={action}
           title={title}
         >
@@ -40,7 +35,9 @@ const MenuItem: FC<Props> = ({ icon, action, title, isActive }) => {
 
   return (
     <button
-      className={`menu-item${isActive && isActive() ? " is-active" : ""}`}
+      className={`menu-item ${className} ${
+        isActive && isActive() ? " is-active" : ""
+      }`}
       onClick={action}
       title={title}
     >

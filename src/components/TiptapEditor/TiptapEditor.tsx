@@ -18,6 +18,9 @@ import MenuBar from "./MenuBar";
 import "./styles.scss";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import MenuItemImage from "./MenuItemImage";
+import NCMAZ_TRANSLATE from "contains/translate";
+import TitleEditor from "./TitleEditor";
+import { debounce } from "lodash";
 
 export default () => {
   const editor = useEditor({
@@ -30,7 +33,7 @@ export default () => {
         openOnClick: false,
       }),
       Placeholder.configure({
-        placeholder: "Write your post content here…",
+        placeholder: NCMAZ_TRANSLATE["Write your post content here…"],
         showOnlyCurrent: false,
       }),
       TextAlign.configure({
@@ -43,8 +46,22 @@ export default () => {
         },
       }),
     ],
+    editorProps: {
+      attributes: {
+        class:
+          "focus:outline-none prose prose-neutral lg:prose-lg dark:prose-invert max-w-screen-md mx-auto min-h-[500px]",
+      },
+    },
     content: ` `,
   });
+
+  const [titleContent, setTitleContent] = React.useState("");
+
+  console.log(12, titleContent);
+
+  const debounceGetTitle = debounce(function (e) {
+    setTitleContent(e.getText());
+  }, 300);
 
   const renderPostTitle = () => {
     return (
@@ -52,15 +69,11 @@ export default () => {
         <div className="w-screen max-w-screen-md mx-auto ">
           <MenuItemImage action={() => {}}>
             <ButtonPrimary>
-              <span>Add a core image</span>
+              <span>{NCMAZ_TRANSLATE["Add a core image"]}</span>
             </ButtonPrimary>
           </MenuItemImage>
 
-          <h1
-            contentEditable
-            className="mt-10 focus:outline-none entry-title text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-5xl dark:text-neutral-100 max-w-4xl "
-            data-placeholder="New post title here…"
-          ></h1>
+          <TitleEditor onUpdate={debounceGetTitle} />
         </div>
       </div>
     );
@@ -68,7 +81,7 @@ export default () => {
 
   return (
     <div className="nc-TiptapEditor flex justify-center">
-      <div className="editor bg-white shadow-xl rounded-2xl py-10 ">
+      <div className="editor bg-white dark:bg-neutral-900 shadow-xl rounded-2xl py-10 ">
         {renderPostTitle()}
 
         {editor && <MenuBar editor={editor} />}
