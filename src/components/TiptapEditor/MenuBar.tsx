@@ -3,6 +3,7 @@ import MenuItem from "./MenuItem";
 import { Editor } from "@tiptap/react";
 import "./MenuBar.scss";
 import MoreItemDropDown from "./MoreItemDropDown";
+import MenuItemHeading from "./MenuItemHeading";
 
 export interface TiptapBarItem {
   icon: string;
@@ -30,23 +31,23 @@ export default ({ editor }: { editor: Editor }) => {
       isActive: () => editor.isActive("bold"),
     },
     {
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 1 0-7.071-7.071L9.879 7.05 8.464 5.636 9.88 4.222a7 7 0 0 1 9.9 9.9l-1.415 1.414zm-2.828 2.828l-1.415 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 1 0 7.071 7.071l1.414-1.414 1.415 1.414zm-.708-10.607l1.415 1.415-7.071 7.07-1.415-1.414 7.071-7.07z"/></svg>`,
-      title: "Link",
-      action: () => setLink(),
-      isActive: () => editor.isActive("link"),
-    },
-    {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M15 20H7v-2h2.927l2.116-12H9V4h8v2h-2.927l-2.116 12H15z"/></svg>`,
       title: "Italic",
       action: () => editor.chain().focus().toggleItalic().run(),
       isActive: () => editor.isActive("italic"),
     },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 1 0-7.071-7.071L9.879 7.05 8.464 5.636 9.88 4.222a7 7 0 0 1 9.9 9.9l-1.415 1.414zm-2.828 2.828l-1.415 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 1 0 7.071 7.071l1.414-1.414 1.415 1.414zm-.708-10.607l1.415 1.415-7.071 7.07-1.415-1.414 7.071-7.07z"/></svg>`,
+      title: "Link",
+      action: (url: string) => setLink(url),
+      isActive: () => editor.isActive("link"),
+    },
 
     {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M17 11V4h2v17h-2v-8H7v8H5V4h2v7z"/></svg>`,
-      title: "Heading 1",
-      action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-      isActive: () => editor.isActive("heading", { level: 1 }),
+      title: "Heading",
+      action: () => {},
+      isActive: () => editor.isActive("heading"),
     },
 
     {
@@ -91,6 +92,12 @@ export default ({ editor }: { editor: Editor }) => {
 
   const [moreItemsState] = useState<(TiptapBarItem | TiptapBarItemDivider)[]>([
     {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 15h14v2H3v-2zm0-5h18v2H3v-2zm0-5h14v2H3V9z"/></svg>`,
+      title: "align left",
+      action: () => editor.chain().focus().setTextAlign("left").run(),
+      isActive: () => editor.isActive("alignLeft"),
+    },
+    {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm2 15h14v2H5v-2zm-2-5h18v2H3v-2zm2-5h14v2H5V9z"/></svg>`,
       title: "align center",
       action: () => editor.chain().focus().setTextAlign("center").run(),
@@ -102,12 +109,7 @@ export default ({ editor }: { editor: Editor }) => {
       action: () => editor.chain().focus().setTextAlign("right").run(),
       isActive: () => editor.isActive("alignRight"),
     },
-    {
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 15h14v2H3v-2zm0-5h18v2H3v-2zm0-5h14v2H3V9z"/></svg>`,
-      title: "align left",
-      action: () => editor.chain().focus().setTextAlign("left").run(),
-      isActive: () => editor.isActive("alignLeft"),
-    },
+
     {
       type: "divider",
     },
@@ -200,10 +202,7 @@ export default ({ editor }: { editor: Editor }) => {
     }
   };
 
-  const setLink = useCallback(() => {
-    const previousUrl = editor.getAttributes("link").href;
-    const url = window.prompt("URL", previousUrl);
-
+  const setLink = (url: string) => {
     // cancelled
     if (url === null) {
       return;
@@ -212,13 +211,12 @@ export default ({ editor }: { editor: Editor }) => {
     // empty
     if (url === "") {
       editor.chain().focus().extendMarkRange("link").unsetLink().run();
-
       return;
     }
 
     // update link
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
-  }, [editor]);
+  };
 
   return (
     <div
@@ -227,18 +225,22 @@ export default ({ editor }: { editor: Editor }) => {
         top: wpadminbarH,
       }}
     >
-      <div className="flex items-center flex-wrap w-screen max-w-screen-md">
-        {itemsState.map((item, index) => (
-          <Fragment key={index}>
-            {(item as TiptapBarItemDivider).type === "divider" ? (
-              <div className="divider" />
-            ) : (
-              <MenuItem {...(item as TiptapBarItem)} />
-            )}
-          </Fragment>
-        ))}
+      <div className="w-screen max-w-screen-md">
+        <div className="flex items-center flex-wrap -mx-2.5">
+          {itemsState.map((item, index) => (
+            <Fragment key={index}>
+              {(item as TiptapBarItemDivider).type === "divider" ? (
+                <div className="divider" />
+              ) : (item as TiptapBarItem).title === "Heading" ? (
+                <MenuItemHeading {...(item as TiptapBarItem)} editor={editor} />
+              ) : (
+                <MenuItem {...(item as TiptapBarItem)} editor={editor} />
+              )}
+            </Fragment>
+          ))}
 
-        <MoreItemDropDown data={moreItemsState} />
+          <MoreItemDropDown data={moreItemsState} editor={editor} />
+        </div>
       </div>
     </div>
   );

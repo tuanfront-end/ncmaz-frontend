@@ -1,4 +1,5 @@
 let NCMAZ_TRANSLATE = {
+  "Top tags": "Top tags",
   "Add a core image": "Add a core image",
   "Write your post content here…": "Write your post content here…",
   "New post title here…": "New post title here…",
@@ -9,7 +10,9 @@ let NCMAZ_TRANSLATE = {
   Upload: "Upload",
   "Insert from URL": "Insert from URL",
   "Upload image": "Upload image",
+  "Unset link": "Unset link",
   "Image URL": "Image URL",
+  "Paste or type a link": "Paste or type a link",
   "Alt text (alternative text)": "Alt text (alternative text)",
   //
   nothingWeFound: "Nothing we found!",

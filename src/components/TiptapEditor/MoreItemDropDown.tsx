@@ -2,16 +2,18 @@ import React, { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { TiptapBarItem, TiptapBarItemDivider } from "./MenuBar";
 import MenuItem from "./MenuItem";
+import { Editor } from "@tiptap/react";
 
 interface Props {
   data: (TiptapBarItem | TiptapBarItemDivider)[];
+  editor: Editor;
 }
 
-const MoreItemDropDown: FC<Props> = ({ data = [] }) => {
+const MoreItemDropDown: FC<Props> = ({ data = [], editor }) => {
   return (
     <Menu as="div" className="relative inline-block text-left ml-auto">
       <Menu.Button className={"ml-auto menu-item"} title={"more"}>
-        <div>
+        <div className="menu-item-svg">
           <svg
             className="crayons-icon c-btn__icon"
             aria-hidden="true"
@@ -47,7 +49,11 @@ const MoreItemDropDown: FC<Props> = ({ data = [] }) => {
                 {(item as TiptapBarItemDivider).type === "divider" ? (
                   <div className="divider" />
                 ) : (
-                  <MenuItem {...(item as TiptapBarItem)} className="" />
+                  <MenuItem
+                    {...(item as TiptapBarItem)}
+                    editor={editor}
+                    className="mr-0.5"
+                  />
                 )}
               </Menu.Item>
             ))}

@@ -6,12 +6,12 @@ interface CircleLoadingProps {
 }
 
 const CircleLoading: FC<CircleLoadingProps> = ({
-  className = "",
+  className = "text-primary-500",
   childClassName = "w-8 h-8",
 }) => {
   return (
     <div
-      className={`CircleLoading flex items-center justify-center ${className}`}
+      className={`CircleLoading inline-flex items-center justify-center ${className}`}
     >
       <svg
         className={`animate-spin ${childClassName}`}

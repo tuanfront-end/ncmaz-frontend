@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  useEditor,
-  EditorContent,
-  BubbleMenu,
-  FloatingMenu,
-} from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
 import Underline from "@tiptap/extension-underline";
@@ -21,6 +16,8 @@ import MenuItemImage from "./MenuItemImage";
 import NCMAZ_TRANSLATE from "contains/translate";
 import TitleEditor from "./TitleEditor";
 import { debounce } from "lodash";
+import MyBubbleMenu from "./MyBubbleMenu";
+import TagsInput from "./TagsInput";
 
 export default () => {
   const editor = useEditor({
@@ -57,8 +54,6 @@ export default () => {
 
   const [titleContent, setTitleContent] = React.useState("");
 
-  console.log(12, titleContent);
-
   const debounceGetTitle = debounce(function (e) {
     setTitleContent(e.getText());
   }, 300);
@@ -74,6 +69,7 @@ export default () => {
           </MenuItemImage>
 
           <TitleEditor onUpdate={debounceGetTitle} />
+          <TagsInput />
         </div>
       </div>
     );
@@ -83,7 +79,7 @@ export default () => {
     <div className="nc-TiptapEditor flex justify-center">
       <div className="editor bg-white dark:bg-neutral-900 shadow-xl rounded-2xl py-10 ">
         {renderPostTitle()}
-
+        {editor && <MyBubbleMenu editor={editor} />}
         {editor && <MenuBar editor={editor} />}
         <EditorContent
           className="editor__content focus:outline-none "

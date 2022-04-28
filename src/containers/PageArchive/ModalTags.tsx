@@ -13,7 +13,7 @@ import NCMAZ_TRANSLATE from "contains/translate";
 interface Data {
   tags: Tags;
 }
-interface Tags {
+export interface Tags {
   edges: Edge[];
   pageInfo: PageInfo;
   __typename: string;

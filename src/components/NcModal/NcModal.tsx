@@ -13,6 +13,7 @@ export interface NcModalProps {
   isOpenProp?: boolean;
   onCloseModal?: () => void;
   onOpenModal?: () => void;
+  initialFocusRef?: React.MutableRefObject<null>;
 }
 
 const NcModal: FC<NcModalProps> = ({
@@ -25,6 +26,7 @@ const NcModal: FC<NcModalProps> = ({
   isOpenProp,
   onCloseModal,
   onOpenModal,
+  initialFocusRef,
 }) => {
   let [isOpen, setIsOpen] = useState(!!isOpenProp);
 
@@ -57,8 +59,9 @@ const NcModal: FC<NcModalProps> = ({
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-50 overflow-y-auto"
+          className="fixed inset-0 z-[999999999] overflow-y-auto"
           onClose={closeModal}
+          initialFocus={initialFocusRef}
         >
           <div className="min-h-screen px-1 text-center md:px-4">
             <Transition.Child

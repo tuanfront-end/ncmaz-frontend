@@ -126,7 +126,13 @@ const MenuItemImage: FC<MenuItemImageProps> = ({ action, children }) => {
   const renderInsertFromUrl = () => {
     return (
       <>
-        <div>
+        <form
+          className="block"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleApply();
+          }}
+        >
           <Label>{NCMAZ_TRANSLATE["Image URL"]}</Label>
           <Input
             className="mt-1"
@@ -136,8 +142,14 @@ const MenuItemImage: FC<MenuItemImageProps> = ({ action, children }) => {
             onChange={(e) => setUrlState(e.target.value)}
             defaultValue={urlState}
           />
-        </div>
-        <div className="">
+        </form>
+        <form
+          className="block"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleApply();
+          }}
+        >
           <Label>{NCMAZ_TRANSLATE["Alt text (alternative text)"]}</Label>
           <Input
             className="mt-1"
@@ -146,7 +158,7 @@ const MenuItemImage: FC<MenuItemImageProps> = ({ action, children }) => {
             onChange={(e) => setAltState(e.target.value)}
             defaultValue={altState}
           />
-        </div>
+        </form>
       </>
     );
   };
