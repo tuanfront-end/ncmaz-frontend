@@ -19,6 +19,7 @@ export interface ButtonProps {
   targetBlank?: boolean;
   onClick?: (e: React.MouseEvent<any, MouseEvent>) => void;
   children: ReactNode;
+  title?: string;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -33,6 +34,7 @@ const Button: FC<ButtonProps> = ({
   type,
   loading,
   onClick = () => {},
+  title = "",
 }) => {
   const CLASSES =
     `nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors ${fontSize} ${sizeClass} ${translate} ${className} ` +
@@ -71,6 +73,7 @@ const Button: FC<ButtonProps> = ({
         className={`${CLASSES} `}
         onClick={onClick}
         rel="noopener noreferrer"
+        title={title}
       >
         {children || `This is Link`}
       </a>
@@ -83,6 +86,7 @@ const Button: FC<ButtonProps> = ({
       className={`${CLASSES}`}
       onClick={onClick}
       type={type}
+      title={title}
     >
       {loading && _renderLoading()}
       {children || `This is Button`}

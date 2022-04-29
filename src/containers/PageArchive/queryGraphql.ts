@@ -147,6 +147,8 @@ let GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
 `;
 
 let GET_LIST_CATEGORIES_NO_PARENT = `query GET_LIST_CATEGORIES_NO_PARENT(
+  $order: OrderEnum = DESC
+  $hideEmpty: Boolean = false,
   $after: String = "",
   $before: String = "",
   $first: Int = 30,
@@ -163,7 +165,13 @@ let GET_LIST_CATEGORIES_NO_PARENT = `query GET_LIST_CATEGORIES_NO_PARENT(
     before: $before,
     first: $first,
     last: $last,
-    where: { orderby: $orderby, order: DESC, search: $search, exclude: $exclude }
+    where: { 
+      orderby: $orderby 
+      order: $order
+      search: $search
+      exclude: $exclude 
+      hideEmpty: $hideEmpty
+    }
     ) {
     edges {
       node {

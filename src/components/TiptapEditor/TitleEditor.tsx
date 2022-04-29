@@ -29,7 +29,7 @@ const TitleEditor: FC<Props> = ({ onUpdate }) => {
     },
   });
 
-  return <EditorContent className="focus:outline-none mt-10" editor={editor} />;
+  return <EditorContent className="focus:outline-none mt-6" editor={editor} />;
 };
 
 export default TitleEditor;

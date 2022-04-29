@@ -101,6 +101,7 @@ declare global {
 
     restVarsEndpoint: string;
     restVarsNonce: string;
+    postFormats: string[];
   };
 
   var ncmazFrontendVariables: {

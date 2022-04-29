@@ -13,7 +13,7 @@ import NCMAZ_TRANSLATE from "contains/translate";
 interface Data {
   categories: Categories;
 }
-interface Categories {
+export interface Categories {
   edges: Edge[];
   pageInfo: PageInfo;
   __typename: string;
@@ -37,8 +37,11 @@ const ModalCategories: FC<ModalCategoriesProps> = () => {
   );
 
   const handleClickOpen = () => {
+    if (data?.categories.edges.length) {
+      return;
+    }
     getListCats({
-      variables: { first: POST_PER_PAGE, orderby: null },
+      variables: { first: POST_PER_PAGE, orderby: null, hideEmpty: true },
     });
   };
 

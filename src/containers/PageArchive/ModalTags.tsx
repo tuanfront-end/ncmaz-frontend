@@ -37,6 +37,9 @@ const ModalTags: FC<ModalTagsProps> = () => {
   );
 
   const handleClickOpen = () => {
+    if (data?.tags.edges.length) {
+      return;
+    }
     getListTags({ variables: { first: POST_PER_PAGE } });
   };
 

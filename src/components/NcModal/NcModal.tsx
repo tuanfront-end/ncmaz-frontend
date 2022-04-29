@@ -14,6 +14,7 @@ export interface NcModalProps {
   onCloseModal?: () => void;
   onOpenModal?: () => void;
   initialFocusRef?: React.MutableRefObject<null>;
+  modalUnmountOnClose?: boolean;
 }
 
 const NcModal: FC<NcModalProps> = ({
@@ -27,6 +28,7 @@ const NcModal: FC<NcModalProps> = ({
   onCloseModal,
   onOpenModal,
   initialFocusRef,
+  modalUnmountOnClose = true,
 }) => {
   let [isOpen, setIsOpen] = useState(!!isOpenProp);
 
@@ -62,6 +64,7 @@ const NcModal: FC<NcModalProps> = ({
           className="fixed inset-0 z-[999999999] overflow-y-auto"
           onClose={closeModal}
           initialFocus={initialFocusRef}
+          unmount={modalUnmountOnClose}
         >
           <div className="min-h-screen px-1 text-center md:px-4">
             <Transition.Child
