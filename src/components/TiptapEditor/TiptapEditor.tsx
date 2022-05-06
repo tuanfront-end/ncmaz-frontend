@@ -19,10 +19,10 @@ import { debounce } from "lodash";
 import MyBubbleMenu from "./MyBubbleMenu";
 import TagsInput from "./TagsInput";
 import ButtonSecondary from "components/Button/ButtonSecondary";
-import FeaturedImageUpload from "./FeaturedImageUpload";
 import CategoriesInput from "./CategoriesInput";
-import ButtonCircle from "components/Button/ButtonCircle";
 import PostOptionsBtn from "./PostOptionsBtn";
+import ImageUpload from "./ImageUpload";
+import Label from "components/Label/Label";
 
 export default () => {
   const editor = useEditor({
@@ -67,8 +67,11 @@ export default () => {
     return (
       <div className="py-10">
         <div className="w-screen max-w-screen-md mx-auto ">
-          <div className="flex w-full">
-            <FeaturedImageUpload />
+          <div className="flex flex-col w-full">
+            <Label className="block !text-base">
+              {NCMAZ_TRANSLATE["Add a cover image"]}
+            </Label>
+            <ImageUpload />
           </div>
 
           <CategoriesInput />

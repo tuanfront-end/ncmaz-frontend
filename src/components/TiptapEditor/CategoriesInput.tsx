@@ -7,6 +7,7 @@ import NCMAZ_TRANSLATE from "contains/translate";
 import { GET_LIST_CATEGORIES_NO_PARENT } from "containers/PageArchive/queryGraphql";
 import NcImage from "components/NcImage/NcImage";
 import { Categories } from "containers/PageArchive/ModalCategories";
+import Skeleton from "react-loading-skeleton";
 
 interface Data {
   categories: Categories;
@@ -144,7 +145,9 @@ const CategoriesInput: FC<CategoriesInputProps> = () => {
                   src={"."}
                 />
 
-                <span className="ml-2 text-sm"> </span>
+                <span className="ml-2.5 flex-grow text-sm">
+                  <Skeleton width={"90%"} />
+                </span>
               </div>
             ))}
 

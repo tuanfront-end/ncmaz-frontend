@@ -31,8 +31,12 @@ require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-wpgraphql.php';
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-register-widgets.php';
 //  
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-AFC-fields.php';
-//  
+// 
+
 
 add_action('plugins_loaded',  function () {
     require plugin_dir_path(__FILE__) . 'inc/ncmaz-redux-sample-config.php';
+    // 
+    require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-graphql.php';
+    //  
 });

@@ -4,13 +4,20 @@ import ButtonPrimary from "components/Button/ButtonPrimary";
 import ButtonSecondary from "components/Button/ButtonSecondary";
 import Input from "components/Input/Input";
 import Label from "components/Label/Label";
+import Textarea from "components/Textarea/Textarea";
 import React, { Fragment, useState } from "react";
+import ImageUpload from "./ImageUpload";
 
-let people = frontendObject.postFormats || [];
-people = ["Standard", ...people];
+let postFormats = frontendObject.postFormats || [];
+postFormats = ["Standard", ...postFormats];
 
 const PostOptionsBtn = () => {
-  const [selected, setSelected] = useState(people[0]);
+  const [postFormatsSelected, setPostFormatsSelected] = useState(
+    postFormats[0]
+  );
+  //
+
+  //
 
   const renderBtn = () => {
     return (
@@ -39,14 +46,16 @@ const PostOptionsBtn = () => {
     );
   };
 
-  const renderListBox = () => {
+  const renderListBoxPostformat = () => {
     return (
       <div>
-        <p className="text-base font-medium">Post format</p>
-        <Listbox value={selected} onChange={setSelected}>
+        <Label>Post format</Label>
+        <Listbox value={postFormatsSelected} onChange={setPostFormatsSelected}>
           <div className="relative z-10 mt-1">
             <Listbox.Button className="focus:outline-none relative w-full cursor-default rounded-full py-2 pl-3 pr-10 text-left border border-neutral-100 dark:border-neutral-700">
-              <span className="block truncate">{selected}</span>
+              <span className="block truncate capitalize">
+                {postFormatsSelected}
+              </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <SelectorIcon
                   className="h-5 w-5 text-gray-400"
@@ -61,7 +70,7 @@ const PostOptionsBtn = () => {
               leaveTo="opacity-0"
             >
               <Listbox.Options className="focus:outline-none absolute mt-2 max-h-60 w-full overflow-auto rounded-2xl bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm">
-                {people.map((person, personIdx) => (
+                {postFormats.map((person, personIdx) => (
                   <Listbox.Option
                     key={personIdx}
                     className={({ active }) =>
@@ -74,7 +83,7 @@ const PostOptionsBtn = () => {
                     {({ selected }) => (
                       <>
                         <span
-                          className={`block truncate ${
+                          className={`block truncate capitalize ${
                             selected ? "font-medium" : "font-normal"
                           }`}
                         >
@@ -97,6 +106,56 @@ const PostOptionsBtn = () => {
     );
   };
 
+  const renderUploadGallery = () => {
+    return (
+      <div>
+        <span className="text-base font-semibold">Upload gallery images</span>
+        <div className="flex space-x-2.5 my-2 overflow-x-auto snap-x">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, idx) => (
+            <div className="flex-shrink-0 snap-start" key={idx}>
+              <Label>{`Image ${item}`}</Label>
+              <ImageUpload />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderExcerptTextarea = () => {
+    return (
+      <div>
+        <Label>Write an excerpt (optional)</Label>
+        <Textarea className="mt-1" />
+      </div>
+    );
+  };
+
+  const renderInputVideoUrl = () => {
+    return (
+      <div>
+        <Label>{`Video URL (Youtube, Vimeo, mp4 ... )`}</Label>
+        <Input className="mt-1" placeholder="Video url..." />
+      </div>
+    );
+  };
+
+  const renderInputAudio = () => {
+    let sp = "mp3/mp4/Youtube";
+    if (frontendObject.musicPlayerMediaSource === "html5") {
+      sp = "mp3/mp4";
+    }
+    if (frontendObject.musicPlayerMediaSource === "youtube") {
+      sp = "Youtube";
+    }
+    return (
+      <div>
+        <Label>{`Audio URL (${sp} )`}</Label>
+        <Input className="mt-1" placeholder="Audio url..." />
+      </div>
+    );
+  };
+
   return (
     <Popover className="relative">
       {({ open, close }) => (
@@ -110,19 +169,26 @@ const PostOptionsBtn = () => {
             leave="transition ease-in duration-150"
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
+            unmount={false}
           >
-            <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mb-3 left-0 bottom-full sm:px-0 lg:max-w-md">
+            <Popover.Panel
+              unmount={false}
+              className="absolute z-10 w-screen max-w-sm px-4 mb-3 left-0 bottom-full sm:px-0 lg:max-w-2xl"
+            >
               <div className="rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                 <div className="relative flex flex-col px-5 py-6 space-y-5">
-                  <h3 className="text-xl font-semibold">Post options</h3>
+                  <h3 className="text-xl font-semibold my-0">Post options</h3>
                   <div className="w-full border-b my-3 border-neutral-300 dark:border-neutral-700"></div>
 
-                  <div>{renderListBox()}</div>
+                  {renderExcerptTextarea()}
 
-                  <div>
-                    <Label>Video URL</Label>
-                    <Input className="mt-1" placeholder="Video url..." />
-                  </div>
+                  {renderListBoxPostformat()}
+
+                  {postFormatsSelected === "gallery" && renderUploadGallery()}
+
+                  {postFormatsSelected === "video" && renderInputVideoUrl()}
+
+                  {postFormatsSelected === "audio" && renderInputAudio()}
                 </div>
                 <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                   <ButtonSecondary

@@ -16,6 +16,7 @@ import { RetryLink } from "@apollo/client/link/retry";
 //
 import "./index.css";
 import "./styles/index.scss";
+import "react-loading-skeleton/dist/skeleton.css";
 
 //
 const RtlImportCssLazy = React.lazy(() => import("./RtlImportCss"));
