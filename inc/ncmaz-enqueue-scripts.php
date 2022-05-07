@@ -45,8 +45,8 @@ function getCurrentUserGraphql()
         return null;
     }
     return graphql([
-        'query' => ' {
-            user(idType: DATABASE_ID, id: ' . $userID . ') {
+        'query' => '{
+            viewer {
                 avatar {
                   url
                 }
@@ -60,7 +60,6 @@ function getCurrentUserGraphql()
                     sourceUrl
                   }
                 }
-                registeredDate
                 slug
                 uri
                 url
@@ -69,8 +68,8 @@ function getCurrentUserGraphql()
                 nicename
                 nickname
                 locale
-              }
-				}'
+            }
+		}'
     ]);
 }
 
@@ -89,42 +88,18 @@ function getAllSettingsGraphql()
                 discussionSettingsDefaultPingStatus
                 generalSettingsDateFormat
                 generalSettingsDescription
-                generalSettingsEmail
                 generalSettingsLanguage
                 generalSettingsStartOfWeek
                 generalSettingsTimeFormat
                 generalSettingsTimezone
                 generalSettingsTitle
-                generalSettingsUrl
                 readingSettingsPostsPerPage
                 writingSettingsDefaultCategory
                 writingSettingsDefaultPostFormat
                 writingSettingsUseSmilies
-              }
+            }
         }'
     ]);
-
-    if (!empty($getAllSettingsGraphqlT1)) {
-        $getAllSettingsGraphqlT1 = graphql([
-            'query' => '{
-            allSettings {
-                discussionSettingsDefaultCommentStatus
-                discussionSettingsDefaultPingStatus
-                generalSettingsDateFormat
-                generalSettingsDescription
-                generalSettingsLanguage
-                generalSettingsStartOfWeek
-                generalSettingsTimeFormat
-                generalSettingsTimezone
-                generalSettingsTitle
-                readingSettingsPostsPerPage
-                writingSettingsDefaultCategory
-                writingSettingsDefaultPostFormat
-                writingSettingsUseSmilies
-              }
-        }'
-        ]);
-    }
 
     return $getAllSettingsGraphqlT1;
 }
@@ -179,7 +154,7 @@ function ncmazFrontend_enqueueScriptCustomize()
             'graphQLBasePath'       => get_site_url(null, '/graphql'),
             'socialsShare'          => $ncmaz_redux_demo['nc-general-settings--multi-socials-share'],
             'homeURL'               => get_site_url(),
-            'currentUser'           => $currentUser ? $currentUser['data']['user'] : null,
+            'currentUser'           => $currentUser ? $currentUser['data']['viewer'] : null,
             'allSettings'           => $allSettings ? $allSettings['data']['allSettings'] : null,
             'currentObject'         => ['id'        => get_the_ID()],
             'pll_current_language'        => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,

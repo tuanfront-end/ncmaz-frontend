@@ -1,8 +1,8 @@
 import React from "react";
 import "./styles/__theme_rtl.scss";
 
-const RtlImportCss = () => {
+const LazyCssRTL = () => {
   return null;
 };
 
-export default RtlImportCss;
+export default LazyCssRTL;

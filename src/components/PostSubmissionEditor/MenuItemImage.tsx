@@ -38,8 +38,6 @@ const MenuItemImage: FC<MenuItemImageProps> = ({ action, children }) => {
     closeModal();
   };
 
-  console.log("MenuItemImage", { urlState });
-
   const renderContent = () => {
     return (
       <div>

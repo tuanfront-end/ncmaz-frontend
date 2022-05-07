@@ -1,16 +1,16 @@
-import { Alert } from "components/Alert/Alert";
-import ButtonClose from "components/ButtonClose/ButtonClose";
+import Alert from "components/Alert/Alert";
 import CircleLoading from "components/Loading/CircleLoading";
 import NCMAZ_TRANSLATE from "contains/translate";
-import React, { useState, useId, FC, useEffect } from "react";
+import React, { useState, useId, FC, useEffect, useDeferredValue } from "react";
 
 interface ImageUploadProps {
   className?: string;
+  contentClassName?: string;
   onChangeImage?: (image: ImageState) => void;
   defaultImage?: ImageState;
 }
 
-interface ImageState {
+export interface ImageState {
   sourceUrl: string;
   id: string;
   altText?: string;
@@ -18,6 +18,7 @@ interface ImageState {
 
 const ImageUpload: FC<ImageUploadProps> = ({
   className = "flex-1",
+  contentClassName = "px-6 pt-5 pb-6 ",
   onChangeImage = () => {},
   defaultImage = { sourceUrl: "", id: "" },
 }) => {
@@ -27,7 +28,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
   const [uploadErrMess, setUploadErrMess] = useState("");
 
   const inputID = useId() + "_fileUpload";
-
+  const deferredValueImageState = useDeferredValue(imageState.id);
   //
   useEffect(() => {
     setImageState(defaultImage);
@@ -35,14 +36,11 @@ const ImageUpload: FC<ImageUploadProps> = ({
 
   useEffect(() => {
     onChangeImage(imageState);
-  }, [imageState.id]);
+  }, [deferredValueImageState]);
   //
 
-  const hanldeRemoveImage = () => {
-    handleDeleteImageById(imageState.id);
-  };
-
   const handleDeleteImageById = async (id: string) => {
+    setUploadErrMess("");
     setIsUploading(true);
     await jQuery
       .ajax({
@@ -138,6 +136,8 @@ const ImageUpload: FC<ImageUploadProps> = ({
     }
   };
 
+  console.log(111, { imageState });
+
   const LOADING = isUploading;
   const ERROR = uploadErrMess;
 
@@ -145,29 +145,72 @@ const ImageUpload: FC<ImageUploadProps> = ({
     <div className={className}>
       <label
         htmlFor={inputID}
-        className={`block ${
+        className={`block group ${
           LOADING ? "cursor-not-allowed animate-pulse" : "cursor-pointer"
         }`}
       >
-        <div className="relative mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-md">
-          {!!imageState.sourceUrl && (
-            <div className="absolute right-1 top-1 z-10">
-              <ButtonClose
-                title="Remove image"
-                className="!text-red-500"
-                iconSize="w-6 h-6"
-                onClick={hanldeRemoveImage}
-              />
+        <div
+          className={`relative mt-1 flex justify-center border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-xl ${contentClassName}`}
+        >
+          {!!imageState.sourceUrl && !LOADING && (
+            <div
+              className="opacity-0 group-hover:opacity-100 absolute right-2.5 top-2.5 z-10 p-1.5 bg-neutral-900 dark:bg-neutral-700 text-white rounded-md cursor-pointer 
+              transition-opacity duration-300 "
+              title="Delete image"
+              onClick={(e) => {
+                e.preventDefault();
+                handleDeleteImageById(imageState.id);
+              }}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79002C6.00002 22 5.91002 20.78 5.80002 19.21L5.15002 9.14001"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M10.33 16.5H13.66"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M9.5 12.5H14.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           )}
-          <div className="space-y-1 text-center">
+          <div className="flex-1 space-y-1 text-center">
             {imageState.sourceUrl && (
-              <div className="w-full aspect-w-5 aspect-h-3">
-                <img
-                  src={imageState.sourceUrl}
-                  className="rounded-md object-cover"
-                  alt={""}
-                />
+              <div className="w-full max-w-md mx-auto">
+                <div className="w-full aspect-w-16 aspect-h-8">
+                  <img
+                    src={imageState.sourceUrl}
+                    className="rounded-lg object-cover shadow-lg"
+                    alt={""}
+                  />
+                </div>
               </div>
             )}
             {!imageState.sourceUrl && (

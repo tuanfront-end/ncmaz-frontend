@@ -6,9 +6,10 @@ import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Props {
   onUpdate: (editor: Editor) => void;
+  defaultTitle?: string;
 }
 
-const TitleEditor: FC<Props> = ({ onUpdate }) => {
+const TitleEditor: FC<Props> = ({ onUpdate, defaultTitle = "" }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -22,7 +23,7 @@ const TitleEditor: FC<Props> = ({ onUpdate }) => {
           "focus:outline-none max-w-screen-md mx-auto text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-5xl dark:text-neutral-100",
       },
     },
-    content: ``,
+    content: defaultTitle,
     onUpdate: ({ editor }) => {
       // @ts-ignore
       onUpdate(editor);

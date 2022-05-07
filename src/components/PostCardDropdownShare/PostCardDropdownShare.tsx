@@ -78,7 +78,7 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
       renderTrigger={renderButton}
       renderItem={renderItem}
       data={SOCIALS_SHARE}
-      onClick={() => {}}
+      onClickItem={() => {}}
     />
   );
 };

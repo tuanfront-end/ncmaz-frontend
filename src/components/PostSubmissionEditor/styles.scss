@@ -1,15 +1,15 @@
+.ProseMirror {
+  p.is-editor-empty:first-child::before {
+    @apply text-neutral-500 dark:text-neutral-400;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+}
+
 .nc-TiptapEditor {
   /* Basic editor styles */
-
-  .ProseMirror {
-    p.is-editor-empty:first-child::before {
-      @apply text-neutral-500 dark:text-neutral-400;
-      content: attr(data-placeholder);
-      float: left;
-      height: 0;
-      pointer-events: none;
-    }
-  }
 
   .editor {
     display: flex;
@@ -18,9 +18,9 @@
 
     &__content {
       flex: 1 1 auto;
+      @apply py-10 px-4;
       overflow-x: hidden;
       overflow-y: auto;
-      padding: 1.25rem 1rem;
       -webkit-overflow-scrolling: touch;
     }
 

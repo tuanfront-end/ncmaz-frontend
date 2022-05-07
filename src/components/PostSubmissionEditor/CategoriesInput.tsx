@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import NcModal from "components/NcModal/NcModal";
 import { useLazyQuery, gql } from "@apollo/client";
 import ButtonPrimary from "components/Button/ButtonPrimary";
@@ -8,21 +8,30 @@ import { GET_LIST_CATEGORIES_NO_PARENT } from "containers/PageArchive/queryGraph
 import NcImage from "components/NcImage/NcImage";
 import { Categories } from "containers/PageArchive/ModalCategories";
 import Skeleton from "react-loading-skeleton";
+import { CategoriesNode3 } from "data/postCardType";
 
 interface Data {
   categories: Categories;
 }
 
-export interface CategoriesInputProps {}
+export interface CategoriesInputProps {
+  onChange: (categories: CategoriesNode3[]) => void;
+}
 
-const CategoriesInput: FC<CategoriesInputProps> = () => {
+const CategoriesInput: FC<CategoriesInputProps> = ({ onChange }) => {
   const POST_PER_PAGE = 30;
 
   const Q_LIST_CATS = gql`
     ${GET_LIST_CATEGORIES_NO_PARENT}
   `;
 
-  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
+  const [categoriesSelected, setCategoriesSelected] = useState<
+    CategoriesNode3[]
+  >([]);
+
+  useEffect(() => {
+    onChange(categoriesSelected);
+  }, [categoriesSelected.length]);
 
   const [getListCats, { loading, error, data, fetchMore }] = useLazyQuery<Data>(
     Q_LIST_CATS,
@@ -69,19 +78,25 @@ const CategoriesInput: FC<CategoriesInputProps> = () => {
     });
   };
 
-  const handleChooseCategory = (id: string) => {
-    if (categoriesSelected.includes(id)) {
-      setCategoriesSelected(categoriesSelected.filter((item) => item !== id));
+  const checkIncludes = (category: CategoriesNode3) => {
+    return categoriesSelected.some((item) => item.id === category.id);
+  };
+
+  const handleChooseCategory = (categoryNode: CategoriesNode3) => {
+    if (checkIncludes(categoryNode)) {
+      setCategoriesSelected(
+        categoriesSelected.filter((item) => item.id !== categoryNode.id)
+      );
       return;
     }
     if (categoriesSelected.length >= 5) {
       return;
     }
-    setCategoriesSelected([...categoriesSelected, id]);
+    setCategoriesSelected([...categoriesSelected, categoryNode]);
   };
 
   const renderCategoryItem = (cat: Categories["edges"][number]) => {
-    const isActive = categoriesSelected.includes(cat.node.id);
+    const isActive = categoriesSelected.some((item) => item.id === cat.node.id);
     const disabled = categoriesSelected.length >= 5 && !isActive;
     return (
       <div
@@ -92,7 +107,7 @@ const CategoriesInput: FC<CategoriesInputProps> = () => {
             : "hover:bg-neutral-50 dark:hover:bg-neutral-700 cursor-pointer"
         } ${isActive ? "!bg-primary-500 text-white" : ""}`}
         key={cat.node.id}
-        onClick={() => handleChooseCategory(cat.node.id)}
+        onClick={() => handleChooseCategory(cat.node)}
       >
         <div className="flex items-center">
           <NcImage

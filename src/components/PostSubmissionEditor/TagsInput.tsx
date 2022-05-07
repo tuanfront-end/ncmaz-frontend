@@ -1,14 +1,32 @@
 import { gql, useLazyQuery } from "@apollo/client";
+import { nanoid } from "@reduxjs/toolkit";
 import CircleLoading from "components/Loading/CircleLoading";
-import { Tags } from "containers/PageArchive/ModalTags";
 import NCMAZ_TRANSLATE from "contains/translate";
-import React, { useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 
 interface Data {
   tags: Tags;
 }
+interface Tags {
+  edges: Edge[];
+  __typename: string;
+}
+interface Edge {
+  node: TagNodeShort;
+  __typename: string;
+}
 
-const TagsInput = () => {
+export interface TagNodeShort {
+  id: string;
+  name: string;
+  tagId: number;
+}
+
+interface TagsInputProps {
+  onChange: (tags: TagNodeShort[]) => void;
+}
+
+const TagsInput: FC<TagsInputProps> = ({ onChange }) => {
   // GET MOST USED TAGS
   const Q_LIST_TAGS = gql`
     query GET_LIS_TAGS_MOST_USED {
@@ -18,6 +36,7 @@ const TagsInput = () => {
             id
             name
             count
+            tagId
           }
         }
       }
@@ -32,7 +51,7 @@ const TagsInput = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   let [isOpen, setIsOpen] = useState(false);
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<TagNodeShort[]>([]);
 
   useEffect(() => {
     if (!isOpen || data?.tags.edges.length) {
@@ -45,7 +64,9 @@ const TagsInput = () => {
     if (tags.length >= 5) {
       setIsOpen(false);
     }
-  }, [tags]);
+
+    onChange(tags);
+  }, [tags.length]);
 
   function closePopover() {
     setIsOpen(false);
@@ -55,8 +76,12 @@ const TagsInput = () => {
     setIsOpen(true);
   }
 
-  const setNewTags = (tag: string) => {
-    if (!tags.includes(tag)) {
+  const checkIncludes = (tag: TagNodeShort) => {
+    return tags.some((item) => item.name === tag.name);
+  };
+
+  const setNewTags = (tag: TagNodeShort) => {
+    if (!checkIncludes(tag)) {
       setTags((prevTags) => [...prevTags, tag]);
     }
 
@@ -93,15 +118,15 @@ const TagsInput = () => {
     setIsOpen(false);
   };
 
-  const handleRemoveTag = (tag: string) => {
-    setTags(tags.filter((t) => t !== tag));
+  const handleRemoveTag = (tag: TagNodeShort) => {
+    setTags(tags.filter((t) => t.name !== tag.name));
     setTimeout(() => {
       inputRef.current?.focus();
     }, 100);
   };
 
   return (
-    <div className="relative w-full my-5 text-sm">
+    <div className="relative w-full mt-5 text-sm">
       <ul className="flex flex-wrap ">
         {tags.map((tag, index) => (
           <li
@@ -109,7 +134,7 @@ const TagsInput = () => {
             key={index}
           >
             #{` `}
-            {tag}
+            {tag.name}
             <button
               className="ml-1 px-1 text-red-400 text-base flex items-center justify-center"
               onClick={() => handleRemoveTag(tag)}
@@ -133,14 +158,15 @@ const TagsInput = () => {
                   : `${NCMAZ_TRANSLATE["Add another"]}...`
               }
               onFocus={openPopover}
-              onChange={(e) => {
-                console.log(1, e);
-              }}
               onKeyDown={(e) => {
                 if (e.code !== "Enter") {
                   return;
                 }
-                setNewTags(e.currentTarget.value);
+                setNewTags({
+                  id: `${Date.now()}-${nanoid()}`,
+                  name: e.currentTarget.value,
+                  tagId: Math.random(),
+                });
               }}
             />
           </li>
@@ -165,12 +191,12 @@ const TagsInput = () => {
                   <button
                     className="flex items-center justify-center mr-2 my-1 px-2 py-1.5 rounded bg-neutral-100 disabled:hover:bg-neutral-100 dark:bg-neutral-700 dark:hover:bg-neutral-6000 dark:disabled:hover:bg-neutral-700 hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-70"
                     onClick={() => {
-                      if (tags.includes(tag.node.name)) {
+                      if (checkIncludes(tag.node)) {
                         return;
                       }
-                      setNewTags(tag.node.name);
+                      setNewTags(tag.node);
                     }}
-                    disabled={tags.includes(tag.node.name)}
+                    disabled={checkIncludes(tag.node)}
                   >
                     #{` `}
                     {tag.node.name}

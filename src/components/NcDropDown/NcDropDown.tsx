@@ -1,11 +1,5 @@
 import { DotsHorizontalIcon } from "@heroicons/react/solid";
-import React, {
-  FC,
-  Fragment,
-  JSXElementConstructor,
-  ReactElement,
-  ReactNode,
-} from "react";
+import React, { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import twFocusClass from "utils/twFocusClass";
 
@@ -23,7 +17,7 @@ export interface NcDropDownProps {
   renderTrigger?: () => JSX.Element;
   renderItem?: (item: NcDropDownItem, active: boolean) => JSX.Element;
   title?: string;
-  onClick: (item: NcDropDownItem) => void;
+  onClickItem: (item: NcDropDownItem) => void;
 }
 
 const NcDropDown: FC<NcDropDownProps> = ({
@@ -34,7 +28,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
   renderTrigger,
   renderItem,
   data,
-  onClick,
+  onClickItem,
 }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -64,11 +58,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
         >
           <div className="px-1 py-2.5 text-sm text-neutral-6000 dark:text-neutral-300">
             {data.map((item) => (
-              <Menu.Item
-                key={item.id}
-                onClick={() => onClick(item)}
-                data-menu-item-id={item.id}
-              >
+              <Menu.Item key={item.id} data-menu-item-id={item.id}>
                 {({ active }) =>
                   renderItem ? (
                     renderItem(item, active)
@@ -79,6 +69,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
                           ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
                           : ""
                       }`}
+                      onClick={() => onClickItem(item)}
                     >
                       {!!item.icon && (
                         <i className={`${item.icon} mr-1 w-7 text-base`}></i>

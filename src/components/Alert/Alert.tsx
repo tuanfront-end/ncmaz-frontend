@@ -9,7 +9,7 @@ export interface AlertProps {
   showClose?: boolean;
 }
 
-export const Alert: React.FC<AlertProps> = ({
+const Alert: React.FC<AlertProps> = ({
   children = "Alert Text",
   containerClassName = "",
   type = "default",
@@ -43,7 +43,7 @@ export const Alert: React.FC<AlertProps> = ({
       <svg
         width="24"
         height="24"
-        className="mr-2"
+        className="mr-3"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -75,3 +75,5 @@ export const Alert: React.FC<AlertProps> = ({
     </div>
   );
 };
+
+export default Alert;

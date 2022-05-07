@@ -1,4 +1,5 @@
 let NCMAZ_TRANSLATE = {
+  "Write an excerpt (optional)": "Write an excerpt (optional)",
   "Save draft": "Save draft",
   Publish: "Publish",
   selected: "selected",
@@ -19,8 +20,10 @@ let NCMAZ_TRANSLATE = {
   "Upload image": "Upload image",
   "Unset link": "Unset link",
   "Image URL": "Image URL",
+  "Gallery images": "Gallery images",
   "Paste or type a link": "Paste or type a link",
   "Alt text (alternative text)": "Alt text (alternative text)",
+  Image: "Image",
   //
   nothingWeFound: "Nothing we found!",
   author: "author",

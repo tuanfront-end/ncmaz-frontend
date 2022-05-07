@@ -5,21 +5,65 @@ import ButtonSecondary from "components/Button/ButtonSecondary";
 import Input from "components/Input/Input";
 import Label from "components/Label/Label";
 import Textarea from "components/Textarea/Textarea";
-import React, { Fragment, useState } from "react";
-import ImageUpload from "./ImageUpload";
+import NCMAZ_TRANSLATE from "contains/translate";
+import { debounce } from "lodash";
+import React, { FC, Fragment, useState } from "react";
+import ImageUpload, { ImageState } from "./ImageUpload";
 
 let postFormats = frontendObject.postFormats || [];
-postFormats = ["Standard", ...postFormats];
+postFormats = ["standard", ...postFormats];
 
-const PostOptionsBtn = () => {
+type GalleryImages = Record<number, ImageState>;
+
+export interface PostOptionsData {
+  postFormatsSelected: typeof postFormats[number];
+  excerptText: string;
+  objGalleryImgs: GalleryImages;
+  videoUrl: string;
+  audioUrl: string;
+}
+
+interface PostOptionsBtnProps {
+  onSubmit: (data: PostOptionsData) => void;
+  defaultData: PostOptionsData;
+}
+
+const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
   const [postFormatsSelected, setPostFormatsSelected] = useState(
-    postFormats[0]
+    defaultData.postFormatsSelected || postFormats[0]
+  );
+  const [excerptText, setExcerptText] = useState(defaultData.excerptText);
+  const [videoUrl, setVideoUrl] = useState(defaultData.videoUrl);
+  const [audioUrl, setAudioUrl] = useState(defaultData.audioUrl);
+  const [objGalleryImgs, setObjGalleryImgs] = useState<GalleryImages>(
+    defaultData.objGalleryImgs || {}
   );
   //
 
+  const debounceGetExcerpt = debounce(function (e: string) {
+    setExcerptText(e);
+  }, 200);
+  const debounceVideoUrlChange = debounce(function (e: string) {
+    setVideoUrl(e);
+  }, 200);
+  const debounceAudioUrlChange = debounce(function (e: string) {
+    setAudioUrl(e);
+  }, 200);
+
+  const handleClickApply = () => {
+    onSubmit({
+      postFormatsSelected,
+      excerptText,
+      videoUrl,
+      audioUrl,
+      objGalleryImgs,
+    });
+  };
+
+  const handleClickCancel = () => {};
   //
 
-  const renderBtn = () => {
+  const renderBtnOpenPopover = () => {
     return (
       <ButtonSecondary
         className="flex-shrink-0"
@@ -109,12 +153,23 @@ const PostOptionsBtn = () => {
   const renderUploadGallery = () => {
     return (
       <div>
-        <span className="text-base font-semibold">Upload gallery images</span>
-        <div className="flex space-x-2.5 my-2 overflow-x-auto snap-x">
+        <span className="text-base font-semibold">
+          {NCMAZ_TRANSLATE["Gallery images"]}
+        </span>
+        <div className="flex space-x-2.5 py-2 overflow-x-auto snap-x customScrollBar">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item, idx) => (
             <div className="flex-shrink-0 snap-start" key={idx}>
-              <Label>{`Image ${item}`}</Label>
-              <ImageUpload />
+              <Label>{`${NCMAZ_TRANSLATE["Image"]} ${item}`}</Label>
+              <ImageUpload
+                defaultImage={objGalleryImgs[item]}
+                onChangeImage={(image) => {
+                  setObjGalleryImgs((prevState) => ({
+                    ...prevState,
+                    [item]: image,
+                  }));
+                }}
+                contentClassName="p-3"
+              />
             </div>
           ))}
         </div>
@@ -125,8 +180,14 @@ const PostOptionsBtn = () => {
   const renderExcerptTextarea = () => {
     return (
       <div>
-        <Label>Write an excerpt (optional)</Label>
-        <Textarea className="mt-1" />
+        <Label>{NCMAZ_TRANSLATE["Write an excerpt (optional)"]}</Label>
+        <Textarea
+          onChange={(event) => {
+            debounceGetExcerpt(event.currentTarget.value);
+          }}
+          defaultValue={excerptText}
+          className="mt-1"
+        />
       </div>
     );
   };
@@ -135,7 +196,14 @@ const PostOptionsBtn = () => {
     return (
       <div>
         <Label>{`Video URL (Youtube, Vimeo, mp4 ... )`}</Label>
-        <Input className="mt-1" placeholder="Video url..." />
+        <Input
+          onChange={(event) => {
+            debounceVideoUrlChange(event.currentTarget.value);
+          }}
+          defaultValue={videoUrl}
+          className="mt-1"
+          placeholder="Video url..."
+        />
       </div>
     );
   };
@@ -151,7 +219,14 @@ const PostOptionsBtn = () => {
     return (
       <div>
         <Label>{`Audio URL (${sp} )`}</Label>
-        <Input className="mt-1" placeholder="Audio url..." />
+        <Input
+          onChange={(event) => {
+            debounceAudioUrlChange(event.currentTarget.value);
+          }}
+          defaultValue={audioUrl}
+          className="mt-1"
+          placeholder="Audio url..."
+        />
       </div>
     );
   };
@@ -160,7 +235,7 @@ const PostOptionsBtn = () => {
     <Popover className="relative">
       {({ open, close }) => (
         <>
-          <Popover.Button as={"div"}>{renderBtn()}</Popover.Button>
+          <Popover.Button as={"div"}>{renderBtnOpenPopover()}</Popover.Button>
           <Transition
             as={Fragment}
             enter="transition ease-out duration-200"
@@ -173,7 +248,7 @@ const PostOptionsBtn = () => {
           >
             <Popover.Panel
               unmount={false}
-              className="absolute z-10 w-screen max-w-sm px-4 mb-3 left-0 bottom-full sm:px-0 lg:max-w-2xl"
+              className="absolute z-10 w-screen max-w-sm px-4 mb-4 left-1/2 -translate-x-1/2 bottom-full sm:px-0 lg:max-w-2xl"
             >
               <div className="rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                 <div className="relative flex flex-col px-5 py-6 space-y-5">
@@ -190,18 +265,24 @@ const PostOptionsBtn = () => {
 
                   {postFormatsSelected === "audio" && renderInputAudio()}
                 </div>
-                <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                <div className="p-5 bg-neutral-50 rounded-b-2xl dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                   <ButtonSecondary
-                    onClick={() => close()}
+                    onClick={() => {
+                      handleClickCancel();
+                      close();
+                    }}
                     sizeClass="px-4 py-2 sm:px-5"
                   >
-                    Clear
+                    {NCMAZ_TRANSLATE["Cancel"]}
                   </ButtonSecondary>
                   <ButtonPrimary
-                    onClick={() => close()}
+                    onClick={() => {
+                      handleClickApply();
+                      close();
+                    }}
                     sizeClass="px-4 py-2 sm:px-5"
                   >
-                    Apply
+                    {NCMAZ_TRANSLATE["Apply"]}
                   </ButtonPrimary>
                 </div>
               </div>

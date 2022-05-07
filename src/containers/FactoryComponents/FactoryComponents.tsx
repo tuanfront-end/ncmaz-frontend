@@ -3,14 +3,16 @@ import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDrop
 import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
-import TiptapEditor from "components/TiptapEditor/TiptapEditor";
-import DemoTini from "containers/DemoTini";
 import ErrorBoundary from "ErrorBoundary";
 
 import React, { FC, Suspense } from "react";
 import ReactDOM from "react-dom";
 
 //
+const PostSubmissionEditorLazy = React.lazy(
+  () => import("components/PostSubmissionEditor/PostSubmissionEditor")
+);
+const AlertLazy = React.lazy(() => import("components/Alert/Alert"));
 const HeaderSingleAudioLazy = React.lazy(
   () => import("components/HeaderSingleAudio/HeaderSingleAudio")
 );
@@ -68,10 +70,21 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
     }
 
     switch (conponentName) {
+      case "Alert":
+        return ReactDOM.createPortal(
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <AlertLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
+          dom
+        );
       case "TiptapEditorPostSubmission":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
-            <TiptapEditor {...componentProps} />
+            <Suspense fallback={<div />}>
+              <PostSubmissionEditorLazy {...componentProps} />
+            </Suspense>
           </ErrorBoundary>,
           dom
         );

@@ -20,6 +20,9 @@ define('_NCMAZ_FRONTEND_PREFIX', 'ncmaz_frontend_prefix_');
 define('_NCMAZ_FRONTEND_TEXT_DOMAIN', 'ncmaz-frontend');
 
 // 
+
+
+// 
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-funcs.php';
 // 
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-enqueue-scripts.php';
@@ -39,4 +42,8 @@ add_action('plugins_loaded',  function () {
     // 
     require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-graphql.php';
     //  
+
+    if (!current_user_can('manage_options')) {
+        add_filter('show_admin_bar', '__return_false');
+    }
 });
