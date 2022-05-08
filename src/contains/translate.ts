@@ -1,5 +1,7 @@
 let NCMAZ_TRANSLATE = {
   "Write an excerpt (optional)": "Write an excerpt (optional)",
+  "Link copied": "Link copied",
+  "Copy link": "Copy link",
   "Save draft": "Save draft",
   Publish: "Publish",
   selected: "selected",

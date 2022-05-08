@@ -38,7 +38,7 @@ const Alert: React.FC<AlertProps> = ({
 
   return (
     <div
-      className={`ttnc-alert relative flex items-center px-6 py-4 rounded-xl ${classes}`}
+      className={`ttnc-alert relative flex items-center px-6 py-4 rounded-xl text-sm ${classes}`}
     >
       <svg
         width="24"

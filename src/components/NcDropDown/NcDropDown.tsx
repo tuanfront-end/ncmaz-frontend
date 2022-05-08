@@ -17,7 +17,7 @@ export interface NcDropDownProps {
   renderTrigger?: () => JSX.Element;
   renderItem?: (item: NcDropDownItem, active: boolean) => JSX.Element;
   title?: string;
-  onClickItem: (item: NcDropDownItem) => void;
+  onClickItem?: (item: NcDropDownItem) => void;
 }
 
 const NcDropDown: FC<NcDropDownProps> = ({
@@ -30,6 +30,41 @@ const NcDropDown: FC<NcDropDownProps> = ({
   data,
   onClickItem,
 }) => {
+  const renderMenuItem = (item: NcDropDownItem) => {
+    if (item.name === "_divider_") {
+      return (
+        <div
+          key={item.id}
+          className="flex-1 flex border border-b border-neutral-100 dark:border-neutral-700/50 my-2"
+        ></div>
+      );
+    }
+
+    return (
+      <Menu.Item key={item.id} data-menu-item-id={item.id}>
+        {({ active }) =>
+          renderItem ? (
+            renderItem(item, active)
+          ) : (
+            <button
+              className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
+                active
+                  ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
+                  : ""
+              }`}
+              onClick={() => onClickItem && onClickItem(item)}
+            >
+              {!!item.icon && (
+                <i className={`${item.icon} mr-1 w-7 text-base`}></i>
+              )}
+              <span className="truncate">{item.name}</span>
+            </button>
+          )
+        }
+      </Menu.Item>
+    );
+  };
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className={className} title={title}>
@@ -57,29 +92,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
           className={`absolute ${panelMenusClass} bg-white dark:bg-neutral-900 rounded-2xl divide-y divide-neutral-100 shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 focus:outline-none z-40`}
         >
           <div className="px-1 py-2.5 text-sm text-neutral-6000 dark:text-neutral-300">
-            {data.map((item) => (
-              <Menu.Item key={item.id} data-menu-item-id={item.id}>
-                {({ active }) =>
-                  renderItem ? (
-                    renderItem(item, active)
-                  ) : (
-                    <button
-                      className={`flex items-center rounded-md w-full px-3 py-2  truncate ${
-                        active
-                          ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
-                          : ""
-                      }`}
-                      onClick={() => onClickItem(item)}
-                    >
-                      {!!item.icon && (
-                        <i className={`${item.icon} mr-1 w-7 text-base`}></i>
-                      )}
-                      <span className="truncate">{item.name}</span>
-                    </button>
-                  )
-                }
-              </Menu.Item>
-            ))}
+            {data.map(renderMenuItem)}
           </div>
         </Menu.Items>
       </Transition>

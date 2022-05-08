@@ -250,7 +250,7 @@
 
 .ncmaz-button-like-post {
   .simplefavorite-button {
-    @apply relative sm:min-w-[68px] pl-2 pr-3 h-7 sm:h-8 flex items-center rounded-full leading-none transition-colors   text-xs focus:outline-none cursor-pointer;
+    @apply relative flex justify-center items-center  sm:min-w-[68px] px-2 h-7 sm:h-8 rounded-full leading-none transition-colors text-xs sm:text-sm focus:outline-none cursor-pointer;
     .simplefavorite-button-count {
       @apply ml-1;
     }
@@ -374,4 +374,19 @@ form.search-form {
 
 .nc-translate-z-0 {
   transform: translateZ(0);
+}
+
+//
+.Toastify {
+  .Toastify__toast-container {
+    @apply w-full sm:max-w-md md:max-w-lg lg:max-w-xl;
+  }
+  .Toastify__toast.toast-container-class {
+    @apply rounded-lg text-sm;
+  }
+  .dark {
+    .Toastify__toast-theme--dark {
+      @apply bg-neutral-6000;
+    }
+  }
 }

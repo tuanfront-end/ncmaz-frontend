@@ -1,4 +1,5 @@
 import NavAccountDropdown from "components/NavAccountDropdown/NavAccountDropdown";
+import NcDropDown from "components/NcDropDown/NcDropDown";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SocialsShare from "components/SocialsShare/SocialsShare";
@@ -92,6 +93,14 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
             <PostCardDropdownShare {...componentProps} />
+          </ErrorBoundary>,
+          dom
+        );
+
+      case "NcDropDown":
+        return ReactDOM.createPortal(
+          <ErrorBoundary key={index}>
+            <NcDropDown {...componentProps} />
           </ErrorBoundary>,
           dom
         );

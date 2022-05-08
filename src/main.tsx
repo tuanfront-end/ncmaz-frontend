@@ -17,13 +17,7 @@ import { RetryLink } from "@apollo/client/link/retry";
 import "./index.css";
 import "./styles/index.scss";
 import "react-loading-skeleton/dist/skeleton.css";
-
-//
-const LazyCssRTLLazy = React.lazy(() => import("./LazyCssRTL"));
-const LazyCssCommentsLazy = React.lazy(() => import("./LazyCssComments"));
-const LazyCssSingleProseLazy = React.lazy(() => import("./LazyCssSingleProse"));
-const LazyCssWUFPluginLazy = React.lazy(() => import("./LazyCssWUFPlugin"));
-//
+import "react-toastify/dist/ReactToastify.css";
 
 interface User {
   avatar?: {
@@ -159,33 +153,6 @@ if (
       <PersistGate loading={null} persistor={persistor}>
         <ApolloProvider client={client}>
           <App />
-
-          {/* LOAD RTL CSS WHEN RTL MODE ENABLE */}
-          {document.querySelector("html")?.getAttribute("dir") === "rtl" && (
-            <Suspense fallback={<div />}>
-              <LazyCssRTLLazy />
-            </Suspense>
-          )}
-
-          {!!document.querySelector("#comments.comments-area") && (
-            <Suspense fallback={<div />}>
-              <LazyCssCommentsLazy />
-            </Suspense>
-          )}
-
-          {!!document.querySelector(".prose") && (
-            <Suspense fallback={<div />}>
-              <LazyCssSingleProseLazy />
-            </Suspense>
-          )}
-
-          {(!!document.querySelector(".wpuf-dashboard-container") ||
-            !!document.querySelector(".wpuf-form") ||
-            !!document.querySelector(".wpuf_packs")) && (
-            <Suspense fallback={<div />}>
-              <LazyCssWUFPluginLazy />
-            </Suspense>
-          )}
 
           {/* END LAZY CSS */}
         </ApolloProvider>

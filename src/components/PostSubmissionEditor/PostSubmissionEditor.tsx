@@ -71,8 +71,10 @@ const PostSubmissionEditor: FC<Props> = ({
   //
 
   // MUTATION_CREATE_POST GQL
+  // status: PENDING | PRIVATE | PUBLISH | DRAFT | TRASH
   const MUTATION_CREATE_POST = gql`
     mutation MUTATION_CREATE_POST(
+      $status: PostStatusEnum = null
       $title: String = ""
       $excerpt: String = ""
       $ncFeaturedImageDatabaseId: Int = null
@@ -93,6 +95,7 @@ const PostSubmissionEditor: FC<Props> = ({
     ) {
       createPost(
         input: {
+          status: $status
           title: $title
           excerpt: $excerpt
           ncFeaturedImageDatabaseId: $ncFeaturedImageDatabaseId
@@ -205,6 +208,7 @@ const PostSubmissionEditor: FC<Props> = ({
   const handleClickPublish = () => {
     const optionsInput = converPostOptionDataToInput(postOptionsData);
     const variables = {
+      status: "PUBLISH",
       title: titleContent,
       ncFeaturedImageDatabaseId: featuredImage.id || null,
       content: contentHTML,
