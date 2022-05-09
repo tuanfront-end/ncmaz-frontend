@@ -19,7 +19,7 @@ import "./styles/index.scss";
 import "react-loading-skeleton/dist/skeleton.css";
 import "react-toastify/dist/ReactToastify.css";
 
-interface User {
+interface UserViewer {
   avatar?: {
     url: string;
   };
@@ -41,6 +41,19 @@ interface User {
   nicename?: string;
   nickname?: string;
   locale?: string;
+  roles: {
+    edges: {
+      node: {
+        id: string;
+        name:
+          | "administrator"
+          | "editor"
+          | "author"
+          | "contributor"
+          | "subscriber";
+      };
+    }[];
+  };
 }
 
 declare global {
@@ -63,6 +76,7 @@ declare global {
   var DATE_I18N: any;
   //
   var frontendObject: {
+    postSubmissionPageLinkNcmazEditor: string;
     pll_current_language: string | null;
     pll_themeoption_actived: string | null;
     restUrl: string;
@@ -71,7 +85,7 @@ declare global {
     placeholderImg: string;
     graphQLBasePath: string;
     homeURL: string;
-    currentUser?: User;
+    currentUser?: UserViewer;
     currentObject: {
       id: number;
     };
@@ -153,8 +167,6 @@ if (
       <PersistGate loading={null} persistor={persistor}>
         <ApolloProvider client={client}>
           <App />
-
-          {/* END LAZY CSS */}
         </ApolloProvider>
       </PersistGate>
     </Provider>

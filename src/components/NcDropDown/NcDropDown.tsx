@@ -7,6 +7,7 @@ export interface NcDropDownItem {
   id: string;
   name: string;
   icon: string;
+  href?: string;
 }
 
 export interface NcDropDownProps {
@@ -30,6 +31,42 @@ const NcDropDown: FC<NcDropDownProps> = ({
   data,
   onClickItem,
 }) => {
+  const renderMenuItemContent = (item: NcDropDownItem, active: boolean) => {
+    if (item.href) {
+      return (
+        <a
+          className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
+            active
+              ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
+              : ""
+          }`}
+          onClick={() => onClickItem && onClickItem(item)}
+          href={item.href}
+        >
+          {!!item.icon && (
+            <i
+              className={`${item.icon} flex justify-center mr-1 w-7 text-base`}
+            ></i>
+          )}
+          <span className="truncate">{item.name}</span>
+        </a>
+      );
+    }
+    return (
+      <button
+        className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
+          active
+            ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
+            : ""
+        }`}
+        onClick={() => onClickItem && onClickItem(item)}
+      >
+        {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-base`}></i>}
+        <span className="truncate">{item.name}</span>
+      </button>
+    );
+  };
+
   const renderMenuItem = (item: NcDropDownItem) => {
     if (item.name === "_divider_") {
       return (
@@ -43,23 +80,9 @@ const NcDropDown: FC<NcDropDownProps> = ({
     return (
       <Menu.Item key={item.id} data-menu-item-id={item.id}>
         {({ active }) =>
-          renderItem ? (
-            renderItem(item, active)
-          ) : (
-            <button
-              className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
-                active
-                  ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
-                  : ""
-              }`}
-              onClick={() => onClickItem && onClickItem(item)}
-            >
-              {!!item.icon && (
-                <i className={`${item.icon} mr-1 w-7 text-base`}></i>
-              )}
-              <span className="truncate">{item.name}</span>
-            </button>
-          )
+          renderItem
+            ? renderItem(item, active)
+            : renderMenuItemContent(item, active)
         }
       </Menu.Item>
     );

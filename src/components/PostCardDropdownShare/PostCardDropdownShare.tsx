@@ -81,7 +81,7 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
           type="text"
           hidden
           className="hidden"
-          value={href}
+          defaultValue={href}
         />
       </div>
     );

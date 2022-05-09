@@ -1,6 +1,11 @@
 let NCMAZ_TRANSLATE = {
   "Write an excerpt (optional)": "Write an excerpt (optional)",
+  "Post deleted successfully.": "Post deleted successfully.",
+  "Post successful": "Post successful",
   "Link copied": "Link copied",
+  "Delete post": "Delete post",
+  "Are you sure you want to delete this post? You cannot undo this action.":
+    "Are you sure you want to delete this post? You cannot undo this action.",
   "Copy link": "Copy link",
   "Save draft": "Save draft",
   Publish: "Publish",

@@ -27,6 +27,15 @@ function addModuleTypeForScripts($tag, $handle, $src)
 }
 // =================================================================================
 
+function ncmaz_get_link_by_slug($slug, $type = 'page')
+{
+    if (!is_user_logged_in()) {
+        return "";
+    }
+    $oPage = get_page_by_path($slug, OBJECT, $type);
+    return get_permalink($oPage->ID);
+}
+
 // ENQUEUE FOR BACKEND EDITOR
 function ncmazFrontendEnqueueAdminStylesheet($hook)
 {
@@ -68,6 +77,14 @@ function getCurrentUserGraphql()
                 nicename
                 nickname
                 locale
+                roles {
+                    edges {
+                      node {
+                        id
+                        name
+                      }
+                    }
+                  }
             }
 		}'
     ]);
@@ -164,6 +181,7 @@ function ncmazFrontend_enqueueScriptCustomize()
             'restVarsEndpoint'            => esc_url_raw(rest_url('/wp/v2/media/')),
             'restVarsNonce'               => wp_create_nonce('wp_rest'),
             'postFormats'                 => $nc_post_formats,
+            'postSubmissionPageLinkNcmazEditor'      => ncmaz_get_link_by_slug('ncmazeditor-submission-post'),
         ]
     ), 'before');
 

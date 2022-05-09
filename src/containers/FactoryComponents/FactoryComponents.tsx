@@ -13,6 +13,9 @@ import ReactDOM from "react-dom";
 const PostSubmissionEditorLazy = React.lazy(
   () => import("components/PostSubmissionEditor/PostSubmissionEditor")
 );
+const PostMoreActionDropdownLazy = React.lazy(
+  () => import("components/PostMoreActionDropdown")
+);
 const AlertLazy = React.lazy(() => import("components/Alert/Alert"));
 const HeaderSingleAudioLazy = React.lazy(
   () => import("components/HeaderSingleAudio/HeaderSingleAudio")
@@ -71,6 +74,15 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
     }
 
     switch (conponentName) {
+      case "PostMoreActionDropdown":
+        return ReactDOM.createPortal(
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <PostMoreActionDropdownLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
+          dom
+        );
       case "Alert":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>

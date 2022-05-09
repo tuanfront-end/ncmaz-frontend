@@ -136,8 +136,6 @@ const ImageUpload: FC<ImageUploadProps> = ({
     }
   };
 
-  console.log(111, { imageState });
-
   const LOADING = isUploading;
   const ERROR = uploadErrMess;
 

@@ -191,6 +191,7 @@ interface FeaturedImage {
 }
 
 interface Node4 {
+  databaseId: string;
   id: string;
   altText: string;
   caption: string;

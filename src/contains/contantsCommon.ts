@@ -28,10 +28,10 @@ const avatarColors = [
 ];
 
 // ===================== POSTS =================================================
-const EDGES_POST_COMMONT_FIELDS = ` edges {
-  node {
+const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
     id
     link
+    content
     author {
       node {
         id
@@ -72,6 +72,7 @@ const EDGES_POST_COMMONT_FIELDS = ` edges {
     featuredImage {
       node {
         id
+        databaseId
         altText
         caption
         sourceUrl(size: $featuredImage_size)
@@ -134,6 +135,118 @@ const EDGES_POST_COMMONT_FIELDS = ` edges {
          sourceUrl(size: $ncmazGalleryImgs_size)
       }
     }
+`;
+const EDGES_POST_COMMONT_FIELDS_NOT_EDGES = `
+    id
+    link
+    author {
+      node {
+        id
+        avatar {
+          url
+        }
+        url
+        uri
+        username
+        name
+        slug
+        ncUserMeta {
+          featuredImage {
+            sourceUrl(size: $author_ncUserMeta_featuredImage_size)
+          }
+        }
+      }
+    }
+    categories {
+      edges {
+        node {
+          id
+          link
+          name
+          uri
+          slug
+          count
+          categoryId
+          ncTaxonomyMeta {
+            color
+          }
+        }
+      }
+    }
+    commentCount
+    date
+    excerpt
+    featuredImage {
+      node {
+        id
+        databaseId
+        altText
+        caption
+        sourceUrl(size: $featuredImage_size)
+      }
+    }
+    postFormats {
+      edges {
+        node {
+          id
+          name
+          slug
+        }
+      }
+    }
+    postId
+    slug
+    title
+    ncmazVideoUrl {
+      videoUrl
+    }
+    ncmazAudioUrl {
+      audioUrl
+    }
+    ncPostMetaData {
+      favoriteButtonShortcode
+      readingTimeShortcode
+      viewsCount
+    }
+    ncmazGalleryImgs {
+      image1 {
+        id
+        sourceUrl(size: $ncmazGalleryImgs_size)
+      }
+      image2 {
+        id
+         sourceUrl(size: $ncmazGalleryImgs_size)
+      }
+      image3 {
+        id
+         sourceUrl(size: $ncmazGalleryImgs_size)
+      }
+      image4 {
+        id
+         sourceUrl(size: $ncmazGalleryImgs_size)
+      }
+      image5 {
+        id
+         sourceUrl(size: $ncmazGalleryImgs_size)
+      }
+      image6 {
+        id
+         sourceUrl(size: $ncmazGalleryImgs_size)
+      }
+      image7 {
+        id
+         sourceUrl(size: $ncmazGalleryImgs_size)
+      }
+      image8 {
+        id
+         sourceUrl(size: $ncmazGalleryImgs_size)
+      }
+    }
+`;
+
+const EDGES_POST_COMMONT_FIELDS = ` edges {
+  node {
+    ${EDGES_POST_COMMONT_FIELDS_NOT_EDGES}
   }
 }`;
 
@@ -187,6 +300,8 @@ export {
   avatarColors,
   //
   EDGES_POST_COMMONT_FIELDS,
+  EDGES_POST_COMMONT_FIELDS_NOT_EDGES,
+  EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT,
   //
   EDGES_USER_COMMONT_FIELDS,
   //

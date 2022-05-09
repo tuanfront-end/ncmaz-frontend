@@ -1,11 +1,30 @@
 import {
   avatarColors,
   EDGES_POST_COMMONT_FIELDS,
+  EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT,
   EDGES_TERMS_COMMONT_FIELDS,
   EDGES_USER_COMMONT_FIELDS,
 } from "./contantsCommon";
 import { PLLs } from "./contantsPLL";
 // ===================== POSTS =================================================
+
+let GQL_QUERY_GET_POST_BY_DATABASE_ID = `
+query GQL_QUERY_GET_POST_BY_DATABASE_ID(
+  $idType: PostIdType = DATABASE_ID
+  $postId: ID = ""
+  $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
+  $featuredImage_size: MediaItemSizeEnum = ${
+    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+  }
+  $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
+    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
+  }
+  ) {
+  post(id: $postId, idType: $idType) {
+    ${EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT}
+  }
+}
+`;
 
 let GQL_QUERY_GET_POSTS_BY_FILTER = `
   query GQL_QUERY_GET_POSTS_BY_FILTER(
@@ -175,6 +194,8 @@ let IS_ENABLE_PLL =
   !!window.frontendObject.pll_themeoption_actived;
 //
 if (IS_ENABLE_PLL) {
+  GQL_QUERY_GET_POST_BY_DATABASE_ID =
+    PLLs.PLL_GET__GQL_QUERY_GET_POST_BY_DATABASE_ID;
   GQL_QUERY_GET_POSTS_BY_FILTER = PLLs.PLL_GET__GQL_QUERY_GET_POSTS_BY_FILTER;
   GQL_QUERY_GET_POSTS_BY_SPECIFIC =
     PLLs.PLL_GET__GQL_QUERY_GET_POSTS_BY_SPECIFIC;
@@ -190,6 +211,7 @@ if (IS_ENABLE_PLL) {
 export {
   avatarColors,
   //
+  GQL_QUERY_GET_POST_BY_DATABASE_ID,
   EDGES_POST_COMMONT_FIELDS,
   GQL_QUERY_GET_POSTS_BY_FILTER,
   GQL_QUERY_GET_POSTS_BY_SPECIFIC,

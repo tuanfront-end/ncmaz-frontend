@@ -20,9 +20,10 @@ import MyBubbleMenu from "./MyBubbleMenu";
 
 interface Props {
   onUpdate: (editor: Editor) => void;
+  defaultContent?: string;
 }
 
-const TiptapEditor: FC<Props> = ({ onUpdate }) => {
+const TiptapEditor: FC<Props> = ({ onUpdate, defaultContent = "" }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -56,7 +57,7 @@ const TiptapEditor: FC<Props> = ({ onUpdate }) => {
           "focus:outline-none prose prose-neutral lg:prose-lg dark:prose-invert max-w-screen-md mx-auto min-h-[500px]",
       },
     },
-    content: ` `,
+    content: defaultContent,
 
     onUpdate: ({ editor }) => {
       // @ts-ignore

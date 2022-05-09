@@ -29,8 +29,6 @@ require plugin_dir_path(__FILE__) . 'inc/ncmaz-enqueue-scripts.php';
 // 
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-update-views-count.php';
 //  
-require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-wpgraphql.php';
-//  
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-register-widgets.php';
 //  
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-AFC-fields.php';
@@ -40,9 +38,8 @@ require plugin_dir_path(__FILE__) . 'inc/ncmaz-AFC-fields.php';
 add_action('plugins_loaded',  function () {
     require plugin_dir_path(__FILE__) . 'inc/ncmaz-redux-sample-config.php';
     // 
-    require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-graphql.php';
-    //  
-
+    require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-wpgraphql.php';
+    // 
     if (!current_user_can('manage_options')) {
         add_filter('show_admin_bar', '__return_false');
     }
