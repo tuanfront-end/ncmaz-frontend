@@ -19,7 +19,7 @@ const NavItem: FC<NavItemProps> = ({
   renderX,
 }) => {
   return (
-    <li className="nc-NavItem relative" data-nc-id="NavItem">
+    <li className="nc-NavItem flex-shrink-0 relative" data-nc-id="NavItem">
       {renderX && renderX}
       <button
         className={`block !leading-none font-medium ${className} ${radius} ${

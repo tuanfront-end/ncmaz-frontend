@@ -52,7 +52,6 @@ export interface PageArchiveAuthorProps {
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
 const FILTERS = ARCHIVE_PAGE_FILTERS;
 //
-const TABS = [NCMAZ_TRANSLATE["articles"], NCMAZ_TRANSLATE["LikedArticles"]];
 
 // Tag and category have same data type - we will use one demo data
 const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
@@ -61,6 +60,22 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   userData,
   listIDFavorites,
 }) => {
+  let TABS = [];
+
+  // VAO TRANG AUTHOR CUA USER KHAC
+  if (listIDFavorites) {
+    TABS = [NCMAZ_TRANSLATE["articles"], NCMAZ_TRANSLATE["LikedArticles"]];
+  }
+  // VAO TRANG AUTHOR CUA USER CUA MINH
+  else {
+    TABS = [
+      NCMAZ_TRANSLATE["Published"],
+      NCMAZ_TRANSLATE["LikedArticles"],
+      NCMAZ_TRANSLATE["Drafts"],
+      NCMAZ_TRANSLATE["Pendings"],
+    ];
+  }
+
   const POST_PER_PAGE =
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
 
@@ -68,7 +83,8 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   const [tabActive, setTabActive] = useState(TABS[0]);
   //
   let variables = {};
-  //
+
+  // PUBLISHED POSTS
   if (tabActive === TABS[0]) {
     variables = {
       order: "DESC",
@@ -108,6 +124,28 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
       order: "DESC",
       first: 100,
       in: inIDs.length ? inIDs : "",
+    };
+  }
+
+  // DRAFTS POSTS VARIABLE
+  if (tabActive === TABS[2]) {
+    variables = {
+      order: "DESC",
+      field: orderByState,
+      first: POST_PER_PAGE,
+      authorIn: [userData.userId],
+      status: "DRAFT",
+    };
+  }
+
+  // PENDING POSTS VARIABLE
+  if (tabActive === TABS[3]) {
+    variables = {
+      order: "DESC",
+      field: orderByState,
+      first: POST_PER_PAGE,
+      authorIn: [userData.userId],
+      status: "PENDING",
     };
   }
 
@@ -428,7 +466,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
         <main>
           {/* TABS FILTER */}
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">
-            <Nav className="sm:space-x-2">
+            <Nav className="sm:space-x-2 overflow-x-auto hiddenScrollbar">
               {TABS.map((item, index) => (
                 <NavItem
                   key={index}

@@ -7,20 +7,22 @@ import TagsInput, { TagNodeShort } from "./TagsInput";
 import ButtonSecondary from "components/Button/ButtonSecondary";
 import CategoriesInput from "./CategoriesInput";
 import PostOptionsBtn, { PostOptionsData } from "./PostOptionsBtn";
-import ImageUpload, { ImageState } from "./ImageUpload";
+import { ImageState } from "components/ImageUploadToServer";
+
 import Label from "components/Label/Label";
-import { CategoriesNode3, PostNode } from "data/postCardType";
+import { CategoriesNode3, PostNodeFullData } from "data/postCardType";
 import TiptapEditor from "./TiptapEditor";
 import { Editor } from "@tiptap/react";
 import { gql, useMutation } from "@apollo/client";
 import Alert from "components/Alert/Alert";
 import { Slide, toast } from "react-toastify";
+import ModalDraftPost from "./ModalDraftPost";
 
 interface Data {
-  createPost: CreatePost;
+  updatePost: UpdatePost;
 }
 
-interface CreatePost {
+interface UpdatePost {
   post: Post;
   __typename: string;
 }
@@ -34,34 +36,91 @@ interface Post {
 }
 
 interface Props {
-  postNode: PostNode & { content: string };
+  postNode: PostNodeFullData;
 }
 
 const UpdatePostEditor: FC<Props> = ({ postNode }) => {
+  //
+  const [openDraftModal, setOpenDraftModal] = React.useState(false);
+
+  //
   const [titleContent, setTitleContent] = React.useState(postNode.title);
   const [contentHTML, setContentHTML] = React.useState(postNode.content);
   const [featuredImage, setFeaturedImage] = React.useState<
     ImageState | undefined
-  >(postNode.featuredImage?.node);
+  >({
+    sourceUrl: postNode.featuredImage?.node.sourceUrl || "",
+    id: postNode.featuredImage?.node.databaseId || "",
+    altText: postNode.featuredImage?.node.altText || "",
+  });
 
-  const [tags, setTags] = React.useState<TagNodeShort[]>([]);
-  const [categories, setCategories] = React.useState<CategoriesNode3[]>([]);
+  const [tags, setTags] = React.useState<TagNodeShort[]>(
+    postNode.tags?.edges.map((item) => item.node) || []
+  );
+  const [categories, setCategories] = React.useState<CategoriesNode3[]>(
+    postNode.categories?.edges.map((item) => item.node) || []
+  );
 
   const [postOptionsData, setPostOptionsData] = React.useState<PostOptionsData>(
     {
-      audioUrl: "",
-      videoUrl: "",
-      excerptText: "",
-      postFormatsSelected: "standard",
-      objGalleryImgs: {},
+      audioUrl: postNode.ncmazAudioUrl.audioUrl || "",
+      videoUrl: postNode.ncmazVideoUrl.videoUrl || "",
+      isAllowComments: postNode.commentStatus === "open",
+      excerptText: postNode.excerpt || "",
+      postFormatsSelected:
+        (postNode.postFormats?.edges[0]?.node.slug as any) || "Standard",
+      objGalleryImgs: {
+        1: {
+          sourceUrl: postNode.ncmazGalleryImgs.image1?.sourceUrl || "",
+          id: postNode.ncmazGalleryImgs.image1?.databaseId || "",
+          altText: postNode.ncmazGalleryImgs.image1?.altText || "",
+        },
+        2: {
+          sourceUrl: postNode.ncmazGalleryImgs.image2?.sourceUrl || "",
+          id: postNode.ncmazGalleryImgs.image2?.databaseId || "",
+          altText: postNode.ncmazGalleryImgs.image2?.altText || "",
+        },
+        3: {
+          sourceUrl: postNode.ncmazGalleryImgs.image3?.sourceUrl || "",
+          id: postNode.ncmazGalleryImgs.image3?.databaseId || "",
+          altText: postNode.ncmazGalleryImgs.image3?.altText || "",
+        },
+        4: {
+          sourceUrl: postNode.ncmazGalleryImgs.image4?.sourceUrl || "",
+          id: postNode.ncmazGalleryImgs.image4?.databaseId || "",
+          altText: postNode.ncmazGalleryImgs.image4?.altText || "",
+        },
+        5: {
+          sourceUrl: postNode.ncmazGalleryImgs.image5?.sourceUrl || "",
+          id: postNode.ncmazGalleryImgs.image5?.databaseId || "",
+          altText: postNode.ncmazGalleryImgs.image5?.altText || "",
+        },
+        6: {
+          sourceUrl: postNode.ncmazGalleryImgs.image6?.sourceUrl || "",
+          id: postNode.ncmazGalleryImgs.image6?.databaseId || "",
+          altText: postNode.ncmazGalleryImgs.image6?.altText || "",
+        },
+        7: {
+          sourceUrl: postNode.ncmazGalleryImgs.image7?.sourceUrl || "",
+          id: postNode.ncmazGalleryImgs.image7?.databaseId || "",
+          altText: postNode.ncmazGalleryImgs.image7?.altText || "",
+        },
+        8: {
+          sourceUrl: postNode.ncmazGalleryImgs.image8?.sourceUrl || "",
+          id: postNode.ncmazGalleryImgs.image8?.databaseId || "",
+          altText: postNode.ncmazGalleryImgs.image8?.altText || "",
+        },
+      },
     }
   );
   //
 
   // MUTATION_CREATE_POST GQL
   // status: PENDING | PRIVATE | PUBLISH | DRAFT | TRASH
-  const MUTATION_CREATE_POST = gql`
-    mutation MUTATION_CREATE_POST(
+  const MUTATION_UPDATE_POST = gql`
+    mutation MUTATION_UPDATE_POST(
+      $commentStatus: String = "open"
+      $id: ID = ""
       $status: PostStatusEnum = null
       $title: String = ""
       $excerpt: String = ""
@@ -77,12 +136,15 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
       $ncmazGalleryImgs_8_databaseID: Int = null
       $content: String = ""
       $ncmazVideoUrl: String = null
-      $postFormatsName: String = null
+      $postFormatNodes: [PostPostFormatsNodeInput] = []
+      $postFormatNodesAppend: Boolean = false
       $categoryNodes: [PostCategoriesNodeInput] = {}
       $tagNodes: [PostTagsNodeInput] = {}
     ) {
-      createPost(
+      updatePost(
         input: {
+          id: $id
+          commentStatus: $commentStatus
           status: $status
           title: $title
           excerpt: $excerpt
@@ -100,7 +162,10 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
           categories: { nodes: $categoryNodes }
           tags: { nodes: $tagNodes }
           ncmazVideoUrl: $ncmazVideoUrl
-          postFormats: { nodes: { name: $postFormatsName } }
+          postFormats: {
+            nodes: $postFormatNodes
+            append: $postFormatNodesAppend
+          }
         }
       ) {
         post {
@@ -121,20 +186,20 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
       }
     }
   `;
-  const [mutationCreatePost, { error, data, loading }] =
-    useMutation<Data>(MUTATION_CREATE_POST);
+  const [mutationUpdatePost, { error, data, loading }] =
+    useMutation<Data>(MUTATION_UPDATE_POST);
 
   const dataDeferredValueAfterSubmit = useDeferredValue(
-    data?.createPost.post.id
+    data?.updatePost.post.id
   );
 
   useEffect(() => {
-    if (!dataDeferredValueAfterSubmit || !data?.createPost.post.link) return;
+    if (!dataDeferredValueAfterSubmit || !data?.updatePost.post.link) return;
     toast.success(NCMAZ_TRANSLATE["Post successful"] + "!", {
       transition: Slide,
     });
     setTimeout(() => {
-      window.location.href = data?.createPost.post.link;
+      window.location.href = data?.updatePost.post.link;
     }, 800);
   }, [dataDeferredValueAfterSubmit]);
 
@@ -166,9 +231,17 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
   const converPostOptionDataToInput = (data: PostOptionsData) => {
     let optionsInput: Record<string, any> = {
       excerpt: data.excerptText,
-      postFormatsName: data.postFormatsSelected || null,
+      commentStatus: data.isAllowComments ? "open" : "closed",
+      postFormatNodes: [
+        {
+          slug:
+            data.postFormatsSelected !== "Standard"
+              ? data.postFormatsSelected
+              : null,
+        },
+      ],
     };
-    if (data.postFormatsSelected === "gallery") {
+    if (data.postFormatsSelected === "post-format-gallery") {
       optionsInput = {
         ...optionsInput,
         ncmazGalleryImgs_1_databaseID: data.objGalleryImgs[1].id || null,
@@ -181,13 +254,13 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
         ncmazGalleryImgs_8_databaseID: data.objGalleryImgs[8].id || null,
       };
     }
-    if (data.postFormatsSelected === "video") {
+    if (data.postFormatsSelected === "post-format-video") {
       optionsInput = {
         ...optionsInput,
         ncmazVideoUrl: data.videoUrl || null,
       };
     }
-    if (data.postFormatsSelected === "audio") {
+    if (data.postFormatsSelected === "post-format-audio") {
       optionsInput = {
         ...optionsInput,
         ncmazAudioUrl: data.audioUrl || null,
@@ -197,10 +270,13 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
     return optionsInput;
   };
 
-  const handleClickPublish = () => {
+  const onSubmmitMutation = (
+    status: "PENDING" | "PRIVATE" | "PUBLISH" | "DRAFT" | "TRASH"
+  ) => {
     const optionsInput = converPostOptionDataToInput(postOptionsData);
     const variables = {
-      status: "PUBLISH",
+      id: postNode.id,
+      status,
       title: titleContent,
       ncFeaturedImageDatabaseId: featuredImage?.id || null,
       content: contentHTML,
@@ -212,11 +288,20 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
       })),
       ...optionsInput,
     };
-
-    mutationCreatePost({ variables });
+    mutationUpdatePost({ variables });
   };
 
-  const handleClickSaveDraft = () => {};
+  const handleClickPublish = () => {
+    onSubmmitMutation("PUBLISH");
+  };
+
+  const handleClickSaveDraft = () => {
+    if (postNode.status === "pending" || postNode.status === "publish") {
+      setOpenDraftModal(true);
+      return;
+    }
+    onSubmmitMutation("DRAFT");
+  };
 
   const renderPostTitle = () => {
     return (
@@ -232,12 +317,15 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
             />
           </div>
 
-          <CategoriesInput onChange={handleChangeCategories} />
+          <CategoriesInput
+            defaultValue={categories}
+            onChange={handleChangeCategories}
+          />
           <TitleEditor
             defaultTitle={titleContent}
             onUpdate={debounceGetTitle}
           />
-          <TagsInput onChange={handleChangeTags} />
+          <TagsInput defaultValue={tags} onChange={handleChangeTags} />
         </div>
       </div>
     );
@@ -282,6 +370,14 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
           />
         </div>
       </div>
+      <ModalDraftPost
+        show={openDraftModal}
+        onCloseModal={() => setOpenDraftModal(false)}
+        onSubmit={() => {
+          onSubmmitMutation("DRAFT");
+          setOpenDraftModal(false);
+        }}
+      />
     </div>
   );
 };

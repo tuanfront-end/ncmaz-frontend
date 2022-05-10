@@ -16,9 +16,13 @@ interface Data {
 
 export interface CategoriesInputProps {
   onChange: (categories: CategoriesNode3[]) => void;
+  defaultValue?: CategoriesNode3[];
 }
 
-const CategoriesInput: FC<CategoriesInputProps> = ({ onChange }) => {
+const CategoriesInput: FC<CategoriesInputProps> = ({
+  onChange,
+  defaultValue,
+}) => {
   const POST_PER_PAGE = 30;
 
   const Q_LIST_CATS = gql`
@@ -27,7 +31,7 @@ const CategoriesInput: FC<CategoriesInputProps> = ({ onChange }) => {
 
   const [categoriesSelected, setCategoriesSelected] = useState<
     CategoriesNode3[]
-  >([]);
+  >(defaultValue || []);
 
   useEffect(() => {
     onChange(categoriesSelected);

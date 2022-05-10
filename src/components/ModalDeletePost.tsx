@@ -72,7 +72,7 @@ const ModalDeletePost: FC<Props> = ({
 
   const renderContent = () => {
     return (
-      <form action="#">
+      <div>
         <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">
           {NCMAZ_TRANSLATE["Delete post"]}
         </h3>
@@ -101,7 +101,7 @@ const ModalDeletePost: FC<Props> = ({
             {NCMAZ_TRANSLATE["Cancel"]}
           </ButtonSecondary>
         </div>
-      </form>
+      </div>
     );
   };
 

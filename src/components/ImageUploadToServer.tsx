@@ -3,7 +3,7 @@ import CircleLoading from "components/Loading/CircleLoading";
 import NCMAZ_TRANSLATE from "contains/translate";
 import React, { useState, useId, FC, useEffect, useDeferredValue } from "react";
 
-interface ImageUploadProps {
+interface ImageUploadToServerProps {
   className?: string;
   contentClassName?: string;
   onChangeImage?: (image: ImageState) => void;
@@ -16,7 +16,7 @@ export interface ImageState {
   altText?: string;
 }
 
-const ImageUpload: FC<ImageUploadProps> = ({
+const ImageUploadToServer: FC<ImageUploadToServerProps> = ({
   className = "flex-1",
   contentClassName = "px-6 pt-5 pb-6 ",
   onChangeImage = () => {},
@@ -40,6 +40,15 @@ const ImageUpload: FC<ImageUploadProps> = ({
   //
 
   const handleDeleteImageById = async (id: string) => {
+    setImageState({
+      sourceUrl: "",
+      id: "",
+      altText: "",
+    });
+    return;
+
+    // ====================== ====================== ======================
+
     setUploadErrMess("");
     setIsUploading(true);
     await jQuery
@@ -266,4 +275,4 @@ const ImageUpload: FC<ImageUploadProps> = ({
   );
 };
 
-export default ImageUpload;
+export default ImageUploadToServer;

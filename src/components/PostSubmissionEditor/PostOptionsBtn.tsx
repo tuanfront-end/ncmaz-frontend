@@ -1,17 +1,24 @@
-import { Listbox, Popover, Transition } from "@headlessui/react";
+import { Listbox, Popover, Switch, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import ButtonSecondary from "components/Button/ButtonSecondary";
+import ImageUploadToServer, {
+  ImageState,
+} from "components/ImageUploadToServer";
 import Input from "components/Input/Input";
 import Label from "components/Label/Label";
 import Textarea from "components/Textarea/Textarea";
 import NCMAZ_TRANSLATE from "contains/translate";
+import { PostFormatsType } from "data/postCardType";
 import { debounce } from "lodash";
 import React, { FC, Fragment, useState } from "react";
-import ImageUpload, { ImageState } from "./ImageUpload";
 
-let postFormats = frontendObject.postFormats || [];
-postFormats = ["standard", ...postFormats];
+let postFormats: PostFormatsType[] = [
+  "Standard",
+  "post-format-audio",
+  "post-format-gallery",
+  "post-format-video",
+];
 
 type GalleryImages = Record<number, ImageState>;
 
@@ -21,6 +28,7 @@ export interface PostOptionsData {
   objGalleryImgs: GalleryImages;
   videoUrl: string;
   audioUrl: string;
+  isAllowComments: boolean;
 }
 
 interface PostOptionsBtnProps {
@@ -38,6 +46,10 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
   const [objGalleryImgs, setObjGalleryImgs] = useState<GalleryImages>(
     defaultData.objGalleryImgs || {}
   );
+  const [isAllowComments, setIsAllowComments] = useState(
+    defaultData.isAllowComments
+  );
+
   //
 
   const debounceGetExcerpt = debounce(function (e: string) {
@@ -57,6 +69,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
       videoUrl,
       audioUrl,
       objGalleryImgs,
+      isAllowComments,
     });
   };
 
@@ -160,7 +173,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item, idx) => (
             <div className="flex-shrink-0 snap-start" key={idx}>
               <Label>{`${NCMAZ_TRANSLATE["Image"]} ${item}`}</Label>
-              <ImageUpload
+              <ImageUploadToServer
                 defaultImage={objGalleryImgs[item]}
                 onChangeImage={(image) => {
                   setObjGalleryImgs((prevState) => ({
@@ -231,6 +244,27 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
     );
   };
 
+  const renderAllowCommentSwitch = () => {
+    return (
+      <div className="flex justify-between items-center">
+        <Label>{NCMAZ_TRANSLATE["Allow comments"]}</Label>
+        <Switch
+          checked={isAllowComments}
+          onChange={setIsAllowComments}
+          className={`${isAllowComments ? "bg-primary-700" : "bg-gray-700"}
+          relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+        >
+          <span className="sr-only">{NCMAZ_TRANSLATE["Allow comments"]}</span>
+          <span
+            aria-hidden="true"
+            className={`${isAllowComments ? "translate-x-9" : "translate-x-0"}
+            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+          />
+        </Switch>
+      </div>
+    );
+  };
+
   return (
     <Popover className="relative">
       {({ open, close }) => (
@@ -259,11 +293,16 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
 
                   {renderListBoxPostformat()}
 
-                  {postFormatsSelected === "gallery" && renderUploadGallery()}
+                  {postFormatsSelected === "post-format-gallery" &&
+                    renderUploadGallery()}
 
-                  {postFormatsSelected === "video" && renderInputVideoUrl()}
+                  {postFormatsSelected === "post-format-video" &&
+                    renderInputVideoUrl()}
 
-                  {postFormatsSelected === "audio" && renderInputAudio()}
+                  {postFormatsSelected === "post-format-audio" &&
+                    renderInputAudio()}
+
+                  {renderAllowCommentSwitch()}
                 </div>
                 <div className="p-5 bg-neutral-50 rounded-b-2xl dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                   <ButtonSecondary

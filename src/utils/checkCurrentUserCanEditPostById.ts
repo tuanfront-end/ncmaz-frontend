@@ -2,7 +2,7 @@ import { PostNode } from "data/postCardType";
 
 const checkCurrentUserCanEditPostById = (author?: PostNode["author"]) => {
   const rolse = frontendObject.currentUser?.roles.edges[0].node.name;
-  if (rolse === "administrator" || rolse === "contributor") {
+  if (rolse === "administrator" || rolse === "editor") {
     return true;
   }
 

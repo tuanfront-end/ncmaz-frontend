@@ -32,6 +32,8 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
     id
     link
     content
+    status
+    commentStatus
     author {
       node {
         id
@@ -63,6 +65,19 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
           ncTaxonomyMeta {
             color
           }
+        }
+      }
+    }
+    tags {
+      edges {
+        node {
+          id
+          link
+          name
+          uri
+          slug
+          count
+          tagId
         }
       }
     }
@@ -105,40 +120,58 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
       image1 {
         id
         sourceUrl(size: $ncmazGalleryImgs_size)
+        databaseId
+        altText
       }
       image2 {
         id
          sourceUrl(size: $ncmazGalleryImgs_size)
+         databaseId
+         altText
       }
       image3 {
         id
          sourceUrl(size: $ncmazGalleryImgs_size)
+         databaseId
+         altText
       }
       image4 {
         id
          sourceUrl(size: $ncmazGalleryImgs_size)
+         databaseId
+         altText
       }
       image5 {
         id
          sourceUrl(size: $ncmazGalleryImgs_size)
+         databaseId
+         altText
       }
       image6 {
         id
          sourceUrl(size: $ncmazGalleryImgs_size)
+         databaseId
+         altText
       }
       image7 {
         id
          sourceUrl(size: $ncmazGalleryImgs_size)
+         databaseId
+         altText
       }
       image8 {
         id
          sourceUrl(size: $ncmazGalleryImgs_size)
+         databaseId
+         altText
       }
     }
 `;
+
 const EDGES_POST_COMMONT_FIELDS_NOT_EDGES = `
     id
     link
+    status
     author {
       node {
         id

@@ -7,7 +7,6 @@ import TagsInput, { TagNodeShort } from "./TagsInput";
 import ButtonSecondary from "components/Button/ButtonSecondary";
 import CategoriesInput from "./CategoriesInput";
 import PostOptionsBtn, { PostOptionsData } from "./PostOptionsBtn";
-import ImageUpload, { ImageState } from "./ImageUpload";
 import Label from "components/Label/Label";
 import { CategoriesNode3 } from "data/postCardType";
 import TiptapEditor from "./TiptapEditor";
@@ -15,6 +14,9 @@ import { Editor } from "@tiptap/react";
 import { gql, useMutation } from "@apollo/client";
 import Alert from "components/Alert/Alert";
 import { Slide, toast } from "react-toastify";
+import ImageUploadToServer, {
+  ImageState,
+} from "components/ImageUploadToServer";
 
 interface Data {
   createPost: CreatePost;
@@ -48,8 +50,9 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
       audioUrl: "",
       videoUrl: "",
       excerptText: "",
-      postFormatsSelected: "standard",
+      postFormatsSelected: "Standard",
       objGalleryImgs: {},
+      isAllowComments: true,
     }
   );
   //
@@ -60,6 +63,7 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
   // status: PENDING | PRIVATE | PUBLISH | DRAFT | TRASH
   const MUTATION_CREATE_POST = gql`
     mutation MUTATION_CREATE_POST(
+      $commentStatus: String = "open"
       $status: PostStatusEnum = null
       $title: String = ""
       $excerpt: String = ""
@@ -75,13 +79,14 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
       $ncmazGalleryImgs_8_databaseID: Int = null
       $content: String = ""
       $ncmazVideoUrl: String = null
-      $postFormatsName: String = null
+      $postFormatsSlug: String = null
       $categoryNodes: [PostCategoriesNodeInput] = {}
       $tagNodes: [PostTagsNodeInput] = {}
     ) {
       createPost(
         input: {
           status: $status
+          commentStatus: $commentStatus
           title: $title
           excerpt: $excerpt
           ncFeaturedImageDatabaseId: $ncFeaturedImageDatabaseId
@@ -98,7 +103,7 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
           categories: { nodes: $categoryNodes }
           tags: { nodes: $tagNodes }
           ncmazVideoUrl: $ncmazVideoUrl
-          postFormats: { nodes: { name: $postFormatsName } }
+          postFormats: { nodes: { slug: $postFormatsSlug } }
         }
       ) {
         post {
@@ -164,9 +169,13 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
   const converPostOptionDataToInput = (data: PostOptionsData) => {
     let optionsInput: Record<string, any> = {
       excerpt: data.excerptText,
-      postFormatsName: data.postFormatsSelected || null,
+      commentStatus: data.isAllowComments ? "open" : "closed",
+      postFormatsSlug:
+        data.postFormatsSelected !== "Standard"
+          ? data.postFormatsSelected
+          : null,
     };
-    if (data.postFormatsSelected === "gallery") {
+    if (data.postFormatsSelected === "post-format-gallery") {
       optionsInput = {
         ...optionsInput,
         ncmazGalleryImgs_1_databaseID: data.objGalleryImgs[1].id || null,
@@ -179,13 +188,13 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
         ncmazGalleryImgs_8_databaseID: data.objGalleryImgs[8].id || null,
       };
     }
-    if (data.postFormatsSelected === "video") {
+    if (data.postFormatsSelected === "post-format-video") {
       optionsInput = {
         ...optionsInput,
         ncmazVideoUrl: data.videoUrl || null,
       };
     }
-    if (data.postFormatsSelected === "audio") {
+    if (data.postFormatsSelected === "post-format-audio") {
       optionsInput = {
         ...optionsInput,
         ncmazAudioUrl: data.audioUrl || null,
@@ -195,10 +204,12 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
     return optionsInput;
   };
 
-  const handleClickPublish = () => {
+  const onSubmmitMutation = (
+    status: "PENDING" | "PRIVATE" | "PUBLISH" | "DRAFT" | "TRASH"
+  ) => {
     const optionsInput = converPostOptionDataToInput(postOptionsData);
     const variables = {
-      status: "PUBLISH",
+      status,
       title: titleContent,
       ncFeaturedImageDatabaseId: featuredImage?.id || null,
       content: contentHTML,
@@ -214,7 +225,13 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
     mutationCreatePost({ variables });
   };
 
-  const handleClickSaveDraft = () => {};
+  const handleClickPublish = () => {
+    onSubmmitMutation("PUBLISH");
+  };
+
+  const handleClickSaveDraft = () => {
+    onSubmmitMutation("DRAFT");
+  };
 
   const renderPostTitle = () => {
     return (
@@ -224,7 +241,7 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
             <Label className="block !text-base">
               {NCMAZ_TRANSLATE["Add a cover image"]}
             </Label>
-            <ImageUpload
+            <ImageUploadToServer
               defaultImage={featuredImage}
               onChangeImage={handleChangeFeaturedImage}
             />

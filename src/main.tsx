@@ -18,43 +18,7 @@ import "./index.css";
 import "./styles/index.scss";
 import "react-loading-skeleton/dist/skeleton.css";
 import "react-toastify/dist/ReactToastify.css";
-
-interface UserViewer {
-  avatar?: {
-    url: string;
-  };
-  databaseId: number;
-  email?: string;
-  name?: string;
-  ncUserMeta?: {
-    color: string;
-    ncBio: string;
-    featuredImage?: {
-      sourceUrl: string;
-    };
-  };
-  slug: string;
-  uri: string;
-  url: string;
-  userId: number;
-  username?: string;
-  nicename?: string;
-  nickname?: string;
-  locale?: string;
-  roles: {
-    edges: {
-      node: {
-        id: string;
-        name:
-          | "administrator"
-          | "editor"
-          | "author"
-          | "contributor"
-          | "subscriber";
-      };
-    }[];
-  };
-}
+import { UserViewer } from "data/types";
 
 declare global {
   // ON FAVORITES PLUGIN

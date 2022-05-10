@@ -6,7 +6,10 @@ import Label from "components/Label/Label";
 import NcModal from "components/NcModal/NcModal";
 import NCMAZ_TRANSLATE from "contains/translate";
 import React, { FC, useState } from "react";
-import ImageUpload from "./ImageUpload";
+import ImageUploadToServer, {
+  ImageState,
+} from "components/ImageUploadToServer";
+
 import { EditorItemImageAttrs } from "./MenuBar";
 
 interface MenuItemImageProps {
@@ -103,7 +106,7 @@ const MenuItemImage: FC<MenuItemImageProps> = ({ action, children }) => {
   const renderInsertFromUpload = () => {
     return (
       <div>
-        <ImageUpload
+        <ImageUploadToServer
           onChangeImage={(image) => {
             setUrlState(image.sourceUrl);
           }}

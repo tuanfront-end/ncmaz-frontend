@@ -4,15 +4,20 @@ import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDrop
 import SearchDropdown from "components/SearchDropdown/SearchDropdown";
 import SocialsShare from "components/SocialsShare/SocialsShare";
 import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
+
 import ErrorBoundary from "ErrorBoundary";
 
 import React, { FC, Suspense } from "react";
 import ReactDOM from "react-dom";
 
 //
+const NcmazAccountPageLazy = React.lazy(
+  () => import("containers/NcmazAccountPage/NcmazAccountPage")
+);
 const PostSubmissionEditorLazy = React.lazy(
   () => import("components/PostSubmissionEditor/PostSubmissionEditor")
 );
+
 const PostMoreActionDropdownLazy = React.lazy(
   () => import("components/PostMoreActionDropdown")
 );
@@ -74,6 +79,15 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
     }
 
     switch (conponentName) {
+      case "NcmazAccountPage":
+        return ReactDOM.createPortal(
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <NcmazAccountPageLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
+          dom
+        );
       case "PostMoreActionDropdown":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>

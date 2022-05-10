@@ -24,9 +24,10 @@ export interface TagNodeShort {
 
 interface TagsInputProps {
   onChange: (tags: TagNodeShort[]) => void;
+  defaultValue?: TagNodeShort[];
 }
 
-const TagsInput: FC<TagsInputProps> = ({ onChange }) => {
+const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
   // GET MOST USED TAGS
   const Q_LIST_TAGS = gql`
     query GET_LIS_TAGS_MOST_USED {
@@ -51,7 +52,7 @@ const TagsInput: FC<TagsInputProps> = ({ onChange }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   let [isOpen, setIsOpen] = useState(false);
-  const [tags, setTags] = useState<TagNodeShort[]>([]);
+  const [tags, setTags] = useState<TagNodeShort[]>(defaultValue || []);
 
   useEffect(() => {
     if (!isOpen || data?.tags.edges.length) {

@@ -60,6 +60,7 @@ function getCurrentUserGraphql()
                   url
                 }
                 databaseId
+                id
                 email
                 name
                 ncUserMeta {
@@ -181,7 +182,7 @@ function ncmazFrontend_enqueueScriptCustomize()
             'restVarsEndpoint'            => esc_url_raw(rest_url('/wp/v2/media/')),
             'restVarsNonce'               => wp_create_nonce('wp_rest'),
             'postFormats'                 => $nc_post_formats,
-            'postSubmissionPageLinkNcmazEditor'      => ncmaz_get_link_by_slug('ncmazeditor-submission-post'),
+            'postSubmissionPageLinkNcmazEditor'      => ncmaz_get_link_by_slug('ncmaz-submission-post-editor'),
         ]
     ), 'before');
 

@@ -43,6 +43,7 @@ let POSTS_SECTION_BY_SEARCH_NO_FILTER__string = `
 
 let POSTS_SECTION_BY_FILTER__string = `
   query MyQueryPostsOnArchivePage(
+    $status: PostStatusEnum = null
     $field: PostObjectsConnectionOrderbyEnum = AUTHOR,
     $order: OrderEnum = ASC,
     $in: [ID] = null,
@@ -68,6 +69,7 @@ let POSTS_SECTION_BY_FILTER__string = `
   ) {
     posts(
       where: {
+        status: $status
         in: $in
         orderby: { field: $field, order: $order },
         categoryIn: $categoryIn,

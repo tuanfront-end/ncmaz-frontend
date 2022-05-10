@@ -3,13 +3,13 @@ import Alert from "components/Alert/Alert";
 import CircleLoading from "components/Loading/CircleLoading";
 import { GQL_QUERY_GET_POST_BY_DATABASE_ID } from "contains/contants";
 import NCMAZ_TRANSLATE from "contains/translate";
-import { PostNode } from "data/postCardType";
+import { PostNodeFullData } from "data/postCardType";
 import React, { FC, useEffect } from "react";
 import CreateNewPostEditor from "./CreateNewPostEditor";
 import UpdatePostEditor from "./UpdatePostEditor";
 
 interface Data {
-  post: PostNode & { content: string };
+  post: PostNodeFullData;
 }
 
 interface Props {

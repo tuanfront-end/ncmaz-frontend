@@ -1,13 +1,23 @@
 let NCMAZ_TRANSLATE = {
   "Write an excerpt (optional)": "Write an excerpt (optional)",
+  "Post will be changed to draft. You can publish it later.":
+    "Post will be changed to draft. You can publish it later.",
+  "Your account has been updated.": "Your account has been updated.",
   "Post deleted successfully.": "Post deleted successfully.",
+  "Draft this post": "Draft this post",
   "Post successful": "Post successful",
+  "Allow comments": "Allow comments",
+  Discussion: "Discussion",
   "Link copied": "Link copied",
   "Delete post": "Delete post",
   "Are you sure you want to delete this post? You cannot undo this action.":
     "Are you sure you want to delete this post? You cannot undo this action.",
   "Copy link": "Copy link",
+  Update: "Update",
   "Save draft": "Save draft",
+  Drafts: "Drafts",
+  Pendings: "Pendings",
+  Published: "Published",
   Publish: "Publish",
   selected: "selected",
   "Add up to 5 tags": "Add up to 5 tags",
