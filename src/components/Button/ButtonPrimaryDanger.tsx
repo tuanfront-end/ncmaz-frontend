@@ -9,7 +9,7 @@ const ButtonPrimaryDanger: React.FC<ButtonPrimaryDangerProps> = ({
 }) => {
   return (
     <Button
-      className={`ttnc-ButtonPrimaryDanger disabled:bg-opacity-70 bg-red-600 hover:bg-red-700 text-red-50 ${className}`}
+      className={`ttnc-ButtonPrimaryDanger disabled:cursor-not-allowed disabled:bg-opacity-60 bg-red-600 hover:bg-red-700 text-red-50 ${className}`}
       {...args}
     />
   );

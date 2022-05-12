@@ -23,7 +23,7 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
       id: "edit",
       name: "Edit post",
       href:
-        frontendObject.postSubmissionPageLinkNcmazEditor +
+        frontendObject.pagePostSubmissionEditorUrl +
         "?pid=" +
         postDataBaseId +
         "&action=edit",
@@ -48,7 +48,7 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
     if (item.id === "delete_post") {
       setShowModalDeletePost(true);
     }
-    console.log("clicked");
+    console.log("clicked", item);
   };
 
   return (

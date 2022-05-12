@@ -64,7 +64,6 @@ function getCurrentUserGraphql()
                 email
                 name
                 ncUserMeta {
-                  color
                   ncBio
                   featuredImage {
                     sourceUrl
@@ -159,9 +158,6 @@ function ncmazFrontend_enqueueScriptCustomize()
     ), 'before');
 
 
-    $nc_post_formats = get_theme_support('post-formats');
-    $nc_post_formats =  is_array($nc_post_formats[0])  ? $nc_post_formats[0] : [];
-
     wp_add_inline_script('ncmaz-frontend-js', 'window.frontendObject = ' . json_encode(
         [
             'ajaxurl'               => admin_url('admin-ajax.php'),
@@ -181,8 +177,9 @@ function ncmazFrontend_enqueueScriptCustomize()
             'musicPlayerMediaSource'      => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
             'restVarsEndpoint'            => esc_url_raw(rest_url('/wp/v2/media/')),
             'restVarsNonce'               => wp_create_nonce('wp_rest'),
-            'postFormats'                 => $nc_post_formats,
-            'postSubmissionPageLinkNcmazEditor'      => ncmaz_get_link_by_slug('ncmaz-submission-post-editor'),
+            'pagePostSubmissionEditorUrl'         => ncmaz_get_link_by_slug('ncmaz-submission-post-editor'),
+            'pageNcmazAccountUrl'                 => ncmaz_get_link_by_slug('ncmaz-account'),
+            'wpLogoutUrl'                         => wp_logout_url(get_site_url()),
         ]
     ), 'before');
 

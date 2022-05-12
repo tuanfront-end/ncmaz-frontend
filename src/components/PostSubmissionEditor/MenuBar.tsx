@@ -4,6 +4,7 @@ import { Editor } from "@tiptap/react";
 import "./MenuBar.scss";
 import MoreItemDropDown from "./MoreItemDropDown";
 import MenuItemHeading from "./MenuItemHeading";
+import useWindowSize from "hooks/useWindowSize";
 
 export interface TiptapBarItem {
   icon: string;
@@ -218,16 +219,24 @@ export default ({ editor }: { editor: Editor }) => {
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   };
 
+  //
+  const { width } = useWindowSize();
+  const windowSizeWidth = width || window.innerWidth;
+  //
+
+  const ITEM_STATE =
+    windowSizeWidth <= 1024 ? [...itemsState, ...moreItemsState] : itemsState;
+
   return (
     <div
-      className="editor__header sticky bg-neutral-100 dark:bg-neutral-800 py-5 flex justify-center z-10"
+      className="editor__header sticky bg-neutral-100 dark:bg-neutral-800 px-2 lg:px-0 py-5 overflow-hidden lg:overflow-visible flex justify-center z-10"
       style={{
-        top: wpadminbarH,
+        top: windowSizeWidth <= 600 ? 0 : wpadminbarH,
       }}
     >
-      <div className="w-screen max-w-screen-md">
-        <div className="flex items-center flex-wrap -mx-2.5">
-          {itemsState.map((item, index) => (
+      <div className="  w-full max-w-screen-md">
+        <div className="flex items-center overflow-x-auto lg:overflow-x-visible -mx-2.5">
+          {ITEM_STATE.map((item, index) => (
             <Fragment key={index}>
               {(item as TiptapBarItemDivider).type === "divider" ? (
                 <div className="divider" />

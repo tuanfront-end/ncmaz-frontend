@@ -30,7 +30,7 @@ const Alert: React.FC<AlertProps> = ({
       classes += " bg-red-100 text-red-900";
       break;
     case "warning":
-      classes += " bg-yellow-100 text-yellow-900";
+      classes += " bg-orange-100 text-orange-900";
       break;
     default:
       break;
@@ -43,7 +43,7 @@ const Alert: React.FC<AlertProps> = ({
       <svg
         width="24"
         height="24"
-        className="mr-3"
+        className="flex-shrink-0 mr-3"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

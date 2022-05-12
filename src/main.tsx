@@ -40,7 +40,9 @@ declare global {
   var DATE_I18N: any;
   //
   var frontendObject: {
-    postSubmissionPageLinkNcmazEditor: string;
+    wpLogoutUrl?: string;
+    pagePostSubmissionEditorUrl: string;
+    pageNcmazAccountUrl: string;
     pll_current_language: string | null;
     pll_themeoption_actived: string | null;
     restUrl: string;
@@ -74,7 +76,6 @@ declare global {
 
     restVarsEndpoint: string;
     restVarsNonce: string;
-    postFormats: ("video" | "gallery" | "audio" | "standard")[];
   };
 
   var ncmazFrontendVariables: {

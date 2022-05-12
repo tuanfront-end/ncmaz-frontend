@@ -12,7 +12,8 @@ interface ImageUploadToServerProps {
 
 export interface ImageState {
   sourceUrl: string;
-  id: string;
+  // databaseID
+  id: string | number;
   altText?: string;
 }
 
@@ -166,7 +167,7 @@ const ImageUploadToServer: FC<ImageUploadToServerProps> = ({
               title="Delete image"
               onClick={(e) => {
                 e.preventDefault();
-                handleDeleteImageById(imageState.id);
+                handleDeleteImageById(String(imageState.id));
               }}
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">

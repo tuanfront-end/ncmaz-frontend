@@ -21,7 +21,7 @@ function useMutaionUpdateUser() {
 
     setTimeout(() => {
       window.location.reload();
-    }, 800);
+    }, 500);
   }, [data]);
 
   return { mutationUpdateUser, error, data, loading };

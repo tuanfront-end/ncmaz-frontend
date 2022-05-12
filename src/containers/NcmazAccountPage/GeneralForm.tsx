@@ -2,6 +2,7 @@ import Alert from "components/Alert/Alert";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import Input from "components/Input/Input";
 import Label from "components/Label/Label";
+import NCMAZ_TRANSLATE from "contains/translate";
 import { UserFullData } from "data/types";
 import React, { FC } from "react";
 import useMutaionUpdateUser from "./useMutaionUpdateUser";
@@ -24,7 +25,7 @@ const GeneralForm: FC<GeneralFormProps> = ({ userData }) => {
     e.preventDefault();
     mutationUpdateUser({
       variables: {
-        id: frontendObject.currentUser?.id,
+        id: userData.id,
         email: emailValue,
         displayName: displayNameValue,
       },
@@ -38,16 +39,18 @@ const GeneralForm: FC<GeneralFormProps> = ({ userData }) => {
       onSubmit={handleSubmitForm}
     >
       <div>
-        <h2 className="text-2xl font-semibold">General settings</h2>
+        <h2 className="text-2xl font-semibold">
+          {NCMAZ_TRANSLATE["General settings"]}
+        </h2>
         <span className="block mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-          Update your username and manage your account
+          {NCMAZ_TRANSLATE["Update your username and manage your account"]}
         </span>
       </div>
       <div className="w-24 border-b border-neutral-200 dark:border-neutral-700"></div>
       {/* ---- */}
 
       <div>
-        <Label>Display Name</Label>
+        <Label>{NCMAZ_TRANSLATE["Display Name"]}</Label>
         <Input
           className="mt-1.5"
           defaultValue={displayNameValue}
@@ -58,7 +61,7 @@ const GeneralForm: FC<GeneralFormProps> = ({ userData }) => {
 
       {/* ---- */}
       <div>
-        <Label>Email</Label>
+        <Label>{NCMAZ_TRANSLATE["Email"]}</Label>
         <div className="mt-1.5 flex">
           <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
             <i className="text-2xl las la-envelope"></i>
@@ -84,7 +87,7 @@ const GeneralForm: FC<GeneralFormProps> = ({ userData }) => {
           loading={loading}
           disabled={loading}
         >
-          Update profile
+          {NCMAZ_TRANSLATE["Update profile"]}
         </ButtonPrimary>
       </div>
     </form>

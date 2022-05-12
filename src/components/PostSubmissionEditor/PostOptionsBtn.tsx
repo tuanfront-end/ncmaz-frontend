@@ -266,7 +266,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
   };
 
   return (
-    <Popover className="relative">
+    <Popover className="relative ml-auto lg:ml-2.5">
       {({ open, close }) => (
         <>
           <Popover.Button as={"div"}>{renderBtnOpenPopover()}</Popover.Button>
@@ -282,7 +282,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
           >
             <Popover.Panel
               unmount={false}
-              className="absolute z-10 w-screen max-w-sm px-4 mb-4 left-1/2 -translate-x-1/2 bottom-full sm:px-0 lg:max-w-2xl"
+              className="absolute z-10 w-screen max-w-xs sm:max-w-sm md:max-w-md px-4 mb-4 left-full lg:left-1/2 -translate-x-full lg:-translate-x-1/2 bottom-full sm:px-0 lg:max-w-2xl"
             >
               <div className="rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                 <div className="relative flex flex-col px-5 py-6 space-y-5">

@@ -1,6 +1,56 @@
-const GQL_MUTATION_UPDATE_USER = `mutation MUTAION_UPDATE_USER($websiteUrl: String = null, $ncmazYoutubeUrl: String = null, $ncmazWebsiteUrl: String = null, $nicename: String = null, $nickname: String = null, $password: String = null, $ncmazVimeoUrl: String = null, $ncmazTwitterUrl: String = null, $ncmazTwitchUrl: String = null, $ncmazPinterestUrl: String = null, $ncmazMediumUrl: String = null, $ncmazLinkedinUrl: String = null, $ncmazInstagramUrl: String = null, $ncmazGithubUrl: String = null, $ncmazFeaturedImage: Int = 10, $ncmazFacebookUrl: String = null, $ncmazBuymeacoffeUrl: String = null, $ncmazBio: String = null, $ncmazBackgroundImage: Int = 10, $lastName: String = null, $id: ID = "dXNlcjo2", $firstName: String = null, $email: String = null, $displayName: String = null) {
+const GQL_MUTATION_UPDATE_USER = `mutation MUTAION_UPDATE_USER(
+  $description: String = null,
+  $websiteUrl: String = null, 
+  $ncmazYoutubeUrl: String = null, 
+  $ncmazWebsiteUrl: String = null, 
+  $nicename: String = null, 
+  $nickname: String = null, $password: String = null,
+   $ncmazVimeoUrl: String = null, 
+  $ncmazTwitterUrl: String = null, 
+  $ncmazTwitchUrl: String = null, 
+  $ncmazPinterestUrl: String = null,
+   $ncmazMediumUrl: String = null, 
+  $ncmazLinkedinUrl: String = null, 
+  $ncmazInstagramUrl: String = null, 
+  $ncmazGithubUrl: String = null, $ncmazFeaturedImage: Int = 10, 
+  $ncmazFacebookUrl: String = null, 
+  $ncmazBuymeacoffeUrl: String = null, 
+  $ncmazBio: String = null, 
+  $ncmazBackgroundImage: Int = 10, 
+  $lastName: String = null, 
+  $id: ID = "dXNlcjo2", 
+  $firstName: String = null, 
+  $email: String = null, 
+  $displayName: String = null
+  ) {
     updateUser(
-      input: {id: $id, displayName: $displayName, email: $email, firstName: $firstName, lastName: $lastName, password: $password, ncmazBackgroundImage: $ncmazBackgroundImage, ncmazBio: $ncmazBio, ncmazBuymeacoffeUrl: $ncmazBuymeacoffeUrl, ncmazFacebookUrl: $ncmazFacebookUrl, ncmazFeaturedImage: $ncmazFeaturedImage, ncmazGithubUrl: $ncmazGithubUrl, ncmazInstagramUrl: $ncmazInstagramUrl, ncmazLinkedinUrl: $ncmazLinkedinUrl, ncmazMediumUrl: $ncmazMediumUrl, ncmazPinterestUrl: $ncmazPinterestUrl, ncmazTwitchUrl: $ncmazTwitchUrl, ncmazTwitterUrl: $ncmazTwitterUrl, ncmazVimeoUrl: $ncmazVimeoUrl, ncmazWebsiteUrl: $ncmazWebsiteUrl, nicename: $nicename, nickname: $nickname, websiteUrl: $websiteUrl, ncmazYoutubeUrl: $ncmazYoutubeUrl}
+      input: {
+        id: $id, 
+        displayName: $displayName, 
+        email: $email, 
+        firstName: $firstName, 
+        lastName: $lastName, 
+        password: $password, 
+        ncmazBackgroundImage: $ncmazBackgroundImage, 
+        ncmazBio: $ncmazBio, 
+        ncmazBuymeacoffeUrl: $ncmazBuymeacoffeUrl, 
+        ncmazFacebookUrl: $ncmazFacebookUrl, 
+        ncmazFeaturedImage: $ncmazFeaturedImage,
+         ncmazGithubUrl: $ncmazGithubUrl,
+          ncmazInstagramUrl: $ncmazInstagramUrl,
+           ncmazLinkedinUrl: $ncmazLinkedinUrl, 
+           ncmazMediumUrl: $ncmazMediumUrl, 
+           ncmazPinterestUrl: $ncmazPinterestUrl, 
+           ncmazTwitchUrl: $ncmazTwitchUrl,
+            ncmazTwitterUrl: $ncmazTwitterUrl, 
+            ncmazVimeoUrl: $ncmazVimeoUrl, 
+            ncmazWebsiteUrl: $ncmazWebsiteUrl,
+             nicename: $nicename, 
+             nickname: $nickname, 
+             websiteUrl: $websiteUrl, 
+             ncmazYoutubeUrl: $ncmazYoutubeUrl,
+        description: $description
+      }
     ) {
       user {
         url

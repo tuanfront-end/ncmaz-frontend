@@ -1,6 +1,5 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import Alert from "components/Alert/Alert";
-import ButtonPrimary from "components/Button/ButtonPrimary";
 import CircleLoading from "components/Loading/CircleLoading";
 import NCMAZ_TRANSLATE from "contains/translate";
 import { UserFullData } from "data/types";
@@ -41,6 +40,20 @@ const NcmazAccountPage: FC<NcmazAccountPageProps> = () => {
         variables: { id: Number(frontendObject.currentUser?.databaseId) },
       });
     }
+  }, []);
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const tabParam = urlParams.get("tab");
+    const tabsCorrect: Tabs[] = ["general", "profile", "password", "socials"];
+
+    if (!tabParam || !tabsCorrect.includes(tabParam as Tabs)) {
+      return;
+    }
+
+    setActiveTab((tabParam as Tabs) || "general");
+    window.scrollTo(0, 0);
   }, []);
 
   // ============================================
@@ -90,14 +103,21 @@ const NcmazAccountPage: FC<NcmazAccountPageProps> = () => {
     tab: Tabs
   ) => {
     e.preventDefault();
+
+    if (tab === activeTab) {
+      return;
+    }
+
     setActiveTab(tab);
+    window.scrollTo(0, 0);
+    window.history.pushState(null, "", `?tab=${tab}`);
   };
 
   const renderLeftSidebar = () => {
     const tabs: Tabs[] = ["general", "profile", "password", "socials"];
     return (
-      <div className="sticky top-32">
-        <ul className="space-y-5 pr-10">
+      <div className="md:sticky md:top-32">
+        <ul className="space-y-4 md:space-y-5 md:pr-10">
           {tabs.map((tab) => {
             const active = activeTab === tab;
             return (
@@ -111,7 +131,7 @@ const NcmazAccountPage: FC<NcmazAccountPageProps> = () => {
                   onClick={(e) => handleChangeTab(e, tab)}
                   href={`#${tab}`}
                 >
-                  {tab}
+                  {NCMAZ_TRANSLATE[tab]}
                 </a>
               </li>
             );
@@ -119,8 +139,11 @@ const NcmazAccountPage: FC<NcmazAccountPageProps> = () => {
 
           <div className="w-full border-b-2 border-neutral-100 dark:border-neutral-700" />
           <li className="warning">
-            <a className="text-red-500" href="/account/destroy_confirm">
-              Delete Account
+            <a
+              className="text-red-500"
+              href={frontendObject.wpLogoutUrl || "#"}
+            >
+              {NCMAZ_TRANSLATE["Logout Account"]}
             </a>
           </li>
         </ul>
@@ -132,9 +155,9 @@ const NcmazAccountPage: FC<NcmazAccountPageProps> = () => {
     <div className={`nc-NcmazAccountPage__content `}>
       <div className="w-full border-b-2 border-neutral-100 dark:border-neutral-700"></div>
       <div className="mt-10 flex flex-col md:flex-row">
-        <div className="flex-shrink-0 w-1/4">{renderLeftSidebar()}</div>
+        <div className="flex-shrink-0 md:w-1/4">{renderLeftSidebar()}</div>
 
-        <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl ">
+        <div className="flex-grow mt-10 md:mt-0 xl:pl-16 max-w-3xl ">
           {/* ---- */}
           {activeTab === "general" && <GeneralForm userData={data.user} />}
           {activeTab === "profile" && <EditProfileForm userData={data.user} />}

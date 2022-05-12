@@ -235,32 +235,27 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
 
   const renderPostTitle = () => {
     return (
-      <div className="py-10">
-        <div className="w-screen max-w-screen-md mx-auto ">
-          <div className="flex flex-col w-full">
-            <Label className="block !text-base">
-              {NCMAZ_TRANSLATE["Add a cover image"]}
-            </Label>
-            <ImageUploadToServer
-              defaultImage={featuredImage}
-              onChangeImage={handleChangeFeaturedImage}
-            />
-          </div>
-
-          <CategoriesInput onChange={handleChangeCategories} />
-          <TitleEditor
-            defaultTitle={titleContent}
-            onUpdate={debounceGetTitle}
+      <div className="pb-10 lg:py-10 w-full max-w-screen-md mx-auto ">
+        <div className="flex flex-col w-full">
+          <Label className="block !text-base">
+            {NCMAZ_TRANSLATE["Add a cover image"]}
+          </Label>
+          <ImageUploadToServer
+            defaultImage={featuredImage}
+            onChangeImage={handleChangeFeaturedImage}
           />
-          <TagsInput onChange={handleChangeTags} />
         </div>
+
+        <CategoriesInput onChange={handleChangeCategories} />
+        <TitleEditor defaultTitle={titleContent} onUpdate={debounceGetTitle} />
+        <TagsInput onChange={handleChangeTags} />
       </div>
     );
   };
 
   return (
-    <div className="nc-CreateNewPostEditor flex justify-center">
-      <div className="bg-white dark:bg-neutral-900 shadow-xl rounded-2xl dark:ring dark:ring-neutral-50/10">
+    <div className="nc-CreateNewPostEditor ">
+      <div className=" bg-white dark:bg-neutral-900 lg:shadow-xl rounded-2xl dark:ring dark:ring-neutral-50/10">
         {renderPostTitle()}
 
         <TiptapEditor onUpdate={debounceGetContentHtml} />
@@ -271,7 +266,7 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
             {error.message}
           </Alert>
         )}
-        <div className="w-screen max-w-screen-md mx-auto flex space-x-2 py-8">
+        <div className="w-full max-w-screen-md mx-auto flex space-x-2 py-8">
           <ButtonPrimary
             fontSize="text-base font-medium"
             onClick={handleClickPublish}
@@ -282,6 +277,7 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
           </ButtonPrimary>
           <ButtonSecondary
             fontSize="text-base font-medium"
+            className="ml-2.5"
             onClick={handleClickSaveDraft}
             loading={loading}
             disabled={loading}

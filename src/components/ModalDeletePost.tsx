@@ -3,9 +3,9 @@ import { addNewDeletedByPostId } from "app/postsDeleted/postsDeleted";
 import NCMAZ_TRANSLATE from "contains/translate";
 import React, { FC } from "react";
 import { Slide, toast } from "react-toastify";
-import ButtonPrimaryDanger from "./Button/ButtonPrimaryDanger";
-import ButtonSecondary from "./Button/ButtonSecondary";
-import NcModal from "./NcModal/NcModal";
+import ButtonPrimaryDanger from "components/Button/ButtonPrimaryDanger";
+import ButtonSecondary from "components/Button/ButtonSecondary";
+import NcModal from "components/NcModal/NcModal";
 
 interface Props {
   show: boolean;

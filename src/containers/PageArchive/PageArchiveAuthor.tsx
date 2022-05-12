@@ -28,6 +28,7 @@ import twitchpng from "images/IntegrationIcons/twitch.png";
 import twitterpng from "images/IntegrationIcons/twitter.png";
 import vimeopng from "images/IntegrationIcons/vimeo.png";
 import youtubepng from "images/IntegrationIcons/youtube.png";
+import ButtonSecondary from "components/Button/ButtonSecondary";
 
 interface Data {
   posts: ListPosts;
@@ -61,6 +62,8 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   listIDFavorites,
 }) => {
   let TABS = [];
+
+  const TRANG_CUA_MINH = !listIDFavorites;
 
   // VAO TRANG AUTHOR CUA USER KHAC
   if (listIDFavorites) {
@@ -439,24 +442,40 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
               ) : null}
             </div>
 
-            {!!ncUserMeta.buymeacoffeUrl && (
-              <a
-                className="hidden lg:block absolute top-0 right-0 p-5 lg:p-8"
-                href={ncUserMeta.buymeacoffeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="buy-me-a-coffee"
-              >
-                <img
-                  src={
-                    ncmazFrontendVariables.pluginDistImagesDir +
-                    "buymeacoffee.svg"
-                  }
-                  alt="buy-me-a-coffee"
-                  className="w-36 rounded-xl shadow-xl hover:opacity-80 transition-opacity"
-                />
-              </a>
-            )}
+            <div className="flex flex-col space-y-2.5 absolute top-0 right-0 p-5 lg:p-8">
+              {TRANG_CUA_MINH && (
+                <ButtonSecondary
+                  className="!rounded-xl"
+                  sizeClass="px-3 py-2 sm:px-6"
+                  href={frontendObject.pageNcmazAccountUrl}
+                >
+                  <span className="hidden lg:block">
+                    {NCMAZ_TRANSLATE["Edit profile"]}
+                  </span>
+                  <span className="block lg:hidden">
+                    <i className="las la-user-edit text-xl"></i>
+                  </span>
+                </ButtonSecondary>
+              )}
+              {!!ncUserMeta.buymeacoffeUrl && (
+                <a
+                  className="hidden lg:block"
+                  href={ncUserMeta.buymeacoffeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="buy-me-a-coffee"
+                >
+                  <img
+                    src={
+                      ncmazFrontendVariables.pluginDistImagesDir +
+                      "buymeacoffee.svg"
+                    }
+                    alt="buy-me-a-coffee"
+                    className="w-36 rounded-xl shadow-xl hover:opacity-80 transition-opacity"
+                  />
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -7,7 +7,9 @@ import TagsInput, { TagNodeShort } from "./TagsInput";
 import ButtonSecondary from "components/Button/ButtonSecondary";
 import CategoriesInput from "./CategoriesInput";
 import PostOptionsBtn, { PostOptionsData } from "./PostOptionsBtn";
-import { ImageState } from "components/ImageUploadToServer";
+import ImageUploadToServer, {
+  ImageState,
+} from "components/ImageUploadToServer";
 
 import Label from "components/Label/Label";
 import { CategoriesNode3, PostNodeFullData } from "data/postCardType";
@@ -244,14 +246,14 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
     if (data.postFormatsSelected === "post-format-gallery") {
       optionsInput = {
         ...optionsInput,
-        ncmazGalleryImgs_1_databaseID: data.objGalleryImgs[1].id || null,
-        ncmazGalleryImgs_2_databaseID: data.objGalleryImgs[2].id || null,
-        ncmazGalleryImgs_3_databaseID: data.objGalleryImgs[3].id || null,
-        ncmazGalleryImgs_4_databaseID: data.objGalleryImgs[4].id || null,
-        ncmazGalleryImgs_5_databaseID: data.objGalleryImgs[5].id || null,
-        ncmazGalleryImgs_6_databaseID: data.objGalleryImgs[6].id || null,
-        ncmazGalleryImgs_7_databaseID: data.objGalleryImgs[7].id || null,
-        ncmazGalleryImgs_8_databaseID: data.objGalleryImgs[8].id || null,
+        ncmazGalleryImgs_1_databaseID: data.objGalleryImgs[1].id || 0,
+        ncmazGalleryImgs_2_databaseID: data.objGalleryImgs[2].id || 0,
+        ncmazGalleryImgs_3_databaseID: data.objGalleryImgs[3].id || 0,
+        ncmazGalleryImgs_4_databaseID: data.objGalleryImgs[4].id || 0,
+        ncmazGalleryImgs_5_databaseID: data.objGalleryImgs[5].id || 0,
+        ncmazGalleryImgs_6_databaseID: data.objGalleryImgs[6].id || 0,
+        ncmazGalleryImgs_7_databaseID: data.objGalleryImgs[7].id || 0,
+        ncmazGalleryImgs_8_databaseID: data.objGalleryImgs[8].id || 0,
       };
     }
     if (data.postFormatsSelected === "post-format-video") {
@@ -278,7 +280,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
       id: postNode.id,
       status,
       title: titleContent,
-      ncFeaturedImageDatabaseId: featuredImage?.id || null,
+      ncFeaturedImageDatabaseId: featuredImage?.id || 0,
       content: contentHTML,
       categoryNodes: categories.map((item) => ({
         id: item.id,
@@ -305,35 +307,30 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
 
   const renderPostTitle = () => {
     return (
-      <div className="py-10">
-        <div className="w-screen max-w-screen-md mx-auto ">
-          <div className="flex flex-col w-full">
-            <Label className="block !text-base">
-              {NCMAZ_TRANSLATE["Add a cover image"]}
-            </Label>
-            <ImageUpload
-              defaultImage={featuredImage}
-              onChangeImage={handleChangeFeaturedImage}
-            />
-          </div>
-
-          <CategoriesInput
-            defaultValue={categories}
-            onChange={handleChangeCategories}
+      <div className="pb-10 lg:py-10 w-full max-w-screen-md mx-auto ">
+        <div className="flex flex-col w-full">
+          <Label className="block !text-base">
+            {NCMAZ_TRANSLATE["Add a cover image"]}
+          </Label>
+          <ImageUploadToServer
+            defaultImage={featuredImage}
+            onChangeImage={handleChangeFeaturedImage}
           />
-          <TitleEditor
-            defaultTitle={titleContent}
-            onUpdate={debounceGetTitle}
-          />
-          <TagsInput defaultValue={tags} onChange={handleChangeTags} />
         </div>
+
+        <CategoriesInput
+          defaultValue={categories}
+          onChange={handleChangeCategories}
+        />
+        <TitleEditor defaultTitle={titleContent} onUpdate={debounceGetTitle} />
+        <TagsInput defaultValue={tags} onChange={handleChangeTags} />
       </div>
     );
   };
 
   return (
-    <div className="nc-UpdatePostEditor flex justify-center">
-      <div className="bg-white dark:bg-neutral-900 shadow-xl rounded-2xl dark:ring dark:ring-neutral-50/10">
+    <div className="nc-UpdatePostEditor ">
+      <div className="bg-white dark:bg-neutral-900 lg:shadow-xl rounded-2xl dark:ring dark:ring-neutral-50/10">
         {renderPostTitle()}
 
         <TiptapEditor
@@ -347,7 +344,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
             {error.message}
           </Alert>
         )}
-        <div className="w-screen max-w-screen-md mx-auto flex space-x-2 py-8">
+        <div className="w-full max-w-screen-md mx-auto flex py-8">
           <ButtonPrimary
             fontSize="text-base font-medium"
             onClick={handleClickPublish}
@@ -358,6 +355,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
           </ButtonPrimary>
           <ButtonSecondary
             fontSize="text-base font-medium"
+            className="ml-2.5"
             onClick={handleClickSaveDraft}
             loading={loading}
             disabled={loading}

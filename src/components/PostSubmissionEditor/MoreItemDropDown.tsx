@@ -11,7 +11,10 @@ interface Props {
 
 const MoreItemDropDown: FC<Props> = ({ data = [], editor }) => {
   return (
-    <Menu as="div" className="relative inline-block text-left ml-auto">
+    <Menu
+      as="div"
+      className="relative hidden lg:inline-block text-left ml-auto"
+    >
       <Menu.Button className={"ml-auto menu-item"} title={"more"}>
         <div className="menu-item-svg">
           <svg

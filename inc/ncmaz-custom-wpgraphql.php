@@ -75,8 +75,8 @@ add_filter('graphql_object_visibility', function ($visibility, $model_name, $dat
     return $visibility;
 }, 10, 5);
 
-// 
 
+// =========== THEM CAC FILEDS VAO MUTATION ... ================= 
 add_action('graphql_input_fields', function ($fields, $type_name, $config) {
     if ($type_name === 'CreatePostInput' || $type_name === 'UpdatePostInput') {
         $fields = array_merge($fields, [
@@ -117,7 +117,6 @@ add_action('graphql_input_fields', function ($fields, $type_name, $config) {
 }, 20, 3);
 
 
-
 add_action('graphql_post_object_mutation_update_additional_data', function ($post_id, $input, $mutation_name, $context, $info) {
 
     if (isset($input['ncmazAudioUrl'])) {
@@ -150,7 +149,7 @@ add_action('graphql_post_object_mutation_update_additional_data', function ($pos
     if (isset($input['ncmazGalleryImgs_8_databaseID'])) {
         update_field('image_8', $input['ncmazGalleryImgs_8_databaseID'], $post_id);
     }
-    if (isset($input['ncFeaturedImageDatabaseId'])) {
+    if (!empty($input['ncFeaturedImageDatabaseId'])) {
         set_post_thumbnail($post_id,  $input['ncFeaturedImageDatabaseId']);
     } else {
         delete_post_thumbnail($post_id);
