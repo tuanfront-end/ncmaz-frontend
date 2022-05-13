@@ -1,5 +1,6 @@
 <?php
 
+// FUNCTION DUOC GOI O TRANG ARCHIVE.PHP (TRONG THEME)
 function ncmazGetOptionForSectionTrendingArchivePage()
 {
     global $ncmaz_redux_demo;

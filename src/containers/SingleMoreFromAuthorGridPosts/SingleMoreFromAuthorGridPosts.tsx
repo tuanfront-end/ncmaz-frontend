@@ -37,7 +37,7 @@ const SingleMoreFromAuthorGridPosts: FC<SingleMoreFromAuthorGridPostsProps> = ({
     order,
     orderBy,
     first: Number(numberOfPosts),
-    author: Number(authorId),
+    authorIn: [Number(authorId)],
   };
 
   const gqlQuery = gql`

@@ -294,6 +294,13 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
   };
 
   const handleClickPublish = () => {
+    if (
+      // CAI NAY TAM THOI - HY VONG SAU NAY WPGRAPHQL SE FIX
+      frontendObject.currentUser?.roles.edges[0]?.node.name === "contributor"
+    ) {
+      onSubmmitMutation("PENDING");
+      return;
+    }
     onSubmmitMutation("PUBLISH");
   };
 

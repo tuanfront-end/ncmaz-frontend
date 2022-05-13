@@ -1,5 +1,4 @@
 import Alert from "components/Alert/Alert";
-import Avatar from "components/Avatar/Avatar";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import ImageUploadToServer, {
   ImageState,

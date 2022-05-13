@@ -133,7 +133,6 @@ function ncmazFrontend_enqueueScriptCustomize()
     // STYLE
     wp_enqueue_style('glide-core', _NCMAZ_FRONTEND_DIR_URL . 'dist/css/glide.core.min.css', [], '3.5.2', 'all');
     //
-
     wp_enqueue_script('ncmaz-frontend-customizerOnHeader', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizerOnHeader.js', ['jquery'], _NCMAZ_FRONTEND_VERSION, false);
     wp_add_inline_script('ncmaz-frontend-customizerOnHeader', 'window.ncmazFrontendDarkmode = ' . json_encode(
         ['defaultThemeMode'  =>  $ncmaz_redux_demo['nc-general-settings--general-default-theme-mode']]
@@ -194,7 +193,7 @@ add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
 //
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
+add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
 function ncmazFrontend_registerScripts()
 {
     $manifestJS = false;
@@ -217,7 +216,7 @@ function ncmazFrontend_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

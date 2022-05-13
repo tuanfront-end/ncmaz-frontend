@@ -8,7 +8,7 @@ export default defineConfig({
   // change this line on dist/assets/main.js
   // e = `${ncmazFrontendVariables.pluginDir}/wp-content/plugins/ncmaz-frontend/dist/${e}`
   // t7 = `${ncmazFrontendVariables.pluginDir}dist/`
-  // base: "https://foooooooo.com/",
+  base: "https://fooooooooooooo.com/",
   build: {
     manifest: true,
     rollupOptions: {

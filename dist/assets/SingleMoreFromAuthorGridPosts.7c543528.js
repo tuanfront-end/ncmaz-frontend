@@ -1,0 +1,3 @@
+import{D as S}from"./DataStatementBlock.d6f25b4b.js";import{a8 as x,$ as A,q as T,j as h,d as s,K as G,v as L,z as N,b4 as b}from"./main.909e866e.js";const y=({numberOfPosts:l,order:d,orderBy:i,authorId:n})=>{var o;let e="",a={};e=b,a={order:d,orderBy:i,first:Number(l),authorIn:[Number(n)]};const c=x`
+    ${e}
+  `,[g,{loading:m,error:u,data:r}]=A(c,{variables:a}),{ref:_}=T(g,99),t=((o=r==null?void 0:r.posts)==null?void 0:o.edges)||[];return h("div",{ref:_,children:[s(G,{className:"mb-10 text-neutral-900 dark:text-neutral-50",desc:"",children:L.moreFromAuthor}),s(S,{loading:m,error:u,data:t}),s("div",{className:"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8",children:t.map((p,Q)=>s(N,{post:p.node},Q))})]})};export{y as default};
