@@ -1,6 +1,9 @@
+import LoadingVideo from "components/LoadingVideo/LoadingVideo";
+import NcImage from "components/NcImage/NcImage";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { url } from "inspector";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useTimeoutFn } from "react-use";
@@ -29,13 +32,16 @@ const MediaVideo: FC<MediaVideoProps> = ({
 
   const [, cancelHover, resetIsHoverState] = useTimeoutFn(
     () => setIsHoverState(true),
-    300
+    400
   );
   const cancelHoverHandle = useCallback(() => {
     cancelHover();
     setIsHoverState(false);
   }, []);
 
+  //
+
+  const [isPlaying, setIsPlaying] = useState(false);
   //
   // CHECK FOR VIDEO CARD ON VIEW
   const [prevRatio, setPrevRatio] = useState(0);
@@ -59,7 +65,6 @@ const MediaVideo: FC<MediaVideoProps> = ({
 
   useEffect(() => {
     if (!isHover) {
-      setIsMuted(true);
       return cancelHoverHandle();
     }
 
@@ -95,40 +100,46 @@ const MediaVideo: FC<MediaVideoProps> = ({
   //
   const START_LOAD_VIDEO = IS_MOBILE ? inViewd : isHoverState;
 
+  //
+  // TRA LAI playing = false khi thoat video
+  useEffect(() => {
+    if (!START_LOAD_VIDEO) {
+      return setIsPlaying(false);
+    }
+  }, [START_LOAD_VIDEO]);
+
   const renderContent = () => {
     return (
       <div>
         <ReactPlayer
           url={videoUrl}
           muted={isMuted}
-          className={`absolute bg-black inset-0`}
-          playing={START_LOAD_VIDEO}
+          playing
+          style={{
+            opacity: isPlaying ? 1 : 0,
+            display: isPlaying ? "block" : "none",
+          }}
+          className={` absolute bg-neutral-900 inset-0`}
           width="100%"
           height="100%"
           onStart={() => {
             setShowDescUnmuted(() => true);
+            setIsPlaying(() => true);
           }}
-          onPause={() => {
-            setShowDescUnmuted(() => false);
-          }}
-          light={
-            START_LOAD_VIDEO ? false : featuredImage?.node.sourceUrl || true
-          }
-          playIcon={
-            <span className="absolute inset-0 flex items-center justify-center ">
-              <PostTypeFeaturedIcon
-                className="hover:scale-105 transform cursor-pointer transition-transform "
-                postType={"post-format-video"}
-              />
-            </span>
-          }
+          light={featuredImage?.node.sourceUrl}
         />
-        <a className="absolute block inset-0 " href={postLink}></a>
-
+        <a className="absolute block inset-0" href={postLink}></a>
+        <div
+          className={`${
+            isPlaying ? "opacity-0 hidden" : "opacity-100"
+          } absolute bg-neutral-900 bg-opacity-30 flex items-center justify-center inset-0`}
+        >
+          <LoadingVideo />
+        </div>
         <div
           className={`absolute z-20 bottom-2 left-2 h-6 rounded-full bg-black bg-opacity-70 text-white flex items-center justify-center text-sm transform transition-transform ${
-            !START_LOAD_VIDEO ? "opacity-0 hidden" : "opacity-100"
-          } ${showDescUnmuted ? "pl-[6px] pr-2" : "w-6 hover:scale-125"}`}
+            showDescUnmuted ? "pl-[6px] pr-2" : "w-6 hover:scale-125"
+          }`}
           onClick={() => setIsMuted(!isMuted)}
         >
           {isMuted ? (
@@ -150,7 +161,22 @@ const MediaVideo: FC<MediaVideoProps> = ({
 
   return (
     <div className="nc-MediaVideo absolute inset-0" ref={videoRef}>
-      {renderContent()}
+      {(!videoUrl || !START_LOAD_VIDEO) && (
+        <NcImage
+          containerClassName="absolute inset-0"
+          src={featuredImage?.node.sourceUrl || "."}
+        />
+      )}
+      {!!videoUrl && !START_LOAD_VIDEO && (
+        <span className="absolute inset-0 flex items-center justify-center ">
+          <PostTypeFeaturedIcon
+            className="hover:scale-105 transform cursor-pointer transition-transform "
+            postType={"post-format-video"}
+          />
+        </span>
+      )}
+
+      {!!videoUrl && START_LOAD_VIDEO && renderContent()}
     </div>
   );
 };

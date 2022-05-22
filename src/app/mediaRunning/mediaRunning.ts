@@ -17,6 +17,7 @@ export interface MediaRunningState {
     muted: boolean;
   };
   newestAudioPlayerUrl?: string;
+  hasButtonPlayOnDOM?: boolean;
 }
 
 let initPlayer: MediaRunningState["player"] = {
@@ -94,6 +95,13 @@ export const mediaRunningSlice = createSlice({
         },
       };
     },
+    //
+    changeStateHasButtonPlayOnDOM: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        hasButtonPlayOnDOM: action.payload,
+      };
+    },
   },
 });
 
@@ -104,7 +112,11 @@ export const {
   changeDataPlayerMediaRunning,
   removeMediaRunning,
   changeNewestAudioPlayerUrl,
+  changeStateHasButtonPlayOnDOM,
 } = mediaRunningSlice.actions;
+
+export const selectHasButtonPlayOnDOM = (state: RootState) =>
+  state.mediaRunning.hasButtonPlayOnDOM;
 
 export const selectCurrentAudioUrl = (state: RootState) =>
   state.mediaRunning.postData?.ncmazAudioUrl.audioUrl;
@@ -124,7 +136,7 @@ export const selectNewestAudioPlayerUrl = (state: RootState) =>
 const persistConfig = {
   key: "mediaRunning",
   storage: storage,
-  blacklist: ["newestAudioPlayerUrl"],
+  blacklist: ["newestAudioPlayerUrl", "hasButtonPlayOnDOM"],
 };
 
 export default persistReducer(persistConfig, mediaRunningSlice.reducer);

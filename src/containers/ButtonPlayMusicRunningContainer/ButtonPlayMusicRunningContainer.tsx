@@ -97,6 +97,10 @@ const ButtonPlayMusicRunningContainer: FC<
       return;
     }
 
+    if (currentMediaState === "paused" || currentMediaState === "ended") {
+      return dispatch(changeStateMediaRunning("loading"));
+    }
+
     return dispatch(changeStateMediaRunning("playing"));
   };
 

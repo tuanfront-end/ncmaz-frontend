@@ -5,10 +5,8 @@ import FactoryComponents from "containers/FactoryComponents/FactoryComponents";
 import ErrorBoundary from "ErrorBoundary";
 import ScrollTop from "components/ScrollTop";
 import { ToastContainer, toast } from "react-toastify";
+import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunningContainer";
 
-const MediaRunningContainerLazy = React.lazy(
-  () => import("containers/MediaRunningContainer/MediaRunningContainer")
-);
 //
 const LazyCssRTLLazy = React.lazy(() => import("./LazyCssRTL"));
 const LazyCssCommentsLazy = React.lazy(() => import("./LazyCssComments"));
@@ -54,13 +52,7 @@ function App() {
         <ScrollTop />
 
         {/* ---------- */}
-        {!!frontendObject.musicPlayerMode ? (
-          <ErrorBoundary>
-            <Suspense fallback={<div />}>
-              <MediaRunningContainerLazy />
-            </Suspense>
-          </ErrorBoundary>
-        ) : null}
+        <MediaRunningContainer />
       </div>
 
       {/* ---------- */}

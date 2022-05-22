@@ -34,6 +34,13 @@ const safelist = [
     pattern: /w-(2\/5|3\/5|1\/3|2\/3)/,
     variants: ["sm", "md", "lg", "xl", "2xl"],
   },
+  {
+    pattern: /container/,
+    variants: ["sm", "md", "lg", "xl", "2xl"],
+  },
+  //
+  "sm:container",
+  "md:container",
   //
   "lg:pl-10",
   "xl:pl-0",

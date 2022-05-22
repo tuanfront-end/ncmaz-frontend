@@ -77,6 +77,11 @@ const PlayerContent: FC<PlayerContentProps> = ({
     if (mediaState === "loading") {
       return;
     }
+
+    if (mediaState === "paused" || mediaState === "ended") {
+      return dispatch(changeStateMediaRunning("loading"));
+    }
+
     if (mediaState === "playing") {
       return dispatch(changeStateMediaRunning("paused"));
     } else {

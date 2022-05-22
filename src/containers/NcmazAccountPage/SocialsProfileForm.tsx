@@ -260,7 +260,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Buymeacoffe     */}
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
           <Label>Buymeacoffe </Label>
           <span className="text-xs text-neutral-500 dark:text-neutral-400">
             {NCMAZ_TRANSLATE["You should have an account here:"]} {` `}
