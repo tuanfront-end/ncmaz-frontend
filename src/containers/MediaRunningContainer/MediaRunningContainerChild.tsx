@@ -68,9 +68,9 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
     // KHI LẦN ĐẦU CHẠY SAU F5 THÌ CÓ THỂ VIDEO CHƯA LOAD XONG MÀ STATE LẠI ĐANG LÀ PLAYING HOẶC PAUSED,
     // DẪN ĐẾN NGƯỜI DÙNG CÓ THỂ BẤM VÀO NÚT VÀ GÂY HOẠT ĐỘNG SAI, VÌ VẬY CẦN CHUYỂN THÀNH LOADING NGAY
     if (!newestAudioPlayerUrl && !!currentAudioUrl && !isFirtTimeSeekTo) {
-      if (mediaRunningState === "playing") {
-        dispatch(changeStateMediaRunning("loading"));
-      }
+      // if (mediaRunningState === "playing") {
+      dispatch(changeStateMediaRunning("paused"));
+      // }
     }
   }, [
     newestAudioPlayerUrl,
@@ -370,7 +370,8 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
         handleClickForwards15Sec={_.debounce(onClickForwarkds15Sec, 200)}
       />
     );
-  }, [isError]);
+    // onClickBackwards10Sec va onClickForwarkds15Sec can thay doi khi thay doi playedSeconds
+  }, [isError, playedSeconds]);
 
   // TAI SAO: VÌ KHÔNG MUỐN CHẠY ONREADY TRƯỚC KHI USEEFFECT
   let AFTER_F5_PAGE_AND_STATUS_PLAYING_BUT_NOT_LOADING_YET = false;
@@ -387,9 +388,13 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
     return null;
   }
 
+  // HIDDEN WHEN NOT READY - isFirtTimeSeekTo
+  const HIDDEN_CLASS =
+    !newestAudioPlayerUrl && !isFirtTimeSeekTo ? "opacity-0 -z-10" : "";
+
   return (
     <div
-      className={`nc-MediaRunningContainer w-full ${className}`}
+      className={`nc-MediaRunningContainer w-full ${className} ${HIDDEN_CLASS}`}
       data-nc-id="MediaRunningContainer"
     >
       {/* ---- PLAYER CONTROL ---- */}
