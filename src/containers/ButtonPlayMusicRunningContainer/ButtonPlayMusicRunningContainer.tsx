@@ -1,12 +1,14 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import {
   changeCurrentMediaRunning,
   changeNewestAudioPlayerUrl,
+  changeStateHasButtonPlayOnDOM,
   changeStateMediaRunning,
   MediaRunningState,
   selectCurrentMediaPostData,
   selectCurrentMediaState,
+  selectHasButtonPlayOnDOM,
 } from "app/mediaRunning/mediaRunning";
 import LoadingVideo from "components/LoadingVideo/LoadingVideo";
 import iconPlaying from "images/icon-playing.gif";
@@ -25,6 +27,8 @@ export interface ButtonPlayMusicRunningContainerProps {
   renderPlayingBtn?: () => ReactNode;
 }
 
+let ButtonPlayMusicRunningContainerIndex = 1;
+
 const ButtonPlayMusicRunningContainer: FC<
   ButtonPlayMusicRunningContainerProps
 > = ({
@@ -37,8 +41,18 @@ const ButtonPlayMusicRunningContainer: FC<
 }) => {
   const currentMediaState = useAppSelector(selectCurrentMediaState);
   const currentMediaPostData = useAppSelector(selectCurrentMediaPostData);
+  const hasButtonPlayOnDOM = useAppSelector(selectHasButtonPlayOnDOM);
+
   const dispatch = useAppDispatch();
   // STATE
+  useEffect(() => {
+    if (hasButtonPlayOnDOM || ButtonPlayMusicRunningContainerIndex > 1) {
+      return;
+    }
+
+    dispatch(changeStateHasButtonPlayOnDOM(true));
+    ButtonPlayMusicRunningContainerIndex++;
+  }, []);
 
   const handleClickNewAudio = () => {
     return dispatch(

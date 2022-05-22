@@ -42,7 +42,7 @@ const HeaderSingleVideo: FC<HeaderSingleVideoProps> = ({
           width="100%"
           height="100%"
           controls
-          light={isSafariBrowser() ? false : featuredImage}
+          light={isSafariBrowser() ? false : featuredImage || true}
           playIcon={<NcPlayIcon />}
         />
       </div>

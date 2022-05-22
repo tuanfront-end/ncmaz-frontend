@@ -111,7 +111,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
           <div className="relative z-10 mt-1">
             <Listbox.Button className="focus:outline-none relative w-full cursor-default rounded-full py-2 pl-3 pr-10 text-left border border-neutral-100 dark:border-neutral-700">
               <span className="block truncate capitalize">
-                {postFormatsSelected}
+                {postFormatsSelected.replace(/^post-format-/g, "")}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <SelectorIcon
@@ -144,7 +144,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
                             selected ? "font-medium" : "font-normal"
                           }`}
                         >
-                          {person}
+                          {person.replace(/^post-format-/g, "")}
                         </span>
                         {selected ? (
                           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">

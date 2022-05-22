@@ -3,7 +3,7 @@ import { PostNode } from "data/postCardType";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
-import { useTimeoutFn } from "react-use";
+import useTimeoutFn from "react-use/lib/useTimeoutFn";
 
 export interface MediaVideoProps {
   videoUrl?: string;

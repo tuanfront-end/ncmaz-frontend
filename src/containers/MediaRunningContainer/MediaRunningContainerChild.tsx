@@ -10,12 +10,10 @@ import { useAppDispatch, useAppSelector } from "app/hooks";
 import {
   changeDataPlayerMediaRunning,
   changeStateMediaRunning,
-  changeStateHasButtonPlayOnDOM,
   selectCurrentAudioUrl,
   selectCurrentMediaPlayerData,
   selectCurrentMediaState,
   selectNewestAudioPlayerUrl,
-  selectHasButtonPlayOnDOM,
 } from "app/mediaRunning/mediaRunning";
 import PlayerContent from "./PlayerContent";
 import _ from "lodash";
@@ -46,7 +44,6 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
   const mediaRunningState = useAppSelector(selectCurrentMediaState);
   const currentMediaPlayerData = useAppSelector(selectCurrentMediaPlayerData);
   const newestAudioPlayerUrl = useAppSelector(selectNewestAudioPlayerUrl);
-  const hasButtonPlayOnDOM = useAppSelector(selectHasButtonPlayOnDOM);
   const prevAudioUrl = usePrevious(currentAudioUrl);
   const dispatch = useAppDispatch();
 
@@ -65,12 +62,6 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
   const [isFirtTimeSeekTo, setIsFirtTimeSeekTo] = useState(false);
 
   //
-  useEffect(() => {
-    if (hasButtonPlayOnDOM) {
-      return;
-    }
-    dispatch(changeStateHasButtonPlayOnDOM(true));
-  }, [hasButtonPlayOnDOM]);
 
   //
   useEffect(() => {

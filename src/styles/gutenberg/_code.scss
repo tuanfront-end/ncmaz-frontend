@@ -2,7 +2,7 @@
 .xl\:prose-lg {
   // ---------------------------------- ##  Code ----------------------------------
   code {
-    @apply dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-900 font-normal px-0.5 rounded-[4px];
+    @apply dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-900 font-normal px-0.5 rounded-[4px] border-none;
     font-size: inherit;
     &::after,
     &::before {
