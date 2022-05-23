@@ -130,9 +130,7 @@ function ncmazFrontend_enqueueScriptCustomize()
     $currentUser = getCurrentUserGraphql();
     $allSettings = getAllSettingsGraphql();
 
-    // STYLE
-    wp_enqueue_style('glide-core', _NCMAZ_FRONTEND_DIR_URL . 'dist/css/glide.core.min.css', [], '3.5.2', 'all');
-    //
+    // STYLE 
     wp_enqueue_script('ncmaz-frontend-customizerOnHeader', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizerOnHeader.js', ['jquery'], _NCMAZ_FRONTEND_VERSION, false);
     wp_add_inline_script('ncmaz-frontend-customizerOnHeader', 'window.ncmazFrontendDarkmode = ' . json_encode(
         ['defaultThemeMode'  =>  $ncmaz_redux_demo['nc-general-settings--general-default-theme-mode']]
@@ -155,7 +153,6 @@ function ncmazFrontend_enqueueScriptCustomize()
             "day_names_short" => $dayNamesShort
         ]
     ), 'before');
-
 
     wp_add_inline_script('ncmaz-frontend-js', 'window.frontendObject = ' . json_encode(
         [

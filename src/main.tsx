@@ -18,6 +18,8 @@ import "./index.css";
 import "./styles/index.scss";
 import "react-loading-skeleton/dist/skeleton.css";
 import "react-toastify/dist/ReactToastify.css";
+import "@glidejs/glide/dist/css/glide.core.min.css";
+
 import { UserViewer } from "data/types";
 
 declare global {
