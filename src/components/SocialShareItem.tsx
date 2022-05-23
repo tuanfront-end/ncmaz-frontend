@@ -50,6 +50,7 @@ export interface SocialShareItemProps {
   size: number;
   item: SocialType;
   hasName?: boolean;
+  image?: string;
 }
 
 const SocialShareItem: FC<SocialShareItemProps> = ({
@@ -58,6 +59,7 @@ const SocialShareItem: FC<SocialShareItemProps> = ({
   size,
   item,
   hasName = false,
+  image = "",
 }) => {
   const renderSocialsItem = () => {
     const CLASSES = className;
@@ -100,7 +102,7 @@ const SocialShareItem: FC<SocialShareItemProps> = ({
         );
       case "Pinterest":
         return (
-          <PinterestShareButton media="" className={CLASSES} url={href}>
+          <PinterestShareButton media={image} className={CLASSES} url={href}>
             <PinterestIcon round size={size} />
             {hasName && <span>{item.name}</span>}
           </PinterestShareButton>

@@ -79,7 +79,10 @@ const Card11: FC<Card11Props> = ({
             hiddenCommentOnMobile={false}
           />
           <div className="flex items-center space-x-2">
-            <PostCardDropdownShare href={post.link} />
+            <PostCardDropdownShare
+              href={post.link}
+              image={post.featuredImage?.node.sourceUrl}
+            />
             {checkCurrentUserCanEditPostById(author) && (
               <PostMoreActionDropdown
                 postDataBaseId={post.postId}

@@ -89,7 +89,10 @@ const Card2: FC<Card2Props> = ({
         <div className="flex items-center justify-between mt-auto">
           <PostCardLikeAndComment className="relative" postData={post} />
 
-          <PostCardDropdownShare href={post.link} />
+          <PostCardDropdownShare
+            href={post.link}
+            image={post.featuredImage?.node.sourceUrl}
+          />
         </div>
       </div>
     </div>

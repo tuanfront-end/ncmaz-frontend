@@ -128,6 +128,7 @@ const Card10V3: FC<Card10V3Props> = ({
         <PostCardDropdownShare
           panelMenusClass="w-52 right-0 top-0 origin-top-right"
           href={post.link}
+          image={post.featuredImage?.node.sourceUrl}
         />
       </div>
 

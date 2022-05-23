@@ -46,7 +46,10 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
                 __html: ncPostMetaData.readingTimeShortcode || "",
               }}
             />
-            <PostCardDropdownShare href={post.link} />
+            <PostCardDropdownShare
+              href={post.link}
+              image={post.featuredImage?.node.sourceUrl}
+            />
           </div>
         </div>
       </div>

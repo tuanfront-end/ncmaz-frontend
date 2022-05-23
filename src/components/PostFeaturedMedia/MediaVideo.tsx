@@ -42,19 +42,14 @@ const MediaVideo: FC<MediaVideoProps> = ({
   const [inViewd, setInViewed] = useState(false);
   //
 
-  let IS_MOBILE = false || window.innerWidth < 768;
-  if (
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-  ) {
-    IS_MOBILE = true;
-  }
+  let IS_MOBILE = window.matchMedia(
+    "only screen and (max-width: 639px)"
+  ).matches;
 
   const cardIntersectionObserver = useIntersectionObserver(videoRef, {
     freezeOnceVisible: false,
     threshold: 0.999,
-    rootMargin: "-20px 0px",
+    rootMargin: "-10px 0px",
   });
 
   useEffect(() => {

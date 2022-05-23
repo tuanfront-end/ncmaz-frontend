@@ -57,6 +57,7 @@ const Card9: FC<Card9Props> = ({
         <PostCardDropdownShare
           panelMenusClass="w-52 right-0 top-0 origin-top-right"
           href={post.link}
+          image={post.featuredImage?.node.sourceUrl}
         />
       </div>
       <div className={`flex items-start relative w-full ${ratio}`}></div>

@@ -134,7 +134,10 @@ const PlayerContent: FC<PlayerContentProps> = ({
             }
           />
 
-          <PostCardDropdownShare href={link || ""} />
+          <PostCardDropdownShare
+            href={link || ""}
+            image={post.featuredImage?.node.sourceUrl}
+          />
         </div>
       </div>
     );
@@ -652,6 +655,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
               <PostCardDropdownShare
                 panelMenusClass="w-48 left-0 bottom-0 origin-bottom-left"
                 href={post.link || ""}
+                image={post.featuredImage?.node.sourceUrl}
               />
             )}
           </div>

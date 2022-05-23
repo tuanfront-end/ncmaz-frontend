@@ -41,7 +41,10 @@ const Card1: FC<Card1Props> = ({ className = "", post }) => {
       </div>
 
       {/* ACTIONS */}
-      <PostCardDropdownShare href={post.link} />
+      <PostCardDropdownShare
+        href={post.link}
+        image={post.featuredImage?.node.sourceUrl}
+      />
     </div>
   );
 };
