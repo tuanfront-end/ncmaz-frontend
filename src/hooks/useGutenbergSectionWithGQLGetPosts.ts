@@ -16,6 +16,11 @@ import {
   useLazyQuery,
   DocumentNode,
 } from "@apollo/client";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import {
+  addNewStaticPost,
+  selectRecentstaticPosts,
+} from "app/staticPosts/staticPosts";
 
 function useGutenbergSectionWithGQLGetPosts({
   graphQLvariables,
@@ -24,6 +29,9 @@ function useGutenbergSectionWithGQLGetPosts({
   graphQLvariables?: VariablesGutenbergGQLGetPosts;
   graphQLData?: ListPostsGQLResultData;
 }) {
+  const dispatch = useAppDispatch();
+  const recentstaticPosts = useAppSelector(selectRecentstaticPosts);
+
   const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
   const [variablesFilter, setVariablesFilter] = useState(
@@ -82,6 +90,13 @@ function useGutenbergSectionWithGQLGetPosts({
   // -----
   if (IS_SPECIFIC_DATA) {
     data = graphQLData;
+    const ids = data.posts.edges.map(
+      (post) => post.node.postId as string | number
+    );
+    const isIncluded = recentstaticPosts.some((item) => ids.includes(item));
+    if (!isIncluded) {
+      dispatch(addNewStaticPost(ids));
+    }
   } else {
     const [gqlQueryGetPosts, useLazyQueryResultData] =
       useLazyQuery<ListPostsGQLResultData>(queryGql as DocumentNode, {
