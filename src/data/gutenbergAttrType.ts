@@ -76,6 +76,7 @@ export interface GutenbergApiAttr_BlockTermSlider {
     sliderHoverpause: boolean;
     sliderAnimationDuration: number;
     sliderRewind: boolean;
+    expectedNumberResults?: number;
   };
 }
 // =========================_Block TERM SLider============================================
@@ -90,6 +91,7 @@ export interface GutenbergApiAttr_BlockTermGrid {
     hasBackground: boolean;
     gridClass: string;
     gridClassCustom: string;
+    expectedNumberResults?: number;
   };
 }
 
@@ -110,6 +112,7 @@ export interface GutenbergAttr__BlockUsersSlider {
     sliderHoverpause: boolean;
     sliderAnimationDuration: number;
     sliderRewind: boolean;
+    expectedNumberResults?: number;
   };
 }
 
@@ -125,6 +128,7 @@ export interface GutenbergAttr__BlockUsersGrid {
     blockLayoutStyle: "layout-1" | "layout-2";
     subHeading: string;
     hasBackground: boolean;
+    expectedNumberResults?: number;
   };
 }
 
@@ -146,6 +150,7 @@ export interface GutenbergApiAttr_BlockPostsGrid {
     enableLoadMoreButton: boolean;
     loadMoreButtonHref: string;
     filterDataBy: "by_specific" | "by_filter";
+    expectedNumberResults?: number;
   };
 }
 
@@ -169,6 +174,7 @@ export interface GutenbergApiAttr_BlockPostsSlider {
     sliderHoverpause: boolean;
     sliderAnimationDuration: number;
     sliderRewind: boolean;
+    expectedNumberResults?: number;
   };
 }
 
@@ -184,6 +190,7 @@ export interface GutenbergApiAttr_BlockMagazine {
     subHeading: string;
     hasBackground: boolean;
     categories: HeaderSectionFilterTabItem[];
+    expectedNumberResults?: number;
   };
 }
 // =========================_Block User Grid============================================
@@ -203,44 +210,25 @@ export interface GutenbergApiAttr_BlockWidgetPots {
   settings: {
     postCardName: string;
     heading: string;
+    expectedNumberResults?: number;
   };
 }
 // =========================_Block Widget Users============================================
 export interface GutenbergApiAttr_BlockWidgetUsers {
-  // graphQLvariables: {
-  //   variables: {
-  //     authorIn: number[];
-  //     categoryIn: number[];
-  //     field: string;
-  //     first: number;
-  //     order: string;
-  //     tagIn: number[];
-  //   };
-  //   queryString: string;
-  // };
   graphQLvariables?: VariablesGutenbergGQLGetUsers;
   graphQLData?: ListUsersGQLResultData;
   settings: {
     heading: string;
+    expectedNumberResults?: number;
   };
 }
 // =========================_Block Widget Users============================================
 export interface GutenbergApiAttr_BlockWidgetTerms {
-  // graphQLvariables: {
-  //   variables: {
-  //     authorIn: number[];
-  //     categoryIn: number[];
-  //     field: string;
-  //     first: number;
-  //     order: string;
-  //     tagIn: number[];
-  //   };
-  //   queryString: string;
-  // };
   graphQLvariables?: VariablesGutenbergGQLGetTerms;
   graphQLData?: ListTermsGQLResultData;
   settings: {
     heading: string;
     termCardName?: "card1" | "tag-card";
+    expectedNumberResults?: number;
   };
 }

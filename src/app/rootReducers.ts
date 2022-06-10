@@ -5,7 +5,6 @@ import darkmodeReducer from "./darkmode/darkmode";
 import pagesReducer from "./pages/pages";
 import mediaRunningReducer from "./mediaRunning/mediaRunning";
 import postsDeletedReducer from "./postsDeleted/postsDeleted";
-import staticPostsReducer from "./staticPosts/staticPosts";
 
 const rootReducers = {
   bookmark: bookmarkReducer,
@@ -15,7 +14,6 @@ const rootReducers = {
   pages: pagesReducer,
   mediaRunning: mediaRunningReducer,
   postsDeleted: postsDeletedReducer,
-  staticPosts: staticPostsReducer,
 };
 
 export default rootReducers;

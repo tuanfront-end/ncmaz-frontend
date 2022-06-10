@@ -382,11 +382,49 @@ form.search-form {
     @apply w-full sm:max-w-md md:max-w-lg lg:max-w-xl;
   }
   .Toastify__toast.toast-container-class {
-    @apply rounded-lg text-sm;
+    @apply rounded-xl text-sm;
   }
   .dark {
     .Toastify__toast-theme--dark {
       @apply bg-neutral-6000;
     }
+  }
+  .Toastify__close-button {
+    display: none;
+  }
+}
+
+//
+.nc-CardLarge1--hasAnimation {
+  .nc-CardLarge1__left {
+    animation-name: CardLarge1ExampleLeft;
+    animation-duration: 400ms;
+    animation-timing-function: ease-in-out;
+  }
+  .nc-CardLarge1__right {
+    animation-name: CardLarge1ExampleRight;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+@keyframes CardLarge1ExampleRight {
+  from {
+    transform: scale(1.05) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes CardLarge1ExampleLeft {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

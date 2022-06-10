@@ -28,7 +28,7 @@ class ErrorBoundary extends React.Component<MyProps, MyState> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="max-w-xs xl:max-w-lg">
+        <div className="flex">
           <Alert
             type="error"
             children={NCMAZ_TRANSLATE["somethingWentWrong"]}

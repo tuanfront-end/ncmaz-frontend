@@ -80,6 +80,7 @@ add_filter('graphql_object_visibility', function ($visibility, $model_name, $dat
 add_action('graphql_input_fields', function ($fields, $type_name, $config) {
     if ($type_name === 'CreatePostInput' || $type_name === 'UpdatePostInput') {
         $fields = array_merge($fields, [
+            'ncTags'        => ['type' => 'String'],
             'ncFeaturedImageDatabaseId' => ['type' => 'Int'],
             'ncmazAudioUrl' => ['type' => 'String'],
             'ncmazVideoUrl' => ['type' => 'String'],
@@ -118,6 +119,10 @@ add_action('graphql_input_fields', function ($fields, $type_name, $config) {
 
 
 add_action('graphql_post_object_mutation_update_additional_data', function ($post_id, $input, $mutation_name, $context, $info) {
+
+    if (!empty($input['ncTags'])) {
+        wp_set_post_tags($post_id, $input['ncTags'], true);
+    }
 
     if (isset($input['ncmazAudioUrl'])) {
         update_field('audio_url', $input['ncmazAudioUrl'], $post_id);

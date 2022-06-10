@@ -7,12 +7,15 @@ export interface CategoryBadgeListProps {
   className?: string;
   itemClass?: string;
   categories: PostNode["categories"];
+  // numberCategoriesWillShow = -1 means show all categories
+  numberCategoriesWillShow?: number;
 }
 
 const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
   className = "",
   itemClass = "",
   categories,
+  numberCategoriesWillShow = 4,
 }) => {
   return (
     <div
@@ -20,15 +23,23 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
       data-nc-id="CategoryBadgeList"
     >
       <div className={`flex flex-wrap space-x-2 -my-1 ${className}`}>
-        {(categories || { edges: [] }).edges.map((item, index) => (
-          <Badge
-            className={`relative my-1 ${itemClass}`}
-            key={index}
-            name={item.node.name}
-            href={item.node.link}
-            color={item.node?.ncTaxonomyMeta?.color as TwMainColor}
-          />
-        ))}
+        {(categories || { edges: [] }).edges.map((item, index) => {
+          if (
+            numberCategoriesWillShow !== -1 &&
+            index >= numberCategoriesWillShow
+          ) {
+            return null;
+          }
+          return (
+            <Badge
+              className={`relative my-1 ${itemClass}`}
+              key={index}
+              name={item.node.name}
+              href={item.node.link}
+              color={item.node?.ncTaxonomyMeta?.color as TwMainColor}
+            />
+          );
+        })}
       </div>
     </div>
   );

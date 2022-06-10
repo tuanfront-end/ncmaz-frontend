@@ -261,17 +261,19 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Buymeacoffe     */}
         <div className="sm:col-span-2">
-          <Label>Buymeacoffe </Label>
+          <Label>{NCMAZ_TRANSLATE["Buymeacoffe"]} </Label>
           <span className="text-xs text-neutral-500 dark:text-neutral-400">
             {NCMAZ_TRANSLATE["You should have an account here:"]} {` `}
-            <a
-              href="http://buymeacoffee.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-1 underline"
-            >
-              buymeacoffee.com
-            </a>
+            {NCMAZ_TRANSLATE["buymeacoffee.com"] && (
+              <a
+                href={"https://" + NCMAZ_TRANSLATE["buymeacoffee.com"]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-1 underline"
+              >
+                {NCMAZ_TRANSLATE["buymeacoffee.com"]}
+              </a>
+            )}
           </span>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -279,7 +281,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
             </span>
             <Input
               className="!rounded-l-none"
-              placeholder="buymeacoffee.com/yourname"
+              placeholder={NCMAZ_TRANSLATE["https://buymeacoffee.com/yourname"]}
               sizeClass="h-11 px-4 pl-2 pr-3"
               defaultValue={buymeacoffeeUrl}
               onChange={(e) => setBuymeacoffeeUrl(e.currentTarget.value)}

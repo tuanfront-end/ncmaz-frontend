@@ -1,4 +1,13 @@
 let NCMAZ_TRANSLATE = {
+  Buymeacoffe: "Buymeacoffe",
+  "https://buymeacoffee.com/yourname": "https://buymeacoffee.com/yourname",
+  "buymeacoffee.com": "buymeacoffee.com",
+  "yourwebsite.com": "yourwebsite.com",
+  "UX/UI Designer": "UX/UI Designer",
+  "Short Bio": "Short Bio",
+  "Upload a file": "Upload a file",
+  "Click to change": "Click to change",
+  //
   socials: "socials",
   profile: "profile",
   general: "general",
@@ -10,6 +19,8 @@ let NCMAZ_TRANSLATE = {
     "A short Bio (e.g. occupation), this will show up in the author cards.",
   "Biographical Info, this will show up in the author page.":
     "Biographical Info, this will show up in the author page.",
+  "Something about yourself in a few word.":
+    "Something about yourself in a few word.",
   "Biographical Info": "Biographical Info",
   Website: "Website",
   Nickname: "Nickname",

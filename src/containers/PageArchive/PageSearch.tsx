@@ -79,6 +79,12 @@ const PageSearch: FC<PageSearchProps> = ({
       document.getElementById("ncmaz-search-input") as HTMLInputElement
     )?.value;
     setSearchText(textValue);
+
+    // Replace current querystring with the new one.
+    let queryParams = new URLSearchParams(window.location.search);
+    queryParams.set("s", textValue);
+    history.replaceState(null, "", "?" + queryParams.toString());
+
   };
 
   const renderHeader = () => {

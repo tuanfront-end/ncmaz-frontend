@@ -26,6 +26,7 @@ function useGutenbergSectionWithGQLGetTerms({
   graphQLData?: ListTermsGQLResultData;
 }) {
   const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  // const IS_SPECIFIC_DATA = false;
 
   let GQL_QUERY__string = "";
   if (graphQLvariables?.queryString === "GQL_QUERY_GET_CATEGORIES_BY_FILTER") {

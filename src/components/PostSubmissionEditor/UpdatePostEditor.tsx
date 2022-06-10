@@ -119,6 +119,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
 
   // MUTATION_CREATE_POST GQL
   // status: PENDING | PRIVATE | PUBLISH | DRAFT | TRASH
+  // Lưu ý có biến ncTags - Biến này được tạo ra để Contributor và Author có thể thêm Tags mới vào Post (Được xử lý trong ncmaz-custom-wpgraphql)
   const MUTATION_UPDATE_POST = gql`
     mutation MUTATION_UPDATE_POST(
       $commentStatus: String = "open"
@@ -141,7 +142,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
       $postFormatNodes: [PostPostFormatsNodeInput] = []
       $postFormatNodesAppend: Boolean = false
       $categoryNodes: [PostCategoriesNodeInput] = {}
-      $tagNodes: [PostTagsNodeInput] = {}
+      $ncTags: String = null
     ) {
       updatePost(
         input: {
@@ -162,7 +163,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
           ncmazGalleryImgs_8_databaseID: $ncmazGalleryImgs_8_databaseID
           content: $content
           categories: { nodes: $categoryNodes }
-          tags: { nodes: $tagNodes }
+          ncTags: $ncTags
           ncmazVideoUrl: $ncmazVideoUrl
           postFormats: {
             nodes: $postFormatNodes
@@ -285,9 +286,10 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
       categoryNodes: categories.map((item) => ({
         id: item.id,
       })),
-      tagNodes: tags.map((item) => ({
-        name: item.name,
-      })),
+      ncTags: tags.map((item) => item.name).join(","),
+      // tagNodes: tags.map((item) => ({
+      //   name: item.name,
+      // })),
       ...optionsInput,
     };
     mutationUpdatePost({ variables });

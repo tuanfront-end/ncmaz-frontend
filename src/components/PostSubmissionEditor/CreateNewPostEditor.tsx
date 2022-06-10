@@ -57,10 +57,9 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
   );
   //
 
-  //
-
   // MUTATION_CREATE_POST GQL
   // status: PENDING | PRIVATE | PUBLISH | DRAFT | TRASH
+  // Lưu ý có biến ncTags - Biến này được tạo ra để Contributor và Author có thể thêm Tags mới vào Post (Được xử lý trong ncmaz-custom-wpgraphql)
   const MUTATION_CREATE_POST = gql`
     mutation MUTATION_CREATE_POST(
       $commentStatus: String = "open"
@@ -81,7 +80,7 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
       $ncmazVideoUrl: String = null
       $postFormatsSlug: String = null
       $categoryNodes: [PostCategoriesNodeInput] = {}
-      $tagNodes: [PostTagsNodeInput] = {}
+      $ncTags: String = null
     ) {
       createPost(
         input: {
@@ -101,7 +100,7 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
           ncmazGalleryImgs_8_databaseID: $ncmazGalleryImgs_8_databaseID
           content: $content
           categories: { nodes: $categoryNodes }
-          tags: { nodes: $tagNodes }
+          ncTags: $ncTags
           ncmazVideoUrl: $ncmazVideoUrl
           postFormats: { nodes: { slug: $postFormatsSlug } }
         }
@@ -138,7 +137,7 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
     });
     setTimeout(() => {
       window.location.href = data?.createPost.post.link;
-    }, 800);
+    }, 500);
   }, [dataDeferredValueAfterSubmit]);
 
   //
@@ -216,9 +215,10 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
       categoryNodes: categories.map((item) => ({
         id: item.id,
       })),
-      tagNodes: tags.map((item) => ({
-        name: item.name,
-      })),
+      ncTags: tags.map((item) => item.name).join(","),
+      // tagNodes: tags.map((item) => ({
+      //   name: item.name,
+      // })),
       ...optionsInput,
     };
 

@@ -246,7 +246,9 @@ const ImageUploadToServer: FC<ImageUploadToServerProps> = ({
                   />
                 ) : (
                   <span>
-                    {imageState.sourceUrl ? "Click to change" : `Upload a file`}
+                    {imageState.sourceUrl
+                      ? NCMAZ_TRANSLATE["Click to change"]
+                      : NCMAZ_TRANSLATE["Upload a file"]}
                   </span>
                 )}
 

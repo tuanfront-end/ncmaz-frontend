@@ -41,6 +41,9 @@ const FactoryBlockWidgetTerms: FC<FactoryBlockWidgetTermsProps> = ({
           heading={settings.heading}
           termCardName={settings.termCardName}
           isLoading={IS_SKELETON}
+          categoriesLoading={Array.from(
+            Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+          )}
         />
 
         <DataStatementBlockV2

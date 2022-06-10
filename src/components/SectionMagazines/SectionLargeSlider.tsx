@@ -38,10 +38,12 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
         <CardLarge1Skeleton />
       ) : (
         listPosts.map((item, index) => {
+          if (indexActive !== index) {
+            return null;
+          }
           return (
             <CardLarge1
               key={index}
-              isShowing={indexActive === index}
               onClickNext={
                 document.querySelector("html")?.getAttribute("dir") === "rtl"
                   ? handleClickPrev

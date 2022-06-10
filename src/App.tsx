@@ -3,17 +3,16 @@ import GutenbergSections from "GutenbergSections";
 import HeaderFactory from "HeaderFactory";
 import FactoryComponents from "containers/FactoryComponents/FactoryComponents";
 import ErrorBoundary from "ErrorBoundary";
-import ScrollTop from "components/ScrollTop";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunningContainer";
 
+//
+const ScrollTopLazy = React.lazy(() => import("components/ScrollTop"));
 //
 const LazyCssRTLLazy = React.lazy(() => import("./LazyCssRTL"));
 const LazyCssCommentsLazy = React.lazy(() => import("./LazyCssComments"));
 const LazyCssSingleProseLazy = React.lazy(() => import("./LazyCssSingleProse"));
 const LazyCssWUFPluginLazy = React.lazy(() => import("./LazyCssWUFPlugin"));
-//
-
 //
 
 function App() {
@@ -35,7 +34,7 @@ function App() {
         pauseOnHover={false}
         theme="dark"
         style={{
-          top: (document.getElementById("wpadminbar")?.clientHeight || 0) + 1,
+          top: (document.getElementById("wpadminbar")?.clientHeight || 0) + 6,
         }}
         toastClassName={"toast-container-class"}
       />
@@ -49,7 +48,9 @@ function App() {
       {/* ---------- */}
 
       <div className="fixed bottom-0 inset-x-0 flex flex-col items-end z-30">
-        <ScrollTop />
+        <Suspense fallback={<div />}>
+          <ScrollTopLazy />
+        </Suspense>
 
         {/* ---------- */}
         <MediaRunningContainer />

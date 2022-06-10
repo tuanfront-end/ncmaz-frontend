@@ -59,6 +59,7 @@ module.exports = {
     // lam dieu nay vi trong core co nhieu block render HTML ma theme khong the phat hien class
     "../ncmaz-core/index.html",
     "../ncmaz-core/src/**/*.{js,jsx,ts,tsx}",
+    "!../ncmaz-core/src/*.{js,jsx,ts,tsx}",
 
     // THEME -----
     "../../themes/ncmaz/assets/**/*.{js,jsx,ts,tsx}",

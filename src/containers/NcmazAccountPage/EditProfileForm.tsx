@@ -161,7 +161,9 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
         <Textarea
           rows={5}
           className="mt-1.5"
-          placeholder="Something about yourself in a few word."
+          placeholder={
+            NCMAZ_TRANSLATE["Something about yourself in a few word."]
+          }
           defaultValue={bioValue}
           onChange={(e) => setBioValue(e.currentTarget.value)}
         />
@@ -169,7 +171,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
 
       {/* ---- */}
       <div>
-        <Label>Short Bio</Label>
+        <Label>{NCMAZ_TRANSLATE["Short Bio"]}</Label>
         <span className="text-xs text-neutral-500 dark:text-neutral-400">
           {
             NCMAZ_TRANSLATE[
@@ -179,7 +181,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
         </span>
         <Input
           className="mt-1.5"
-          placeholder="UI/UX Designer"
+          placeholder={NCMAZ_TRANSLATE["UX/UI Designer"]}
           defaultValue={shortBioValue}
           onChange={(e) => setShortBioValue(e.currentTarget.value)}
         />
@@ -194,7 +196,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
           </span>
           <Input
             className="!rounded-l-none"
-            placeholder="yourwebsite.com"
+            placeholder={NCMAZ_TRANSLATE["yourwebsite.com"]}
             defaultValue={websiteUrlValue}
             onChange={(e) => setWebsiteUrlValue(e.currentTarget.value)}
           />

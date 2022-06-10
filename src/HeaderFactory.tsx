@@ -1,6 +1,9 @@
-import HeaderSite from "components/HeaderSite/HeaderSite";
 import ErrorBoundary from "ErrorBoundary";
 import React, { Suspense } from "react";
+
+const HeaderSiteLazy = React.lazy(
+  () => import("components/HeaderSite/HeaderSite")
+);
 
 const HeaderSingleLazy = React.lazy(
   () => import("components/HeaderSite/HeaderSingle")
@@ -48,7 +51,10 @@ const HeaderFactory = () => {
     <>
       {/* ----------SITE HEADER PROGRESS---------- */}
       <ErrorBoundary>
-        <HeaderSite />
+        <Suspense fallback={<div />}>
+          <HeaderSiteLazy />
+        </Suspense>
+
         {!!headerSinglePageNode && (
           <Suspense fallback={<div />}>
             <HeaderSingleLazy />

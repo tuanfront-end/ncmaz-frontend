@@ -46,8 +46,9 @@ const TiptapEditor: FC<Props> = ({ onUpdate, defaultContent = "" }) => {
       }),
       Image.configure({
         allowBase64: true,
+        inline: true,
         HTMLAttributes: {
-          class: "ncmaz-custom-img-editor mx-auto rounded",
+          class: "ncmaz-custom-img-editor rounded",
         },
       }),
     ],
@@ -64,6 +65,14 @@ const TiptapEditor: FC<Props> = ({ onUpdate, defaultContent = "" }) => {
       onUpdate(editor);
     },
   });
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return;
+    });
+  }, []);
 
   return (
     <div className="nc-TiptapEditor ">

@@ -65,6 +65,9 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
             categoryCardType={termCardName}
             gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
             isLoadingSkeleton={IS_SKELETON}
+            isLoadingSkeletonArr={Array.from(
+              Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+            )}
           />
 
           {/* ------------ */}

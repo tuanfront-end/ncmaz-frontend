@@ -41,6 +41,9 @@ const FactoryBlockWidgetUsers: FC<FactoryBlockWidgetUsersProps> = ({
           authors={LISTS_DATA}
           heading={settings.heading}
           isLoading={IS_SKELETON}
+          authorsLoading={Array.from(
+            Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+          )}
         />
 
         {/* ------------ */}

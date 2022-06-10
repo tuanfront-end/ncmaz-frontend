@@ -63,7 +63,9 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
             authorCardName={userCardName}
             blockLayoutStyle={blockLayoutStyle}
             authorNodes={LISTS_DATA}
-            authorNodesLoading={[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
+            authorNodesLoading={Array.from(
+              Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+            )}
             heading={heading}
             subHeading={subHeading}
             gridClass={!!gridClassCustom ? gridClassCustom : gridClass}

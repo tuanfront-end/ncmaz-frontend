@@ -53,6 +53,9 @@ const FactoryBlockWidgetPosts: FC<FactoryBlockWidgetPostsProps> = ({
           posts={LISTS_POSTS}
           isLoading={IS_SKELETON}
           heading={settings.heading}
+          postLoading={Array.from(
+            Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+          )}
         />
         <DataStatementBlockV2
           className="my-5"

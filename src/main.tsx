@@ -17,8 +17,8 @@ import { RetryLink } from "@apollo/client/link/retry";
 import "./index.css";
 import "./styles/index.scss";
 import "react-loading-skeleton/dist/skeleton.css";
-import "react-toastify/dist/ReactToastify.css";
 import "@glidejs/glide/dist/css/glide.core.min.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { UserViewer } from "data/types";
 
@@ -91,26 +91,26 @@ if (
   !location.pathname.includes("/wp-admin/")
 ) {
   const cache = new InMemoryCache({
-    typePolicies: {
-      // Post: {
-      //   keyFields: [
-      //     "ncmazVideoUrl",
-      //     "ncmazAudioUrl",
-      //     "ncPostMetaData",
-      //     "ncmazGalleryImgs",
-      //   ],
-      // },
-      // VI TRONG 1 Trang thuong chi co 1 section user
-      // User: {
-      //   keyFields: ["ncUserMeta"],
-      // },
-      // Category: {
-      //   keyFields: ["ncTaxonomyMeta"],
-      // },
-      // Tag: {
-      //   keyFields: ["ncTaxonomyMeta"],
-      // },
-    },
+    // typePolicies: {
+    //   Post: {
+    //     keyFields: [
+    //       "ncmazVideoUrl",
+    //       "ncmazAudioUrl",
+    //       "ncPostMetaData",
+    //       "ncmazGalleryImgs",
+    //     ],
+    //   },
+    //   // VI TRONG 1 Trang thuong chi co 1 section user
+    //   User: {
+    //     keyFields: ["ncUserMeta"],
+    //   },
+    //   Category: {
+    //     keyFields: ["ncTaxonomyMeta"],
+    //   },
+    //   Tag: {
+    //     keyFields: ["ncTaxonomyMeta"],
+    //   },
+    // },
   });
 
   const link = new RetryLink();

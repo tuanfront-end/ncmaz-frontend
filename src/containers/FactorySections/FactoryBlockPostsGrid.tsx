@@ -238,7 +238,9 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
             }`}
           >
             {IS_SKELETON
-              ? [1, 1, 1, 1, 1, 1, 1, 1].map(renderCardLoading)
+              ? Array.from(
+                  Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+                ).map(renderCardLoading)
               : LISTS_POSTS.map((post) => renderCard(post.node))}
           </div>
 
