@@ -67,7 +67,6 @@ const MenuItemHeading: FC<Props> = ({
             title={title}
             isActive={isActive}
             action={action}
-            editor={editor}
           />
         </Menu.Button>
         <Transition
