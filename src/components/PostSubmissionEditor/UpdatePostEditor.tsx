@@ -19,6 +19,7 @@ import { gql, useMutation } from "@apollo/client";
 import Alert from "components/Alert/Alert";
 import { Slide, toast } from "react-toastify";
 import ModalDraftPost from "./ModalDraftPost";
+import { handleBeforeunload } from "./CreateNewPostEditor";
 
 interface Data {
   updatePost: UpdatePost;
@@ -197,13 +198,20 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
   );
 
   useEffect(() => {
-    if (!dataDeferredValueAfterSubmit || !data?.updatePost.post.link) return;
+    window.addEventListener("beforeunload", handleBeforeunload, true);
+  }, []);
+
+  useEffect(() => {
+    if (!dataDeferredValueAfterSubmit || !data?.updatePost.post.link) {
+      return;
+    }
+    window.removeEventListener("beforeunload", handleBeforeunload, true);
     toast.success(NCMAZ_TRANSLATE["Post successful"] + "!", {
       transition: Slide,
     });
     setTimeout(() => {
       window.location.href = data?.updatePost.post.link;
-    }, 800);
+    }, 500);
   }, [dataDeferredValueAfterSubmit]);
 
   //

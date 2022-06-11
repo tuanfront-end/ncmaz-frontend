@@ -1,7 +1,7 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
 import React, { FC, Fragment, useState } from "react";
 import { TiptapBarItem } from "./MenuBar";
-import MenuItemLink from "./MenuItemLink";
+import ModalGetLink from "./ModalGetLink";
 
 interface MyBubbleMenuProps {
   editor: Editor;
@@ -24,7 +24,7 @@ const MyBubbleMenu: FC<MyBubbleMenuProps> = ({ editor }) => {
     {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 sm:w-6 sm:h-6"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 1 0-7.071-7.071L9.879 7.05 8.464 5.636 9.88 4.222a7 7 0 0 1 9.9 9.9l-1.415 1.414zm-2.828 2.828l-1.415 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 1 0 7.071 7.071l1.414-1.414 1.415 1.414zm-.708-10.607l1.415 1.415-7.071 7.07-1.415-1.414 7.071-7.07z"/></svg>`,
       title: "Link",
-      action: (url: string) => setLink(url),
+      action: () => setLinkFuc(),
       isActive: () => editor.isActive("link"),
     },
     {
@@ -49,6 +49,12 @@ const MyBubbleMenu: FC<MyBubbleMenuProps> = ({ editor }) => {
     },
   ]);
 
+  const [isOpenSetLinkModal, setIsOpenSetLinkModal] = useState(false);
+
+  const setLinkFuc = () => {
+    setIsOpenSetLinkModal(true);
+  };
+
   const setLink = (url: string) => {
     // cancelled
     if (url === null) {
@@ -66,26 +72,6 @@ const MyBubbleMenu: FC<MyBubbleMenuProps> = ({ editor }) => {
   };
 
   const renderItem = (item: TiptapBarItem) => {
-    if (item.title === "Link") {
-      return (
-        <MenuItemLink {...item} editor={editor}>
-          <button
-            className={`px-1.5 ${
-              item.isActive && item.isActive()
-                ? " is-active text-green-500"
-                : ""
-            }`}
-            title={item.title}
-          >
-            <div
-              className="menu-item-svg"
-              dangerouslySetInnerHTML={{ __html: item.icon }}
-            ></div>
-          </button>
-        </MenuItemLink>
-      );
-    }
-
     return (
       <button
         className={`px-1.5 ${
@@ -114,6 +100,20 @@ const MyBubbleMenu: FC<MyBubbleMenuProps> = ({ editor }) => {
           {renderItem(item as TiptapBarItem)}
         </Fragment>
       ))}
+      <ModalGetLink
+        onCloseModal={() => setIsOpenSetLinkModal(false)}
+        isOpen={isOpenSetLinkModal}
+        onSubmit={(value) => setLink(value)}
+        defaultLink={(() => {
+          if (
+            !editor.getAttributes("link").href ||
+            typeof editor.getAttributes("link").href !== "string"
+          ) {
+            return "";
+          }
+          return editor.getAttributes("link").href || "";
+        })()}
+      />
     </BubbleMenu>
   );
 };

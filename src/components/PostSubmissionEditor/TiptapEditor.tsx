@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
@@ -65,14 +65,6 @@ const TiptapEditor: FC<Props> = ({ onUpdate, defaultContent = "" }) => {
       onUpdate(editor);
     },
   });
-
-  useEffect(() => {
-    window.addEventListener("beforeunload", (event) => {
-      event.preventDefault();
-      event.returnValue = "";
-      return;
-    });
-  }, []);
 
   return (
     <div className="nc-TiptapEditor ">

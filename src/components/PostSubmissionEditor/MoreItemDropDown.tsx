@@ -48,13 +48,17 @@ const MoreItemDropDown: FC<Props> = ({ data = [], editor }) => {
         >
           <div className="p-2.5 text-sm text-neutral-6000 dark:text-neutral-300 flex items-center">
             {data.map((item, index) => (
-              <Menu.Item key={index}>
+              <Menu.Item key={index} as="div">
                 {(item as TiptapBarItemDivider).type === "divider" ? (
                   <div className="divider" />
                 ) : (
                   <MenuItem
-                    {...(item as TiptapBarItem)}
-                    editor={editor}
+                    // {...(item as TiptapBarItem)}
+                    icon={(item as TiptapBarItem).icon}
+                    action={(item as TiptapBarItem).action}
+                    title={(item as TiptapBarItem).title}
+                    isActive={(item as TiptapBarItem).isActive}
+                    // editor={editor}
                     className="mr-0.5"
                   />
                 )}

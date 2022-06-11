@@ -5,6 +5,9 @@ import "./MenuBar.scss";
 import MoreItemDropDown from "./MoreItemDropDown";
 import MenuItemHeading from "./MenuItemHeading";
 import useWindowSize from "hooks/useWindowSize";
+import ModalGetIframeUrl from "./ModalGetIframeUrl";
+import NcModal from "components/NcModal/NcModal";
+import ModalGetLink from "./ModalGetLink";
 
 export interface TiptapBarItem {
   icon: string;
@@ -40,7 +43,7 @@ export default ({ editor }: { editor: Editor }) => {
     {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 sm:w-6 sm:h-6"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 1 0-7.071-7.071L9.879 7.05 8.464 5.636 9.88 4.222a7 7 0 0 1 9.9 9.9l-1.415 1.414zm-2.828 2.828l-1.415 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 1 0 7.071 7.071l1.414-1.414 1.415 1.414zm-.708-10.607l1.415 1.415-7.071 7.07-1.415-1.414 7.071-7.07z"/></svg>`,
       title: "Link",
-      action: (url: string) => setLink(url),
+      action: () => setLinkFuc(),
       isActive: () => editor.isActive("link"),
     },
 
@@ -96,19 +99,19 @@ export default ({ editor }: { editor: Editor }) => {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 sm:w-6 sm:h-6"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 15h14v2H3v-2zm0-5h18v2H3v-2zm0-5h14v2H3V9z"/></svg>`,
       title: "align left",
       action: () => editor.chain().focus().setTextAlign("left").run(),
-      isActive: () => editor.isActive("alignLeft"),
+      isActive: () => editor.isActive({ textAlign: "left" }),
     },
     {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 sm:w-6 sm:h-6"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm2 15h14v2H5v-2zm-2-5h18v2H3v-2zm2-5h14v2H5V9z"/></svg>`,
       title: "align center",
       action: () => editor.chain().focus().setTextAlign("center").run(),
-      isActive: () => editor.isActive("alignCenter"),
+      isActive: () => editor.isActive({ textAlign: "center" }),
     },
     {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 sm:w-6 sm:h-6"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm4 15h14v2H7v-2zm-4-5h18v2H3v-2zm4-5h14v2H7V9z"/></svg>`,
       title: "align right",
       action: () => editor.chain().focus().setTextAlign("right").run(),
-      isActive: () => editor.isActive("alignRight"),
+      isActive: () => editor.isActive({ textAlign: "right" }),
     },
 
     {
@@ -180,13 +183,16 @@ export default ({ editor }: { editor: Editor }) => {
   const [wpadminbarH] = useState(
     document.getElementById("wpadminbar")?.clientHeight || 0
   );
+  const [isOpenIframeModal, setIsOpenIframeModal] = useState(false);
+  const [isOpenSetLinkModal, setIsOpenSetLinkModal] = useState(false);
 
   const addIframe = () => {
-    const url = window.prompt("URL");
+    setIsOpenIframeModal(true);
+  };
 
-    if (url) {
-      editor.chain().focus().setIframe({ src: url }).run();
-    }
+  const setLinkFuc = () => {
+    // (url: string) => setLink(url)
+    setIsOpenSetLinkModal(true);
   };
 
   const addImage = ({ url, alt, title }: EditorItemImageAttrs) => {
@@ -243,10 +249,38 @@ export default ({ editor }: { editor: Editor }) => {
               ) : (item as TiptapBarItem).title === "Heading" ? (
                 <MenuItemHeading {...(item as TiptapBarItem)} editor={editor} />
               ) : (
-                <MenuItem {...(item as TiptapBarItem)} editor={editor} />
+                <MenuItem
+                  {...(item as TiptapBarItem)}
+                  // editor={editor}
+                />
               )}
             </Fragment>
           ))}
+
+          <ModalGetIframeUrl
+            show={isOpenIframeModal}
+            onSubmit={(value) => {
+              if (!!value) {
+                editor.chain().focus().setIframe({ src: value }).run();
+              }
+            }}
+            onCloseModal={() => setIsOpenIframeModal(false)}
+          />
+
+          <ModalGetLink
+            onCloseModal={() => setIsOpenSetLinkModal(false)}
+            isOpen={isOpenSetLinkModal}
+            onSubmit={(value) => setLink(value)}
+            defaultLink={(() => {
+              if (
+                !editor.getAttributes("link").href ||
+                typeof editor.getAttributes("link").href !== "string"
+              ) {
+                return "";
+              }
+              return editor.getAttributes("link").href || "";
+            })()}
+          />
 
           <MoreItemDropDown data={moreItemsState} editor={editor} />
         </div>

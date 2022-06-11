@@ -37,6 +37,11 @@ interface Post {
 
 interface Props {}
 
+export function handleBeforeunload(event: BeforeUnloadEvent) {
+  event.preventDefault();
+  event.returnValue = "";
+}
+
 const CreateNewPostEditor: FC<Props> = ({}) => {
   const [titleContent, setTitleContent] = React.useState("");
   const [contentHTML, setContentHTML] = React.useState("");
@@ -131,7 +136,14 @@ const CreateNewPostEditor: FC<Props> = ({}) => {
   );
 
   useEffect(() => {
-    if (!dataDeferredValueAfterSubmit || !data?.createPost.post.link) return;
+    window.addEventListener("beforeunload", handleBeforeunload, true);
+  }, []);
+
+  useEffect(() => {
+    if (!dataDeferredValueAfterSubmit || !data?.createPost.post.link) {
+      return;
+    }
+    window.removeEventListener("beforeunload", handleBeforeunload, true);
     toast.success(NCMAZ_TRANSLATE["Post successful"] + "!", {
       transition: Slide,
     });

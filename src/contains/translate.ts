@@ -1,4 +1,6 @@
 let NCMAZ_TRANSLATE = {
+  "Type the URL of the iframe you want to embed":
+    "Type the URL of the iframe you want to embed",
   Buymeacoffe: "Buymeacoffe",
   "https://buymeacoffee.com/yourname": "https://buymeacoffee.com/yourname",
   "buymeacoffee.com": "buymeacoffee.com",
