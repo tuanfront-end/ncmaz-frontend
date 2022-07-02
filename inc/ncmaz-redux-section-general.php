@@ -217,7 +217,7 @@ $section = array(
         [
             'id'       => 'nc-general-settings--music-player-media-source',
             'type'     => 'select',
-            'title'    => __('Select Meida source', 'ncmaz-frontend'),
+            'title'    => __('Select Media source', 'ncmaz-frontend'),
             'subtitle' => __('Select the source for your tracks', 'ncmaz-frontend'),
             'desc' => __('Choose your source correctly, do not choose both options unless absolutely necessary  <br /> because then the performance of the player will not be as good as from only 1 source.', 'ncmaz-frontend'),
             'options'  => [

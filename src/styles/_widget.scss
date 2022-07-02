@@ -130,7 +130,10 @@ form.wp-block-search__no-button.wp-block-search {
 
 // SELECT
 select {
-  @apply block w-full mt-1 rounded-md border-neutral-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-neutral-900;
+  @apply block bg-transparent w-full rounded-xl border-neutral-300 dark:border-neutral-700 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+  option {
+    @apply dark:bg-neutral-800;
+  }
 }
 
 //

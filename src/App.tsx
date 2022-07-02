@@ -64,7 +64,7 @@ function App() {
         </Suspense>
       )}
 
-      {!!document.querySelector("#comments.comments-area") && (
+      {!!document.querySelector("#comments") && (
         <Suspense fallback={<div />}>
           <LazyCssCommentsLazy />
         </Suspense>
