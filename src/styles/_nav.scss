@@ -1,10 +1,10 @@
 //
 .nav-links,
 #pagination,
-.woocommerce-pagination {
+.woocommerce-pagination .page-numbers {
   @apply flex items-center justify-center text-neutral-700 dark:text-neutral-300 font-medium text-lg space-x-3 mb-8;
   .page-numbers {
-    @apply inline-flex w-11 h-11 items-center justify-center rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-6000 dark:text-neutral-400 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 focus:outline-none;
+    @apply mb-0 inline-flex w-11 h-11 items-center justify-center rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-6000 dark:text-neutral-400 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 focus:outline-none;
     &.current {
       @apply inline-flex w-11 h-11 items-center justify-center rounded-full bg-primary-6000 text-white focus:outline-none;
     }
