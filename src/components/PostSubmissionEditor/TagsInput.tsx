@@ -151,7 +151,7 @@ const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
             {/* <Popover.Button>Solutions</Popover.Button> */}
             <input
               ref={inputRef}
-              className="px-2 py-1.5 my-0.5 h-full border-none focus:outline-none focus:ring-0 !bg-transparent"
+              className="px-2 py-1.5 my-0.5 h-full border-none focus:outline-none focus:ring-0 !bg-transparent shadow-none"
               type="text"
               placeholder={
                 !tags.length

@@ -1,0 +1,11 @@
+.wc-block-grid__product {
+  .wc-block-grid__product-image img {
+    @apply w-full aspect-[5/6] object-cover rounded-xl;
+  }
+  .wc-block-grid__product-add-to-cart {
+    @apply pt-2 flex flex-col space-y-2;
+    a {
+      @apply rounded-lg;
+    }
+  }
+}

@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* BASE */
+@layer base {
+  select {
+    @apply block bg-transparent w-full rounded-xl border-neutral-300 dark:border-neutral-700 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+  }
+  select option {
+    @apply dark:bg-neutral-800;
+  }
+
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    @apply rounded-xl block w-full
+    border-neutral-300 dark:border-neutral-6000
+    shadow-sm bg-white dark:bg-neutral-900 dark:placeholder:text-neutral-400
+    focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+  }
+
+  [type="checkbox"],
+  [type="radio"] {
+    @apply rounded
+    border-neutral-300 dark:border-neutral-600
+    text-indigo-600
+    shadow-sm
+    focus:border-indigo-300
+    focus:ring
+    focus:ring-offset-0
+    focus:ring-indigo-200
+    focus:ring-opacity-50;
+  }
+}
