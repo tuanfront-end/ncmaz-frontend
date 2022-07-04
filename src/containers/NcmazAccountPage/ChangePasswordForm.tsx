@@ -48,9 +48,9 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ userData }) => {
     <form
       action="#"
       onSubmit={handleSubmitForm}
-      className="space-y-5 sm:space-y-6 md:sm:space-y-7"
+      className="NcmazAccountPage-ChangePasswordForm space-y-5 sm:space-y-6 md:sm:space-y-7"
     >
-      <div>
+      <div className="ChangePasswordForm__heading">
         <h2 className="text-2xl font-semibold capitalize">
           {NCMAZ_TRANSLATE["password"]}
         </h2>
@@ -60,7 +60,7 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ userData }) => {
       </div>
       <div className="w-24 border-b border-neutral-200 dark:border-neutral-700"></div>
       {/* ---- */}
-      <div>
+      <div className="ChangePasswordForm__newPass">
         <Label>{NCMAZ_TRANSLATE["New password"]}</Label>
         <Input
           required
@@ -75,7 +75,7 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ userData }) => {
         </span>
       </div>
       {/* ---- */}
-      <div>
+      <div className="ChangePasswordForm__ConfirmPass">
         <Label>{NCMAZ_TRANSLATE["Confirm password"]}</Label>
         <Input
           defaultValue={confirmPasswordValue}
@@ -96,11 +96,12 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ userData }) => {
       )}
       {/* ---- */}
 
-      <div className="pt-2 inline-flex">
+      <div className="ChangePasswordForm__submit pt-2 inline-flex">
         <ButtonPrimary
           loading={loading}
           disabled={loading || DISABLE_THIS_TAB}
           className="w-full"
+          type="submit"
         >
           {NCMAZ_TRANSLATE["Update password"]}
         </ButtonPrimary>

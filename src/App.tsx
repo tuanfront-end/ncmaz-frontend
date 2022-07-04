@@ -13,6 +13,7 @@ const LazyCssRTLLazy = React.lazy(() => import("./LazyCssRTL"));
 const LazyCssCommentsLazy = React.lazy(() => import("./LazyCssComments"));
 const LazyCssSingleProseLazy = React.lazy(() => import("./LazyCssSingleProse"));
 const LazyCssWUFPluginLazy = React.lazy(() => import("./LazyCssWUFPlugin"));
+const LazyCssWoocommerceLazy = React.lazy(() => import("./LazyCssWoocommerce"));
 //
 
 function App() {
@@ -73,6 +74,12 @@ function App() {
       {!!document.querySelector(".prose") && (
         <Suspense fallback={<div />}>
           <LazyCssSingleProseLazy />
+        </Suspense>
+      )}
+
+      {import.meta.env.DEV && (
+        <Suspense fallback={<div />}>
+          <LazyCssWoocommerceLazy />
         </Suspense>
       )}
 

@@ -203,13 +203,20 @@ function ncmazFrontend_registerScripts()
 
     $jsFileUrl = (string) $manifestJS['src/main.tsx']['file'];
     $cssFileUrl = (string) $manifestJS['src/main.tsx']['css'][0];
+    $cssLazyCssWoocommerce = (string) $manifestJS['src/LazyCssWoocommerce.tsx']['css'][0];
     $name = 'vitejs-main-module--' . $jsFileUrl;
     // JS
     wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, [], null, true);
     // CSS
     wp_enqueue_style('ncmaz-vitebuild-css', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssFileUrl, [], _NCMAZ_FRONTEND_VERSION, 'all');
+
     // RTL styles.
     wp_style_add_data('ncmaz-vitebuild-css', 'rtl', 'replace');
+
+    // Woocommerce CSS
+    if (class_exists('WooCommerce')) {
+        wp_enqueue_style('ncWoocommerce-css', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssLazyCssWoocommerce, [], _NCMAZ_FRONTEND_VERSION, 'all');
+    }
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================

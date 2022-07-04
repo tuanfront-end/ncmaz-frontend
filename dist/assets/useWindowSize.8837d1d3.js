@@ -1,1 +1,0 @@
-import{r as i}from"./main.9a4c9a70.js";function o(){const[t,n]=i.exports.useState({width:0,height:0});return i.exports.useEffect(()=>{function e(){n({width:window.innerWidth,height:window.innerHeight})}return window.addEventListener("resize",e),e(),()=>window.removeEventListener("resize",e)},[]),t}export{o as u};

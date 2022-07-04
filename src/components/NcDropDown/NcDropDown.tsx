@@ -35,7 +35,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
     if (item.href) {
       return (
         <a
-          className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
+          className={`text-left flex items-center rounded-md w-full px-3 py-2 truncate ${
             active
               ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
               : ""
@@ -54,7 +54,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
     }
     return (
       <button
-        className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
+        className={`text-left flex items-center rounded-md w-full px-3 py-2 truncate ${
           active
             ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             : ""

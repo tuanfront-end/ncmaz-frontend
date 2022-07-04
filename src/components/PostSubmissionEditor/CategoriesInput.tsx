@@ -9,6 +9,7 @@ import NcImage from "components/NcImage/NcImage";
 import { Categories } from "containers/PageArchive/ModalCategories";
 import Skeleton from "react-loading-skeleton";
 import { CategoriesNode3 } from "data/postCardType";
+import GLOBAL_VARIABLE from "contains/globalVariable";
 
 interface Data {
   categories: Categories;
@@ -24,6 +25,7 @@ const CategoriesInput: FC<CategoriesInputProps> = ({
   defaultValue,
 }) => {
   const POST_PER_PAGE = 30;
+  const MAX_CATS_LENGTH = GLOBAL_VARIABLE.maxCategoriesLengSubmit;
 
   const Q_LIST_CATS = gql`
     ${GET_LIST_CATEGORIES_NO_PARENT}
@@ -93,7 +95,7 @@ const CategoriesInput: FC<CategoriesInputProps> = ({
       );
       return;
     }
-    if (categoriesSelected.length >= 5) {
+    if (categoriesSelected.length >= MAX_CATS_LENGTH) {
       return;
     }
     setCategoriesSelected([...categoriesSelected, categoryNode]);
@@ -101,7 +103,7 @@ const CategoriesInput: FC<CategoriesInputProps> = ({
 
   const renderCategoryItem = (cat: Categories["edges"][number]) => {
     const isActive = categoriesSelected.some((item) => item.id === cat.node.id);
-    const disabled = categoriesSelected.length >= 5 && !isActive;
+    const disabled = categoriesSelected.length >= MAX_CATS_LENGTH && !isActive;
     return (
       <div
         className={`px-2 py-1 flex items-center justify-between rounded-2xl border border-neutral-100 dark:border-neutral-700  

@@ -75,9 +75,9 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
     <form
       action="#"
       onSubmit={handleSubmitForm}
-      className="space-y-5 sm:space-y-6 md:sm:space-y-7"
+      className="NcmazAccountPage-SocialsProfileForm space-y-5 sm:space-y-6 md:sm:space-y-7"
     >
-      <div>
+      <div className="SocialsProfileForm__heading">
         <h2 className="text-2xl font-semibold">
           {NCMAZ_TRANSLATE["Social profiles"]}
         </h2>
@@ -88,9 +88,9 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
       <div className="w-24 border-b border-neutral-200 dark:border-neutral-700"></div>
       {/* ---- */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 ">
+      <div className="SocialsProfileForm__fieldsWrap grid grid-cols-1 sm:grid-cols-2 gap-5 ">
         {/* ---- Youtube */}
-        <div>
+        <div className="SocialsProfileForm__Youtube">
           <Label>Youtube</Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -107,7 +107,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ----Facebook */}
-        <div>
+        <div className="SocialsProfileForm__Facebook">
           <Label>Facebook</Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -124,7 +124,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Medium */}
-        <div>
+        <div className="SocialsProfileForm__Medium">
           <Label>Medium</Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -141,7 +141,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Github */}
-        <div>
+        <div className="SocialsProfileForm__Github">
           <Label>Github </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -158,7 +158,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Vimeo */}
-        <div>
+        <div className="SocialsProfileForm__Vimeo">
           <Label>Vimeo </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -175,7 +175,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Twitter*/}
-        <div>
+        <div className="SocialsProfileForm__Twitter">
           <Label>Twitter</Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -192,7 +192,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Instagram */}
-        <div>
+        <div className="SocialsProfileForm__Instagram">
           <Label>Instagram </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -209,7 +209,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Linkedin  */}
-        <div>
+        <div className="SocialsProfileForm__Linkedin">
           <Label>Linkedin </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -226,7 +226,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Pinterest   */}
-        <div>
+        <div className="SocialsProfileForm__Pinterest">
           <Label>Pinterest </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -243,7 +243,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Twitch    */}
-        <div>
+        <div className="SocialsProfileForm__Twitch">
           <Label>Twitch </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -260,7 +260,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         </div>
 
         {/* ---- Buymeacoffe     */}
-        <div className="sm:col-span-2">
+        <div className="SocialsProfileForm__Buymeacoffe sm:col-span-2">
           <Label>{NCMAZ_TRANSLATE["Buymeacoffe"]} </Label>
           <span className="text-xs text-neutral-500 dark:text-neutral-400">
             {NCMAZ_TRANSLATE["You should have an account here:"]} {` `}
@@ -294,8 +294,13 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
       {error && <Alert type="error">{error.message}</Alert>}
       {/* ---- */}
 
-      <div className="pt-2 inline-flex">
-        <ButtonPrimary loading={loading} disabled={loading} className="w-full">
+      <div className="SocialsProfileForm__submit pt-2 inline-flex">
+        <ButtonPrimary
+          type="submit"
+          loading={loading}
+          disabled={loading}
+          className="w-full"
+        >
           {NCMAZ_TRANSLATE["Update profile"]}
         </ButtonPrimary>
       </div>

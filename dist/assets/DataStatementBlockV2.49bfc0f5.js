@@ -1,1 +1,0 @@
-import{E as l}from"./EmptyState.efe461be.js";import{b as m,j as e}from"./main.9a4c9a70.js";const i=({data:s=[],isSkeleton:a,error:t,className:n=""})=>!t&&(a||s.length)?null:m("div",{className:n,children:[t&&e("pre",{className:"text-xs",children:e("code",{children:t.message})}),!a&&!s.length&&e(l,{})]});export{i as D};

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
 import { PostNode } from "data/postCardType";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface Card15PodcastProps {
   className?: string;
@@ -78,7 +79,9 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
         </span>
 
         <span className="ml-3 text-sm font-medium">
-          {state === "playing" ? "Now playing" : "Listen now"}
+          {state === "playing"
+            ? NCMAZ_TRANSLATE["Now playing"]
+            : NCMAZ_TRANSLATE["Listen now"]}
         </span>
       </div>
     );

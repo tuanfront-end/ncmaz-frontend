@@ -1,6 +1,7 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import { nanoid } from "@reduxjs/toolkit";
 import CircleLoading from "components/Loading/CircleLoading";
+import GLOBAL_VARIABLE from "contains/globalVariable";
 import NCMAZ_TRANSLATE from "contains/translate";
 import React, { FC, useEffect, useRef, useState } from "react";
 
@@ -28,6 +29,8 @@ interface TagsInputProps {
 }
 
 const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
+  const MAX_TAGS_LENGTH = GLOBAL_VARIABLE.maxTagsLengSubmit;
+
   // GET MOST USED TAGS
   const Q_LIST_TAGS = gql`
     query GET_LIS_TAGS_MOST_USED {
@@ -62,7 +65,7 @@ const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (tags.length >= 5) {
+    if (tags.length >= MAX_TAGS_LENGTH) {
       setIsOpen(false);
     }
 
@@ -146,7 +149,7 @@ const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
           </li>
         ))}
 
-        {tags.length < 5 && (
+        {tags.length < MAX_TAGS_LENGTH && (
           <li>
             {/* <Popover.Button>Solutions</Popover.Button> */}
             <input

@@ -29,7 +29,7 @@ export default Node.create<IframeOptions>({
     return {
       allowFullscreen: true,
       HTMLAttributes: {
-        class: "iframe-wrapper",
+        class: "nc-iframe-wrapper",
       },
     };
   },

@@ -428,3 +428,8 @@ form.search-form {
     opacity: 1;
   }
 }
+
+//
+.nc-iframe-wrapper iframe {
+  @apply w-full aspect-[16/9];
+}

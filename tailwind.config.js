@@ -46,6 +46,8 @@ const safelist = [
   "xl:pl-0",
   "xl:pr-14",
   "flex-1",
+  //
+  "aspect-video",
 ];
 
 module.exports = {

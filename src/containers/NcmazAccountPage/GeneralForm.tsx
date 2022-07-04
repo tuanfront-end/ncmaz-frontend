@@ -35,7 +35,7 @@ const GeneralForm: FC<GeneralFormProps> = ({ userData }) => {
   return (
     <form
       action="#"
-      className="space-y-5 sm:space-y-6 md:sm:space-y-7"
+      className="NcmazAccountPage-GeneralForm space-y-5 sm:space-y-6 md:sm:space-y-7"
       onSubmit={handleSubmitForm}
     >
       <div>

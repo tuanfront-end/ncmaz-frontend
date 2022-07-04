@@ -71,7 +71,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
 
   const renderAvatar = () => {
     return (
-      <div className="inline-flex flex-col">
+      <div className="EditProfileForm__Profile-picture inline-flex flex-col">
         <Label>{NCMAZ_TRANSLATE["Profile picture"]}</Label>
         <ImageUploadToServer
           defaultImage={avatarImage}
@@ -84,7 +84,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
 
   const renderUserBackground = () => {
     return (
-      <div>
+      <div className="EditProfileForm__Cover-picture">
         <Label>{NCMAZ_TRANSLATE["Cover photo"]}</Label>
         <ImageUploadToServer
           defaultImage={coverImage}
@@ -99,9 +99,9 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
     <form
       onSubmit={handleSubmitForm}
       action="#"
-      className="space-y-5 sm:space-y-6 md:sm:space-y-7"
+      className="NcmazAccountPage-EditProfileForm space-y-5 sm:space-y-6 md:sm:space-y-7"
     >
-      <div>
+      <div className="EditProfileForm__heading">
         <h2 className="text-2xl font-semibold">
           {NCMAZ_TRANSLATE["Edit profile"]}
         </h2>
@@ -117,7 +117,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
       {renderUserBackground()}
 
       {/* ---- */}
-      <div>
+      <div className="EditProfileForm__firstName">
         <Label>{NCMAZ_TRANSLATE["First Name"]}</Label>
         <Input
           className="mt-1.5"
@@ -127,7 +127,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
       </div>
 
       {/* ---- */}
-      <div>
+      <div className="EditProfileForm__lastName">
         <Label>{NCMAZ_TRANSLATE["Last Name"]}</Label>
         <Input
           className="mt-1.5"
@@ -137,7 +137,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
       </div>
 
       {/* ---- */}
-      <div>
+      <div className="EditProfileForm__nickName">
         <Label>
           {NCMAZ_TRANSLATE["Nickname"]} {` `}({NCMAZ_TRANSLATE["required"]})
         </Label>
@@ -149,7 +149,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
       </div>
 
       {/* ---- */}
-      <div>
+      <div className="EditProfileForm__Biographical">
         <Label>{NCMAZ_TRANSLATE["Biographical Info"]}</Label>
         <span className="text-xs text-neutral-500 dark:text-neutral-400">
           {
@@ -170,7 +170,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
       </div>
 
       {/* ---- */}
-      <div>
+      <div className="EditProfileForm__shortBio">
         <Label>{NCMAZ_TRANSLATE["Short Bio"]}</Label>
         <span className="text-xs text-neutral-500 dark:text-neutral-400">
           {
@@ -188,7 +188,7 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
       </div>
 
       {/* ---- */}
-      <div className="">
+      <div className="EditProfileForm__Website">
         <Label>{NCMAZ_TRANSLATE["Website"]}</Label>
         <div className="mt-1.5 flex">
           <span className="inline-flex items-center px-3 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">
@@ -208,8 +208,13 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
       {/* ---- */}
 
       {/* ---- */}
-      <div className="inline-flex pt-2">
-        <ButtonPrimary loading={loading} disabled={loading} className="w-full">
+      <div className="EditProfileForm__submit inline-flex pt-2">
+        <ButtonPrimary
+          loading={loading}
+          disabled={loading}
+          className="w-full"
+          type="submit"
+        >
           {NCMAZ_TRANSLATE["Update profile"]}
         </ButtonPrimary>
       </div>

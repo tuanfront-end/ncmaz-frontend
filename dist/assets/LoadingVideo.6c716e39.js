@@ -1,0 +1,1 @@
+import{b as a,j as i}from"./main.789c9905.js";const o=({className:d="",childClassName:s="bg-neutral-100"})=>a("div",{className:`nc-LoadingVideo lds-ellipsis lds-ellipsis-video ${d}`,"data-nc-id":"LoadingVideo",children:[i("div",{className:s}),i("div",{className:s}),i("div",{className:s}),i("div",{className:s})]});export{o as L};

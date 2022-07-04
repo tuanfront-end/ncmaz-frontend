@@ -155,9 +155,11 @@ const NcmazAccountPage: FC<NcmazAccountPageProps> = () => {
     <div className={`nc-NcmazAccountPage__content `}>
       <div className="w-full border-b-2 border-neutral-100 dark:border-neutral-700"></div>
       <div className="mt-10 flex flex-col md:flex-row">
-        <div className="flex-shrink-0 md:w-1/4">{renderLeftSidebar()}</div>
+        <div className="nc-NcmazAccountPage__content-left flex-shrink-0 md:w-1/4">
+          {renderLeftSidebar()}
+        </div>
 
-        <div className="flex-grow mt-10 md:mt-0 xl:pl-16 max-w-3xl ">
+        <div className="nc-NcmazAccountPage__content-right flex-grow mt-10 md:mt-0 xl:pl-16 max-w-3xl ">
           {/* ---- */}
           {activeTab === "general" && <GeneralForm userData={data.user} />}
           {activeTab === "profile" && <EditProfileForm userData={data.user} />}

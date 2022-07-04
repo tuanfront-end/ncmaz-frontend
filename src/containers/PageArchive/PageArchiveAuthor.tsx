@@ -29,6 +29,7 @@ import twitterpng from "images/IntegrationIcons/twitter.png";
 import vimeopng from "images/IntegrationIcons/vimeo.png";
 import youtubepng from "images/IntegrationIcons/youtube.png";
 import ButtonSecondary from "components/Button/ButtonSecondary";
+import GLOBAL_VARIABLE from "contains/globalVariable";
 
 interface Data {
   posts: ListPosts;
@@ -316,6 +317,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
             containerClassName="absolute inset-0"
             src={
               ncUserMeta?.backgroundImage?.sourceUrl ||
+              GLOBAL_VARIABLE.authorPageCoverImgDefault ||
               "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
             className="object-cover w-full h-full"

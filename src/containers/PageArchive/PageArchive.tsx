@@ -13,6 +13,7 @@ import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import SectionTrendingCategories from "./SectionTrendingCategories";
 import NCMAZ_TRANSLATE from "contains/translate";
+import GLOBAL_VARIABLE from "contains/globalVariable";
 
 interface Data {
   posts: ListPosts;
@@ -156,6 +157,7 @@ const PageArchive: FC<PageArchiveProps> = ({
             containerClassName="absolute inset-0"
             src={
               termData.ncTaxonomyMeta.featuredImage?.sourceUrl ||
+              GLOBAL_VARIABLE.archivePageCoverImgDefault ||
               "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
             className="object-cover w-full h-full"

@@ -1,4 +1,7 @@
 let NCMAZ_TRANSLATE = {
+  "Now playing": "Now playing",
+  "Listen now": "Listen now",
+  //
   "Type the URL of the iframe you want to embed":
     "Type the URL of the iframe you want to embed",
   Buymeacoffe: "Buymeacoffe",

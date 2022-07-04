@@ -14,6 +14,7 @@ import TabTagsOnSearchPage from "./TabTagsOnSearchPage";
 import TabAuthorsOnSearchPage from "./TabAuthorsOnSearchPage";
 import Skeleton from "react-loading-skeleton";
 import NCMAZ_TRANSLATE from "contains/translate";
+import GLOBAL_VARIABLE from "contains/globalVariable";
 
 export interface PageSearchProps {
   className?: string;
@@ -84,7 +85,6 @@ const PageSearch: FC<PageSearchProps> = ({
     let queryParams = new URLSearchParams(window.location.search);
     queryParams.set("s", textValue);
     history.replaceState(null, "", "?" + queryParams.toString());
-
   };
 
   const renderHeader = () => {
@@ -95,6 +95,7 @@ const PageSearch: FC<PageSearchProps> = ({
             containerClassName="absolute inset-0"
             src={
               headerBackgroundImg.url ||
+              GLOBAL_VARIABLE.searchPageCoverImgDefault ||
               `https://images.pexels.com/photos/2138922/pexels-photo-2138922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`
             }
             className="object-cover w-full h-full"

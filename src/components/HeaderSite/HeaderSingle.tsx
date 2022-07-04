@@ -22,10 +22,12 @@ const HeaderSingle = () => {
     if (isSingleHeaderShowing) {
       headerSinglePage.style.zIndex = "1";
       headerSinglePage.style.opacity = "1";
+      headerSinglePage.style.visibility = "visible";
       return;
     }
     headerSinglePage.style.zIndex = "-50";
     headerSinglePage.style.opacity = "0";
+    headerSinglePage.style.visibility = "hidden";
   };
 
   useEffect(() => {

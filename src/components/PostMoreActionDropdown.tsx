@@ -9,6 +9,7 @@ interface PostMoreActionDropdownProps {
   postDataBaseId: number;
   data?: NcDropDownItem[];
   isReloadAfterDelete?: boolean;
+  hasComment?: boolean;
 }
 
 const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
@@ -17,7 +18,12 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
   href,
   postDataBaseId,
   isReloadAfterDelete = false,
-  data = [
+  hasComment = true,
+  data,
+}) => {
+  const [showModalDeletePost, setShowModalDeletePost] = React.useState(false);
+
+  let DATA = [
     {
       icon: "las la-edit",
       id: "edit",
@@ -34,15 +40,17 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
       name: "Comment this post",
       href: `${href}#comment`,
     },
-
     {
       icon: "las la-trash-alt",
       id: "delete_post",
       name: "Delete post",
     },
-  ],
-}) => {
-  const [showModalDeletePost, setShowModalDeletePost] = React.useState(false);
+  ];
+  DATA = hasComment ? DATA : DATA.filter((_, i) => i != 1);
+
+  if (data) {
+    DATA = data;
+  }
 
   const handleClickItem = (item: NcDropDownItem) => {
     if (item.id === "delete_post") {
@@ -54,7 +62,7 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
   return (
     <>
       <NcDropDown
-        data={data}
+        data={DATA}
         className={`nc-PostMoreActionDropdown relative rounded-full flex items-center justify-center focus:outline-none ${className}`}
         panelMenusClass={panelMenusClass}
         onClickItem={handleClickItem}
