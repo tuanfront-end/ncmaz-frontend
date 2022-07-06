@@ -1012,8 +1012,8 @@ function ncmazFrontend_acf_add_local_field_groups()
 
 
 //  Set ACF default values for existing posts.
-add_action('admin_init', 'nc_set_default_acf_values');
-function nc_set_default_acf_values()
+add_action('admin_init', 'ncmazFe_set_default_acf_values');
+function ncmazFe_set_default_acf_values()
 {
     if (!is_admin()) {
         return;

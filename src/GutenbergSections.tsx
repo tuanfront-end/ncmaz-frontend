@@ -1,10 +1,7 @@
 import React, { Suspense } from "react";
 
 import ErrorBoundary from "ErrorBoundary";
-
-const FactoryBlockMagazineLazy = React.lazy(
-  () => import("containers/FactorySections/FactoryBlockMagazine")
-);
+import FactoryBlockMagazine from "containers/FactorySections/FactoryBlockMagazine";
 
 const FactoryBlockPostsGridLazy = React.lazy(
   () => import("containers/FactorySections/FactoryBlockPostsGrid")
@@ -62,13 +59,11 @@ const GutenbergSections = () => {
           sectionIndex += 1;
           return (
             <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockMagazineLazy
-                  sectionIndex={sectionIndex}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
+              <FactoryBlockMagazine
+                sectionIndex={sectionIndex}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
             </ErrorBoundary>
           );
         }

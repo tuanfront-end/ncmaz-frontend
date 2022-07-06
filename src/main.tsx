@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import App from "./App";
 import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
@@ -12,7 +12,8 @@ import {
 } from "@apollo/client";
 import { createRoot } from "react-dom/client";
 import { RetryLink } from "@apollo/client/link/retry";
-
+//
+import "./SomeCustomJsDOM";
 //
 import "./index.css";
 import "./styles/index.scss";
@@ -23,9 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { UserViewer } from "data/types";
 
 declare global {
-  // ON FAVORITES PLUGIN
-  // NEED UPDATE WHEN UPDATE PLUGIN
-  var jQuery: any;
+  // ON FAVORITES PLUGIN - NEED UPDATE WHEN UPDATE PLUGIN
   var Favorites: {
     userFavorites?: [
       {

@@ -4,14 +4,12 @@ $script = 'script';
 $tag = '_loader_tag';
 add_filter(
     $script . $tag,
-    'addModuleTypeForScripts',
+    'ncmazFe_addModuleTypeForScripts',
     10,
     3
 );
 
-
-
-function addModuleTypeForScripts($tag, $handle, $src)
+function ncmazFe_addModuleTypeForScripts($tag, $handle, $src)
 {
     if (
         '@vite-client-js' === $handle ||
@@ -23,120 +21,86 @@ function addModuleTypeForScripts($tag, $handle, $src)
     ) {
         return  $tag = '<script id="' . esc_attr($handle) . '"  type="module" src="' . esc_url($src) . '"></script>';
     }
+    // 
+    $deferJs = array('ncmaz-frontend-js',);
+    if (in_array($handle, $deferJs)) {
+        return  $tag = '<script id="' . esc_attr($handle) . '"  defer src="' . esc_url($src) . '"></script>';
+    }
+    // 
+    $preloadJs = array('ncmaz-frontend-js-preload', 'xxxxx--preload');
+    if (in_array($handle, $preloadJs)) {
+        return  $tag = '<link as="script" rel="preload"  src="' . esc_url($src) . '">';
+    }
     return $tag;
 }
 // =================================================================================
 
-function ncmaz_get_link_by_slug($slug, $type = 'page')
-{
-    if (!is_user_logged_in()) {
-        return "";
-    }
-    $oPage = get_page_by_path($slug, OBJECT, $type);
-    return get_permalink($oPage->ID);
-}
 
 // ENQUEUE FOR BACKEND EDITOR
-function ncmazFrontendEnqueueAdminStylesheet($hook)
+add_action('admin_enqueue_scripts', 'ncmazFe_EnqueueAdminStylesheet');
+function ncmazFe_EnqueueAdminStylesheet($hook)
 {
     if ($hook !== 'post.php') {
         return;
     }
-    wp_enqueue_style('ncmazfrontend-mycustom-editor', _NCMAZ_FRONTEND_DIR_URL . 'dist/editor-css/mycustom.css', [], _NCMAZ_FRONTEND_VERSION, 'all');
-}
-add_action('admin_enqueue_scripts', 'ncmazFrontendEnqueueAdminStylesheet');
-
-
-function getCurrentUserGraphql()
-{
-    $userID = get_current_user_id();
-    if (!function_exists('graphql') || !$userID) {
-        return null;
-    }
-    return graphql([
-        'query' => '{
-            viewer {
-                avatar {
-                  url
-                }
-                databaseId
-                id
-                email
-                name
-                ncUserMeta {
-                  ncBio
-                  featuredImage {
-                    sourceUrl
-                  }
-                }
-                slug
-                uri
-                url
-                userId
-                username
-                nicename
-                nickname
-                locale
-                roles {
-                    edges {
-                      node {
-                        id
-                        name
-                      }
-                    }
-                  }
-            }
-		}'
-    ]);
+    wp_enqueue_style('ncmazFe-mycustom-editor', _NCMAZ_FRONTEND_DIR_URL . 'dist/editor-css/mycustom.css', [], _NCMAZ_FRONTEND_VERSION, 'all');
 }
 
 
-function getAllSettingsGraphql()
+// ADD SOME CODE JS TO HEADER -- CHECK DARK/MODE
+add_action('wp_print_scripts', 'ncmazFe_print_scripts');
+function ncmazFe_print_scripts()
 {
-    if (!function_exists('graphql')) {
-        var_dump('Error on getAllSettingsGraphql function - ncmaz-frontend');
-        return null;
+    global $ncmaz_redux_demo;
+    $general_default_theme_mode = null;
+    if (!empty($ncmaz_redux_demo)) {
+        $general_default_theme_mode = ['defaultThemeMode'  =>  $ncmaz_redux_demo['nc-general-settings--general-default-theme-mode']];
     }
-
-    $getAllSettingsGraphqlT1 = graphql([
-        'query' => '{
-            allSettings {
-                discussionSettingsDefaultCommentStatus
-                discussionSettingsDefaultPingStatus
-                generalSettingsDateFormat
-                generalSettingsDescription
-                generalSettingsLanguage
-                generalSettingsStartOfWeek
-                generalSettingsTimeFormat
-                generalSettingsTimezone
-                generalSettingsTitle
-                readingSettingsPostsPerPage
-                writingSettingsDefaultCategory
-                writingSettingsDefaultPostFormat
-                writingSettingsUseSmilies
+?>
+    <script>
+        var ncmazFrontendDarkmode = <?php echo json_encode($general_default_theme_mode); ?>;
+        try {
+            if (!localStorage.theme) {
+                if (
+                    ncmazFrontendDarkmode &&
+                    ncmazFrontendDarkmode.defaultThemeMode === "dark"
+                ) {
+                    localStorage.theme = "dark";
+                }
             }
-        }'
-    ]);
+            if (
+                localStorage.theme === "dark" ||
+                (!("theme" in localStorage) &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches)
+            ) {
+                !document.documentElement.classList.contains("dark") &&
+                    document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
 
-    return $getAllSettingsGraphqlT1;
+        } catch (_) {}
+    </script>
+<?php
 }
 
 
 // JAVASCRIPT
-function ncmazFrontend_enqueueScriptCustomize()
+add_action('wp_enqueue_scripts', 'ncmazFe_enqueueScriptCustomize');
+function ncmazFe_enqueueScriptCustomize()
 {
     global $wp_locale;
     global $ncmaz_redux_demo;
-    $currentUser = getCurrentUserGraphql();
-    $allSettings = getAllSettingsGraphql();
 
-    // STYLE 
-    wp_enqueue_script('ncmaz-frontend-customizerOnHeader', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizerOnHeader.js', ['jquery'], _NCMAZ_FRONTEND_VERSION, false);
-    wp_add_inline_script('ncmaz-frontend-customizerOnHeader', 'window.ncmazFrontendDarkmode = ' . json_encode(
-        ['defaultThemeMode'  =>  $ncmaz_redux_demo['nc-general-settings--general-default-theme-mode']]
-    ), 'before');
+    if (empty($ncmaz_redux_demo)) {
+        return false;
+    }
 
-    //
+    $currentUser = ncmazFe_getCurrentUserGraphql();
+    $allSettings = ncmazFe_getAllSettingsGraphql();
+
+    // ENQUEUE customizer.js file
+    wp_enqueue_script('ncmaz-frontend-js-preload', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, false);
     wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
 
     // =============
@@ -156,25 +120,25 @@ function ncmazFrontend_enqueueScriptCustomize()
 
     wp_add_inline_script('ncmaz-frontend-js', 'window.frontendObject = ' . json_encode(
         [
-            'ajaxurl'               => admin_url('admin-ajax.php'),
-            'stylesheetDirectory'   => get_template_directory_uri(),
-            'restUrl'               => get_rest_url(),
-            'dateFormat'            => get_option('date_format'),
-            'placeholderImg'        => get_template_directory_uri() . '/placeholder-small.png',
-            'graphQLBasePath'       => get_site_url(null, '/graphql'),
-            'socialsShare'          => $ncmaz_redux_demo['nc-general-settings--multi-socials-share'],
-            'homeURL'               => get_site_url(),
-            'currentUser'           => $currentUser ? $currentUser['data']['viewer'] : null,
-            'allSettings'           => $allSettings ? $allSettings['data']['allSettings'] : null,
-            'currentObject'         => ['id'        => get_the_ID()],
-            'pll_current_language'        => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
-            'pll_themeoption_actived'     => (function_exists('pll_current_language') && boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang'])) ? 'true' : null,
-            'musicPlayerMode'             => $ncmaz_redux_demo['nc-general-settings--music-player-opt-switch'] ? "true" : null,
-            'musicPlayerMediaSource'      => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
-            'restVarsEndpoint'            => esc_url_raw(rest_url('/wp/v2/media/')),
-            'restVarsNonce'               => wp_create_nonce('wp_rest'),
-            'pagePostSubmissionEditorUrl'         => ncmaz_get_link_by_slug('ncmaz-submission-post-editor'),
-            'pageNcmazAccountUrl'                 => ncmaz_get_link_by_slug('ncmaz-account'),
+            'ajaxurl'                       => admin_url('admin-ajax.php'),
+            'stylesheetDirectory'           => get_template_directory_uri(),
+            'restUrl'                       => get_rest_url(),
+            'dateFormat'                    => get_option('date_format'),
+            'placeholderImg'                => get_template_directory_uri() . '/placeholder-small.png',
+            'graphQLBasePath'               => get_site_url(null, '/graphql'),
+            'socialsShare'                  => $ncmaz_redux_demo['nc-general-settings--multi-socials-share'],
+            'homeURL'                       => get_site_url(),
+            'currentUser'                   => $currentUser ? $currentUser['data']['viewer'] : null,
+            'allSettings'                   => $allSettings ? $allSettings['data']['allSettings'] : null,
+            'currentObject'                 => ['id'        => get_the_ID()],
+            'pll_current_language'          => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
+            'pll_themeoption_actived'       => (function_exists('pll_current_language') && boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang'])) ? 'true' : null,
+            'musicPlayerMode'               => $ncmaz_redux_demo['nc-general-settings--music-player-opt-switch'] ? "true" : null,
+            'musicPlayerMediaSource'        => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
+            'restVarsEndpoint'              => esc_url_raw(rest_url('/wp/v2/media/')),
+            'restVarsNonce'                 => wp_create_nonce('wp_rest'),
+            'pagePostSubmissionEditorUrl'         => is_user_logged_in() ?  ncmazFe_getLinkBySlug('ncmaz-submission-post-editor') : "",
+            'pageNcmazAccountUrl'                 => is_user_logged_in() ? ncmazFe_getLinkBySlug('ncmaz-account') : "",
             'wpLogoutUrl'                         => wp_logout_url(get_site_url()),
         ]
     ), 'before');
@@ -186,12 +150,10 @@ function ncmazFrontend_enqueueScriptCustomize()
         ]
     ), 'before');
 }
-add_action('wp_enqueue_scripts', 'ncmazFrontend_enqueueScriptCustomize');
-//
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmazFrontend_registerScripts');
-function ncmazFrontend_registerScripts()
+add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
+function ncmazFe_registerScripts()
 {
     $manifestJS = false;
     if (file_exists(_NCMAZ_FRONTEND_DIR_PATH . 'dist/manifest.json')) {
@@ -206,7 +168,8 @@ function ncmazFrontend_registerScripts()
     $cssLazyCssWoocommerce = (string) $manifestJS['src/LazyCssWoocommerce.tsx']['css'][0];
     $name = 'vitejs-main-module--' . $jsFileUrl;
     // JS
-    wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, [], null, true);
+    wp_enqueue_script('xxxxx--preload', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, [], null, false);
+    wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['jquery', 'ncmaz-frontend-js'], null, true);
     // CSS
     wp_enqueue_style('ncmaz-vitebuild-css', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssFileUrl, [], _NCMAZ_FRONTEND_VERSION, 'all');
 
@@ -220,7 +183,7 @@ function ncmazFrontend_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">
