@@ -1,10 +1,6 @@
 // COMPOnent nay muc dich chi hide/show header va action voi single header
 try {
   const HeaderSite = () => {
-    setTimeout(() => {
-      _scrollHeaderSite();
-    }, 200);
-
     const width = window.innerWidth;
     const windowSizeWidth = width || window.innerWidth;
 
@@ -95,6 +91,10 @@ try {
 
       return null;
     };
+
+    setTimeout(() => {
+      _scrollHeaderSite();
+    }, 200);
 
     return null;
   };

@@ -102,7 +102,7 @@ const PageSearch: FC<PageSearchProps> = ({
           />
         </div>
         {/* CONTENT */}
-        <div className="relative container -mt-20 lg:-mt-48">
+        <div className="relative px-1 sm:container -mt-20 lg:-mt-48">
           <div className=" bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 p-5 lg:p-12 rounded-[40px] shadow-2xl flex items-center">
             <header className="w-full max-w-3xl mx-auto text-center flex flex-col items-center">
               <h2 className="text-2xl sm:text-4xl font-semibold">
@@ -134,6 +134,7 @@ const PageSearch: FC<PageSearchProps> = ({
                     type="search"
                     placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
                     sizeClass="pl-14 py-5 pr-5 md:pl-16"
+                    className="placeholder:text-sm"
                     defaultValue={searchText}
                   />
                   <ButtonCircle
@@ -159,7 +160,7 @@ const PageSearch: FC<PageSearchProps> = ({
               {listSuggestions && listSuggestions.length ? (
                 <div className="w-full text-sm text-left mt-4 text-neutral-500 dark:text-neutral-300">
                   <div className="inline-block text-primary-500">
-                    <span className="mr-2.5 text-neutral-700">
+                    <span className="mr-2.5 text-neutral-700 dark:text-neutral-300">
                       {NCMAZ_TRANSLATE["suggestions"]}:
                     </span>
 
@@ -264,7 +265,7 @@ const PageSearch: FC<PageSearchProps> = ({
                 </NavItem>
               ))}
             </Nav>
-            <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
+            <div className="block my-4 border-b w-full border-neutral-100 dark:border-neutral-6000 sm:hidden"></div>
             {tabActive === "Articles" ? (
               <div className="flex justify-end">
                 <ArchiveFilterListBox

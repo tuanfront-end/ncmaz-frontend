@@ -323,7 +323,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="relative container -mt-20 lg:-mt-40">
+        <div className="relative px-1 sm:container -mt-20 lg:-mt-40">
           <div
             className="relative bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 p-5 lg:p-8 rounded-[40px] shadow-2xl 
           flex flex-col sm:flex-row sm:items-center"

@@ -21,16 +21,12 @@ const Card3SmallSkeleton: FC<Card3SmallSkeletonProps> = ({
         </h3>
       </div>
 
-      <div
-        className={`block w-20 flex-shrink-0 relative rounded-lg overflow-hidden ml-4 group`}
-      >
-        <div className={`w-full h-0 aspect-w-16 aspect-h-16`}>
-          <NcImage
-            containerClassName="absolute inset-0"
-            className="object-cover w-full h-full group-hover:scale-110 transform transition-transform duration-300"
-            src={"."}
-          />
-        </div>
+      <div className={`block w-16 sm:w-20 flex-shrink-0 relative ml-4 group`}>
+        <NcImage
+          containerClassName=""
+          className="object-cover aspect-1 group-hover:scale-110 transform transition-transform duration-300 rounded-lg"
+          src={"."}
+        />
       </div>
     </div>
   );

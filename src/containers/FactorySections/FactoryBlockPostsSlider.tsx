@@ -1,4 +1,4 @@
-import React, { FC, useDeferredValue, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";

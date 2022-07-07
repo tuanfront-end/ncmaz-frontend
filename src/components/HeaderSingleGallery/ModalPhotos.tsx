@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useId } from "react";
 import { Dialog } from "@headlessui/react";
 import NextPrev from "components/NextPrev/NextPrev";
 import ButtonClose from "components/ButtonClose/ButtonClose";
@@ -18,7 +18,7 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
   onClose,
   initFocus = 0,
 }) => {
-  const UNIQUE_CLASS = "modalPhotos-single-gallery";
+  const UNIQUE_CLASS = "glidejs" + useId().replace(/:/g, "_");
 
   useEffect(() => {
     if (!isOpen) return;
@@ -40,7 +40,7 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
   const renderSlider = () => {
     return (
       <div
-        className={`${UNIQUE_CLASS} group relative flex flex-col z-10 w-full h-full`}
+        className={`modalPhotos-single-gallery ${UNIQUE_CLASS} group relative flex flex-col z-10 w-full h-full`}
       >
         {/*  */}
         <div
@@ -65,18 +65,15 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
               <li className="glide__slide relative h-full" key={index}>
                 <NcImage
                   src={item}
-                  containerClassName=" w-full h-full"
-                  className="absolute object-contain w-full max-h-screen"
+                  containerClassName=" w-full h-full rounded-2xl"
+                  className="absolute object-contain w-full max-h-screen rounded-2xl"
                 />
               </li>
             ))}
           </ul>
         </div>
         {/*  */}
-        <div
-          className="xl:absolute z-20 xl:-inset-x-20 max-w-6xl my-2 mx-auto top-full xl:top-1/2 transform xl:-translate-y-1/2 flex xl:justify-between glide__arrows"
-          data-glide-el="controls"
-        >
+        <div className="xl:absolute z-20 xl:-inset-x-20 max-w-6xl my-2 mx-auto top-full xl:top-1/2 transform xl:-translate-y-1/2 flex xl:justify-between glide__arrows">
           <NextPrev
             onlyPrev
             containerClassName="mr-1.5"

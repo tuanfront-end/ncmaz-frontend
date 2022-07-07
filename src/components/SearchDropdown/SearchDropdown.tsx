@@ -1,72 +1,104 @@
-import { Popover, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import Input from "components/Input/Input";
 import NCMAZ_TRANSLATE from "contains/translate";
-import React, { Fragment } from "react";
+import React, { Fragment, Suspense, useState } from "react";
+const PostOnSearchLazy = React.lazy(() => import("./PostOnSearch"));
+import _ from "lodash";
 
 const SearchDropdown = () => {
   const inputRef = React.createRef<HTMLInputElement>();
+  let [isOpen, setIsOpen] = useState(false);
+  let [searchValue, setSearchValue] = useState("");
+
+  function closeModal() {
+    setSearchValue("");
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  const handleSetSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
 
   return (
-    <React.Fragment>
-      <Popover className="sm:relative">
-        {({ open }) => {
-          if (open) {
-            setTimeout(() => {
-              inputRef.current?.focus();
-            }, 200);
-          }
+    <>
+      <button
+        type="button"
+        onClick={openModal}
+        className="text-2xl md:text-[28px] sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center"
+      >
+        <i className="las la-search"></i>
+      </button>
 
-          return (
-            <>
-              <Popover.Button className="text-2xl md:text-[28px] sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center">
-                <i className="las la-search"></i>
-              </Popover.Button>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          initialFocus={inputRef}
+          as="div"
+          className="relative z-40"
+          onClose={closeModal}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-slate-900/25 backdrop-blur transition-opacity opacity-100" />
+          </Transition.Child>
 
-              <Transition
-                show={open}
+          <div className="fixed inset-0">
+            <div className="flex justify-center px-3 pb-4 pt-16 sm:pt-28">
+              <Transition.Child
                 as={Fragment}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
               >
-                <Popover.Panel
-                  static
-                  className="absolute right-2.5 sm:right-0 z-10 w-screen max-w-[300px] sm:max-w-sm mt-3"
-                >
+                <Dialog.Panel className="w-full max-w-lg overflow-hidden rounded-2xl text-left align-middle shadow-xl">
                   <form
                     role="search"
                     method="GET"
                     className="search-d relative"
                     action={window.frontendObject?.homeURL}
                   >
-                    <i className="las la-search absolute left-3 top-1/2 transform -translate-y-1/2 text-xl opacity-60"></i>
-                    <Input
-                      name="s"
-                      className="pl-10"
-                      ref={inputRef}
-                      type="search"
-                      placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
-                    />
-                    {/* <input
-                      ref={inputRef}
-                      name="s"
-                      type="search"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                      placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
-                    /> */}
-
-                    <input type="submit" hidden value="" />
+                    <div className="relative">
+                      <i className="las la-search absolute mt-[1px] left-3 top-1/2 transform -translate-y-1/2 text-2xl opacity-70"></i>
+                      <Input
+                        name="s"
+                        className="pl-12 shadow-none !ring-0 !border-0 dark:bg-neutral-700"
+                        sizeClass="px-4 py-5"
+                        rounded={`rounded-2xl ${
+                          searchValue ? "rounded-b-none" : ""
+                        }`}
+                        ref={inputRef}
+                        type="search"
+                        placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
+                        onChange={_.debounce(handleSetSearchValue, 200)}
+                      />
+                      <input type="submit" hidden value="" />
+                    </div>
+                    {searchValue && (
+                      <Suspense fallback={<div />}>
+                        <PostOnSearchLazy searchText={searchValue} />
+                      </Suspense>
+                    )}
                   </form>
-                </Popover.Panel>
-              </Transition>
-            </>
-          );
-        }}
-      </Popover>
-    </React.Fragment>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+    </>
   );
 };
 
