@@ -1,5 +1,5 @@
 import React from "react";
-import { FC, useRef, useState, useEffect } from "react";
+import { FC, useRef, useEffect } from "react";
 
 export interface PostCardLikeActionProps {
   favoriteButtonShortcode: string;
@@ -18,9 +18,9 @@ const PostCardLikeAction: FC<PostCardLikeActionProps> = ({
   postId,
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
+  let _timeOut: NodeJS.Timeout | null = null;
 
-  let _timeOut: number | null = null;
-
+  //
   useEffect(() => {
     return () => {
       _timeOut && clearTimeout(_timeOut);
@@ -28,7 +28,9 @@ const PostCardLikeAction: FC<PostCardLikeActionProps> = ({
   }, []);
 
   const handleClick = () => {
-    if (!divRef.current || !jQuery) return;
+    if (!divRef.current || !jQuery) {
+      return;
+    }
     onClick && onClick();
 
     // LAM CAI NAY DE UPDATE BUTTON LIKE KHI RE-RENDER LAI POST

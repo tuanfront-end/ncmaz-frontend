@@ -17,11 +17,11 @@ const Card12Skeleton: FC<Card12SkeletonProps> = ({ className = "h-full" }) => {
       </div>
 
       <div className=" mt-8 pr-10 flex flex-col">
-        <h2
+        <h3
           className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-lg sm:text-2xl`}
         >
           <Skeleton width="70%" />
-        </h2>
+        </h3>
         <span className="hidden sm:block mt-4 text-neutral-500 dark:text-neutral-400">
           <Skeleton width="80%" />
         </span>

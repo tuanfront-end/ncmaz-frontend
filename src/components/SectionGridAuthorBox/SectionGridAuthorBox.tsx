@@ -61,7 +61,7 @@ const SectionGridAuthorBox: FC<SectionGridAuthorBoxProps> = ({
       <Heading desc={subHeading} isCenter={blockLayoutStyle === "layout-1"}>
         {heading}
       </Heading>
-      <div className={`grid gap-6 md:gap-8 ${gridClass}`}>
+      <div className={`grid gap-6 2xl:gap-8 ${gridClass}`}>
         {isLoading
           ? authorNodesLoading.map(renderCardLoading)
           : authorNodes.map(renderCard)}

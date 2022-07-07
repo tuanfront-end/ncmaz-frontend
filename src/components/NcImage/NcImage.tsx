@@ -28,7 +28,6 @@ const NcImage: FC<NcImageProps> = ({
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const _initActions = async () => {
-    // set__src(placeholderImage);
     _checkInViewPort();
   };
 
@@ -36,7 +35,12 @@ const NcImage: FC<NcImageProps> = ({
     if (!_containerRef.current) return;
     checkInViewIntersectionObserver({
       target: _containerRef.current as any,
-      distanceFromEnd: 0,
+      options: {
+        root: null,
+        rootMargin: "0%",
+        threshold: 0,
+      },
+      freezeOnceVisible: true,
       callback: _imageOnViewPort,
     });
   };

@@ -17,7 +17,29 @@ $section = array(
     'desc'       => esc_html__('All setting general setting', 'ncmaz-frontend'),
     'id'         => 'nc-general-settings--general',
     'subsection' => true,
-    'fields'     => array(),
+    'fields'     => array(
+        [
+            'id'       => 'nc-general-settings--general-switch-polylang',
+            'type'     => 'switch',
+            'title'    => __('Active language (Polylang) in Graphql', 'ncmaz-frontend'),
+            'subtitle' => __('Enable/Disable LanguageCodeEnum in Graphql. Only compatible with Polylang plugin', 'ncmaz-frontend'),
+            'desc'     => __('If the theme has no need for multi-language (Polylang) then don\'t enable. <br>
+             The following plugins are required to use this feature: <a href="https://vi.wordpress.org/plugins/polylang/" target="_blank" rel="noopener noreferrer">Polylang</a>, <a href="https://wordpress.org/plugins/acf-options-for-polylang/" target="_blank" rel="noopener noreferrer">ACF Options for Polylang</a> ,<a href="https://www.wpgraphql.com/extenstion-plugins/wpgraphql-polylang/" target="_blank" rel="noopener noreferrer">WP GraphQL Polylang</a> ', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
+        [
+            'id'       => 'nc-general-settings--general-default-theme-mode',
+            'type'     => 'button_set',
+            'title'    => esc_html__('Set theme-mode default', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Select the default mode of the theme', 'ncmaz-frontend'),
+            'desc'     => esc_html__('The default mode will apply to first-time visitors or old visitors who have never clicked to the switch between modes.', 'ncmaz-frontend'),
+            'options' => array(
+                'light' => 'Light mode',
+                'dark' => 'Dark mode',
+            ),
+            'default' => 'light'
+        ]
+    ),
 );
 Redux::set_section($opt_name, $section);
 
@@ -131,35 +153,35 @@ $section = array(
     'subsection' => true,
     'fields'     => array(
         [
-                'id'       => 'nc-general-settings--multi-socials-share',
-                'type'     => 'select',
-                'multi'    => true,
-                'title'    => __( 'Multi Select Socials ', 'ncmaz-frontend' ), 
-                'subtitle' => __( 'Select multi Socials you want enable for share on theme', 'ncmaz-frontend' ),
-                'options'  => [
-                    'Facebook'              => 'Facebook',
-                    // 'Facebook-Messenger'    => 'Facebook Messenger',
-                    'Twitter'               => 'Twitter',
-                    'Telegram'              => 'Telegram',
-                    'Whatsapp'              => 'Whatsapp',
-                    'LinkedIn'              => 'LinkedIn',
-                    'Pinterest'              => 'Pinterest',
-                    'VK'              => 'VK',
-                    'Odnoklassniki'              => 'Odnoklassniki',
-                    'Reddit'              => 'Reddit',
-                    'Reddit'              => 'Reddit',
-                    'MailRu'              => 'Mail.Ru',
-                    'LiveJournal'              => 'LiveJournal',
-                    'Viber'              => 'Viber',
-                    'Workplace'              => 'Workplace',
-                    'Line'              => 'Line',
-                    'Weibo'              => 'Weibo',
-                    'Pocket'              => 'Pocket',
-                    'Instapaper'              => 'Instapaper',
-                    'Hatena'              => 'Hatena',
-                    'email'              => 'email',
-                ],
-                'default'  => array( 'Facebook', 'Twitter', 'Telegram','Whatsapp' )
+            'id'       => 'nc-general-settings--multi-socials-share',
+            'type'     => 'select',
+            'multi'    => true,
+            'title'    => __('Multi Select Socials ', 'ncmaz-frontend'),
+            'subtitle' => __('Select multi Socials you want enable for share on theme', 'ncmaz-frontend'),
+            'options'  => [
+                'Facebook'              => 'Facebook',
+                // 'Facebook-Messenger'    => 'Facebook Messenger',
+                'Twitter'               => 'Twitter',
+                'Telegram'              => 'Telegram',
+                'Whatsapp'              => 'Whatsapp',
+                'LinkedIn'              => 'LinkedIn',
+                'Pinterest'              => 'Pinterest',
+                'VK'              => 'VK',
+                'Odnoklassniki'              => 'Odnoklassniki',
+                'Reddit'              => 'Reddit',
+                'Reddit'              => 'Reddit',
+                'MailRu'              => 'Mail.Ru',
+                'LiveJournal'              => 'LiveJournal',
+                'Viber'              => 'Viber',
+                'Workplace'              => 'Workplace',
+                'Line'              => 'Line',
+                'Weibo'              => 'Weibo',
+                'Pocket'              => 'Pocket',
+                'Instapaper'              => 'Instapaper',
+                'Hatena'              => 'Hatena',
+                'email'              => 'email',
+            ],
+            'default'  => array('Facebook', 'Twitter', 'Telegram', 'Whatsapp')
         ],
     ),
 );
@@ -172,29 +194,38 @@ $section = array(
     'desc'       => esc_html__('All setting translate for frontend', 'ncmaz-frontend'),
     'id'         => 'nc-general-settings--translate',
     'subsection' => true,
+    'fields'     => array(),
+);
+Redux::set_section($opt_name, $section);
+
+// =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
+$section = array(
+    'title'      => esc_html__('Music Player', 'ncmaz-frontend'),
+    'desc'       => esc_html__('All setting for Music Player', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--music-player',
+    'subsection' => true,
     'fields'     => array(
         [
-            'id'       => 'nc-general-settings--translate-js-editor',
-            'type'     => 'ace_editor',
-            'title'    => __('Translate JS code', 'ncmaz-frontend'),
-            'subtitle' => __('Change your translate text', 'ncmaz-frontend'),
-            'mode'     => 'javascript',
-            'theme'    => 'monokai',
-            'desc'     => 'Possible modes can be found at https://ace.c9.io/.',
-            'options'   => [
-                'minLines' => 22,
-                'maxLines' => 50
+            'id'       => 'nc-general-settings--music-player-opt-switch',
+            'type'     => 'switch',
+            'title'    => esc_html__('Switch On', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Music player on/off', 'ncmaz-frontend'),
+            'desc'      => __('Choose off if your site doesn\'t want to use the music player', 'ncmaz-frontend'),
+            'default'  => true,
+            'disabled'  => true,
+        ],
+        [
+            'id'       => 'nc-general-settings--music-player-media-source',
+            'type'     => 'select',
+            'title'    => __('Select Media source', 'ncmaz-frontend'),
+            'subtitle' => __('Select the source for your tracks', 'ncmaz-frontend'),
+            'desc' => __('Choose your source correctly, do not choose both options unless absolutely necessary  <br /> because then the performance of the player will not be as good as from only 1 source.', 'ncmaz-frontend'),
+            'options'  => [
+                'html5'              => 'Mp3/Mp4',
+                'youtube'            => 'Youtube',
+                'youtube-html5'      => 'Both options',
             ],
-            'default'  => "{
-                \"nothingWeFound\": \"Nothing we found!\",
-                \"all\": \"All\",
-                \"viewAll\": \"View All\",
-                \"articles\": \"Articles\",
-                \"showMeMore\": \"Show me more\",
-                \"showAllPhotos\": \"Show all photos\",
-                \"relatedPosts\": \"Related Posts\",
-                \"moreFromAuthor\": \"More from author\",
-            }"
+            'default'  => 'html5'
         ],
     ),
 );

@@ -84,7 +84,7 @@ const POSTS_SECTION_SPECIFIC__string = `
     $nameIn: [String] = ""
     $featuredImage_size: MediaItemSizeEnum = MEDIUM
     ) {
-    posts(where: { nameIn: $nameIn }) {
+    posts(where: { nameIn: $nameIn, orderby: {field: NAME_IN, order: ASC} }) {
       ${postFields}
     }
   }

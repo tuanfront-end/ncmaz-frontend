@@ -18,7 +18,7 @@ const Card18: FC<Card18Props> = ({ className = "h-full", post }) => {
       className={`nc-Card18 group relative flex flex-col ${className}`}
       data-nc-id="Card18"
     >
-      <div className="w-full block h-0 aspect-h-9 aspect-w-10 rounded-2xl overflow-hidden">
+      <div className="w-full block h-0 aspect-h-9 aspect-w-10 rounded-2xl overflow-hidden z-0">
         <NcImage
           containerClassName="absolute inset-0 "
           src={featuredImage?.node.sourceUrl || "."}
@@ -43,12 +43,12 @@ const Card18: FC<Card18Props> = ({ className = "h-full", post }) => {
         />
       </div>
 
-      <h2 className={`block mt-2 font-medium text-sm`}>
+      <h3 className={`block mt-2 font-medium text-sm`}>
         <span
           className="line-clamp-2"
           dangerouslySetInnerHTML={{ __html: title }}
         />
-      </h2>
+      </h3>
       <a href={link} className={`absolute inset-0`} />
     </div>
   );

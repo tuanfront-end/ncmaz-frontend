@@ -1,19 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery } from "@apollo/client";
-import { ListPosts } from "data/postCardType";
 import { GutenbergApiAttr_BlockWidgetPots } from "data/gutenbergAttrType";
 import WidgetPosts from "components/WidgetPosts/WidgetPosts";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
-import {
-  GQL_QUERY_GET_POSTS_BY_FILTER,
-  GQL_QUERY_GET_POSTS_BY_SPECIFIC,
-} from "contains/contants";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
-
-interface Data {
-  posts: ListPosts;
-}
+import useGutenbergSectionWithGQLGetPosts from "hooks/useGutenbergSectionWithGQLGetPosts";
 
 export interface FactoryBlockWidgetPostsProps {
   className?: string;
@@ -27,32 +18,33 @@ const FactoryBlockWidgetPosts: FC<FactoryBlockWidgetPostsProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, settings } = apiSettings;
+  const { graphQLvariables, settings, graphQLData } = apiSettings;
+  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
-  let GQL_QUERY__string = "";
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_FILTER;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
-  }
-  const queryGql = gql`
-    ${GQL_QUERY__string}
-  `;
+  const {
+    funcGqlQueryGetPosts,
+    loading,
+    IS_SKELETON,
+    LISTS_POSTS,
+    data,
+    error,
+    fetchMore,
+    setTabActiveId,
+    tabActiveId,
+  } = useGutenbergSectionWithGQLGetPosts({
+    graphQLData,
+    graphQLvariables,
+  });
 
-  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
-    useLazyQuery<Data>(queryGql, {
-      variables: graphQLvariables.variables,
-    });
+  //
+  let ref: React.RefObject<HTMLDivElement> | null = null;
+  if (IS_SPECIFIC_DATA) {
+    ref = useRef<HTMLDivElement>(null);
+  } else {
+    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
+  }
 
   // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
-
-  // =========================================================
-  //
-  const LISTS_POSTS = data?.posts.edges || [];
-  const IS_SKELETON = loading && !LISTS_POSTS.length;
-  //
 
   const renderContent = () => {
     return (
@@ -61,6 +53,9 @@ const FactoryBlockWidgetPosts: FC<FactoryBlockWidgetPostsProps> = ({
           posts={LISTS_POSTS}
           isLoading={IS_SKELETON}
           heading={settings.heading}
+          postLoading={Array.from(
+            Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+          )}
         />
         <DataStatementBlockV2
           className="my-5"

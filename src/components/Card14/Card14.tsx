@@ -24,12 +24,12 @@ const Card14: FC<Card14Props> = ({
   const postType = postFormats?.edges[0]?.node.slug;
   return (
     <div
-      className={`nc-Card14 relative flex flex-col group rounded-3xl overflow-hidden ${hoverClass} ${className}`}
+      className={`nc-Card14 relative flex flex-col group rounded-3xl overflow-hidden z-0 ${hoverClass} ${className}`}
       data-nc-id="Card14"
     >
       <a href={link} className={`flex items-start relative w-full ${ratio}`}>
         <NcImage
-          containerClassName="absolute inset-0 overflow-hidden"
+          containerClassName="absolute inset-0 overflow-hidden z-0"
           className="object-cover w-full h-full rounded-3xl "
           src={featuredImage?.node.sourceUrl || "."}
         />
@@ -49,11 +49,11 @@ const Card14: FC<Card14Props> = ({
       </div>
 
       <div className="dark absolute bottom-4 inset-x-4 sm:bottom-5 sm:inset-x-5 flex flex-col flex-grow">
-        <h2 className="nc-card-title block text-base font-semibold text-white ">
+        <h3 className="nc-card-title block text-base font-semibold text-white ">
           <a href={link} className="line-clamp-2" title={title}>
             {title}
           </a>
-        </h2>
+        </h3>
 
         <div className="p-2 sm:p-2.5 mt-4 sm:mt-5 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full flex items-center text-neutral-50 text-xs sm:text-sm font-medium">
           <a

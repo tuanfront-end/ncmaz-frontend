@@ -7,6 +7,7 @@ import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import CardAuthorBox2 from "components/CardAuthorBox2/CardAuthorBox2";
 import CardAuthorBox2Skeleton from "components/CardAuthorBox2/CardAuthorBox2Skeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   users: Users;
@@ -56,7 +57,10 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
     if (typeof data?.users.pageInfo?.total !== "number") {
       return;
     }
-    onUpdateTotal(`${data?.users.edges.length} authors` || `0 authors`);
+    onUpdateTotal(
+      `${data?.users.edges.length} ${NCMAZ_TRANSLATE["authors"]}` ||
+        `0 ${NCMAZ_TRANSLATE["author"]}`
+    );
   }, [data]);
 
   // Function to update the query with the new results
@@ -99,7 +103,7 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
         error={error}
       />
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 2xl:gap-8 ">
         {IS_SKELETON &&
           Array.from("iiiiiiiiiiiiiiiiiiii").map((_, i) => (
             <CardAuthorBox2Skeleton key={i} />
@@ -113,7 +117,7 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
       {data?.users.pageInfo.hasNextPage && (
         <div className="flex justify-center mt-12 lg:mt-16">
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         </div>
       )}

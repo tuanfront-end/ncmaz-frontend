@@ -7,6 +7,7 @@ import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import CardCategory2 from "components/CardCategory2/CardCategory2";
 import CardCategory2Skeleton from "components/CardCategory2/CardCategory2Skeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   categories: Categories;
@@ -57,8 +58,8 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
       return;
     }
     const s = data.categories.pageInfo.hasNextPage
-      ? `${data?.categories.edges.length}+ categories`
-      : `${data?.categories.edges.length} categories`;
+      ? `${data?.categories.edges.length}+ ${NCMAZ_TRANSLATE["categories"]}`
+      : `${data?.categories.edges.length} ${NCMAZ_TRANSLATE["categories"]}`;
     onUpdateTotal(s);
   }, [data]);
 
@@ -102,7 +103,7 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
         error={error}
       />
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 2xl:gap-8 ">
         {IS_SKELETON &&
           Array.from("iiiiiiiiiiiiiiiiiiii").map((_, i) => (
             <CardCategory2Skeleton key={i} />
@@ -116,7 +117,7 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
       {data?.categories.pageInfo.hasNextPage && (
         <div className="flex justify-center mt-12 lg:mt-16">
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         </div>
       )}

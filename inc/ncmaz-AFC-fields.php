@@ -336,7 +336,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'conditional_logic' => 0,
                     'wrapper' => array(
                         'width' => '',
-                        'class' => '',
+                        'class' => 'hidden',
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
@@ -356,7 +356,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'conditional_logic' => 0,
                     'wrapper' => array(
                         'width' => '',
-                        'class' => '',
+                        'class' => 'hidden',
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
@@ -366,28 +366,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'toolbar' => 'basic',
                     'delay' => 0,
                 ),
-                array(
-                    'key' => 'field_615319018ab83',
-                    'label' => 'Views Count',
-                    'name' => 'views_count',
-                    'type' => 'number',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'show_in_graphql' => 1,
-                    'default_value' => 1,
-                    'placeholder' => '',
-                    'prepend' => '',
-                    'append' => '',
-                    'min' => 1,
-                    'max' => '',
-                    'step' => 1,
-                ),
+
                 array(
                     'key' => 'field_61532afb973d2',
                     'label' => 'single page style',
@@ -434,6 +413,28 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'ui' => 1,
                     'ui_on_text' => '',
                     'ui_off_text' => '',
+                ),
+                array(
+                    'key' => 'field_615319018ab83',
+                    'label' => 'Views Count',
+                    'name' => 'views_count',
+                    'type' => 'number',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => 1,
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'min' => 1,
+                    'max' => '',
+                    'step' => 1,
                 ),
             ),
             'location' => array(
@@ -487,7 +488,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'yellow' => 'yellow',
                         'blue' => 'blue',
                     ),
-                    'default_value' => false,
+                    'default_value' => 'green',
                     'allow_null' => 0,
                     'multiple' => 0,
                     'ui' => 0,
@@ -612,17 +613,18 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '',
+                    'default_value' => 'User Bio',
                     'placeholder' => '',
                     'prepend' => '',
                     'append' => '',
                     'maxlength' => '',
                 ),
-                array(
-                    'key' => 'field_6153153270fcb',
-                    'label' => 'youtube Url',
+                // 
+                [
+                    'key' => 'field_6153153270fcb_youtube_url',
+                    'label' => 'Youtube Url',
                     'name' => 'youtube_url',
-                    'type' => 'url',
+                    'type' => 'text',
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
@@ -632,31 +634,65 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '',
+                    'default_value' => '/#',
                     'placeholder' => '',
-                ),
-                array(
-                    'key' => 'field_6153154770fcc',
-                    'label' => 'twitter Url',
-                    'name' => 'twitter_url',
-                    'type' => 'url',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'show_in_graphql' => 1,
-                    'default_value' => '',
-                    'placeholder' => '',
-                ),
-                array(
-                    'key' => 'field_6153155b70fcd',
-                    'label' => 'facebook Url',
+                ],
+                [
+                    'key' => 'field_b70fcd_facebook_url',
+                    'label' => 'Facebook Url',
                     'name' => 'facebook_url',
-                    'type' => 'url',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => '/#',
+                    'placeholder' => '',
+                ],
+                [
+                    'key' => 'field_61555b70fcd_medium_url',
+                    'label' => 'Medium Url',
+                    'name' => 'medium_url',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => '/#',
+                    'placeholder' => '',
+                ],
+                [
+                    'key' => 'field_615dsb70fcd_github_url',
+                    'label' => 'Github Url',
+                    'name' => 'github_url',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => '/#',
+                    'placeholder' => '',
+                ],
+                [
+                    'key' => 'field_61ddb70fcd_vimeo_url',
+                    'label' => 'Vimeo Url',
+                    'name' => 'vimeo_url',
+                    'type' => 'text',
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
@@ -668,12 +704,29 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'show_in_graphql' => 1,
                     'default_value' => '',
                     'placeholder' => '',
-                ),
-                array(
-                    'key' => 'field_6153156b70fce',
-                    'label' => 'instagram Url',
+                ],
+                [
+                    'key' => 'field_6dd70fcc_twitter_url',
+                    'label' => 'Twitter Url',
+                    'name' => 'twitter_url',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => '',
+                    'placeholder' => '',
+                ],
+                [
+                    'key' => 'field_615db70fce_instagram_url',
+                    'label' => 'Instagram Url',
                     'name' => 'instagram_url',
-                    'type' => 'url',
+                    'type' => 'text',
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
@@ -685,9 +738,96 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'show_in_graphql' => 1,
                     'default_value' => '',
                     'placeholder' => '',
-                ),
+                ],
+                [
+                    'key' => 'field_615dfce_linkedin_url',
+                    'label' => 'Linkedin Url',
+                    'name' => 'linkedin_url',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => '',
+                    'placeholder' => '',
+                ],
+                [
+                    'key' => 'field_61d0fce_pinterest_url',
+                    'label' => 'Pinterest Url',
+                    'name' => 'pinterest_url',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => '',
+                    'placeholder' => '',
+                ],
+                [
+                    'key' => 'field_6fce_twitch_url',
+                    'label' => 'Twitch Url',
+                    'name' => 'twitch_url',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => '',
+                    'placeholder' => '',
+                ],
+                [
+                    'key' => 'field_6fc342dfe_website_url',
+                    'label' => 'Website Url',
+                    'name' => 'website_url',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => 'https://abc.com/me',
+                    'placeholder' => '',
+                ],
+                [
+                    'key' => 'field_6sfe_buymeacoffe_url',
+                    'label' => 'Buymeacoffe Url',
+                    'name' => 'buymeacoffe_url',
+                    'type' => 'text',
+                    'instructions' => 'You should have an account here or something similar -  https://www.buymeacoffee.com',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'show_in_graphql' => 1,
+                    'default_value' => 'https://www.buymeacoffee.com/nghiaxchis',
+                    'placeholder' => '',
+                ],
+                // 
+
                 array(
-                    'key' => 'field_6152da59a6826',
+                    'key' => 'field_6152da59a6826_color',
                     'label' => 'color',
                     'name' => 'color',
                     'type' => 'text',
@@ -739,7 +879,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     'label' => 'Is Mega Menu',
                     'name' => 'is_mega_menu',
                     'type' => 'true_false',
-                    'instructions' => '',
+                    'instructions' => '(Only set/works to menu-location is Primary)',
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -849,7 +989,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     array(
                         'param' => 'nav_menu_item',
                         'operator' => '==',
-                        'value' => 'location/primary',
+                        'value' => 'all',
                     ),
                 ),
             ),
@@ -868,4 +1008,29 @@ function ncmazFrontend_acf_add_local_field_groups()
         ));
 
     endif;
+}
+
+
+//  Set ACF default values for existing posts.
+add_action('admin_init', 'ncmazFe_set_default_acf_values');
+function ncmazFe_set_default_acf_values()
+{
+    if (!is_admin()) {
+        return;
+    }
+
+    $args = [
+        'post_type'      => 'post',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish'
+    ];
+    $posts = get_posts($args);
+    foreach ($posts as $post) {
+        if (empty(get_field('views_count', $post->ID))) {
+            update_field('views_count', 1, $post->ID);
+        }
+        if (empty(get_field('simplefavorites_count', $post->ID))) {
+            update_field('simplefavorites_count', 0, $post->ID);
+        }
+    }
 }

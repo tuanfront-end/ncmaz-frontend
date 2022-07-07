@@ -1,9 +1,8 @@
-export default function convertNumbThousand(number: number): string {
-  let str = "";
-  if (number < 1000) {
-    str = String(number);
-  } else {
-    str = (number / 1000).toFixed(1) + "k";
-  }
-  return str;
+export default function convertNumbThousand(num: number): string {
+  const a =
+    Math.abs(num) > 999
+      ? // @ts-ignore
+        Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+      : Math.sign(num) * Math.abs(num);
+  return a.toString();
 }

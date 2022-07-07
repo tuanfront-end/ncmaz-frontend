@@ -88,9 +88,9 @@ const Card10V3Skeleton: FC<Card10V3SkeletonProps> = ({
       </div>
 
       <div className="space-y-2.5 mt-4 px-4">
-        <h2 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
+        <h3 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
           <Skeleton width="80%" />
-        </h2>
+        </h3>
         <Skeleton width="40%" />
         <div className="opacity-0">aa</div>
       </div>

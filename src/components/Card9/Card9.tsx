@@ -17,7 +17,7 @@ export interface Card9Props {
 
 const Card9: FC<Card9Props> = ({
   className = "h-full",
-  ratio = "aspect-w-3 aspect-h-3 sm:aspect-h-4",
+  ratio = "aspect-w-6 aspect-h-5 sm:aspect-w-3 sm:aspect-h-4",
   post,
   hoverClass = "",
 }) => {
@@ -28,11 +28,11 @@ const Card9: FC<Card9Props> = ({
     return (
       <div className="inline-flex items-center text-xs text-neutral-300">
         <a href={link} className="block relative overflow-hidden">
-          <h2 className="block text-lg font-semibold text-white ">
+          <h3 className="block text-base sm:text-lg font-semibold text-white ">
             <span className="line-clamp-2" title={title}>
               {title}
             </span>
-          </h2>
+          </h3>
           <div className="flex mt-2.5 truncate">
             <span className="block text-neutral-200 hover:text-white font-medium truncate">
               {author?.node.name}
@@ -49,7 +49,7 @@ const Card9: FC<Card9Props> = ({
 
   return (
     <div
-      className={`nc-Card9 relative flex flex-col group rounded-3xl overflow-hidden ${hoverClass} ${className}`}
+      className={`nc-Card9 relative flex flex-col group rounded-3xl overflow-hidden z-0 ${hoverClass} ${className}`}
       data-nc-id="Card9"
     >
       <div className="absolute inset-x-0 top-0 p-3 flex items-center justify-between transition-all opacity-0 z-[-1] group-hover:opacity-100 group-hover:z-30 duration-300">
@@ -57,6 +57,7 @@ const Card9: FC<Card9Props> = ({
         <PostCardDropdownShare
           panelMenusClass="w-52 right-0 top-0 origin-top-right"
           href={post.link}
+          image={post.featuredImage?.node.sourceUrl}
         />
       </div>
       <div className={`flex items-start relative w-full ${ratio}`}></div>

@@ -106,7 +106,7 @@ const Card10V3: FC<Card10V3Props> = ({
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-16 sm:aspect-h-9 overflow-hidden">
+      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden z-0">
         <div>
           {postFormats?.edges[0]?.node.slug !== "post-format-gallery" &&
           !!galleryImgs?.length ? (
@@ -128,15 +128,16 @@ const Card10V3: FC<Card10V3Props> = ({
         <PostCardDropdownShare
           panelMenusClass="w-52 right-0 top-0 origin-top-right"
           href={post.link}
+          image={post.featuredImage?.node.sourceUrl}
         />
       </div>
 
       <div className="space-y-2.5 mt-4 px-4 flex flex-col">
-        <h2 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
+        <h3 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
           <a href={link} className="line-clamp-1" title={title}>
             {title}
           </a>
-        </h2>
+        </h3>
         <CardAuthor2
           className="mt-3"
           author={author}

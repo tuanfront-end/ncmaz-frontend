@@ -20,7 +20,7 @@ const Card12: FC<Card12Props> = ({ className = "h-full", post }) => {
     >
       <a
         href={link}
-        className="block flex-shrink-0 flex-grow relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden"
+        className="block flex-shrink-0 flex-grow relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden z-0"
       >
         <NcImage
           containerClassName="absolute inset-0"
@@ -43,13 +43,13 @@ const Card12: FC<Card12Props> = ({ className = "h-full", post }) => {
       />
 
       <div className=" mt-8 pr-10 flex flex-col">
-        <h2
+        <h3
           className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-lg sm:text-2xl`}
         >
           <a href={link} className="line-clamp-2" title={title}>
             {title}
           </a>
-        </h2>
+        </h3>
         {excerpt && (
           <span className="hidden sm:block mt-4 text-neutral-500 dark:text-neutral-400">
             <span

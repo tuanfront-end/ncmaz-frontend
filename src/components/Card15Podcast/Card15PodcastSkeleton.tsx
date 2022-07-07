@@ -96,9 +96,9 @@ const Card15PodcastSkeleton: FC<Card15PodcastSkeletonProps> = ({
       </div>
 
       <div className="flex flex-col flex-grow ml-4 overflow-hidden">
-        <h2 className={`nc-card-title block font-semibold text-lg`}>
+        <h3 className={`nc-card-title block font-semibold text-lg`}>
           <Skeleton />
-        </h2>
+        </h3>
         <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
           <Skeleton width="40%" />
         </span>

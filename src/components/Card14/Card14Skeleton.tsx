@@ -31,9 +31,9 @@ const Card14Skeleton: FC<Card14SkeletonProps> = ({
       </div>
 
       <div className="dark absolute bottom-4 inset-x-4 sm:bottom-5 sm:inset-x-5 flex flex-col flex-grow">
-        <h2 className="nc-card-title block text-base font-semibold text-white ">
+        <h3 className="nc-card-title block text-base font-semibold text-white ">
           <Skeleton width="80%" />
-        </h2>
+        </h3>
 
         <div className="p-2 sm:p-2.5 mt-4 sm:mt-5 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full flex items-center text-neutral-50 text-xs sm:text-sm font-medium">
           <div className="relative flex items-center space-x-2">

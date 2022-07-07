@@ -7,6 +7,7 @@ import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import Skeleton from "react-loading-skeleton";
 import Tag from "components/Tag/Tag";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   tags: Tags;
@@ -58,8 +59,8 @@ const TabTagsOnSearchPage: FC<TabTagsOnSearchPageProps> = ({
       return;
     }
     const s = data.tags.pageInfo.hasNextPage
-      ? `${data?.tags.edges.length}+ tags`
-      : `${data?.tags.edges.length} tags`;
+      ? `${data?.tags.edges.length}+ ${NCMAZ_TRANSLATE["tags"]}`
+      : `${data?.tags.edges.length} ${NCMAZ_TRANSLATE["tags"]}`;
     onUpdateTotal(s);
   }, [data]);
 
@@ -122,7 +123,7 @@ const TabTagsOnSearchPage: FC<TabTagsOnSearchPageProps> = ({
       {data?.tags.pageInfo.hasNextPage && (
         <div className="flex justify-center mt-12 lg:mt-16">
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         </div>
       )}

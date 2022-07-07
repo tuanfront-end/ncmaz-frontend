@@ -1,29 +1,47 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, Suspense, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery } from "@apollo/client";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
 } from "components/HeaderSectionFilter/HeaderSectionFilter";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
-import SectionMagazine1 from "components/SectionMagazines/SectionMagazine1";
-import SectionMagazine2 from "components/SectionMagazines/SectionMagazine2";
-import SectionMagazine3 from "components/SectionMagazines/SectionMagazine3";
-import SectionMagazine4 from "components/SectionMagazines/SectionMagazine4";
-import SectionMagazine5 from "components/SectionMagazines/SectionMagazine5";
-import SectionMagazine6 from "components/SectionMagazines/SectionMagazine6";
-import SectionMagazine7 from "components/SectionMagazines/SectionMagazine7";
-import SectionMagazine8 from "components/SectionMagazines/SectionMagazine8";
-import SectionMagazine9 from "components/SectionMagazines/SectionMagazine9";
-import SectionLargeSlider from "components/SectionMagazines/SectionLargeSlider";
 import { GutenbergApiAttr_BlockMagazine } from "data/gutenbergAttrType";
-import { ListPosts } from "data/postCardType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
-import {
-  GQL_QUERY_GET_POSTS_BY_FILTER,
-  GQL_QUERY_GET_POSTS_BY_SPECIFIC,
-} from "contains/contants";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
+import useGutenbergSectionWithGQLGetPosts from "hooks/useGutenbergSectionWithGQLGetPosts";
+
+//
+const SectionMagazine1Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine1")
+);
+const SectionMagazine2Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine2")
+);
+const SectionMagazine3Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine3")
+);
+const SectionMagazine4Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine4")
+);
+const SectionMagazine5Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine5")
+);
+const SectionMagazine6Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine6")
+);
+const SectionMagazine7Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine7")
+);
+const SectionMagazine8Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine8")
+);
+const SectionMagazine9Lazy = React.lazy(
+  () => import("components/SectionMagazines/SectionMagazine9")
+);
+const SectionLargeSliderLazy = React.lazy(
+  () => import("components/SectionMagazines/SectionLargeSlider")
+);
+//
 
 export interface FactoryBlockMagazineProps {
   className?: string;
@@ -32,67 +50,40 @@ export interface FactoryBlockMagazineProps {
   sectionIndex: number;
 }
 
-interface Data {
-  posts: ListPosts;
-}
-
 const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   className = "",
   domNode,
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, settings } = apiSettings;
+  // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
+  const { graphQLvariables, settings, graphQLData } = apiSettings;
 
-  const [tabActiveId, setTabActiveId] = useState<number>(-1);
-  const [variablesFilter, setVariablesFilter] = useState(
-    graphQLvariables.variables || {}
-  );
+  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
   //
+  const {
+    funcGqlQueryGetPosts,
+    loading,
+    IS_SKELETON,
+    LISTS_POSTS,
+    data,
+    error,
+    fetchMore,
+    setTabActiveId,
+    tabActiveId,
+  } = useGutenbergSectionWithGQLGetPosts({
+    graphQLData,
+    graphQLvariables,
+  });
 
-  useEffect(() => {
-    setVariablesFilter(graphQLvariables.variables);
-  }, [graphQLvariables]);
-
-  let GQL_QUERY__string = "";
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_FILTER;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
-  }
-
-  const queryGql = gql`
-    ${GQL_QUERY__string}
-  `;
-
-  useEffect(() => {
-    setVariablesFilter((variables) => {
-      return {
-        ...variables,
-        categoryIn:
-          tabActiveId === -1
-            ? graphQLvariables.variables?.categoryIn
-            : [tabActiveId],
-      };
-    });
-  }, [tabActiveId]);
-
-  const [gqlQueryGetPosts, { loading, error, data }] = useLazyQuery<Data>(
-    queryGql,
-    {
-      notifyOnNetworkStatusChange: true,
-      variables: variablesFilter,
-    }
-  );
-
-  // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
-  // =========================================================
   //
-  const LISTS_POSTS = data?.posts.edges || [];
-  const IS_SKELETON = loading && !LISTS_POSTS.length;
+  let ref: React.RefObject<HTMLDivElement> | null = null;
+  if (IS_SPECIFIC_DATA) {
+    ref = useRef<HTMLDivElement>(null);
+  } else {
+    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
+  }
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -109,48 +100,103 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     switch (apiSettings.settings.sectionName) {
       case "magazine-1":
         return (
-          <SectionMagazine1 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine1Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "magazine-2":
         return (
-          <SectionMagazine2 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine2Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "magazine-3":
         return (
-          <SectionMagazine3 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine3Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "magazine-4":
         return (
-          <SectionMagazine4 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine4Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "magazine-5":
         return (
-          <SectionMagazine5 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine5Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "magazine-6":
         return (
-          <SectionMagazine6 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine6Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "magazine-7":
         return (
-          <SectionMagazine7 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine7Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "magazine-8":
         return (
-          <SectionMagazine8 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine8Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "magazine-9":
         return (
-          <SectionMagazine9 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine9Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
       case "large-slider":
         return (
-          <SectionLargeSlider isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionLargeSliderLazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
 
       default:
         return (
-          <SectionMagazine1 isLoading={IS_SKELETON} listPosts={LISTS_POSTS} />
+          <Suspense fallback={<div />}>
+            <SectionMagazine1Lazy
+              isLoading={IS_SKELETON}
+              listPosts={LISTS_POSTS}
+            />
+          </Suspense>
         );
     }
   };

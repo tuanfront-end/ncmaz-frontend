@@ -1,7 +1,6 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import Heading from "components/Heading/Heading";
 import Glide from "@glidejs/glide";
-import ncNanoId from "utils/ncNanoId";
 import { CategoriesEdge2 } from "data/postCardType";
 import CardCategory2 from "components/CardCategory2/CardCategory2";
 import CardCategory3 from "components/CardCategory3/CardCategory3";
@@ -20,8 +19,14 @@ export interface SectionSliderNewCategoriesProps {
   categories: CategoriesEdge2[];
   categoriesLoading?: any[];
   categoryCardType?: "card2" | "card3" | "card4" | "card5";
-  itemPerRow?: number;
   isLoading?: boolean;
+  //
+  itemPerView: number;
+  sliderAnimationDuration: number;
+  sliderAutoplayTime: number;
+  sliderHoverpause: boolean;
+  sliderRewind: boolean;
+  sliderStartAt: number;
 }
 
 const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
@@ -30,43 +35,81 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
   className = "",
   itemClassName = "",
   categories,
-  itemPerRow = 5,
   categoryCardType = "card3",
   isLoading,
   categoriesLoading = [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  itemPerView = 5,
+  sliderAnimationDuration,
+  sliderAutoplayTime,
+  sliderHoverpause,
+  sliderRewind,
+  sliderStartAt,
 }) => {
-  const UNIQUE_CLASS = "SectionSliderNewCategories" + ncNanoId();
-  const sliderConfiguration = {
-    perView: itemPerRow,
+  const sliderRef = useRef(null);
+
+  const sliderConfiguration: Glide.Options = {
+    // @ts-ignore
+    direction:
+      document.querySelector("html")?.getAttribute("dir") === "rtl"
+        ? "rtl"
+        : "ltr",
+    //
     gap: 32,
     bound: true,
+    // data from gutenberg slider settings
+    perView: itemPerView,
+    startAt: isLoading ? 0 : sliderStartAt,
+    hoverpause: sliderHoverpause,
+    animationDuration: sliderAnimationDuration || undefined,
+    rewind: sliderRewind || true,
+    autoplay: isLoading ? false : sliderAutoplayTime || false,
+    // end data from gutenberg slider settings
     breakpoints: {
+      1440: {
+        gap: 24,
+      },
       1280: {
-        perView: itemPerRow - 1,
+        perView: itemPerView - 1,
+        gap: 24,
       },
       1024: {
+        perView: itemPerView - 2,
         gap: 24,
-        perView: itemPerRow - 2,
       },
       768: {
         gap: 20,
-        perView: itemPerRow - 2,
+        perView: itemPerView - 2,
       },
       640: {
+        perView: itemPerView - 3,
         gap: 20,
-        perView: itemPerRow - 3,
       },
       500: {
+        perView: 1.2,
         gap: 20,
-        perView: 1.3,
       },
     },
   };
-  const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
 
   useEffect(() => {
-    glideSlider.mount();
-  }, [categories, glideSlider]);
+    if (!sliderRef.current) {
+      return;
+    }
+
+    const slider = new Glide(sliderRef.current, sliderConfiguration);
+    slider.mount();
+    // @ts-ignore
+    return () => slider.destroy();
+  }, [
+    categories,
+    sliderRef,
+    itemPerView,
+    sliderAnimationDuration,
+    sliderAutoplayTime,
+    sliderHoverpause,
+    sliderRewind,
+    sliderStartAt,
+  ]);
 
   const renderCard = (item: CategoriesEdge2, index: number) => {
     const topIndex = index < 3 ? `#${index + 1}` : undefined;
@@ -115,7 +158,7 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 
   return (
     <div className={`nc-SectionSliderNewCategories relative ${className}`}>
-      <div className={`${UNIQUE_CLASS} flow-root`}>
+      <div className={`flow-root`} ref={sliderRef}>
         <Heading desc={subHeading} hasNextPrev>
           {heading}
         </Heading>

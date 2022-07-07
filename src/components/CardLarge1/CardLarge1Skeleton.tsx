@@ -1,18 +1,15 @@
 import NcImage from "components/NcImage/NcImage";
 import NextPrev from "components/NextPrev/NextPrev";
-import React, { FC, Fragment } from "react";
+import React, { FC } from "react";
 import Skeleton from "react-loading-skeleton";
 
 export interface CardLarge1SkeletonProps {
   className?: string;
-  isShowing?: boolean;
 }
 
 const CardLarge1Skeleton: FC<CardLarge1SkeletonProps> = ({
   className = "",
-  isShowing = true,
 }) => {
-  if (!isShowing) return null;
   return (
     <div
       className={`nc-CardLarge1Skeleton relative flex flex-col-reverse md:flex-row justify-end ${className}`}

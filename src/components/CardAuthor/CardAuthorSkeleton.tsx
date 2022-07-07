@@ -21,11 +21,11 @@ const CardAuthorSkeleton: FC<CardAuthorSkeletonProps> = ({
         userName={"d"}
       />
       <div className="flex-grow">
-        <h2
+        <h4
           className={`text-base text-neutral-900 dark:text-neutral-100 font-semibold`}
         >
           <Skeleton width="70%" />
-        </h2>
+        </h4>
         <span
           className={`block mt-[2px] text-xs text-neutral-500 dark:text-neutral-400`}
         >

@@ -1,56 +1,35 @@
 import useWindowSize from "hooks/useWindowSize";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 // COMPOnent nay muc dich chi hide/show header va action voi single header
 const HeaderSite = () => {
-  const containerRef: HTMLDivElement | null =
-    document.querySelector(".nc-Header");
-  const mainMenuRef: HTMLDivElement | null = document.querySelector(
+  const { width } = useWindowSize();
+  const windowSizeWidth = width || window.innerWidth;
+
+  //
+  const containerRef = document.querySelector<HTMLDivElement>(".nc-Header");
+  const mainMenuRef = document.querySelector<HTMLDivElement>(
     ".nc-Header__MainNav1"
   );
-  const mainMenuChildRef: HTMLDivElement | null = document.querySelector(
+  const mainMenuChildRef = document.querySelector<HTMLDivElement>(
     ".nc-Header__MainNav1 .nc-MainNav1"
   );
-
-  const headerSinglePage: HTMLDivElement | null = document.querySelector(
-    ".nc-SingleHeaderMenu"
-  );
-  const progressBarRef: HTMLDivElement | null = document.querySelector(
-    ".nc-SingleHeaderMenu__progress-bar"
-  );
-
-  let wpadminbarRef: HTMLDivElement | null =
-    document.querySelector("#wpadminbar");
+  let wpadminbarRef = document.querySelector<HTMLDivElement>("#wpadminbar");
   //
-
-  const windowSize = useWindowSize();
-
-  if (windowSize.width <= 600) {
-    wpadminbarRef = null;
-  } else {
-    wpadminbarRef = document.querySelector("#wpadminbar");
+  if (!mainMenuRef) {
+    return null;
   }
-
-  let prevScrollpos = window.pageYOffset;
   //
-  const showSingleMenu = !!headerSinglePage;
-  //
-  const [isSingleHeaderShowing, setIsSingleHeaderShowing] = useState(false);
-  const [isTop, setIsTop] = useState(true);
 
   useEffect(() => {
-    if (!headerSinglePage) return;
+    setTimeout(() => {
+      _scrollHeaderSite();
+    }, 200);
+  }, []);
 
-    if (isSingleHeaderShowing) {
-      headerSinglePage.style.display = "block";
-      return;
-    }
-    headerSinglePage.style.display = "none";
-  }, [isSingleHeaderShowing]);
-
-  //
-  useEffect(() => {
+  const _handleIsTop = (isTop: boolean) => {
     if (!mainMenuChildRef) return;
+
     if (isTop && !mainMenuChildRef.classList.contains("onTop")) {
       mainMenuChildRef.classList.remove("notOnTop");
       mainMenuChildRef.classList.add("onTop");
@@ -60,88 +39,65 @@ const HeaderSite = () => {
       mainMenuChildRef.classList.remove("onTop");
       mainMenuChildRef.classList.add("notOnTop");
     }
-  }, [isTop]);
+  };
 
-  useEffect(() => {
-    if (!mainMenuRef) {
-      return;
+  const _scrollHeaderSite = () => {
+    if (windowSizeWidth <= 600) {
+      wpadminbarRef = null;
     }
-    let mainMenuHeight = mainMenuRef.offsetHeight;
+    //
+
+    let prevScrollpos = window.pageYOffset;
+    let mainMenuHeight = 0;
+    let wpadminbarHeight = 0;
+
+    let mainMenuH = mainMenuRef.offsetHeight;
     if (!!wpadminbarRef) {
-      mainMenuHeight = mainMenuHeight - wpadminbarRef.offsetHeight;
+      mainMenuH = mainMenuH - wpadminbarRef.offsetHeight;
+      wpadminbarHeight = wpadminbarRef.offsetHeight;
     }
+    mainMenuHeight = mainMenuH;
 
-    window.onscroll = function () {
-      showHideHeaderMenu(mainMenuHeight);
+    // FIRST TIME DIDMOUNT
+    let winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop;
+    if (winScroll > 0) {
+      _handleIsTop(false);
+    }
+    //
+
+    const handleEvent = () => {
+      window.requestAnimationFrame(showHideHeaderMenu);
     };
-  }, [windowSize.width]);
 
-  useEffect(() => {
-    if (showSingleMenu) {
-      setTimeout(() => {
-        //  BECAUSE DIV HAVE TRANSITION 100ms
-        window.addEventListener("scroll", showHideSingleHeader);
-      }, 200);
-    } else {
-      window.removeEventListener("scroll", showHideSingleHeader);
-    }
-  }, [showSingleMenu]);
+    window.removeEventListener("scroll", handleEvent);
+    window.addEventListener("scroll", handleEvent);
 
-  const handleProgressIndicator = () => {
-    const entryContent = document.querySelector(
-      "#ncmaz-single-entry-content"
-    ) as HTMLDivElement | null;
+    const showHideHeaderMenu = () => {
+      let currentScrollPos = window.pageYOffset;
+      if (!containerRef || !mainMenuRef) {
+        return;
+      }
 
-    if (!showSingleMenu || !entryContent) {
-      return;
-    }
+      // SET BG
+      if (prevScrollpos < currentScrollPos) {
+        currentScrollPos > mainMenuHeight
+          ? _handleIsTop(false)
+          : _handleIsTop(true);
+      } else {
+        currentScrollPos > 0 ? _handleIsTop(false) : _handleIsTop(true);
+      }
 
-    const totalEntryH = entryContent.offsetTop + entryContent.offsetHeight;
-    let winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
-    let scrolled = (winScroll / totalEntryH) * 100;
-    if (!progressBarRef || scrolled > 140) {
-      return;
-    }
+      // SHOW _ HIDE MAIN MENU
+      if (prevScrollpos > currentScrollPos) {
+        containerRef.style.top = `${wpadminbarHeight}px`;
+      } else {
+        containerRef.style.top = `-${mainMenuHeight + 1}px`;
+      }
+      prevScrollpos = currentScrollPos;
+    };
 
-    scrolled = scrolled > 100 ? 100 : scrolled;
-
-    progressBarRef.style.width = scrolled + "%";
-  };
-
-  const showHideSingleHeader = () => {
-    handleProgressIndicator();
-    // SHOW _ HIDE SINGLE DESC MENU
-    let winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
-
-    if (winScroll > 200) {
-      setIsSingleHeaderShowing(true);
-    } else {
-      setIsSingleHeaderShowing(false);
-    }
-  };
-
-  const showHideHeaderMenu = (mainMenuHeight: number) => {
-    let currentScrollPos = window.pageYOffset;
-    if (!containerRef || !mainMenuRef) return;
-
-    // SET BG
-    if (prevScrollpos < currentScrollPos) {
-      currentScrollPos > mainMenuHeight ? setIsTop(false) : setIsTop(true);
-    } else {
-      currentScrollPos > 0 ? setIsTop(false) : setIsTop(true);
-    }
-
-    // SHOW _ HIDE MAIN MENU
-    if (prevScrollpos > currentScrollPos) {
-      containerRef.style.top = wpadminbarRef
-        ? `${wpadminbarRef.offsetHeight}px`
-        : "0";
-    } else {
-      containerRef.style.top = `-${mainMenuHeight + 2}px`;
-    }
-    prevScrollpos = currentScrollPos;
+    return null;
   };
 
   return null;

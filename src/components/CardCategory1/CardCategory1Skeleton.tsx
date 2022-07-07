@@ -23,13 +23,13 @@ const CardCategory1Skeleton: FC<CardCategory1SkeletonProps> = ({
         src={"."}
       />
       <div className="flex-grow">
-        <h2
+        <h4
           className={`${
             size === "large" ? "text-lg" : "text-base"
           } nc-card-title text-neutral-900 dark:text-neutral-100 font-semibold`}
         >
           <Skeleton width="70%" />
-        </h2>
+        </h4>
         <span
           className={`${
             size === "large" ? "text-sm" : "text-xs"

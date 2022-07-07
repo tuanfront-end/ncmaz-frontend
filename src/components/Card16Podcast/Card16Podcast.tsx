@@ -19,7 +19,8 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
   ratio = "aspect-w-3 xl:aspect-w-4 aspect-h-3",
 }) => {
   const { title, link, categories, excerpt, featuredImage, postFormats } = post;
-  const postFormatName:PostFormatsType |undefined = postFormats?.edges[0]?.node.slug;
+  const postFormatName: PostFormatsType | undefined =
+    postFormats?.edges[0]?.node.slug;
   const renderIcon = (state?: "playing" | "loading") => {
     if (!state) {
       return (
@@ -70,7 +71,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
     >
       <a
         href={link}
-        className={`block flex-shrink-0 relative w-full rounded-3xl overflow-hidden ${ratio}`}
+        className={`block flex-shrink-0 relative w-full rounded-3xl overflow-hidden z-0 ${ratio}`}
       >
         <NcImage src={featuredImage?.node.sourceUrl || "."} />
         <span className="bg-neutral-900 bg-opacity-30"></span>
@@ -84,25 +85,31 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
 
       {/* MAIN CONTENT */}
       <div className="w-11/12 transform -mt-32 ">
-        <div className="px-5 flex items-center space-x-4">
+        <div
+          className={`px-5 flex items-center space-x-4 ${
+            postFormatName === "post-format-video" ||
+            postFormatName === "post-format-audio"
+              ? ""
+              : "opacity-0 z-[-1]"
+          }`}
+        >
           <div className="flex-grow ">
             <img src={musicWave} alt="musicWave" />
           </div>
-          {(postFormatName === "post-format-video" || postFormatName === "post-format-audio") && (
-            <ButtonPlayMusicRunningContainer
-              post={post}
-              renderDefaultBtn={() => renderListenButtonDefault()}
-              renderPlayingBtn={() => renderListenButtonDefault("playing")}
-              renderLoadingBtn={() => renderListenButtonDefault("loading")}
-            />
-          )}
+
+          <ButtonPlayMusicRunningContainer
+            post={post}
+            renderDefaultBtn={() => renderListenButtonDefault()}
+            renderPlayingBtn={() => renderListenButtonDefault("playing")}
+            renderLoadingBtn={() => renderListenButtonDefault("loading")}
+          />
         </div>
         <div className="p-5 mt-5 bg-white dark:bg-neutral-900 shadow-xl dark:shadow-2xl rounded-3xl rounded-tl-none flex flex-col flex-grow ">
-          <h2 className="nc-card-title block text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
+          <h3 className="nc-card-title block text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
             <a href={link} className="line-clamp-1" title={title}>
               {title}
             </a>
-          </h2>
+          </h3>
           <span className="block text-sm text-neutral-500 dark:text-neutral-400 mt-3 mb-5">
             {excerpt && (
               <span
@@ -113,7 +120,10 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
           </span>
           <div className="flex items-end justify-between mt-auto">
             <PostCardLikeAndComment className="relative" postData={post} />
-            <PostCardDropdownShare href={post.link} />
+            <PostCardDropdownShare
+              href={post.link}
+              image={post.featuredImage?.node.sourceUrl}
+            />
           </div>
         </div>
       </div>

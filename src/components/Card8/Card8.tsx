@@ -15,7 +15,7 @@ const Card8: FC<Card8Props> = ({ className = "h-full", post }) => {
 
   return (
     <div
-      className={`nc-Card8 group relative [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] overflow-hidden ${className}`}
+      className={`nc-Card8 group relative [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] overflow-hidden z-0 ${className}`}
       data-nc-id="Card8"
     >
       <SocialsShare
@@ -45,13 +45,13 @@ const Card8: FC<Card8Props> = ({ className = "h-full", post }) => {
       <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 flex flex-col">
         <a href={link} className="absolute inset-0" />
         <CategoryBadgeList categories={categories} />
-        <h2
+        <h3
           className={`mt-3 relative block font-semibold text-neutral-50 text-lg sm:text-xl`}
         >
           <a href={link} className="line-clamp-2" title={title}>
             {title}
           </a>
-        </h2>
+        </h3>
         <div className="hidden sm:block mt-2">
           <span
             className="text-neutral-300 text-sm line-clamp-1"

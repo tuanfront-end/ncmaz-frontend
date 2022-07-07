@@ -1,5 +1,6 @@
 import { Popover, Transition } from "@headlessui/react";
 import Input from "components/Input/Input";
+import NCMAZ_TRANSLATE from "contains/translate";
 import React, { Fragment } from "react";
 
 const SearchDropdown = () => {
@@ -12,7 +13,7 @@ const SearchDropdown = () => {
           if (open) {
             setTimeout(() => {
               inputRef.current?.focus();
-            }, 100);
+            }, 200);
           }
 
           return (
@@ -38,15 +39,25 @@ const SearchDropdown = () => {
                   <form
                     role="search"
                     method="GET"
-                    className="search-form"
+                    className="search-d relative"
                     action={window.frontendObject?.homeURL}
                   >
+                    <i className="las la-search absolute left-3 top-1/2 transform -translate-y-1/2 text-xl opacity-60"></i>
                     <Input
                       name="s"
+                      className="pl-10"
                       ref={inputRef}
                       type="search"
-                      placeholder="Type and press enter"
+                      placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
                     />
+                    {/* <input
+                      ref={inputRef}
+                      name="s"
+                      type="search"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                      placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
+                    /> */}
+
                     <input type="submit" hidden value="" />
                   </form>
                 </Popover.Panel>

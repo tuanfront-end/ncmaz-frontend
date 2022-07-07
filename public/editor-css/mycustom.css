@@ -1,0 +1,4 @@
+.block-editor .acf-field[data-name="favorite_button_shortcode"],
+.block-editor .acf-field[data-name="reading_time_shortcode"] {
+  display: none !important;
+}

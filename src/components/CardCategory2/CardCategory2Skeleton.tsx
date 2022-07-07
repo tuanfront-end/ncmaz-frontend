@@ -20,9 +20,9 @@ const CardCategory2Skeleton: FC<CardCategory2SkeletonProps> = ({
         src={"."}
       />
       <div className="mt-3 w-full">
-        <h2 className={`text-base sm:text-lg font-semibold `}>
+        <h4 className={`text-base sm:text-lg font-semibold `}>
           <Skeleton width="80%" />
-        </h2>
+        </h4>
         <span
           className={`block w-full mt-[2px] text-sm text-neutral-500 dark:text-neutral-400`}
         >

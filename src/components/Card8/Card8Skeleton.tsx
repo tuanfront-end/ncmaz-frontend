@@ -18,11 +18,11 @@ const Card8Skeleton: FC<Card8SkeletonProps> = ({ className = "h-full" }) => {
 
       <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 flex flex-col">
         <Skeleton width="30%" />
-        <h2
+        <h3
           className={`mt-3 relative block font-semibold text-neutral-50 text-lg sm:text-xl`}
         >
           <Skeleton width="90%" />
-        </h2>
+        </h3>
         <div className="hidden sm:block mt-2">
           <span className="opacity-0">dd</span>
         </div>

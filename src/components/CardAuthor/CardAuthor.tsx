@@ -24,11 +24,11 @@ const CardAuthor: FC<CardAuthorProps> = ({ className = "", author }) => {
         userName={username}
       />
       <div>
-        <h2
+        <h4
           className={`text-base text-neutral-900 dark:text-neutral-100 font-semibold`}
         >
           {name}
-        </h2>
+        </h4>
         <span
           className={`block mt-[2px] text-xs text-neutral-500 dark:text-neutral-400`}
         >

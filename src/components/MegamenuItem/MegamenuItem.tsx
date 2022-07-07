@@ -76,11 +76,6 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     ${POSTS_SECTION_BY_FILTER__string}
   `;
 
-  // const { loading, error, data, fetchMore } = useQuery<Data>(gqlQuery, {
-  //   notifyOnNetworkStatusChange: true,
-  //   variables,
-  // } );
-
   const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
     useLazyQuery<Data>(gqlQuery, {
       notifyOnNetworkStatusChange: true,
@@ -162,11 +157,12 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     return (
       <div className="w-1/5 py-8 flex-shrink-0  ">
         <div className="flow-root">
-          <ul className="">
+          <div>
             {(taxonomies || []).map((item) => {
               const isActive = item.categoryId === temrActiveId;
               return (
-                <li
+                <a
+                  href={item.link}
                   className={`py-2.5 px-5 flex items-center !m-0 relative ${
                     isActive ? "bg-neutral-100 dark:bg-neutral-800 " : ""
                   }`}
@@ -177,10 +173,10 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
                     <span className="absolute left-0 w-1 h-full top-0 bg-primary-500"></span>
                   )}
                   {item.name}
-                </li>
+                </a>
               );
             })}
-          </ul>
+          </div>
         </div>
       </div>
     );
@@ -211,7 +207,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
               }`}
             >
               {IS_SKELETON
-                ? Array.from(showTabFilter ? "88888888" : "8888888888").map(
+                ? Array.from(Array(Number(numberOfPosts) || 10).keys()).map(
                     (_, index) => <Card18Skeleton key={index} />
                   )
                 : POSTS.map((item) => (

@@ -20,9 +20,9 @@ const Card4Skeleton: FC<Card4SkeletonProps> = ({ className = "h-full" }) => {
       <div className="p-4 flex flex-col flex-grow">
         <div className="space-y-2.5 mb-4">
           <Skeleton width="30%" />
-          <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
+          <h3 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
             <Skeleton width="80%" />
-          </h2>
+          </h3>
         </div>
         <div className="opacity-0 mt-auto">aaaa</div>
       </div>

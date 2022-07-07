@@ -7,6 +7,7 @@
  * @package Redux Framework
  */
 
+
 if (!class_exists('Redux')) {
     return null;
 }
@@ -62,7 +63,7 @@ $args = array(
     'global_variable'           => '',
 
     // Show the time the page took to load, etc.
-    'dev_mode'                  => true,
+    'dev_mode'                  => false,
 
     // Enable basic customizer support.
     'customizer'                => true,
@@ -267,6 +268,8 @@ $kses_exceptions = array(
 require plugin_dir_path(__FILE__) . 'ncmaz-redux-section-general.php';
 // 
 require plugin_dir_path(__FILE__) . 'ncmaz-redux-section-single.php';
+// 
+require plugin_dir_path(__FILE__) . 'ncmaz-redux-section-header.php';
 // 
 require plugin_dir_path(__FILE__) . 'ncmaz-redux-section-archive-page.php';
 

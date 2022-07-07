@@ -22,7 +22,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
       data-nc-id="CardCategory3"
     >
       <div
-        className={`flex-shrink-0 relative w-full aspect-w-5 aspect-h-4 sm:aspect-h-7 h-0 rounded-2xl overflow-hidden group`}
+        className={`flex-shrink-0 relative w-full aspect-w-5 aspect-h-4 sm:aspect-h-7 h-0 rounded-2xl overflow-hidden z-0 group`}
       >
         <NcImage
           src={featuredImage?.sourceUrl || "."}
@@ -31,13 +31,13 @@ const CardCategory3: FC<CardCategory3Props> = ({
         <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"></span>
       </div>
       <div className="mt-4 truncate">
-        <h2
+        <h4
           className={`text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-semibold truncate`}
         >
           {name}
-        </h2>
+        </h4>
         <span
-          className={`block mt-2 text-sm text-neutral-6000 dark:text-neutral-400`}
+          className={`block mt-1 text-sm text-neutral-6000 dark:text-neutral-400`}
         >
           {count} {NCMAZ_TRANSLATE["articles"]}
         </span>

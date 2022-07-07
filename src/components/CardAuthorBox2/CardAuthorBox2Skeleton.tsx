@@ -38,9 +38,9 @@ const CardAuthorBox2Skeleton: FC<CardAuthorBox2SkeletonProps> = ({
           userName={"d"}
         />
         <div className="mt-3">
-          <h2 className={`text-base font-medium`}>
+          <h4 className={`text-base font-medium`}>
             <Skeleton width="60%" />
-          </h2>
+          </h4>
           <span
             className={`block mt-1 text-sm text-neutral-500 dark:text-neutral-400`}
           >

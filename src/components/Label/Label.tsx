@@ -2,9 +2,10 @@ import React, { FC } from "react";
 
 export interface LabelProps {
   className?: string;
+  children: React.ReactNode;
 }
 
-const Label: FC<LabelProps> = ({ className = "", children }) => {
+const Label: FC<LabelProps> = ({ className = "block", children }) => {
   return (
     <span
       className={`nc-Label ${className} text-neutral-800 font-medium text-sm dark:text-neutral-300`}

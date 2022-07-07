@@ -12,7 +12,7 @@ export interface CardAuthor2Props {
 }
 
 const CardAuthor2: FC<CardAuthor2Props> = ({
-  className = "",
+  className = "overflow-hidden",
   author,
   readingTimeShortcode = "",
   date,
@@ -34,13 +34,13 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
         userName={node.username}
       />
       <div className="overflow-hidden">
-        <h2
+        <h4
           className={`text-sm text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium truncate`}
         >
           {node?.name}
-        </h2>
+        </h4>
         <span
-          className={`flex items-center mt-1 text-xs text-neutral-500 dark:text-neutral-400`}
+          className={`flex items-center mt-1 text-xs text-neutral-500 dark:text-neutral-400 truncate`}
         >
           <span>{ncFormatDate(date || "")}</span>
           {readingTimeShortcode && (
@@ -53,7 +53,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
                 ·
               </span>
               <span
-                className={`hidden lg:inline transition-opacity ${
+                className={`hidden lg:inline transition-opacity truncate ${
                   hoverReadingTime ? "opacity-0 group-hover:opacity-100" : ""
                 }`}
                 dangerouslySetInnerHTML={{ __html: readingTimeShortcode }}

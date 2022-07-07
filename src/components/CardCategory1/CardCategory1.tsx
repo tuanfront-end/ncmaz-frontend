@@ -26,17 +26,17 @@ const CardCategory1: FC<CardCategory1Props> = ({
       <NcImage
         containerClassName={`flex-shrink-0 ${
           size === "large" ? "w-20 h-20" : "w-12 h-12"
-        } rounded-lg mr-4 overflow-hidden`}
+        } rounded-lg mr-4 overflow-hidden z-0`}
         src={featuredImage?.sourceUrl || "."}
       />
       <div>
-        <h2
+        <h4
           className={`${
             size === "large" ? "text-lg" : "text-base"
           } nc-card-title text-neutral-900 dark:text-neutral-100 font-semibold`}
         >
           {name}
-        </h2>
+        </h4>
         <span
           className={`${
             size === "large" ? "text-sm" : "text-xs"

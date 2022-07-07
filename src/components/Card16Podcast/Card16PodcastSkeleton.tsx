@@ -37,9 +37,9 @@ const Card16PodcastSkeleton: FC<Card16PodcastSkeletonProps> = ({
           </div>
         </div>
         <div className="p-5 mt-5 bg-white dark:bg-neutral-900 shadow-xl dark:shadow-2xl rounded-3xl rounded-tl-none flex flex-col flex-grow ">
-          <h2 className="nc-card-title block text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
+          <h3 className="nc-card-title block text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
             <Skeleton />
-          </h2>
+          </h3>
           <span className="block text-sm text-neutral-500 dark:text-neutral-400 mt-3 mb-5">
             <Skeleton width="80%" />
           </span>

@@ -28,17 +28,17 @@ const CardCategory2: FC<CardCategory2Props> = ({
         <Badge
           color={index === "#1" ? "red" : index === "#2" ? "purple" : "green"}
           name={index}
-          className="absolute -top-2 sm:top-3 left-3"
+          className="absolute top-3 left-3"
         />
       )}
       <NcImage
-        containerClassName={`flex-shrink-0 w-20 h-20 rounded-full overflow-hidden`}
+        containerClassName={`flex-shrink-0 w-20 h-20 rounded-full overflow-hidden z-0`}
         src={featuredImage?.sourceUrl || "."}
       />
       <div className="mt-3 ">
-        <h2 className={`text-base sm:text-lg font-semibold `}>
+        <h4 className={`text-base sm:text-lg font-semibold `}>
           <span className="line-clamp-1">{name}</span>
-        </h2>
+        </h4>
         <span
           className={`block mt-[2px] text-sm text-neutral-500 dark:text-neutral-400`}
         >

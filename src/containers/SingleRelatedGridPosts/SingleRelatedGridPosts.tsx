@@ -66,7 +66,7 @@ const SingleRelatedGridPosts: FC<SingleRelatedGridPostsProps> = ({
         {NCMAZ_TRANSLATE["relatedPosts"]}
       </Heading>
       <DataStatementBlock loading={loading} error={error} data={DATA_LISTS} />
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8">
         {DATA_LISTS.map((item, index) => (
           <Card11 key={index} post={item.node} />
         ))}

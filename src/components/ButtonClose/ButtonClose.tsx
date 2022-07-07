@@ -6,12 +6,14 @@ export interface ButtonCloseProps {
   className?: string;
   onClick?: () => void;
   iconSize?: string;
+  title?: string;
 }
 
 const ButtonClose: React.FC<ButtonCloseProps> = ({
   className = "",
   onClick = () => {},
   iconSize = "w-5 h-5",
+  title = "Close",
 }) => {
   return (
     <button
@@ -20,6 +22,7 @@ const ButtonClose: React.FC<ButtonCloseProps> = ({
         twFocusClass()
       }
       onClick={onClick}
+      title={title}
     >
       <span className="sr-only">Close</span>
       <XIcon className={iconSize} />

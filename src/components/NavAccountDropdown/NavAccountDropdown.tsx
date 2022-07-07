@@ -1,6 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
 import Avatar from "components/Avatar/Avatar";
-import NcDropDown from "components/NcDropDown/NcDropDown";
 import React, { FC, Fragment } from "react";
 import getAvatarUrlDefaultWordpress from "utils/getAvatarUrlWordpress";
 
@@ -26,8 +25,8 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
       <div className="flex-shrink-0 sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ">
         <Avatar
           imgUrl={getAvatarUrlDefaultWordpress(
-            currentUser?.avatar.url,
-            currentUser?.ncUserMeta.featuredImage?.sourceUrl
+            currentUser?.avatar?.url,
+            currentUser?.ncUserMeta?.featuredImage?.sourceUrl
           )}
           userName={currentUser?.name}
           radius="rounded-full"
@@ -52,7 +51,7 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-neutral-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-neutral-100  dark:divide-neutral-700 text-sm">
+        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-neutral-800 rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-neutral-100  dark:divide-neutral-700 text-sm">
           <div className="px-1 py-2">
             <a
               href={homeURL + currentUser?.uri}
@@ -60,8 +59,8 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
             >
               <Avatar
                 imgUrl={getAvatarUrlDefaultWordpress(
-                  currentUser?.avatar.url,
-                  currentUser?.ncUserMeta.featuredImage?.sourceUrl
+                  currentUser?.avatar?.url,
+                  currentUser?.ncUserMeta?.featuredImage?.sourceUrl
                 )}
                 userName={currentUser?.name}
                 radius="rounded-full"
@@ -72,7 +71,7 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
                   {currentUser?.name}
                 </span>
                 <span className="text-neutral-500 dark:text-neutral-400 truncate leading-tight">
-                  {currentUser?.ncUserMeta.ncBio}
+                  {currentUser?.ncUserMeta?.ncBio}
                 </span>
               </div>
             </a>

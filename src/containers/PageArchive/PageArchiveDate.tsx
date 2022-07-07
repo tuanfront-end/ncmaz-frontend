@@ -15,6 +15,7 @@ import {
   ARCHIVE_PAGE_FILTERS,
   SectionCategoriesTrendingArchivePageOption,
 } from "./PageArchive";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   posts: ListPosts;
@@ -145,7 +146,7 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
 
           {/* LOOP ITEMS */}
           {IS_SKELETON || POSTS.length ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-8 lg:mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8 mt-8 lg:mt-10">
               {IS_SKELETON &&
                 Array.from("88888888").map((_, index) => (
                   <Card11Skeleton key={index} />
@@ -160,7 +161,7 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
           {data?.posts.pageInfo?.hasNextPage && (
             <div className="flex justify-center mt-12 lg:mt-16">
               <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
-                Show me more
+                {NCMAZ_TRANSLATE["showMeMore"]}
               </ButtonPrimary>
             </div>
           )}

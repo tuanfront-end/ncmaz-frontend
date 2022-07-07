@@ -29,19 +29,22 @@ const Card1: FC<Card1Props> = ({ className = "", post }) => {
         />
       </div>
       <div className="flex-grow">
-        <h2
-          className="nc-card-title block text-base font-semibold text-neutral-800 dark:text-neutral-100"
-          title={title}
-        >
-          <a href={link} className="line-clamp-2">
-            {title}
-          </a>
-        </h2>
+        <h3 className="nc-card-title block text-base font-semibold text-neutral-800 dark:text-neutral-100">
+          <a
+            href={link}
+            className="line-clamp-2"
+            title={title}
+            dangerouslySetInnerHTML={{ __html: title || "" }}
+          ></a>
+        </h3>
         <PostCardMeta className="mt-3" hiddenAvatar meta={post} />
       </div>
 
       {/* ACTIONS */}
-      <PostCardDropdownShare href={post.link} />
+      <PostCardDropdownShare
+        href={post.link}
+        image={post.featuredImage?.node.sourceUrl}
+      />
     </div>
   );
 };

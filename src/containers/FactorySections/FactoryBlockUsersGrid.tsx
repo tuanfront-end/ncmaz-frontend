@@ -1,30 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { GutenbergAttr__BlockUsersGrid } from "data/gutenbergAttrType";
 import SectionGridAuthorBox from "components/SectionGridAuthorBox/SectionGridAuthorBox";
-import { GraphQlPageInfo } from "data/types";
-import { AuthorNode } from "data/postCardType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
-import {
-  GQL_QUERY_GET_USERS_BY_FILTER,
-  GQL_QUERY_GET_USERS_BY_SPECIFIC,
-} from "contains/contants";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
-
-interface Data {
-  users: Users;
-}
-interface Users {
-  edges: Edge[];
-  pageInfo: GraphQlPageInfo;
-  __typename: string;
-}
-interface Edge {
-  node: AuthorNode;
-  __typename: string;
-}
+import useGutenbergSectionWithGQLGetUsers from "hooks/useGutenbergSectionWithGQLGetUsers";
 
 export interface FactoryBlockUsersGridProps {
   className?: string;
@@ -39,35 +20,22 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, settings } = apiSettings;
+  const { graphQLvariables, graphQLData, settings } = apiSettings;
+  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
-  let GQL_QUERY__string = "";
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_USERS_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_USERS_BY_SPECIFIC;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_USERS_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_USERS_BY_FILTER;
-  }
-  const queryGql = gql`
-    ${GQL_QUERY__string}
-  `;
-
-  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] =
-    useLazyQuery<Data>(queryGql, {
-      notifyOnNetworkStatusChange: true,
-      variables: graphQLvariables.variables,
-    });
+  const { funcGqlQueryGetUsers, IS_SKELETON, LISTS_DATA, error } =
+    useGutenbergSectionWithGQLGetUsers({ graphQLvariables, graphQLData });
 
   // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
+  //
+  let ref: React.RefObject<HTMLDivElement> | null = null;
+  if (IS_SPECIFIC_DATA) {
+    ref = useRef<HTMLDivElement>(null);
+  } else {
+    ref = useGqlQuerySection(funcGqlQueryGetUsers, sectionIndex).ref;
+  }
 
   // =========================================================
-
-  //
-
-  //
-  const LISTS_DATA = data?.users.edges || [];
-  const IS_SKELETON = loading && !LISTS_DATA.length;
 
   const renderContent = () => {
     const {
@@ -95,7 +63,9 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
             authorCardName={userCardName}
             blockLayoutStyle={blockLayoutStyle}
             authorNodes={LISTS_DATA}
-            authorNodesLoading={[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
+            authorNodesLoading={Array.from(
+              Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+            )}
             heading={heading}
             subHeading={subHeading}
             gridClass={!!gridClassCustom ? gridClassCustom : gridClass}

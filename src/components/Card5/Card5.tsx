@@ -23,14 +23,17 @@ const Card5: FC<Card5Props> = ({
 
       <div className="flex flex-col">
         <CategoryBadgeList categories={categories} />
-        <h2
+        <h3
           className="block text-base font-semibold text-neutral-800 dark:text-neutral-300 my-4"
           title={title}
         >
-          <a href={link} className="line-clamp-2" title={title}>
-            {title}
-          </a>
-        </h2>
+          <a
+            href={link}
+            className="line-clamp-2"
+            title={title}
+            dangerouslySetInnerHTML={{ __html: title || "" }}
+          ></a>
+        </h3>
         <CardAuthor2
           className="relative mt-auto"
           readingTimeShortcode={ncPostMetaData.readingTimeShortcode}

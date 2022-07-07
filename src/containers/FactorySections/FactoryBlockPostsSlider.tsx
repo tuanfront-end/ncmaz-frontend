@@ -1,14 +1,12 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useDeferredValue, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery } from "@apollo/client";
-import { ListPosts, PostNode } from "data/postCardType";
+import { PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
   HeaderSectionFilterTabItem,
 } from "components/HeaderSectionFilter/HeaderSectionFilter";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import Glide from "@glidejs/glide";
-import ncNanoId from "utils/ncNanoId";
 import Card4 from "components/Card4/Card4";
 import Card7 from "components/Card7/Card7";
 import Card9 from "components/Card9/Card9";
@@ -26,15 +24,8 @@ import Card10Skeleton from "components/Card10/Card10Skeleton";
 import Card10V2Skeleton from "components/Card10/Card10V2Skeleton";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import Card14Skeleton from "components/Card14/Card14Skeleton";
-import {
-  GQL_QUERY_GET_POSTS_BY_FILTER,
-  GQL_QUERY_GET_POSTS_BY_SPECIFIC,
-} from "contains/contants";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
-
-interface Data {
-  posts: ListPosts;
-}
+import useGutenbergSectionWithGQLGetPosts from "hooks/useGutenbergSectionWithGQLGetPosts";
 
 export interface FactoryBlockPostsSliderProps {
   className?: string;
@@ -49,57 +40,35 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const UNIQUE_CLASS = "FactoryBlockPostsSlider" + ncNanoId();
-
-  const { graphQLvariables, settings } = apiSettings;
-
-  const [tabActiveId, setTabActiveId] = useState<number>(-1);
-  const [variablesFilter, setVariablesFilter] = useState(
-    graphQLvariables.variables || {}
-  );
+  const sliderRef = useRef(null);
+  // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
+  const { graphQLvariables, settings, graphQLData } = apiSettings;
+  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
   //
-  useEffect(() => {
-    setVariablesFilter(graphQLvariables.variables);
-  }, [graphQLvariables]);
+  const {
+    funcGqlQueryGetPosts,
+    loading,
+    IS_SKELETON,
+    LISTS_POSTS,
+    DONOT_ANY_THING,
+    data,
+    error,
+    fetchMore,
+    setTabActiveId,
+    tabActiveId,
+  } = useGutenbergSectionWithGQLGetPosts({
+    graphQLData,
+    graphQLvariables,
+  });
 
-  let GQL_QUERY__string = "";
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_FILTER;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_POSTS_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
-  }
-  const queryGql = gql`
-    ${GQL_QUERY__string}
-  `;
-
-  useEffect(() => {
-    setVariablesFilter((variables) => {
-      return {
-        ...variables,
-        categoryIn:
-          tabActiveId === -1
-            ? graphQLvariables.variables?.categoryIn
-            : [tabActiveId],
-      };
-    });
-  }, [tabActiveId]);
-
-  const [gqlQueryGetPosts, { loading, error, data }] = useLazyQuery<Data>(
-    queryGql,
-    {
-      notifyOnNetworkStatusChange: true,
-      variables: variablesFilter,
-    }
-  );
-
-  // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
-  // =========================================================
   //
-  const LISTS_POSTS = data?.posts.edges || [];
-  const IS_SKELETON = loading && !LISTS_POSTS.length;
+  let ref: React.RefObject<HTMLDivElement> | null = null;
+  if (IS_SPECIFIC_DATA) {
+    ref = useRef<HTMLDivElement>(null);
+  } else {
+    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
+  }
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -117,32 +86,58 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
 
   // ==================== GLIDE SLIDER SETTING ====================
   const perView = settings.itemPerView || 5;
-  const sliderConfiguration = {
+  const sliderConfiguration: Glide.Options = {
+    // @ts-ignore
+    direction:
+      document.querySelector("html")?.getAttribute("dir") === "rtl"
+        ? "rtl"
+        : "ltr",
+    // data from gutenberg slider settings
     perView: perView,
+    startAt: IS_SKELETON || DONOT_ANY_THING ? 0 : settings.sliderStartAt,
+    hoverpause: settings.sliderHoverpause,
+    animationDuration: settings.sliderAnimationDuration || undefined,
+    rewind: settings.sliderRewind || true,
+    autoplay:
+      IS_SKELETON || DONOT_ANY_THING
+        ? false
+        : settings.sliderAutoplayTime || false,
+    // end data from gutenberg slider settings
     gap: 32,
     bound: true,
     breakpoints: {
+      1440: {
+        gap: 24,
+      },
       1280: {
         perView: perView - 1,
+        gap: 24,
       },
       1023: {
-        perView: perView - 2 || 1.3,
+        perView: perView - 2 || 1.2,
         gap: 24,
       },
       767: {
-        perView: perView - 2 || 1.3,
+        perView: perView - 2 || 1.2,
         gap: 20,
       },
       639: {
-        perView: 1.3,
+        perView: 1.2,
         gap: 20,
       },
     },
   };
-  const glideSlider = new Glide(`.${UNIQUE_CLASS}`, sliderConfiguration);
+
   useEffect(() => {
-    glideSlider.mount();
-  }, [data, glideSlider]);
+    if (!sliderRef.current) {
+      return;
+    }
+
+    const slider = new Glide(sliderRef.current, sliderConfiguration);
+    slider.mount();
+    // @ts-ignore
+    return () => slider.destroy();
+  }, [data, sliderRef, settings]);
 
   const renderPostComponent = (post: PostNode) => {
     switch (apiSettings.settings.postCardName) {
@@ -249,7 +244,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       >
         {isBg && <BackgroundSection />}
 
-        <div className={`relative ${UNIQUE_CLASS}`}>
+        <div className={`relative `} ref={sliderRef}>
           {showFilterTab ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}

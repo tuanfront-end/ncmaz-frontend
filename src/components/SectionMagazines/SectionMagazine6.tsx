@@ -40,7 +40,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
           {/* CONTENT */}
           <div className="group dark absolute md:w-1/2 lg:w-2/3 max-w-2xl flex flex-col justify-end p-5 lg:p-14">
             <div className="">
-              <h2 className="nc-card-title text-2xl lg:text-3xl xl:text-4xl font-semibold text-white">
+              <h3 className="nc-card-title text-2xl lg:text-3xl xl:text-4xl font-semibold text-white">
                 {isLoading ? (
                   <Skeleton />
                 ) : (
@@ -48,7 +48,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
                     {title}
                   </a>
                 )}
-              </h2>
+              </h3>
               {isLoading ? (
                 <div>
                   <Skeleton />
@@ -81,7 +81,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
               <div className="-my-5 md:-my-7 divide-y divide-neutral-200 dark:divide-neutral-700">
                 {subPosts.map((post, i) => (
                   <div key={i} className="block py-5 lg:py-7">
-                    <h2 className="nc-card-title text-base font-semibold">
+                    <h4 className="nc-card-title text-base font-semibold">
                       <a
                         title={post.node.title}
                         href={post.node.link}
@@ -89,7 +89,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
                       >
                         {post.node.title}
                       </a>
-                    </h2>
+                    </h4>
                     <PostCardMeta className="mt-4" meta={post.node} />
                   </div>
                 ))}
@@ -114,9 +114,9 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
           {/* CONTENT */}
           <div className="group dark absolute md:w-1/2 lg:w-2/3 max-w-2xl flex flex-col justify-end p-5 lg:p-14">
             <div className="">
-              <h2 className="nc-card-title text-2xl lg:text-3xl xl:text-4xl font-semibold text-neutral-700 opacity-50">
+              <h4 className="nc-card-title text-2xl lg:text-3xl xl:text-4xl font-semibold text-neutral-700 opacity-50">
                 <Skeleton />
-              </h2>
+              </h4>
             </div>
 
             <div className="mt-7 opacity-50">
@@ -131,9 +131,9 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
             <div className="-my-5 md:-my-7 divide-y divide-neutral-200 dark:divide-neutral-700">
               {[1, 1, 1].map((_, i) => (
                 <div key={i} className="block py-5 lg:py-7">
-                  <h2 className="nc-card-title text-base font-semibold mb-2">
+                  <h4 className="nc-card-title text-base font-semibold mb-2">
                     <Skeleton width="90%" />
-                  </h2>
+                  </h4>
                   <Skeleton width="60%" />
                 </div>
               ))}

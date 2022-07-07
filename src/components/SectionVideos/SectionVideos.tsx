@@ -3,6 +3,8 @@ import NcImage from "components/NcImage/NcImage";
 import NcPlayIcon from "components/NcPlayIcon/NcPlayIcon";
 import NcPlayIcon2 from "components/NcPlayIcon2/NcPlayIcon2";
 import React, { FC, useState } from "react";
+import ReactPlayer from "react-player";
+import isSafariBrowser from "utils/isSafariBrowser";
 
 export interface SectionVideosProps {
   videoIds?: string[];
@@ -24,15 +26,31 @@ const SectionVideos: FC<SectionVideosProps> = ({
   const renderMainVideo = () => {
     const videoId = videoIds[currentVideo];
     return (
-      <div className="group aspect-w-16 aspect-h-16 sm:aspect-h-9 bg-neutral-800 rounded-3xl overflow-hidden border-4 border-white dark:border-neutral-900 sm:rounded-[50px] sm:border-[10px]">
-        {isPlay ? (
+      <div className="group aspect-w-16 aspect-h-16 sm:aspect-h-9 bg-neutral-800 rounded-3xl overflow-hidden z-0 border-4 border-white dark:border-neutral-900 sm:rounded-[50px] sm:border-[10px]">
+        {/* FOR SAFARI */}
+        {isSafariBrowser() && (
+          <ReactPlayer
+            playing={isPlay}
+            url={`https://www.youtube.com/watch?v=${videoId}`}
+            className="absolute inset-0"
+            width="100%"
+            height="100%"
+            controls
+          />
+        )}
+
+        {/* FOR CHROME */}
+        {!isSafariBrowser() && isPlay && (
           <iframe
             src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
-        ) : (
+        )}
+
+        {/* BG IMAGE */}
+        {!isPlay && (
           <>
             <div
               onClick={() => setIsPlay(true)}
@@ -42,7 +60,7 @@ const SectionVideos: FC<SectionVideosProps> = ({
             </div>
             <NcImage
               containerClassName="absolute inset-0 "
-              className="object-cover w-full h-full transform transition-transform group-hover:scale-105 duration-300 nc-will-change-transform"
+              className="object-cover w-full h-full transform transition-transform group-hover:scale-105 duration-300 "
               src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             />
           </>
@@ -55,7 +73,7 @@ const SectionVideos: FC<SectionVideosProps> = ({
     if (index === currentVideo) return null;
     return (
       <div
-        className="group relative aspect-h-16 aspect-w-16 rounded-2xl cursor-pointer overflow-hidden sm:aspect-h-12 sm:rounded-3xl lg:aspect-h-9"
+        className="group relative aspect-h-16 aspect-w-16 rounded-2xl cursor-pointer overflow-hidden z-0 sm:aspect-h-12 sm:rounded-3xl lg:aspect-h-9"
         onClick={() => {
           setCurrentVideo(index);
           !isPlay && setIsPlay(true);
@@ -67,7 +85,7 @@ const SectionVideos: FC<SectionVideosProps> = ({
         </div>
         <NcImage
           containerClassName="absolute inset-0 w-full h-full"
-          className="object-cover w-full h-full transform transition-transform group-hover:scale-110 duration-300 nc-will-change-transform"
+          className="object-cover w-full h-full transform transition-transform group-hover:scale-110 duration-300 "
           src={`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`}
         />
       </div>

@@ -1,16 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery } from "@apollo/client";
 import { GutenbergApiAttr_BlockWidgetTerms } from "data/gutenbergAttrType";
 import WidgetCategories from "components/WidgetCategories/WidgetCategories";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
-import {
-  GQL_QUERY_GET_CATEGORIES_BY_FILTER,
-  GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC,
-  GQL_QUERY_GET_TAGS_BY_FILTER,
-  GQL_QUERY_GET_TAGS_BY_SPECIFIC,
-} from "contains/contants";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
+import useGutenbergSectionWithGQLGetTerms from "hooks/useGutenbergSectionWithGQLGetTerms";
 
 export interface FactoryBlockWidgetTermsProps {
   className?: string;
@@ -25,52 +19,36 @@ const FactoryBlockWidgetTerms: FC<FactoryBlockWidgetTermsProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, settings } = apiSettings;
+  const { graphQLvariables, graphQLData, settings } = apiSettings;
+  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
-  let GQL_QUERY__string = "";
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_CATEGORIES_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_CATEGORIES_BY_FILTER;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_TAGS_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_TAGS_BY_FILTER;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_TAGS_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_TAGS_BY_SPECIFIC;
-  }
-  const queryGql = gql`
-    ${GQL_QUERY__string}
-  `;
+  const { IS_SKELETON, LIST_TERMS, error, funcGqlQueryGetTerms } =
+    useGutenbergSectionWithGQLGetTerms({ graphQLvariables, graphQLData });
 
-  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] = useLazyQuery(
-    queryGql,
-    {
-      variables: graphQLvariables.variables,
-    }
-  );
-
-  // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
-
-  // =========================================================
-  const termsLists = data?.tags?.edges || data?.categories?.edges || [];
-  const IS_SKELETON = loading && !termsLists.length;
+  //
+  let ref: React.RefObject<HTMLDivElement> | null = null;
+  if (IS_SPECIFIC_DATA) {
+    ref = useRef<HTMLDivElement>(null);
+  } else {
+    ref = useGqlQuerySection(funcGqlQueryGetTerms, sectionIndex).ref;
+  }
 
   const renderContent = () => {
     return (
       <div ref={ref}>
         <WidgetCategories
-          categories={termsLists}
+          categories={LIST_TERMS}
           heading={settings.heading}
           termCardName={settings.termCardName}
           isLoading={IS_SKELETON}
+          categoriesLoading={Array.from(
+            Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+          )}
         />
 
         <DataStatementBlockV2
           className="my-5"
-          data={termsLists}
+          data={LIST_TERMS}
           error={error}
           isSkeleton={IS_SKELETON}
         />

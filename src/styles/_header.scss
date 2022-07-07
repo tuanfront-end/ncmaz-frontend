@@ -1,13 +1,19 @@
 .nc-MainNav1 {
   &.notOnTop {
-    @apply bg-white dark:bg-neutral-900 backdrop-blur-2xl bg-opacity-70 dark:bg-opacity-60 shadow-sm dark:border-b dark:border-neutral-700;
+    @apply bg-white/70 dark:bg-neutral-900/60 backdrop-blur-2xl shadow-sm dark:border-b dark:border-neutral-700;
   }
 }
 
 //
 .site-logo {
   img {
-    max-width: 90px;
-    max-height: 50px;
+    max-width: 80px;
+    max-height: 40px;
+  }
+  @screen sm {
+    img {
+      max-width: 90px;
+      max-height: 48px;
+    }
   }
 }

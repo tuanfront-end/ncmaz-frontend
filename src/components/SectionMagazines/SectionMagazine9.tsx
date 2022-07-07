@@ -16,7 +16,9 @@ const SectionMagazine9: FC<SectionMagazine9Props> = ({
 }) => {
   return (
     <div>
-      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8`}>
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 2xl:gap-8`}
+      >
         {isLoading ? (
           <Card9Skeleton ratio="aspect-w-4 aspect-h-3" />
         ) : listPosts[0] ? (
@@ -33,7 +35,9 @@ const SectionMagazine9: FC<SectionMagazine9Props> = ({
           <Card9 ratio="aspect-w-4 aspect-h-3" post={listPosts[2].node} />
         ) : null}
       </div>
-      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-8`}>
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 2xl:gap-8 mt-8`}
+      >
         {isLoading
           ? [1, 1, 1, 1, 1, 1].map((_, i) => <Card15PodcastSkeleton key={i} />)
           : listPosts

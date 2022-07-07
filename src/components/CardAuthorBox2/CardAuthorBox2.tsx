@@ -20,6 +20,9 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
       href={frontendObject.homeURL + uri}
       className={`nc-CardAuthorBox2 flex flex-col overflow-hidden [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="CardAuthorBox2"
+      onDragEnd={() => console.log(222)}
+      onDragLeave={() => console.log(222)}
+      onDragOver={() => console.log(222)}
     >
       <div className="relative flex-shrink-0 ">
         <div>
@@ -45,9 +48,9 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
           userName={username}
         />
         <div className="mt-3">
-          <h2 className={`text-base font-medium`}>
+          <h4 className={`text-base font-medium`}>
             <span className="line-clamp-1">{name}</span>
-          </h2>
+          </h4>
           <span
             className={`block mt-1 text-sm text-neutral-500 dark:text-neutral-400`}
           >

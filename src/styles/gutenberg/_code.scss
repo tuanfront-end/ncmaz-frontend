@@ -2,7 +2,7 @@
 .xl\:prose-lg {
   // ---------------------------------- ##  Code ----------------------------------
   code {
-    @apply dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-900 font-normal px-0.5 rounded-[4px];
+    @apply dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-900 font-normal px-0.5 rounded-[4px] border-none;
     font-size: inherit;
     &::after,
     &::before {
@@ -10,8 +10,9 @@
     }
   }
   pre {
-    @apply dark:border dark:border-neutral-6000 overflow-x-auto;
-    strong {
+    strong,
+    code {
+      @apply bg-transparent dark:bg-transparent;
       color: inherit;
     }
   }
@@ -20,7 +21,6 @@
 //
 .prose-sm {
   pre {
-    @apply dark:border dark:border-neutral-6000 overflow-x-auto;
     strong {
       color: inherit;
     }

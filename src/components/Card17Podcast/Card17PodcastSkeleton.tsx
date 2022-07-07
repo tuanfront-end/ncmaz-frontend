@@ -23,9 +23,9 @@ const Card17PodcastSkeleton: FC<Card17PodcastSkeletonProps> = ({
           />
         </div>
         <div className="flex flex-col flex-grow">
-          <h2 className={`block font-semibold text-lg`}>
+          <h3 className={`block font-semibold text-lg`}>
             <Skeleton />
-          </h2>
+          </h3>
           <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
             <Skeleton width="40%" />
           </span>

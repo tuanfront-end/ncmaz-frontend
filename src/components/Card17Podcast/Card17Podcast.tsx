@@ -10,7 +10,8 @@ export interface Card17PodcastProps {
 
 const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
   const { title, link, featuredImage, postFormats, excerpt } = post;
-  const postFormatName:PostFormatsType |undefined  = postFormats?.edges[0]?.node.slug;
+  const postFormatName: PostFormatsType | undefined =
+    postFormats?.edges[0]?.node.slug;
 
   const renderIcon = (state?: "loading" | "playing") => {
     switch (state) {
@@ -90,11 +91,11 @@ const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
           />
         </div>
         <div className="flex flex-col flex-grow">
-          <h2 className={`block font-semibold text-lg`}>
+          <h3 className={`block font-semibold text-sm sm:text-lg`}>
             <span className="line-clamp-1" title={title}>
               {title}
             </span>
-          </h2>
+          </h3>
           {excerpt ? (
             <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 ">
               <span
@@ -106,7 +107,8 @@ const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
         </div>
       </a>
 
-      {(postFormatName === "post-format-video" || postFormatName === "post-format-audio") && (
+      {(postFormatName === "post-format-video" ||
+        postFormatName === "post-format-audio") && (
         <ButtonPlayMusicRunningContainer
           post={post}
           className=""

@@ -8,11 +8,12 @@ import ButtonPrimary from "components/Button/ButtonPrimary";
 import { PageInfo } from "containers/SingleComments/commentType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import Skeleton from "react-loading-skeleton";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   tags: Tags;
 }
-interface Tags {
+export interface Tags {
   edges: Edge[];
   pageInfo: PageInfo;
   __typename: string;
@@ -36,6 +37,9 @@ const ModalTags: FC<ModalTagsProps> = () => {
   );
 
   const handleClickOpen = () => {
+    if (data?.tags.edges.length) {
+      return;
+    }
     getListTags({ variables: { first: POST_PER_PAGE } });
   };
 
@@ -98,7 +102,7 @@ const ModalTags: FC<ModalTagsProps> = () => {
 
         {data?.tags.pageInfo.hasNextPage && (
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         )}
       </div>
@@ -112,10 +116,13 @@ const ModalTags: FC<ModalTagsProps> = () => {
         onOpenModal={handleClickOpen}
         triggerText={
           <span>
-            <span className="hidden sm:inline">Other</span> Tags
+            <span className="hidden sm:inline">
+              {NCMAZ_TRANSLATE["otherTags"]}
+            </span>{" "}
+            <span className="inline sm:hidden">{NCMAZ_TRANSLATE["tags"]}</span>
           </span>
         }
-        modalTitle="Discover other tags"
+        modalTitle={NCMAZ_TRANSLATE["discoverOtherTags"]}
         renderContent={renderModalContent}
       />
     </div>

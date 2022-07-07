@@ -49,7 +49,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
       data-nc-id="CardCategory4"
     >
       <div
-        className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-3xl overflow-hidden group`}
+        className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-3xl overflow-hidden z-0 group`}
       >
         <NcImage
           src={featuredImage?.sourceUrl || "."}
@@ -72,11 +72,11 @@ const CardCategory4: FC<CardCategory4Props> = ({
           className={`flex-shrink-0 w-10 h-10 ${getColorClass()} rounded-full`}
         ></div>
         <div className="ml-3 truncate">
-          <h2
+          <h3
             className={`text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-medium truncate`}
           >
             {name}
-          </h2>
+          </h3>
           <span
             className={`block mt-1 text-sm text-neutral-6000 dark:text-neutral-400`}
           >

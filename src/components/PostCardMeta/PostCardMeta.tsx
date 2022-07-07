@@ -26,13 +26,15 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
     >
       <a
         href={frontendObject.homeURL + author?.node.uri}
-        className="relative flex items-center space-x-2 truncate"
+        className="relative flex items-center space-x-2 "
       >
         {!hiddenAvatar && (
           <Avatar
             radius="rounded-full"
             sizeClass={
-              size === "normal" ? "h-7 w-7 text-sm" : "h-10 w-10 text-xl"
+              size === "normal"
+                ? "h-5 w-5 sm:h-7 sm:w-7 text-xs sm:text-sm"
+                : "h-8 w-8 sm:h-10 sm:w-10 text-base sm:text-xl"
             }
             imgUrl={
               author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
@@ -41,8 +43,8 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
             userName={author?.node.username}
           />
         )}
-        <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium py-1 truncate">
-          {author?.node.name}
+        <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium py-1 ">
+          <span className="line-clamp-1"> {author?.node.name}</span>
         </span>
       </a>
       <>

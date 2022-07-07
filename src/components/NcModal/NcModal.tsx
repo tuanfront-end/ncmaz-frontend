@@ -13,6 +13,8 @@ export interface NcModalProps {
   isOpenProp?: boolean;
   onCloseModal?: () => void;
   onOpenModal?: () => void;
+  initialFocusRef?: React.MutableRefObject<null>;
+  modalUnmountOnClose?: boolean;
 }
 
 const NcModal: FC<NcModalProps> = ({
@@ -25,6 +27,8 @@ const NcModal: FC<NcModalProps> = ({
   isOpenProp,
   onCloseModal,
   onOpenModal,
+  initialFocusRef,
+  modalUnmountOnClose = true,
 }) => {
   let [isOpen, setIsOpen] = useState(!!isOpenProp);
 
@@ -57,8 +61,10 @@ const NcModal: FC<NcModalProps> = ({
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-50 overflow-y-auto"
+          className="fixed inset-0 z-[999999999] overflow-y-auto"
           onClose={closeModal}
+          initialFocus={initialFocusRef}
+          unmount={modalUnmountOnClose}
         >
           <div className="min-h-screen px-1 text-center md:px-4">
             <Transition.Child
@@ -70,7 +76,7 @@ const NcModal: FC<NcModalProps> = ({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-neutral-900 bg-opacity-50 dark:bg-opacity-80" />
+              <Dialog.Overlay className="fixed inset-0 bg-neutral-900/60  dark:bg-black/80" />
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}

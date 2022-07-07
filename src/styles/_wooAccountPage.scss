@@ -1,0 +1,58 @@
+.woocommerce-account.woocommerce-page #ncmaz-single-entry-content {
+  .woocommerce {
+    @apply flex flex-col lg:flex-row pt-6 lg:pt-12 text-base border-t-2 border-neutral-100 dark:border-neutral-700;
+  }
+  .woocommerce-MyAccount-navigation {
+    @apply flex-shrink-0;
+    ul {
+      @apply list-none p-0 space-y-4 lg:space-y-6;
+      li {
+        @apply pl-1.5;
+        &.is-active {
+          @apply border-l-2 border-primary-500;
+          a {
+            @apply text-primary-500 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-500;
+          }
+        }
+        &.woocommerce-MyAccount-navigation-link--customer-logout a {
+          @apply text-red-500 #{!important};
+        }
+        a {
+          @apply text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 font-medium;
+        }
+      }
+    }
+  }
+  .woocommerce-MyAccount-content {
+    @apply flex-1 mt-5 lg:mt-0 lg:ml-16 p-4 sm:px-8 sm:py-4 border border-neutral-200 dark:border-neutral-700 rounded-2xl overflow-x-auto text-base 
+    prose dark:prose-invert max-w-full;
+    .woocommerce-Message {
+      @apply text-sm;
+    }
+    table {
+      @apply text-sm;
+    }
+  }
+  .woocommerce-EditAccountForm {
+    .form-row {
+      label {
+        @apply block text-sm font-medium;
+      }
+      em {
+        @apply text-sm;
+      }
+    }
+  }
+}
+
+.woocommerce-form {
+  .form-row {
+    label {
+      @apply block font-medium;
+    }
+    .woocommerce-form-login__submit,
+    .woocommerce-form-register__submit {
+      @apply px-6 mt-5;
+    }
+  }
+}

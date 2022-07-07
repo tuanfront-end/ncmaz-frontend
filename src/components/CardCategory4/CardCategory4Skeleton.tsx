@@ -38,11 +38,11 @@ const CardCategory4Skeleton: FC<CardCategory4SkeletonProps> = ({
           className={`flex-shrink-0 w-10 h-10 bg-pink-500 rounded-full`}
         ></div>
         <div className="ml-3 truncate flex-grow">
-          <h2
+          <h3
             className={`text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-medium truncate`}
           >
             <Skeleton width="90%" />
-          </h2>
+          </h3>
           <span
             className={`block mt-1 text-sm text-neutral-6000 dark:text-neutral-400`}
           >

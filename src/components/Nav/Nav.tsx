@@ -3,6 +3,7 @@ import React, { FC } from "react";
 export interface NavProps {
   containerClassName?: string;
   className?: string;
+  children: React.ReactNode;
 }
 
 const Nav: FC<NavProps> = ({

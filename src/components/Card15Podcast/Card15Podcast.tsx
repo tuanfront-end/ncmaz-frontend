@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
 import { PostNode } from "data/postCardType";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface Card15PodcastProps {
   className?: string;
@@ -78,7 +79,9 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
         </span>
 
         <span className="ml-3 text-sm font-medium">
-          {state === "playing" ? "Now playing" : "Listen now"}
+          {state === "playing"
+            ? NCMAZ_TRANSLATE["Now playing"]
+            : NCMAZ_TRANSLATE["Listen now"]}
         </span>
       </div>
     );
@@ -104,11 +107,11 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
       </div>
 
       <div className="flex flex-col flex-grow ml-4 overflow-hidden">
-        <h2 className={`nc-card-title block font-semibold text-lg`}>
+        <h3 className={`nc-card-title block font-semibold text-sm sm:text-lg`}>
           <a href={link} className="line-clamp-1" title={title}>
             {title}
           </a>
-        </h2>
+        </h3>
         {excerpt ? (
           <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 ">
             <span
@@ -118,7 +121,8 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
           </span>
         ) : null}
 
-        {(postFormatName === "post-format-video" || postFormatName === "post-format-audio") && (
+        {(postFormatName === "post-format-video" ||
+          postFormatName === "post-format-audio") && (
           <ButtonPlayMusicRunningContainer
             post={post}
             className=""

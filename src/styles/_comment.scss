@@ -1,6 +1,7 @@
 #comments .comment-list {
   @apply space-y-5;
-  .comment {
+  .comment,
+  .review {
     &.depth-1 {
       > .nc-CommentCard .comment-author .wil-avatar {
         @apply sm:text-lg sm:h-8 sm:w-8;
@@ -12,6 +13,11 @@
 
     #respond {
       @apply mt-4 mb-10;
+    }
+
+    .prose > *,
+    .xl\:prose-lg > * {
+      @apply mt-0 mb-0;
     }
   }
 }

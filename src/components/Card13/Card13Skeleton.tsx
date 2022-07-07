@@ -13,9 +13,9 @@ const Card13Skeleton: FC<Card13SkeletonProps> = ({ className = "" }) => {
       data-nc-id="Card13Skeleton"
     >
       <div className="flex flex-col py-2 flex-grow">
-        <h2 className={`nc-card-title block w-full font-semibold text-base`}>
+        <h3 className={`nc-card-title block w-full font-semibold text-base`}>
           <Skeleton width="90%" />
-        </h2>
+        </h3>
         <span className="hidden sm:block w-full my-3 text-neutral-500 dark:text-neutral-400 ">
           <Skeleton width="80%" />
         </span>

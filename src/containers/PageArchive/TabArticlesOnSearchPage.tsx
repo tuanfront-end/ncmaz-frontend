@@ -3,9 +3,13 @@ import ButtonPrimary from "components/Button/ButtonPrimary";
 import Card11 from "components/Card11/Card11";
 import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
-import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
+import {
+  POSTS_SECTION_BY_FILTER__string,
+  POSTS_SECTION_BY_SEARCH_NO_FILTER__string,
+} from "./queryGraphql";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   posts: ListPosts;
@@ -27,17 +31,26 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
 
   //
   let variables = {};
+  let QUERY_STRING__XXX = "";
   //
-
-  variables = {
-    order: "DESC",
-    field: orderByState,
-    first: POST_PER_PAGE,
-    search: searchText,
-  };
+  if (!!orderByState) {
+    QUERY_STRING__XXX = POSTS_SECTION_BY_FILTER__string;
+    variables = {
+      order: "DESC",
+      field: orderByState,
+      first: POST_PER_PAGE,
+      search: searchText,
+    };
+  } else {
+    QUERY_STRING__XXX = POSTS_SECTION_BY_SEARCH_NO_FILTER__string;
+    variables = {
+      first: POST_PER_PAGE,
+      search: searchText,
+    };
+  }
 
   const gqlQuery = gql`
-    ${POSTS_SECTION_BY_FILTER__string}
+    ${QUERY_STRING__XXX}
   `;
 
   const { loading, error, data, fetchMore } = useQuery<Data>(gqlQuery, {
@@ -49,7 +62,10 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
     if (typeof data?.posts.pageInfo?.total !== "number") {
       return;
     }
-    onUpdateTotal(`${data?.posts.edges.length} articles` || `0 articles`);
+    onUpdateTotal(
+      `${data?.posts.edges.length} ${NCMAZ_TRANSLATE["articles"]}` ||
+        `0 ${NCMAZ_TRANSLATE["articles"]}`
+    );
   }, [data]);
 
   const POSTS = data?.posts.edges || [];
@@ -98,7 +114,7 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
 
       {/* LOOP ITEMS */}
       {IS_SKELETON || POSTS.length ? (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8 ">
           {IS_SKELETON &&
             Array.from("88888888").map((_, index) => (
               <Card11Skeleton key={index} />
@@ -113,7 +129,7 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
       {data?.posts.pageInfo?.hasNextPage && (
         <div className="flex justify-center mt-12 lg:mt-16">
           <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
-            Show me more
+            {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
         </div>
       )}

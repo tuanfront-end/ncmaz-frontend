@@ -1,17 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import ReactDOM from "react-dom";
-import { gql, useLazyQuery } from "@apollo/client";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
 import { GutenbergApiAttr_BlockTermGrid } from "data/gutenbergAttrType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
-import {
-  GQL_QUERY_GET_CATEGORIES_BY_FILTER,
-  GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC,
-  GQL_QUERY_GET_TAGS_BY_FILTER,
-  GQL_QUERY_GET_TAGS_BY_SPECIFIC,
-} from "contains/contants";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
+import useGutenbergSectionWithGQLGetTerms from "hooks/useGutenbergSectionWithGQLGetTerms";
 
 export interface FactoryBlockTermsGridProps {
   className?: string;
@@ -26,40 +20,19 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, settings } = apiSettings;
+  const { graphQLvariables, graphQLData, settings } = apiSettings;
+  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
-  let GQL_QUERY__string = "";
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_CATEGORIES_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_CATEGORIES_BY_FILTER;
+  const { IS_SKELETON, LIST_TERMS, error, funcGqlQueryGetTerms } =
+    useGutenbergSectionWithGQLGetTerms({ graphQLvariables, graphQLData });
+
+  //
+  let ref: React.RefObject<HTMLDivElement> | null = null;
+  if (IS_SPECIFIC_DATA) {
+    ref = useRef<HTMLDivElement>(null);
+  } else {
+    ref = useGqlQuerySection(funcGqlQueryGetTerms, sectionIndex).ref;
   }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_TAGS_BY_FILTER") {
-    GQL_QUERY__string = GQL_QUERY_GET_TAGS_BY_FILTER;
-  }
-  if (graphQLvariables.queryString === "GQL_QUERY_GET_TAGS_BY_SPECIFIC") {
-    GQL_QUERY__string = GQL_QUERY_GET_TAGS_BY_SPECIFIC;
-  }
-  const queryGql = gql`
-    ${GQL_QUERY__string}
-  `;
-
-  const [gqlQueryGetPosts, { loading, error, data, fetchMore }] = useLazyQuery(
-    queryGql,
-    {
-      notifyOnNetworkStatusChange: true,
-      variables: graphQLvariables.variables,
-    }
-  );
-
-  // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, sectionIndex);
-
-  // =========================================================
-
-  const termsLists = data?.tags?.edges || data?.categories?.edges || [];
-  const IS_SKELETON = loading && !termsLists.length;
 
   const renderContent = () => {
     const {
@@ -85,18 +58,21 @@ const FactoryBlockTermsGrid: FC<FactoryBlockTermsGridProps> = ({
         <div className="relative">
           {/* ------------ */}
           <SectionGridCategoryBox
-            categories={termsLists}
+            categories={LIST_TERMS}
             heading={heading}
             subHeading={subHeading}
             headingCenter={blockLayoutStyle === "layout-1"}
             categoryCardType={termCardName}
             gridClass={!!gridClassCustom ? gridClassCustom : gridClass}
             isLoadingSkeleton={IS_SKELETON}
+            isLoadingSkeletonArr={Array.from(
+              Array(Number(settings.expectedNumberResults || 8) || 8).keys()
+            )}
           />
 
           {/* ------------ */}
           <DataStatementBlockV2
-            data={termsLists}
+            data={LIST_TERMS}
             isSkeleton={IS_SKELETON}
             error={error}
           />
