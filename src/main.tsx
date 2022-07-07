@@ -12,8 +12,11 @@ import {
 } from "@apollo/client";
 import { createRoot } from "react-dom/client";
 import { RetryLink } from "@apollo/client/link/retry";
-//
+
+// JS DOM FUNCTIONALITY
 import "./SomeCustomJsDOM";
+import "./HeaderSite";
+import "./HeaderSingle";
 //
 import "./index.css";
 import "./styles/index.scss";

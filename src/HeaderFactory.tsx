@@ -1,13 +1,13 @@
 import ErrorBoundary from "ErrorBoundary";
 import React, { Suspense } from "react";
 
-const HeaderSiteLazy = React.lazy(
-  () => import("components/HeaderSite/HeaderSite")
-);
+// const HeaderSiteLazy = React.lazy(
+//   () => import("components/HeaderSite/HeaderSite")
+// );
 
-const HeaderSingleLazy = React.lazy(
-  () => import("components/HeaderSite/HeaderSingle")
-);
+// const HeaderSingleLazy = React.lazy(
+//   () => import("components/HeaderSite/HeaderSingle")
+// );
 
 const MegamenuItemLazy = React.lazy(
   () => import("components/MegamenuItem/MegamenuItem")
@@ -17,9 +17,9 @@ const domNodesMegamenuItem = document.querySelectorAll(
   "[data-is-megamenu=true]"
 );
 
-const headerSinglePageNode: HTMLElement | null = document.querySelector(
-  ".nc-SingleHeaderMenu"
-);
+// const headerSinglePageNode: HTMLElement | null = document.querySelector(
+//   ".nc-SingleHeaderMenu"
+// );
 
 const HeaderFactory = () => {
   const renderPortalMegamenuItem = () => {
@@ -50,17 +50,17 @@ const HeaderFactory = () => {
   return (
     <>
       {/* ----------SITE HEADER PROGRESS---------- */}
-      <ErrorBoundary>
-        <Suspense fallback={<div />}>
+      {/* <ErrorBoundary> */}
+      {/* <Suspense fallback={<div />}>
           <HeaderSiteLazy />
-        </Suspense>
+        </Suspense> */}
 
-        {!!headerSinglePageNode && (
+      {/* {!!headerSinglePageNode && (
           <Suspense fallback={<div />}>
             <HeaderSingleLazy />
           </Suspense>
-        )}
-      </ErrorBoundary>
+        )} */}
+      {/* </ErrorBoundary> */}
 
       {/* ----------MegamenuItem---------- */}
       {renderPortalMegamenuItem()}

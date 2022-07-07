@@ -4,32 +4,6 @@ import {
 } from "./contantsCommon";
 // ===================== POSTS =================================================
 
-let GQL_QUERY_GET_POST_BY_DATABASE_ID = `
-  query GQL_QUERY_GET_POST_BY_DATABASE_ID(
-    $language: LanguageCodeFilterEnum = ${
-      window.frontendObject.pll_current_language
-    }
-    $id: ID = null
-    $idType: PostIdType = DATABASE_ID
-    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
-    $featuredImage_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
-    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
-  ) {
-      posts(
-        where: {
-          language: $language
-        }
-        id: $id, idType: $idType 
-      ) {
-      ${EDGES_POST_COMMONT_FIELDS}
-      }
-    }
-`;
-
 const GQL_QUERY_GET_POSTS_BY_FILTER = `
   query GQL_QUERY_GET_POSTS_BY_FILTER(
     $language: LanguageCodeFilterEnum = ${
@@ -197,7 +171,6 @@ const GQL_QUERY_GET_TAGS_BY_SPECIFIC = `
 export const PLLs = {
   PLL_GET__GQL_QUERY_GET_POSTS_BY_FILTER: GQL_QUERY_GET_POSTS_BY_FILTER,
   PLL_GET__GQL_QUERY_GET_POSTS_BY_SPECIFIC: GQL_QUERY_GET_POSTS_BY_SPECIFIC,
-  PLL_GET__GQL_QUERY_GET_POST_BY_DATABASE_ID: GQL_QUERY_GET_POST_BY_DATABASE_ID,
   //
   PLL_GET__GQL_QUERY_GET_CATEGORIES_BY_FILTER:
     GQL_QUERY_GET_CATEGORIES_BY_FILTER,

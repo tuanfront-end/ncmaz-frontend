@@ -75,4 +75,4 @@ try {
   console.log("-------SomeCustomJsDOM----------", error);
 }
 
-export {};
+export default {};

@@ -15,21 +15,17 @@ function ncmazFe_addModuleTypeForScripts($tag, $handle, $src)
         '@vite-client-js' === $handle ||
         $handle === 'ncmaz-frontend-src-main-tsx' ||
         boolval(preg_match(
-            '/^vitejs-main-module--/',
+            '/^vitejs-module--/',
             $handle,
         ))
     ) {
         return  $tag = '<script id="' . esc_attr($handle) . '"  type="module" src="' . esc_url($src) . '"></script>';
     }
+
     // 
-    $deferJs = array('ncmaz-frontend-js',);
-    if (in_array($handle, $deferJs)) {
-        return  $tag = '<script id="' . esc_attr($handle) . '"  defer src="' . esc_url($src) . '"></script>';
-    }
-    // 
-    $preloadJs = array('ncmaz-frontend-js-preload', 'xxxxx--preload');
+    $preloadJs = array('ncmazFe-mainJs-preload');
     if (in_array($handle, $preloadJs)) {
-        return  $tag = '<link as="script" rel="preload"  src="' . esc_url($src) . '">';
+        return  $tag = '<link as="script" rel="preload"  href="' . esc_url($src) . '">';
     }
     return $tag;
 }
@@ -84,7 +80,6 @@ function ncmazFe_print_scripts()
 <?php
 }
 
-
 // JAVASCRIPT
 add_action('wp_enqueue_scripts', 'ncmazFe_enqueueScriptCustomize');
 function ncmazFe_enqueueScriptCustomize()
@@ -100,8 +95,8 @@ function ncmazFe_enqueueScriptCustomize()
     $allSettings = ncmazFe_getAllSettingsGraphql();
 
     // ENQUEUE customizer.js file
-    wp_enqueue_script('ncmaz-frontend-js-preload', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, false);
-    wp_enqueue_script('ncmaz-frontend-js', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
+    wp_enqueue_script('ncmazFe-mainJs-preload', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, false);
+    wp_enqueue_script('ncmazFe-mainJs', _NCMAZ_FRONTEND_DIR_URL . 'dist/js/customizer.js', array(), _NCMAZ_FRONTEND_VERSION, true);
 
     // =============
     $monthNames = array_map(array(&$wp_locale, 'get_month'), range(1, 12));
@@ -109,7 +104,7 @@ function ncmazFe_enqueueScriptCustomize()
     $dayNames = array_map(array(&$wp_locale, 'get_weekday'), range(0, 6));
     $dayNamesShort = array_map(array(&$wp_locale, 'get_weekday_abbrev'), $dayNames);
 
-    wp_add_inline_script('ncmaz-frontend-js', 'window.DATE_I18N = ' . json_encode(
+    wp_add_inline_script('ncmazFe-mainJs', 'window.DATE_I18N = ' . json_encode(
         [
             "month_names" => $monthNames,
             "month_names_short" => $monthNamesShort,
@@ -118,7 +113,7 @@ function ncmazFe_enqueueScriptCustomize()
         ]
     ), 'before');
 
-    wp_add_inline_script('ncmaz-frontend-js', 'window.frontendObject = ' . json_encode(
+    wp_add_inline_script('ncmazFe-mainJs', 'window.frontendObject = ' . json_encode(
         [
             'ajaxurl'                       => admin_url('admin-ajax.php'),
             'stylesheetDirectory'           => get_template_directory_uri(),
@@ -143,7 +138,7 @@ function ncmazFe_enqueueScriptCustomize()
         ]
     ), 'before');
 
-    wp_add_inline_script('ncmaz-frontend-js', 'window.ncmazFrontendVariables = ' . json_encode(
+    wp_add_inline_script('ncmazFe-mainJs', 'window.ncmazFrontendVariables = ' . json_encode(
         [
             'pluginDir'             => _NCMAZ_FRONTEND_DIR_URL,
             'pluginDistImagesDir'   => _NCMAZ_FRONTEND_DIR_URL . 'dist/images/',
@@ -166,19 +161,18 @@ function ncmazFe_registerScripts()
     $jsFileUrl = (string) $manifestJS['src/main.tsx']['file'];
     $cssFileUrl = (string) $manifestJS['src/main.tsx']['css'][0];
     $cssLazyCssWoocommerce = (string) $manifestJS['src/LazyCssWoocommerce.tsx']['css'][0];
-    $name = 'vitejs-main-module--' . $jsFileUrl;
+    $name = 'vitejs-module--' . $jsFileUrl;
     // JS
-    wp_enqueue_script('xxxxx--preload', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, [], null, false);
-    wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['jquery', 'ncmaz-frontend-js'], null, true);
+    wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['jquery', 'ncmazFe-mainJs'], null, true);
     // CSS
-    wp_enqueue_style('ncmaz-vitebuild-css', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssFileUrl, [], _NCMAZ_FRONTEND_VERSION, 'all');
+    wp_enqueue_style('ncmazFe-main', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssFileUrl, [], _NCMAZ_FRONTEND_VERSION, 'all');
 
     // RTL styles.
-    wp_style_add_data('ncmaz-vitebuild-css', 'rtl', 'replace');
+    wp_style_add_data('ncmazFe-main', 'rtl', 'replace');
 
     // Woocommerce CSS
     if (class_exists('WooCommerce')) {
-        wp_enqueue_style('ncWoocommerce-css', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssLazyCssWoocommerce, [], _NCMAZ_FRONTEND_VERSION, 'all');
+        wp_enqueue_style('ncmazFe-Woocommerce', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssLazyCssWoocommerce, [], _NCMAZ_FRONTEND_VERSION, 'all');
     }
 }
 

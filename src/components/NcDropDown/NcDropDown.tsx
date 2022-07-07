@@ -43,11 +43,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
           onClick={() => onClickItem && onClickItem(item)}
           href={item.href}
         >
-          {!!item.icon && (
-            <i
-              className={`${item.icon} flex justify-center mr-1 w-7 text-base`}
-            ></i>
-          )}
+          {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-base`}></i>}
           <span className="truncate">{item.name}</span>
         </a>
       );
