@@ -41,34 +41,23 @@ if (!function_exists('ncmazFrontend_maybe_hide_admin_bar')) {
     }
 }
 
+
 // SHOW POST STATE FOR NCMAZ REACT-EDITOR PAGE
 add_filter('display_post_states', 'ncmazFe_custom_post_states', 10, 2);
 if (!function_exists('ncmazFe_custom_post_states')) {
     function ncmazFe_custom_post_states($states, $post)
     {
-        global $ncmaz_redux_demo;
-        if (!function_exists('ncmazFe_getIDBySlug') || empty($ncmaz_redux_demo)) {
+        $currentSpecificPage = checkPageNcmazAccountOrPostSubmissionEditor($post->ID);
+        if (empty($currentSpecificPage)) {
             return $states;
         }
-
-        if ('page' === get_post_type($post->ID)) {
-            if (intval($ncmaz_redux_demo['adv-global-variable--pageNcmazAccountUrl']) === $post->ID) {
-                $states[] = __('Ncmaz Edit Account Page');
-            } else if (empty(get_permalink($ncmaz_redux_demo['adv-global-variable--pageNcmazAccountUrl']))) {
-                if (ncmazFe_getIDBySlug('ncmaz-account') ===  $post->ID) {
-                    $states[] = __('Ncmaz Edit Account Page');
-                }
-            }
-
-            if (intval($ncmaz_redux_demo['adv-global-variable--pagePostSubmissionEditorUrl']) === $post->ID) {
-                $states[] = __('Ncmaz Post Submission Page');
-            } else if (empty(get_permalink($ncmaz_redux_demo['adv-global-variable--pagePostSubmissionEditorUrl']))) {
-                if (ncmazFe_getIDBySlug('ncmaz-submission-post-editor') ===  $post->ID) {
-                    $states[] = __('Ncmaz Post Submission Page');
-                }
-            }
+        if ($currentSpecificPage === "pageNcmazAccountUrl") {
+            $states[] = __('Ncmaz Edit Account Page');
         }
+        if ($currentSpecificPage === "pagePostSubmissionEditorUrl") {
+            $states[] = __('Ncmaz Post Submission Page');
+        }
+
         return $states;
     }
 }
-// 

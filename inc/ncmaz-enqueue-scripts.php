@@ -106,10 +106,10 @@ function ncmazFe_enqueueScriptCustomize()
 
     wp_add_inline_script('ncmazFe-mainJs', 'window.DATE_I18N = ' . json_encode(
         [
-            "month_names" => $monthNames,
+            "month_names"       => $monthNames,
             "month_names_short" => $monthNamesShort,
-            "day_names" => $dayNames,
-            "day_names_short" => $dayNamesShort
+            "day_names"         => $dayNames,
+            "day_names_short"   => $dayNamesShort
         ]
     ), 'before');
 
@@ -126,9 +126,9 @@ function ncmazFe_enqueueScriptCustomize()
             'graphQLBasePath'               => get_site_url(null, '/graphql'),
             'socialsShare'                  => $ncmaz_redux_demo['nc-general-settings--multi-socials-share'],
             'homeURL'                       => get_site_url(),
-            'currentUser'                   => $currentUser ? $currentUser['data']['viewer'] : null,
-            'allSettings'                   => $allSettings ? $allSettings['data']['allSettings'] : null,
-            'currentObject'                 => ['id'        => get_the_ID()],
+            'currentUser'                   => empty($currentUser) ?  null : $currentUser['data']['viewer'],
+            'allSettings'                   => empty($allSettings) ?  null : $allSettings['data']['allSettings'],
+            'currentObject'                 => ['id'    => get_the_ID()],
             'pll_current_language'          => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
             'pll_themeoption_actived'       => (function_exists('pll_current_language') && boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang'])) ? 'true' : null,
             'musicPlayerMode'               => $ncmaz_redux_demo['nc-general-settings--music-player-opt-switch'] ? "true" : null,
@@ -139,11 +139,11 @@ function ncmazFe_enqueueScriptCustomize()
             'pageNcmazAccountUrl'           => empty($variablePageNcmazAccountUrl) ? "" : $variablePageNcmazAccountUrl,
             'wpLogoutUrl'                   => wp_logout_url(get_site_url()),
             // 
-            'maxTagsLengSubmit'             => intval($ncmaz_redux_demo['adv-global-variable--max-tags-submit']) ?? 5,
-            'maxCategoriesLengSubmit'       => intval($ncmaz_redux_demo['adv-global-variable--max-categories-submit']) ?? 5,
-            'authorPageCoverImgDefault'     => $ncmaz_redux_demo['nc-archive-page-settings--authorPageCoverImgDefault']['url'],
-            'archivePageCoverImgDefault'    => $ncmaz_redux_demo['nc-archive-page-settings--archivePageCoverImgDefault']['url'],
-            'searchPageCoverImgDefault'     => $ncmaz_redux_demo['nc-search-page-settings--media-background']['url'],
+            'maxTagsLengSubmit'             => empty(intval($ncmaz_redux_demo['adv-global-variable--max-tags-submit'])) ? 5 : intval($ncmaz_redux_demo['adv-global-variable--max-tags-submit']),
+            'maxCategoriesLengSubmit'       => empty(intval($ncmaz_redux_demo['adv-global-variable--max-categories-submit'])) ? 5 : intval($ncmaz_redux_demo['adv-global-variable--max-categories-submit']),
+            'authorPageCoverImgDefault'     => empty($ncmaz_redux_demo['nc-archive-page-settings--authorPageCoverImgDefault']) ? "" : $ncmaz_redux_demo['nc-archive-page-settings--authorPageCoverImgDefault']['url'],
+            'archivePageCoverImgDefault'    => empty($ncmaz_redux_demo['nc-archive-page-settings--archivePageCoverImgDefault']) ? "" : $ncmaz_redux_demo['nc-archive-page-settings--archivePageCoverImgDefault']['url'],
+            'searchPageCoverImgDefault'     => empty($ncmaz_redux_demo['nc-search-page-settings--media-background']) ? "" : $ncmaz_redux_demo['nc-search-page-settings--media-background']['url'],
         ]
     ), 'before');
 
@@ -156,7 +156,7 @@ function ncmazFe_enqueueScriptCustomize()
 }
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
+add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
 function ncmazFe_registerScripts()
 {
     $manifestJS = false;
@@ -186,7 +186,7 @@ function ncmazFe_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

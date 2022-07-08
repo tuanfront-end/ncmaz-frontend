@@ -129,3 +129,37 @@ function ncmazFe_getIDBySlug($slug, $type = 'page')
     }
     return $oPage->ID;
 }
+
+// CHECK Page NcmazAccountUrl or Page PostSubmissionEditorUrl BY POST-ID
+function checkPageNcmazAccountOrPostSubmissionEditor($postID)
+{
+    global $ncmaz_redux_demo;
+    if (empty($ncmaz_redux_demo) || !function_exists('ncmazFe_getIDBySlug')) {
+        return null;
+    }
+
+    if ('page' === get_post_type($postID)) {
+        $variablePageNcmazAccount = $ncmaz_redux_demo['adv-global-variable--pageNcmazAccountUrl'];
+        $variablePagePostSubmissionEditor = $ncmaz_redux_demo['adv-global-variable--pagePostSubmissionEditorUrl'];
+
+        if (intval($variablePageNcmazAccount) === $postID) {
+            return 'pageNcmazAccountUrl';
+        }
+        if (empty($variablePageNcmazAccount) || !get_permalink($variablePageNcmazAccount)) {
+            if (ncmazFe_getIDBySlug('ncmaz-account') ===  $postID) {
+                return 'pageNcmazAccountUrl';
+            }
+        }
+
+        if (intval($variablePagePostSubmissionEditor) === $postID) {
+            return 'pagePostSubmissionEditorUrl';
+        }
+        if (empty($variablePagePostSubmissionEditor) || !get_permalink($variablePagePostSubmissionEditor)) {
+            if (ncmazFe_getIDBySlug('ncmaz-submission-post-editor') === $postID) {
+                return 'pagePostSubmissionEditorUrl';
+            }
+        }
+    }
+
+    return null;
+}

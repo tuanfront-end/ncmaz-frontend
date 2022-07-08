@@ -245,9 +245,9 @@ $section = array(
         [
             'id'       => 'adv-global-variable--pagePostSubmissionEditorUrl',
             'type'     => 'select',
-            'title'    => esc_html__('Select pagePostSubmissionEditorUrl', 'your-textdomain-here'),
-            'subtitle' => esc_html__('No validation can be done on this field type', 'your-textdomain-here'),
-            'desc'     => esc_html__('This is the description field, again good for additional info.', 'your-textdomain-here'),
+            'title'    => esc_html__('Select pagePostSubmissionEditorUrl', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('No validation can be done on this field type', 'ncmaz-frontend'),
+            'desc'     => esc_html__('This is the description field, again good for additional info.', 'ncmaz-frontend'),
             // Must provide key => value pairs for select options
             'data'      => 'pages',
             'args'      => array(
@@ -259,9 +259,9 @@ $section = array(
         [
             'id'       => 'adv-global-variable--pageNcmazAccountUrl',
             'type'     => 'select',
-            'title'    => esc_html__('Select pageNcmazAccountUrl', 'your-textdomain-here'),
-            'subtitle' => esc_html__('No validation can be done on this field type', 'your-textdomain-here'),
-            'desc'     => esc_html__('This is the description field, again good for additional info.', 'your-textdomain-here'),
+            'title'    => esc_html__('Select pageNcmazAccountUrl', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('No validation can be done on this field type', 'ncmaz-frontend'),
+            'desc'     => esc_html__('This is the description field, again good for additional info.', 'ncmaz-frontend'),
             // Must provide key => value pairs for select options
             'data'      => 'pages',
             'args'      => array(
