@@ -18,8 +18,8 @@ import {
 import PlayerContent from "./PlayerContent";
 import _ from "lodash";
 import usePrevious from "react-use/lib/usePrevious";
-import ReactHtml5Player, { FilePlayerProps } from "react-player/file";
-import ReactYoutubePlayer, { YouTubePlayerProps } from "react-player/youtube";
+import ReactPlayer, { ReactPlayerProps } from "react-player";
+import arraysEqual from "utils/arraysEqual";
 
 interface MediaRunningContainerChildProps {
   className?: string;
@@ -30,15 +30,14 @@ const IS_IOS =
   /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 // SELECT YOUR MEDIA SOURCE : HTML5(MP3, MP4) OR YOUTUBE OR BOTH
-const MEDIA_SOURCE_FROM =
-  window.frontendObject.musicPlayerMediaSource || "html5";
+const MEDIA_SOURCE_FROM = window.frontendObject.musicPlayerMediaSource || [
+  "html5",
+];
 
 const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
   className = "",
 }) => {
-  const playerRef:
-    | LegacyRef<ReactHtml5Player | ReactYoutubePlayer>
-    | undefined = useRef(null);
+  const playerRef: LegacyRef<ReactPlayer> | undefined = useRef(null);
 
   const currentAudioUrl = useAppSelector(selectCurrentAudioUrl);
   const mediaRunningState = useAppSelector(selectCurrentMediaState);
@@ -121,46 +120,66 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
   const getAudioUrl = (): {
     html5: string;
     youtube: string;
-    mediaSelected: "youtube" | "html5" | "none";
+    soundcloud: string;
+    mediaSelected: "youtube" | "html5" | "soundcloud" | "none";
   } => {
-    // BOTH YOUTUBE AND HTML5 SUPPORT
-    if (MEDIA_SOURCE_FROM === "youtube-html5") {
-      if (!currentAudioUrl) {
-        return {
-          html5: "none",
-          youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
-          mediaSelected: "none",
-        };
-      }
-      if (currentAudioUrl.includes("https://www.youtube.com/")) {
-        return {
-          html5: "none",
-          youtube: currentAudioUrl,
-          mediaSelected: "youtube",
-        };
-      }
-      return {
-        html5: currentAudioUrl,
-        youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
-        mediaSelected: "html5",
-      };
-    }
-
-    // ONLY HTML5 SUPPORT
-    if (MEDIA_SOURCE_FROM === "html5") {
+    if (arraysEqual(MEDIA_SOURCE_FROM, ["html5"])) {
       return {
         html5: currentAudioUrl || "none",
         youtube: "",
+        soundcloud: "",
         mediaSelected: "html5",
       };
     }
+    if (arraysEqual(MEDIA_SOURCE_FROM, ["youtube"])) {
+      return {
+        html5: "",
+        youtube:
+          currentAudioUrl || "https://www.youtube.com/watch?v=9xxxxxxxxxxx",
+        soundcloud: "",
+        mediaSelected: "youtube",
+      };
+    }
+    if (arraysEqual(MEDIA_SOURCE_FROM, ["soundcloud"])) {
+      return {
+        html5: "",
+        youtube: "",
+        soundcloud:
+          currentAudioUrl || "https://www.youtube.com/watch?v=EoDfHzo5IlM",
+        mediaSelected: "soundcloud",
+      };
+    }
 
-    // ONLY YOUTUBE SUPPORT
+    // BOTH SUPPORT
+    if (!currentAudioUrl) {
+      return {
+        html5: "none",
+        youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
+        soundcloud: "https://soundcloud.com/tycho/tycho-awake",
+        mediaSelected: "none",
+      };
+    }
+    if (currentAudioUrl.includes("https://www.youtube.com/")) {
+      return {
+        html5: "none",
+        youtube: currentAudioUrl,
+        soundcloud: "https://soundcloud.com/tycho/tycho-awake",
+        mediaSelected: "youtube",
+      };
+    }
+    if (currentAudioUrl.includes("https://soundcloud.com")) {
+      return {
+        html5: "none",
+        youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
+        soundcloud: currentAudioUrl,
+        mediaSelected: "soundcloud",
+      };
+    }
     return {
-      html5: "",
-      youtube:
-        currentAudioUrl || "https://www.youtube.com/watch?v=9xxxxxxxxxxx",
-      mediaSelected: "youtube",
+      html5: currentAudioUrl,
+      youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
+      soundcloud: "https://soundcloud.com/tycho/tycho-awake",
+      mediaSelected: "html5",
     };
   };
 
@@ -189,7 +208,7 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
       })
     );
   };
-  const onReady = (e: FilePlayerProps | YouTubePlayerProps) => {
+  const onReady = (e: ReactPlayerProps) => {
     if (!currentAudioUrl) {
       return;
     }
@@ -254,100 +273,89 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
         })
       );
   };
+
+  const renderMyReactPlayer = ({
+    isActive,
+    url,
+  }: {
+    isActive: boolean;
+    url: string;
+  }) => {
+    return (
+      <ReactPlayer
+        url={url}
+        controls
+        style={{
+          opacity: 0,
+          zIndex: -1111,
+          visibility: "hidden",
+        }}
+        ref={isActive ? (playerRef as LegacyRef<ReactPlayer>) : undefined}
+        onPause={isActive ? onPause : undefined}
+        playbackRate={isActive ? playbackRate : undefined}
+        playing={isActive ? checkIsPlaying() : undefined}
+        volume={volume}
+        muted={muted}
+        playsinline
+        onEnded={isActive ? onEnded : undefined}
+        onReady={isActive ? onReady : undefined}
+        onStart={isActive ? onStart : undefined}
+        onPlay={isActive ? onPlay : undefined}
+        onDuration={isActive ? onDuration : undefined}
+        onError={isActive ? onError : undefined}
+        onProgress={isActive ? onProgress : undefined}
+      />
+    );
+  };
+
   //
-  const myMemoYoutubePlayer = useMemo(() => {
-    if (MEDIA_SOURCE_FROM === "html5") {
+  const myMemoYoutubePlayer = () => {
+    if (!MEDIA_SOURCE_FROM.includes("youtube")) {
       return null;
     }
 
     const IS_ACTIVE_PLAYER = getAudioUrl().mediaSelected === "youtube";
     return (
-      <ReactYoutubePlayer
-        url={getAudioUrl().youtube}
-        controls
-        style={{
-          opacity: 0,
-          zIndex: -1111,
-          visibility: "hidden",
-        }}
-        //SAME
-        ref={
-          IS_ACTIVE_PLAYER
-            ? (playerRef as LegacyRef<ReactYoutubePlayer>)
-            : undefined
-        }
-        onPause={IS_ACTIVE_PLAYER ? onPause : undefined}
-        playbackRate={IS_ACTIVE_PLAYER ? playbackRate : undefined}
-        playing={IS_ACTIVE_PLAYER ? checkIsPlaying() : undefined}
-        volume={volume}
-        muted={muted}
-        playsinline
-        onEnded={IS_ACTIVE_PLAYER ? onEnded : undefined}
-        onReady={IS_ACTIVE_PLAYER ? onReady : undefined}
-        onStart={IS_ACTIVE_PLAYER ? onStart : undefined}
-        onPlay={IS_ACTIVE_PLAYER ? onPlay : undefined}
-        onDuration={IS_ACTIVE_PLAYER ? onDuration : undefined}
-        onError={IS_ACTIVE_PLAYER ? onError : undefined}
-        onProgress={IS_ACTIVE_PLAYER ? onProgress : undefined}
-      />
+      <div className="ReactPlayer_youtube">
+        {renderMyReactPlayer({
+          isActive: IS_ACTIVE_PLAYER,
+          url: getAudioUrl().youtube,
+        })}
+      </div>
     );
-  }, [
-    currentAudioUrl,
-    mediaRunningState,
-    seeking,
-    playbackRate,
-    volume,
-    muted,
-    newestAudioPlayerUrl,
-    isFirtTimeSeekTo,
-  ]);
+  };
 
-  const myMemoHtml5Player = useMemo(() => {
-    if (MEDIA_SOURCE_FROM === "youtube") {
+  const myMemoHtml5Player = () => {
+    if (!MEDIA_SOURCE_FROM.includes("html5")) {
       return null;
     }
 
     const IS_ACTIVE_PLAYER = getAudioUrl().mediaSelected === "html5";
     return (
-      <ReactHtml5Player
-        url={getAudioUrl().html5}
-        controls
-        style={{
-          opacity: 0,
-          zIndex: -1111,
-          visibility: "hidden",
-        }}
-        // SAME
-        ref={
-          IS_ACTIVE_PLAYER
-            ? (playerRef as LegacyRef<ReactHtml5Player>)
-            : undefined
-        }
-        onPause={IS_ACTIVE_PLAYER ? onPause : undefined}
-        playbackRate={IS_ACTIVE_PLAYER ? playbackRate : undefined}
-        playing={IS_ACTIVE_PLAYER ? checkIsPlaying() : undefined}
-        volume={volume}
-        muted={muted}
-        playsinline
-        onEnded={IS_ACTIVE_PLAYER ? onEnded : undefined}
-        onReady={IS_ACTIVE_PLAYER ? onReady : undefined}
-        onStart={IS_ACTIVE_PLAYER ? onStart : undefined}
-        onPlay={IS_ACTIVE_PLAYER ? onPlay : undefined}
-        onDuration={IS_ACTIVE_PLAYER ? onDuration : undefined}
-        onError={IS_ACTIVE_PLAYER ? onError : undefined}
-        onProgress={IS_ACTIVE_PLAYER ? onProgress : undefined}
-      />
+      <div className="ReactPlayer_html5">
+        {renderMyReactPlayer({
+          isActive: IS_ACTIVE_PLAYER,
+          url: getAudioUrl().html5,
+        })}
+      </div>
     );
-  }, [
-    currentAudioUrl,
-    mediaRunningState,
-    seeking,
-    playbackRate,
-    volume,
-    muted,
-    newestAudioPlayerUrl,
-    isFirtTimeSeekTo,
-  ]);
+  };
+
+  const myMemoSoundCloudPlayer = () => {
+    if (!MEDIA_SOURCE_FROM.includes("soundcloud")) {
+      return null;
+    }
+
+    const IS_ACTIVE_PLAYER = getAudioUrl().mediaSelected === "soundcloud";
+    return (
+      <div className="ReactPlayer_soundcloud">
+        {renderMyReactPlayer({
+          isActive: IS_ACTIVE_PLAYER,
+          url: getAudioUrl().soundcloud,
+        })}
+      </div>
+    );
+  };
 
   //
   const myMemoPlayerControls = useMemo(() => {
@@ -402,8 +410,9 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
 
       {/* ---- PLAYER ---- */}
       <div className="fixed top-0 left-0 w-1 h-1 -z-50 opacity-0 overflow-hidden">
-        {myMemoYoutubePlayer}
-        {myMemoHtml5Player}
+        {myMemoYoutubePlayer()}
+        {myMemoHtml5Player()}
+        {myMemoSoundCloudPlayer()}
       </div>
     </div>
   );

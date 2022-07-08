@@ -223,12 +223,10 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
 
   const renderInputAudio = () => {
     let sp = "mp3/mp4/Youtube";
-    if (frontendObject.musicPlayerMediaSource === "html5") {
-      sp = "mp3/mp4";
+    if (frontendObject.musicPlayerMediaSource) {
+      sp = frontendObject.musicPlayerMediaSource.join("/");
     }
-    if (frontendObject.musicPlayerMediaSource === "youtube") {
-      sp = "Youtube";
-    }
+
     return (
       <div>
         <Label>{`Audio URL (${sp} )`}</Label>

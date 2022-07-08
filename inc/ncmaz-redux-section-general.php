@@ -191,12 +191,13 @@ Redux::set_section($opt_name, $section);
 // ===========================GENERAL SETTING__SUB2 GENRAL ========================
 $section = array(
     'title'      => esc_html__('Frontend translate', 'ncmaz-frontend'),
-    'desc'       => esc_html__('All setting translate for frontend', 'ncmaz-frontend'),
+    'desc'       => esc_html__('All setting translate for frontend (The feature is under development, please follow this guide as an interim measure - https://nghiaxchis.gitbook.io/ncmaz-wordpress/how-to/translate-some-missing-words)', 'ncmaz-frontend'),
     'id'         => 'nc-general-settings--translate',
     'subsection' => true,
     'fields'     => array(),
 );
 Redux::set_section($opt_name, $section);
+
 
 // =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
 $section = array(
@@ -233,6 +234,7 @@ $section = array(
 
     ),
 );
+Redux::set_section($opt_name, $section);
 
 
 // =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
