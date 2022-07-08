@@ -157,7 +157,7 @@ const PageArchive: FC<PageArchiveProps> = ({
             containerClassName="absolute inset-0"
             src={
               termData.ncTaxonomyMeta.featuredImage?.sourceUrl ||
-              GLOBAL_VARIABLE.archivePageCoverImgDefault ||
+              frontendObject.archivePageCoverImgDefault ||
               "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
             className="object-cover w-full h-full"

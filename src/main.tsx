@@ -44,6 +44,12 @@ declare global {
   var DATE_I18N: any;
   //
   var frontendObject: {
+    maxTagsLengSubmit?: number;
+    maxCategoriesLengSubmit?: number;
+    authorPageCoverImgDefault?: string;
+    archivePageCoverImgDefault?: string;
+    searchPageCoverImgDefault?: string;
+    //
     wpLogoutUrl?: string;
     pagePostSubmissionEditorUrl: string;
     pageNcmazAccountUrl: string;

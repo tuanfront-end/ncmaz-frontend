@@ -4,7 +4,7 @@ import React from "react";
 const EmptyState = () => {
   return (
     <div
-      className={`inline-flex flex-col items-center justify-center text-center`}
+      className={`ncEmptyState inline-flex flex-col items-center justify-center text-center`}
     >
       <svg
         className="w-24 h-24 sm:w-32 sm:h-32 text-[#DEE9FF] dark:text-[#505b77] "
@@ -51,7 +51,7 @@ const EmptyState = () => {
         className="w-36 sm:w-40"
         alt="empty state"
       /> */}
-      <span className="text-sm block text-neutral-500 dark:text-neutral-400 mt-4">
+      <span className="text-sm block text-neutral-500 dark:text-neutral-400 mt-3">
         {NCMAZ_TRANSLATE["nothingWeFound"]}
       </span>
     </div>

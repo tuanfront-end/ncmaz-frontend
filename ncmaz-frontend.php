@@ -31,19 +31,15 @@ require plugin_dir_path(__FILE__) . 'inc/ncmaz-register-widgets.php';
 require plugin_dir_path(__FILE__) . 'inc/ncmaz-AFC-fields.php';
 // 
 
-
 add_action('plugins_loaded',  function () {
     require plugin_dir_path(__FILE__) . 'inc/ncmaz-redux-sample-config.php';
     // 
     require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-wpgraphql.php';
 });
 
+// ... 
+
 
 // 
-add_action('wp', 'ncmazFrontend_maybe_hide_admin_bar');
-function ncmazFrontend_maybe_hide_admin_bar()
-{
-    if (!current_user_can('manage_options')) {
-        add_filter('show_admin_bar', '__return_false');
-    }
-}
+// FOR END ==========
+require plugin_dir_path(__FILE__) . 'inc/ncmaz-custom-hooks.php';

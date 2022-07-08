@@ -18,10 +18,10 @@ const DataStatementBlockV2: FC<DataStatementBlockV2Props> = ({
   if (!error && (isSkeleton || data.length)) return null;
 
   return (
-    <div className={className}>
+    <div className={`ncDataStatementBlockV2 ${className}`}>
       {/* ERROR */}
       {error && (
-        <pre className="text-xs">
+        <pre className="ncDataStatementBlockV2__errorMess text-xs my-4">
           <code>{error.message}</code>
         </pre>
       )}

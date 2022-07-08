@@ -113,6 +113,9 @@ function ncmazFe_enqueueScriptCustomize()
         ]
     ), 'before');
 
+    // get SLUGS
+    $variablePagePostSubmissionEditorUrl =  get_permalink($ncmaz_redux_demo['adv-global-variable--pagePostSubmissionEditorUrl']);
+    $variablePageNcmazAccountUrl =  get_permalink($ncmaz_redux_demo['adv-global-variable--pageNcmazAccountUrl']);
     wp_add_inline_script('ncmazFe-mainJs', 'window.frontendObject = ' . json_encode(
         [
             'ajaxurl'                       => admin_url('admin-ajax.php'),
@@ -132,9 +135,15 @@ function ncmazFe_enqueueScriptCustomize()
             'musicPlayerMediaSource'        => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
             'restVarsEndpoint'              => esc_url_raw(rest_url('/wp/v2/media/')),
             'restVarsNonce'                 => wp_create_nonce('wp_rest'),
-            'pagePostSubmissionEditorUrl'         => is_user_logged_in() ?  ncmazFe_getLinkBySlug('ncmaz-submission-post-editor') : "",
-            'pageNcmazAccountUrl'                 => is_user_logged_in() ? ncmazFe_getLinkBySlug('ncmaz-account') : "",
-            'wpLogoutUrl'                         => wp_logout_url(get_site_url()),
+            'pagePostSubmissionEditorUrl'   => empty($variablePagePostSubmissionEditorUrl) ? "" : $variablePagePostSubmissionEditorUrl,
+            'pageNcmazAccountUrl'           => empty($variablePageNcmazAccountUrl) ? "" : $variablePageNcmazAccountUrl,
+            'wpLogoutUrl'                   => wp_logout_url(get_site_url()),
+            // 
+            'maxTagsLengSubmit'             => intval($ncmaz_redux_demo['adv-global-variable--max-tags-submit']) ?? 5,
+            'maxCategoriesLengSubmit'       => intval($ncmaz_redux_demo['adv-global-variable--max-categories-submit']) ?? 5,
+            'authorPageCoverImgDefault'     => $ncmaz_redux_demo['nc-archive-page-settings--authorPageCoverImgDefault']['url'],
+            'archivePageCoverImgDefault'    => $ncmaz_redux_demo['nc-archive-page-settings--archivePageCoverImgDefault']['url'],
+            'searchPageCoverImgDefault'     => $ncmaz_redux_demo['nc-search-page-settings--media-background']['url'],
         ]
     ), 'before');
 
@@ -147,7 +156,7 @@ function ncmazFe_enqueueScriptCustomize()
 }
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
+// add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
 function ncmazFe_registerScripts()
 {
     $manifestJS = false;
@@ -177,7 +186,7 @@ function ncmazFe_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

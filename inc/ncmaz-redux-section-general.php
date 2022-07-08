@@ -205,6 +205,7 @@ $section = array(
     'id'         => 'nc-general-settings--music-player',
     'subsection' => true,
     'fields'     => array(
+
         [
             'id'       => 'nc-general-settings--music-player-opt-switch',
             'type'     => 'switch',
@@ -217,16 +218,83 @@ $section = array(
         [
             'id'       => 'nc-general-settings--music-player-media-source',
             'type'     => 'select',
+            'multi'    => true,
             'title'    => __('Select Media source', 'ncmaz-frontend'),
             'subtitle' => __('Select the source for your tracks', 'ncmaz-frontend'),
             'desc' => __('Choose your source correctly, do not choose both options unless absolutely necessary  <br /> because then the performance of the player will not be as good as from only 1 source.', 'ncmaz-frontend'),
             'options'  => [
                 'html5'              => 'Mp3/Mp4',
                 'youtube'            => 'Youtube',
+                'soundcloud'         => 'SoundCloud',
                 'youtube-html5'      => 'Both options',
             ],
-            'default'  => 'html5'
+            'default'  => ['html5', 'youtube']
         ],
+
     ),
 );
+
+
+// =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
+$section = array(
+    'title'      => esc_html__('Global variable (Advance)', 'ncmaz-frontend'),
+    'desc'       => esc_html__('Customize global variable for frontend', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--adv-global-variable',
+    'subsection' => true,
+    'fields'     => array(
+        [
+            'id'       => 'adv-global-variable--pagePostSubmissionEditorUrl',
+            'type'     => 'select',
+            'title'    => esc_html__('Select pagePostSubmissionEditorUrl', 'your-textdomain-here'),
+            'subtitle' => esc_html__('No validation can be done on this field type', 'your-textdomain-here'),
+            'desc'     => esc_html__('This is the description field, again good for additional info.', 'your-textdomain-here'),
+            // Must provide key => value pairs for select options
+            'data'      => 'pages',
+            'args'      => array(
+                'posts_per_page' => 30,
+            ),
+            'ajax'      => true,
+            'default'   => function_exists('ncmazFe_getIDBySlug') ?  ncmazFe_getIDBySlug('ncmaz-submission-post-editor') : null,
+        ],
+        [
+            'id'       => 'adv-global-variable--pageNcmazAccountUrl',
+            'type'     => 'select',
+            'title'    => esc_html__('Select pageNcmazAccountUrl', 'your-textdomain-here'),
+            'subtitle' => esc_html__('No validation can be done on this field type', 'your-textdomain-here'),
+            'desc'     => esc_html__('This is the description field, again good for additional info.', 'your-textdomain-here'),
+            // Must provide key => value pairs for select options
+            'data'      => 'pages',
+            'args'      => array(
+                'posts_per_page' => 30,
+            ),
+            'ajax'      => true,
+            'default'   => function_exists('ncmazFe_getIDBySlug') ?  ncmazFe_getIDBySlug('ncmaz-account') : null,
+        ],
+
+        [
+            'id'        => 'adv-global-variable--max-categories-submit',
+            'type'      => 'slider',
+            'title'     => esc_html__('Max categories submit', 'ncmaz-frontend'),
+            'subtitle'  => esc_html__('Maximum number of categories allowed when submitting a post in the front end.', 'ncmaz-frontend'),
+            "default"   => 5,
+            "min"       => 1,
+            "step"      => 1,
+            "max"       => 30,
+            'display_value' => 'label'
+        ],
+        [
+            'id'        => 'adv-global-variable--max-tags-submit',
+            'type'      => 'slider',
+            'title'     => esc_html__('Max tags submit', 'ncmaz-frontend'),
+            'subtitle'  => esc_html__('Maximum number of tags allowed when submitting a post in the front end.', 'ncmaz-frontend'),
+            "default"   => 5,
+            "min"       => 1,
+            "step"      => 1,
+            "max"       => 30,
+            'display_value' => 'label'
+        ],
+
+    ),
+);
+
 Redux::set_section($opt_name, $section);

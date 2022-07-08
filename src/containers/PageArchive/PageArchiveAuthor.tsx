@@ -317,7 +317,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
             containerClassName="absolute inset-0"
             src={
               ncUserMeta?.backgroundImage?.sourceUrl ||
-              GLOBAL_VARIABLE.authorPageCoverImgDefault ||
+              frontendObject.authorPageCoverImgDefault ||
               "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
             className="object-cover w-full h-full"

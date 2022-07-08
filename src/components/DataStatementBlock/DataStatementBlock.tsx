@@ -21,8 +21,9 @@ const DataStatementBlock: FC<DataStatementBlockProps> = ({
           <Loading />
         </div>
       )}
+
       {error && (
-        <pre className="text-xs">
+        <pre className="text-xs my-3">
           <code>{error.message}</code>
         </pre>
       )}

@@ -114,5 +114,18 @@ function ncmazFe_getAllSettingsGraphql()
 function ncmazFe_getLinkBySlug($slug, $type = 'page')
 {
     $oPage = get_page_by_path($slug, OBJECT, $type);
+    if (empty($oPage)) {
+        return "";
+    }
     return get_permalink($oPage->ID);
+}
+
+// ============ GET ID BY SLUG 
+function ncmazFe_getIDBySlug($slug, $type = 'page')
+{
+    $oPage = get_page_by_path($slug, OBJECT, $type);
+    if (empty($oPage)) {
+        return "";
+    }
+    return $oPage->ID;
 }

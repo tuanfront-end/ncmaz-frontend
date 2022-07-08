@@ -16,7 +16,29 @@ $section = array(
     'desc'       => esc_html__('General settings for Archive page', 'ncmaz-frontend'),
     'id'         => 'nc-archive-page-settings--general',
     'subsection' => true,
-    'fields'     => array(),
+    'fields'     => array(
+        [
+            'id'       => 'nc-archive-page-settings--authorPageCoverImgDefault',
+            'type'     => 'media',
+            'url'      => true,
+            'title'    => esc_html__('Cover image default author page', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('If the user\'s cover picture is not set, it will be displayed as a placeholder.', 'ncmaz-frontend'),
+            'default'  => array(
+                'url' => 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+            ),
+        ],
+        [
+            'id'       => 'nc-archive-page-settings--archivePageCoverImgDefault',
+            'type'     => 'media',
+            'url'      => true,
+            'title'    => esc_html__('Cover image default archive page', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('If the terms cover picture is not set, it will be displayed as a placeholder.', 'ncmaz-frontend'),
+            'default'  => array(
+                'url' => 'https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+            ),
+        ],
+
+    ),
 );
 Redux::set_section($opt_name, $section);
 
@@ -75,7 +97,7 @@ $section = array(
         [
             'id'       => 'nc-archive-page-settings--section-top10-categories-sub-heading',
             'type'     => 'text',
-            'title'    => __('Heading', 'ncmaz-frontend'),
+            'title'    => __('Sub heading', 'ncmaz-frontend'),
             'default'  => 'Discover over 100 topics',
         ]
 

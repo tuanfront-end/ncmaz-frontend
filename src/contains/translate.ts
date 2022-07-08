@@ -1,4 +1,5 @@
 let NCMAZ_TRANSLATE = {
+  "Add tags": "Add tags",
   "Go to search page": "Go to search page",
   "Now playing": "Now playing",
   "Listen now": "Listen now",

@@ -29,7 +29,7 @@ interface TagsInputProps {
 }
 
 const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
-  const MAX_TAGS_LENGTH = GLOBAL_VARIABLE.maxTagsLengSubmit;
+  const MAX_TAGS_LENGTH = frontendObject.maxTagsLengSubmit || 5;
 
   // GET MOST USED TAGS
   const Q_LIST_TAGS = gql`
@@ -158,7 +158,7 @@ const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
               type="text"
               placeholder={
                 !tags.length
-                  ? `${NCMAZ_TRANSLATE["Add up to 5 tags"]}...`
+                  ? `${NCMAZ_TRANSLATE["Add tags"]} (${tags.length}/${MAX_TAGS_LENGTH})...`
                   : `${NCMAZ_TRANSLATE["Add another"]}...`
               }
               onFocus={openPopover}
