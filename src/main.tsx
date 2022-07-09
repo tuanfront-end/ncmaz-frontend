@@ -65,8 +65,7 @@ declare global {
     currentObject: {
       id: number;
     };
-    // musicPlayerMediaSource: "html5" | "youtube" | "youtube-html5";
-    musicPlayerMediaSource?: ("html5" | "youtube" | "soundcloud")[];
+    musicPlayerMediaSource?: ("html5" | "youtube" | "other")[];
     musicPlayerMode: "true" | null;
     socialsShare: string[];
     allSettings?: {

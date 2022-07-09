@@ -229,7 +229,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
 
     return (
       <div>
-        <Label>{`Audio URL (${sp} )`}</Label>
+        <Label className="block capitalize">{`Audio URL (${sp})`}</Label>
         <Input
           onChange={(event) => {
             debounceAudioUrlChange(event.currentTarget.value);

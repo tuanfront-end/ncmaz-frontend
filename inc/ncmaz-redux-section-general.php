@@ -206,7 +206,6 @@ $section = array(
     'id'         => 'nc-general-settings--music-player',
     'subsection' => true,
     'fields'     => array(
-
         [
             'id'       => 'nc-general-settings--music-player-opt-switch',
             'type'     => 'switch',
@@ -222,12 +221,11 @@ $section = array(
             'multi'    => true,
             'title'    => __('Select Media source', 'ncmaz-frontend'),
             'subtitle' => __('Select the source for your tracks', 'ncmaz-frontend'),
-            'desc' => __('Choose your source correctly, do not choose both options unless absolutely necessary  <br /> because then the performance of the player will not be as good as from only 1 source.', 'ncmaz-frontend'),
+            'desc'      => __('Choose your source correctly. Currently the player best supports sources from Youtube and from mp3/mp4 files.', 'ncmaz-frontend'),
             'options'  => [
-                'html5'              => 'Mp3/Mp4',
-                'youtube'            => 'Youtube',
-                'soundcloud'         => 'SoundCloud',
-                'youtube-html5'      => 'Both options',
+                'html5'     => 'Mp3/Mp4',
+                'youtube'   => 'Youtube',
+                'other'     => 'Other (Beta)',
             ],
             'default'  => ['html5', 'youtube']
         ],

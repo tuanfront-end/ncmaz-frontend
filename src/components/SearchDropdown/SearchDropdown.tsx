@@ -37,7 +37,7 @@ const SearchDropdown = () => {
         <Dialog
           initialFocus={inputRef}
           as="div"
-          className="relative z-40"
+          className="relative z-max"
           onClose={closeModal}
         >
           <Transition.Child
@@ -53,7 +53,7 @@ const SearchDropdown = () => {
           </Transition.Child>
 
           <div className="fixed inset-0">
-            <div className="flex justify-center px-3 pb-4 pt-16 sm:pt-28">
+            <div className="flex justify-center px-3 pb-4 pt-20 sm:pt-28">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -79,6 +79,7 @@ const SearchDropdown = () => {
                         rounded={`rounded-2xl ${
                           searchValue ? "rounded-b-none" : ""
                         }`}
+                        autoFocus={true}
                         ref={inputRef}
                         type="search"
                         placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
