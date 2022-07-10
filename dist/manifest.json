@@ -104,7 +104,7 @@
     "src": "src/LazyCssWoocommerce.tsx",
     "isDynamicEntry": true,
     "css": [
-      "assets/LazyCssWoocommerce.e46abcfe.css"
+      "assets/LazyCssWoocommerce.d6d30b5c.css"
     ]
   },
   "src/containers/FactorySections/FactoryBlockPostsGrid.tsx": {
