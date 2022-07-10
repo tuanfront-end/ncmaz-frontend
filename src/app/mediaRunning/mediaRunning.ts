@@ -73,6 +73,7 @@ export const mediaRunningSlice = createSlice({
     removeMediaRunning: (state) => {
       return {
         player: initPlayer,
+        hasButtonPlayOnDOM: state.hasButtonPlayOnDOM,
       };
     },
 

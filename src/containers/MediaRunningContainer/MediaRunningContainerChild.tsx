@@ -26,14 +26,12 @@ interface MediaRunningContainerChildProps {
   className?: string;
 }
 
-// const IS_IOS =
-//   // @ts-ignore
-//   /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const IS_IOS =
+  // @ts-ignore
+  /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 // SELECT YOUR MEDIA SOURCE : HTML5(MP3, MP4) OR YOUTUBE OR BOTH
-const MEDIA_SOURCE_FROM = window.frontendObject.musicPlayerMediaSource || [
-  "html5",
-];
+const MEDIA_SOURCE_FROM = frontendObject.musicPlayerMediaSource || ["html5"];
 
 const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
   className = "",
@@ -197,7 +195,16 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
     // THUC HIEN KHI PLAYER CHAY NGAY SAU KHI PAGE RELOADED - CẦN SEEKING player ĐẾN ĐOẠN LOADED TRƯỚC ĐÓ
     if (!newestAudioPlayerUrl && !isFirtTimeSeekTo) {
       playerRef.current?.seekTo(played);
-      dispatch(changeStateMediaRunning("paused"));
+
+      // SAU KHI SEEKTO, NHIEU PLAYER (vidu:soundcloud) SE ONSTART/ONPLAY, VI VAY VAN PAUSED, VA NEN CHO VAO TIMEOUT DE CHAY SAU ONSTART/ONPLAY
+      setTimeout(() => {
+        dispatch(changeStateMediaRunning("paused"));
+      }, 100);
+      if (currentAudioUrl.includes("https://soundcloud.com")) {
+        setTimeout(() => {
+          dispatch(changeStateMediaRunning("paused"));
+        }, 1000);
+      }
     } else if (mediaRunningState === "loading") {
       dispatch(changeStateMediaRunning("playing"));
     }
@@ -263,16 +270,16 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
     return (
       <ReactYoutubePlayer
         url={getAudioUrl().youtube}
-        controls={false}
+        controls
         style={{ opacity: 0, zIndex: -1111, visibility: "hidden" }}
         ref={
           isActive ? (playerRef as LegacyRef<ReactYoutubePlayer>) : undefined
         }
         onPause={isActive ? onPause : undefined}
         playbackRate={isActive ? playbackRate : undefined}
-        playing={isActive ? checkIsPlaying() : undefined}
+        playing={isActive ? checkIsPlaying() : false}
         volume={volume}
-        muted={muted}
+        muted={isActive ? muted : true}
         playsinline
         onEnded={isActive ? onEnded : undefined}
         onReady={isActive ? onReady : undefined}
@@ -302,17 +309,18 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
       return null;
     }
     const isActive = getAudioUrl().mediaSelected === "html5";
+
     return (
       <ReactPlayer
         url={getAudioUrl().html5}
-        controls={false}
+        controls
         style={{ opacity: 0, zIndex: -1111, visibility: "hidden" }}
         ref={isActive ? (playerRef as LegacyRef<ReactPlayer>) : undefined}
         onPause={isActive ? onPause : undefined}
         playbackRate={isActive ? playbackRate : undefined}
-        playing={isActive ? checkIsPlaying() : undefined}
+        playing={isActive ? checkIsPlaying() : false}
         volume={volume}
-        muted={muted}
+        muted={isActive ? muted : true}
         playsinline
         onEnded={isActive ? onEnded : undefined}
         onReady={isActive ? onReady : undefined}

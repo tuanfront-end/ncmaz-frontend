@@ -8,6 +8,9 @@ import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunning
 
 //
 const ScrollTopLazy = React.lazy(() => import("components/ScrollTop"));
+const BuyNowForDemoPageLazy = React.lazy(
+  () => import("components/BuyNowForDemoPage")
+);
 //
 const LazyCssRTLLazy = React.lazy(() => import("./LazyCssRTL"));
 const LazyCssCommentsLazy = React.lazy(() => import("./LazyCssComments"));
@@ -74,6 +77,12 @@ function App() {
       {!!document.querySelector(".prose") && (
         <Suspense fallback={<div />}>
           <LazyCssSingleProseLazy />
+        </Suspense>
+      )}
+
+      {!!document.querySelector("[data-is-ncmaz-demo-site='yes']") && (
+        <Suspense fallback={<div />}>
+          <BuyNowForDemoPageLazy />
         </Suspense>
       )}
 

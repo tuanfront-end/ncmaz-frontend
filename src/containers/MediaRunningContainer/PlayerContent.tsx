@@ -90,7 +90,6 @@ const PlayerContent: FC<PlayerContentProps> = ({
   };
 
   const handleClickClose = () => {
-    // dispatch(changeStateMediaRunning(null));
     dispatch(removeMediaRunning());
   };
 
