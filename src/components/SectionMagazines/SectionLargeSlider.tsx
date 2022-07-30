@@ -28,7 +28,7 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
 
       handleAutoNext();
     },
-    isRunning ? null : null
+    isRunning ? 3000 : null
   );
   //
 
@@ -90,6 +90,8 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
           }
           return (
             <CardLarge1
+              postsLength={[...Array(listPosts.length).keys()]}
+              indexActive={indexActive}
               hasAnimation={isClicked}
               key={index}
               onClickNext={

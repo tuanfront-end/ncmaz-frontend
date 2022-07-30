@@ -15,6 +15,8 @@ export interface CardLarge1Props {
   hasNext: boolean;
   hasPrev: boolean;
   hasAnimation?: boolean;
+  indexActive: number;
+  postsLength: number[];
 }
 
 const CardLarge1: FC<CardLarge1Props> = ({
@@ -25,6 +27,8 @@ const CardLarge1: FC<CardLarge1Props> = ({
   hasNext,
   hasPrev,
   hasAnimation = true,
+  indexActive,
+  postsLength,
 }) => {
   const {
     ncPostMetaData,
@@ -42,7 +46,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
         hasAnimation ? "nc-CardLarge1--hasAnimation" : ""
       } relative flex flex-col-reverse md:flex-row justify-end ${className}`}
     >
-      <div className="md:absolute z-10 md:left-0 md:top-1/2 md:transform md:-translate-y-1/2 w-full -mt-8 md:mt-0 px-3 sm:px-6 md:px-0 md:w-3/5 lg:w-1/2 xl:w-2/5">
+      <div className="md:absolute z-10 md:left-0 md:top-1/2 md:transform md:-translate-y-1/2 w-full -mt-4 sm:-mt-8 md:mt-0 px-3 sm:px-6 md:px-0 md:w-3/5 lg:w-1/2 xl:w-2/5">
         <div className="nc-CardLarge1__left p-4 sm:p-8 xl:py-14 md:px-10 bg-white bg-opacity-40 backdrop-filter backdrop-blur-lg shadow-lg rounded-3xl space-y-3 sm:space-y-5 !border-opacity-0 --  nc-dark-box-bg">
           <CategoryBadgeList categories={categories} />
 
@@ -88,11 +92,19 @@ const CardLarge1: FC<CardLarge1Props> = ({
             src={featuredImage?.node.sourceUrl || "."}
             alt={title}
           />
-          <div className="absolute left-4 bottom-2 flex">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
+          <div className="absolute inset-x-4 bottom-5 sm:bottom-3 flex justify-center z-10">
+            <div className="flex items-center justify-center ">
+              {postsLength.map((_, index) => (
+                <div
+                  key={index}
+                  className={` rounded-full mx-1 ${
+                    index === indexActive
+                      ? " w-2 h-2 bg-white"
+                      : "w-1.5 h-1.5 bg-neutral-200/70"
+                  }`}
+                ></div>
+              ))}
+            </div>
           </div>
         </a>
       </div>
