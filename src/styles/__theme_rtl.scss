@@ -15,12 +15,12 @@
   .nc-CardLarge1 {
     .nc-NextPrev {
       @apply flex-row-reverse;
-      button:first-child {
-        /* @noflip */
-        margin-right: 8px;
-      }
       button {
         @apply mx-0;
+      }
+      button:not(:only-child):first-child {
+        /* @noflip */
+        margin-right: 8px;
       }
     }
   }

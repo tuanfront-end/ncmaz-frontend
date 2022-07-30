@@ -118,10 +118,10 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
 
       <div className="container py-16 lg:py-28 space-y-16 lg:space-y-28">
         <div>
-          <h2
+          <h1
             className="inline-block max-w-screen-2xl text-4xl font-semibold md:text-5xl"
             dangerouslySetInnerHTML={{ __html: pageTitle }}
-          ></h2>
+          ></h1>
           <div className="mt-14 flex flex-col sm:items-center sm:justify-between sm:flex-row">
             <div className="flex space-x-2.5">
               <ModalCategories />

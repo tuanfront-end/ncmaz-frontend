@@ -327,47 +327,6 @@ function ncmazFrontend_acf_add_local_field_groups()
             'title' => 'ncPostMetaData',
             'fields' => array(
                 array(
-                    'key' => 'field_615317bb8ab81',
-                    'label' => 'Favorite Button Shortcode',
-                    'name' => 'favorite_button_shortcode',
-                    'type' => 'wysiwyg',
-                    'instructions' => '[favorite_button]',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => 'hidden',
-                        'id' => '',
-                    ),
-                    'show_in_graphql' => 1,
-                    'default_value' => '[favorite_button]',
-                    'tabs' => 'text',
-                    'toolbar' => 'basic',
-                    'media_upload' => 0,
-                    'delay' => 0,
-                ),
-                array(
-                    'key' => 'field_615318d18ab82',
-                    'label' => 'Reading Time Shortcode',
-                    'name' => 'reading_time_shortcode',
-                    'type' => 'wysiwyg',
-                    'instructions' => '[rt_reading_time label="" postfix="minutes" postfix_singular="minute"]',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => 'hidden',
-                        'id' => '',
-                    ),
-                    'show_in_graphql' => 1,
-                    'default_value' => '[rt_reading_time label="" postfix="minutes" postfix_singular="minute"]',
-                    'tabs' => 'text',
-                    'media_upload' => 0,
-                    'toolbar' => 'basic',
-                    'delay' => 0,
-                ),
-
-                array(
                     'key' => 'field_61532afb973d2',
                     'label' => 'single page style',
                     'name' => 'single_page_style',
@@ -634,7 +593,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '/#',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -651,7 +610,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '/#',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -668,7 +627,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '/#',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -685,7 +644,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '/#',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -804,7 +763,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => 'https://abc.com/me',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -821,7 +780,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => 'https://www.buymeacoffee.com/nghiaxchis',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 // 

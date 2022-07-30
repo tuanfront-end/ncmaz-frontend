@@ -19,4 +19,12 @@
       flex-basis: unset !important;
     }
   }
+
+  .prose {
+    @apply max-w-none;
+
+    & > * {
+      @apply max-w-none;
+    }
+  }
 }

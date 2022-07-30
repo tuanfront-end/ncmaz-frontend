@@ -14,6 +14,7 @@ export interface CardLarge1Props {
   onClickPrev?: () => void;
   hasNext: boolean;
   hasPrev: boolean;
+  hasAnimation?: boolean;
 }
 
 const CardLarge1: FC<CardLarge1Props> = ({
@@ -23,6 +24,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
   onClickPrev = () => {},
   hasNext,
   hasPrev,
+  hasAnimation = true,
 }) => {
   const {
     ncPostMetaData,
@@ -36,7 +38,9 @@ const CardLarge1: FC<CardLarge1Props> = ({
 
   return (
     <div
-      className={`nc-CardLarge1 nc-CardLarge1--hasAnimation relative flex flex-col-reverse md:flex-row justify-end ${className}`}
+      className={`nc-CardLarge1 ${
+        hasAnimation ? "nc-CardLarge1--hasAnimation" : ""
+      } relative flex flex-col-reverse md:flex-row justify-end ${className}`}
     >
       <div className="md:absolute z-10 md:left-0 md:top-1/2 md:transform md:-translate-y-1/2 w-full -mt-8 md:mt-0 px-3 sm:px-6 md:px-0 md:w-3/5 lg:w-1/2 xl:w-2/5">
         <div className="nc-CardLarge1__left p-4 sm:p-8 xl:py-14 md:px-10 bg-white bg-opacity-40 backdrop-filter backdrop-blur-lg shadow-lg rounded-3xl space-y-3 sm:space-y-5 !border-opacity-0 --  nc-dark-box-bg">
@@ -77,13 +81,19 @@ const CardLarge1: FC<CardLarge1Props> = ({
         ) : null}
       </div>
       <div className="w-full md:w-4/5 lg:w-2/3">
-        <a className="block nc-CardLarge1__right " href={link}>
+        <a className="relative block nc-CardLarge1__right " href={link}>
           <NcImage
             containerClassName="aspect-w-16 aspect-h-12 sm:aspect-h-9 md:aspect-h-14 lg:aspect-h-10 2xl:aspect-h-9 relative"
             className="absolute inset-0 object-cover rounded-3xl"
             src={featuredImage?.node.sourceUrl || "."}
             alt={title}
           />
+          <div className="absolute left-4 bottom-2 flex">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+          </div>
         </a>
       </div>
     </div>

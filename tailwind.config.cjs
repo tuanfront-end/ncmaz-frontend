@@ -39,13 +39,14 @@ const safelist = [
     variants: ["sm", "md", "lg", "xl", "2xl"],
   },
   //
-  "sm:container",
-  "md:container",
+  "!container",
+  //
+  "max-w-0",
+  "max-w-none",
   //
   "lg:pl-10",
   "xl:pl-0",
   "xl:pr-14",
-  "flex-1",
   //
   "aspect-video",
 ];

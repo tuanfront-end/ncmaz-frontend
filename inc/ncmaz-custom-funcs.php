@@ -163,3 +163,21 @@ function checkPageNcmazAccountOrPostSubmissionEditor($postID)
 
     return null;
 }
+
+// GET Readingtime shortcode DOM
+function ncmazFe_getReadingTimeDom($postID)
+{
+    if (!class_exists('Reading_Time_WP')) {
+        return "";
+    }
+
+    $NcReadingTime = new Reading_Time_WP;
+    $rt_reading_time_options = get_option('rt_reading_time_options');
+    $atts = array(
+        'label'            =>  $rt_reading_time_options['label'],
+        'postfix'          => $rt_reading_time_options['postfix'],
+        'postfix_singular' => $rt_reading_time_options['postfix_singular'],
+        'post_id'          => $postID
+    );
+    return $NcReadingTime->rt_reading_time($atts);
+}

@@ -356,9 +356,9 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
             </div>
 
             <div className="flex-grow mt-5 sm:mt-0 sm:ml-8 max-w-lg xl:max-w-2xl space-y-3">
-              <h2 className="inline-flex items-center text-2xl sm:text-2xl lg:text-4xl font-bold lg:font-semibold">
+              <h1 className="inline-flex items-center text-2xl sm:text-2xl lg:text-4xl font-bold lg:font-semibold">
                 {name}
-              </h2>
+              </h1>
 
               {description ? (
                 <span

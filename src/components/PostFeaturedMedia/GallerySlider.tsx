@@ -87,7 +87,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs, postLink }) => {
           setScrollEndedLeft(true);
         }
       }
-    }, 500);
+    }, 400);
   }
 
   return (
@@ -112,7 +112,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs, postLink }) => {
       <div className="">
         <div
           ref={btnPrevRef}
-          className="nc-gallerySlider__prevBtn absolute opacity-0 group-hover:opacity-100 z-20 left-2 top-1/2 transform -translate-y-1/2 "
+          className="nc-gallerySlider__prevBtn absolute opacity-0 group-hover:opacity-100 z-20 left-2 top-1/2 -translate-y-1/2 "
           title={NCMAZ_TRANSLATE["prev"]}
         >
           {!scrollEndedLeft && (
@@ -121,7 +121,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ galleryImgs, postLink }) => {
         </div>
         <div
           ref={btnNextRef}
-          className="nc-gallerySlider__nextBtn absolute opacity-0 group-hover:opacity-100 z-20 right-2 top-1/2 transform -translate-y-1/2 "
+          className="nc-gallerySlider__nextBtn absolute opacity-0 group-hover:opacity-100 z-20 right-2 top-1/2 -translate-y-1/2 "
           title={NCMAZ_TRANSLATE["next"]}
         >
           {!scrollEndedRight && (

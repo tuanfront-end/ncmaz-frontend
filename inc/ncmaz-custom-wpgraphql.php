@@ -209,3 +209,59 @@ add_action('graphql_user_object_mutation_update_additional_data', function ($use
         update_field('buymeacoffe_url', $input['ncmazBuymeacoffeUrl'], $user_id);
     }
 }, 10, 5);
+
+//
+add_action('graphql_register_types', function () {
+    register_graphql_object_type(
+        'NcPostMetaDataType',
+        [
+            'description' => __('Post Custom MetaData Type', 'ncmaz-frontend'),
+            'fields'      => [
+                'readingTimeShortcode' => [
+                    'type'        => 'String',
+                    'description' => __('Reading time shortcode DOM (String)', 'ncmaz-frontend'),
+                ],
+                'viewsCount'  => [
+                    'type'        => 'Int',
+                    'description' => __('View count (Int)', 'ncmaz-frontend'),
+                ],
+                'singlePageStyle'       => [
+                    'type'        => 'String',
+                    'description' => __('Single page style (String)', 'ncmaz-frontend'),
+                ],
+                'showRightSidebar'       => [
+                    'type'        => 'Bool',
+                    'description' => __('Show/Hide right-sidebar of this single', 'ncmaz-frontend'),
+                ],
+                'favoriteButtonShortcode'   => [
+                    'type'        => 'String',
+                    'description' => __('Favorite Button Shortcode DOM', 'ncmaz-frontend'),
+                ],
+                'fieldGroupName'   => [
+                    'type'        => 'String',
+                    'description' => 'fieldGroupName'
+                ],
+            ],
+        ]
+    );
+    register_graphql_field(
+        'ContentNode',
+        'ncPostMetaData',
+        [
+            'description'   => __('Return stunt performers', 'bsr'),
+            'type'          => 'NcPostMetaDataType',
+            'resolve'       => function (\WPGraphQL\Model\Post $post, $args, $context, $info) {
+                $postID = $post->databaseId;
+
+                return (object) [
+                    'readingTimeShortcode'      =>  function_exists('ncmazFe_getReadingTimeDom') ? ncmazFe_getReadingTimeDom($postID) : '',
+                    'favoriteButtonShortcode'   =>  function_exists('get_favorites_button') ? get_favorites_button($postID) : '',
+                    'fieldGroupName'            =>  'ncPostMetaData',
+                    'showRightSidebar'          =>  function_exists('get_field') ? get_field('show_right_sidebar', $postID) : null,
+                    'singlePageStyle'           =>  function_exists('get_field') ? get_field('single_page_style', $postID) : null,
+                    'viewsCount'                =>  function_exists('get_field') ? get_field('views_count', $postID) : 1,
+                ];
+            }
+        ]
+    );
+});

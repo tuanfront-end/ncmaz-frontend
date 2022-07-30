@@ -15,7 +15,7 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
   //
 
   let PHOTOS = photos.filter((item) => !!item);
-  PHOTOS = PHOTOS.filter((_, index) => index < 6);
+  PHOTOS = PHOTOS.filter((_, index) => index < 5);
   if (!PHOTOS[0]) {
     return null;
   }
@@ -92,7 +92,7 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
       </header>
       {/* MODAL PHOTOS */}
       <ModalPhotos
-        imgs={PHOTOS}
+        imgs={photos.filter((item) => !!item)}
         isOpen={isOpen}
         onClose={handleCloseModal}
         initFocus={openFocusIndex}

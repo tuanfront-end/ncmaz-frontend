@@ -35,8 +35,9 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
       perView: 1,
       startAt: initFocus,
     }).mount();
-  }, [isOpen, initFocus]);
+  }, [isOpen, initFocus, imgs]);
 
+  console.log(111, { imgs });
   const renderSlider = () => {
     return (
       <div
@@ -65,23 +66,24 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
               <li className="glide__slide relative h-full" key={index}>
                 <NcImage
                   src={item}
-                  containerClassName=" w-full h-full rounded-2xl"
-                  className="absolute object-contain w-full max-h-screen rounded-2xl"
+                  containerClassName=" w-full h-full rounded-2xl flex justify-center items-center"
+                  className=" rounded-2xl max-h-full max-w-full"
+                  // className="absolute object-contain w-full max-h-screen rounded-2xl"
                 />
               </li>
             ))}
           </ul>
         </div>
         {/*  */}
-        <div className="xl:absolute z-20 xl:-inset-x-20 max-w-6xl my-2 mx-auto top-full xl:top-1/2 transform xl:-translate-y-1/2 flex xl:justify-between glide__arrows">
+        <div className="xl:absolute z-20 xl:-inset-x-20 max-w-6xl mt-4 mx-auto top-full xl:top-1/2 transform xl:-translate-y-1/2 flex rtl:flex-row-reverse xl:justify-between glide__arrows">
           <NextPrev
             onlyPrev
-            containerClassName="mr-1.5"
+            containerClassName="mx-1.5"
             btnClassName="w-8 h-8 sm:w-10 sm:h-10 "
           />
           <NextPrev
             onlyNext
-            containerClassName="ml-1.5"
+            containerClassName="mx-1.5"
             btnClassName="w-8 h-8 sm:w-10 sm:h-10 "
           />
         </div>

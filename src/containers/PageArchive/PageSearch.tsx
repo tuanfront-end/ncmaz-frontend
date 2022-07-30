@@ -14,7 +14,6 @@ import TabTagsOnSearchPage from "./TabTagsOnSearchPage";
 import TabAuthorsOnSearchPage from "./TabAuthorsOnSearchPage";
 import Skeleton from "react-loading-skeleton";
 import NCMAZ_TRANSLATE from "contains/translate";
-import GLOBAL_VARIABLE from "contains/globalVariable";
 
 export interface PageSearchProps {
   className?: string;
@@ -105,9 +104,9 @@ const PageSearch: FC<PageSearchProps> = ({
         <div className="relative px-1 sm:container -mt-20 lg:-mt-48">
           <div className=" bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 p-5 lg:p-12 rounded-[40px] shadow-2xl flex items-center">
             <header className="w-full max-w-3xl mx-auto text-center flex flex-col items-center">
-              <h2 className="text-2xl sm:text-4xl font-semibold">
+              <h1 className="text-2xl sm:text-4xl font-semibold">
                 {searchText ? searchText : `" "`}
-              </h2>
+              </h1>
 
               {totalCountResultString ? (
                 <div

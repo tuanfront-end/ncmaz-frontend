@@ -163,10 +163,10 @@ const PageArchive: FC<PageArchiveProps> = ({
             className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-black text-white bg-opacity-30 flex flex-col items-center justify-center text-center">
-            <h2 className="inline-block align-middle text-4xl sm:text-5xl font-semibold md:text-7xl">
+            <h1 className="inline-block align-middle text-4xl sm:text-5xl font-semibold md:text-7xl">
               {isTag ? "#" : ""}
               {termData.name}
-            </h2>
+            </h1>
             {termData.description && (
               <div
                 className="hidden md:block max-w-xl text-sm mt-3 text-neutral-100"
