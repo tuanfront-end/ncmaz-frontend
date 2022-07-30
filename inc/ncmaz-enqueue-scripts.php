@@ -64,11 +64,7 @@ function ncmazFe_print_scripts()
                     localStorage.theme = "dark";
                 }
             }
-            if (
-                localStorage.theme === "dark" ||
-                (!("theme" in localStorage) &&
-                    window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ) {
+            if (localStorage.theme === "dark") {
                 !document.documentElement.classList.contains("dark") &&
                     document.documentElement.classList.add("dark");
             } else {
@@ -156,7 +152,7 @@ function ncmazFe_enqueueScriptCustomize()
 }
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
+// add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
 function ncmazFe_registerScripts()
 {
     $manifestJS = false;
@@ -186,18 +182,18 @@ function ncmazFe_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">
-    import RefreshRuntime from "http://localhost:3000/@react-refresh"
+    import RefreshRuntime from "http://localhost:5173/@react-refresh"
     RefreshRuntime.injectIntoGlobalHook(window)
     window.$RefreshReg$ = () => {}
     window.$RefreshSig$ = () => (type) => type
     window.__vite_plugin_react_preamble_installed__  = true
 </script>';
 
-    wp_enqueue_script('@vite-client-js', 'http://localhost:3000/@vite/client', [], null, true);
-    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:3000/src/main.tsx', [], null, true);
+    wp_enqueue_script('@vite-client-js', 'http://localhost:5173/@vite/client', [], null, true);
+    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:5173/src/main.tsx', [], null, true);
 }
 // --------------------------------------------------------------------------------------

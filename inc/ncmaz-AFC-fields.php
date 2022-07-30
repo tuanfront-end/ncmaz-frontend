@@ -1015,7 +1015,7 @@ function ncmazFrontend_acf_add_local_field_groups()
 add_action('admin_init', 'ncmazFe_set_default_acf_values');
 function ncmazFe_set_default_acf_values()
 {
-    if (!is_admin()) {
+    if (!is_admin() || !function_exists('get_field')) {
         return;
     }
 

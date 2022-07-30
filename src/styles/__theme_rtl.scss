@@ -6,6 +6,11 @@
     left: 50%;
   }
 
+  .glide--rtl {
+    /* @noflip */
+    direction: rtl;
+  }
+
   .glide--rtl,
   .nc-CardLarge1 {
     .nc-NextPrev {
