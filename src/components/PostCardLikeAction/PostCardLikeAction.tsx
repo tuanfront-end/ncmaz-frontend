@@ -44,6 +44,10 @@ const PostCardLikeAction: FC<PostCardLikeActionProps> = ({
     });
   };
 
+  if (!NEW_UPDATE_LIKE_BUTTONS[postId] && !favoriteButtonShortcode) {
+    return null;
+  }
+
   return (
     <div
       ref={divRef}

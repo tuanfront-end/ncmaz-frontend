@@ -90,6 +90,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     enableLoadMoreButton,
     loadMoreButtonHref,
     filterDataBy,
+    categories,
   } = settings;
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
@@ -220,10 +221,10 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
         {isBg && <BackgroundSection />}
 
         <div className="relative">
-          {showFilterTab ? (
+          {showFilterTab && !!categories?.length ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}
-              tabs={settings.categories}
+              tabs={categories}
               viewMoreHref={viewMoreHref}
               heading={heading}
               subHeading={subHeading}

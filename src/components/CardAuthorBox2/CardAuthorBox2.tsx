@@ -20,14 +20,11 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
       href={frontendObject.homeURL + uri}
       className={`nc-CardAuthorBox2 flex flex-col overflow-hidden [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="CardAuthorBox2"
-      onDragEnd={() => console.log(222)}
-      onDragLeave={() => console.log(222)}
-      onDragOver={() => console.log(222)}
     >
       <div className="relative flex-shrink-0 ">
         <div>
           <NcImage
-            containerClassName="flex aspect-w-7 aspect-h-5 sm:aspect-h-6 w-full h-0"
+            containerClassName="flex aspect-w-7 aspect-h-5 w-full h-0"
             src={ncUserMeta.backgroundImage?.sourceUrl || ","}
           />
         </div>
@@ -39,10 +36,10 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
         </div>
       </div>
 
-      <div className="-mt-8 m-8 text-center">
+      <div className="-mt-7 m-7 text-center">
         <Avatar
           containerClassName="ring-2 ring-white"
-          sizeClass="w-16 h-16 text-2xl"
+          sizeClass="w-14 h-14 text-2xl"
           radius="rounded-full"
           imgUrl={ncUserMeta?.featuredImage?.sourceUrl || avatar?.url}
           userName={username}

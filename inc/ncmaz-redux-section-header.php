@@ -62,6 +62,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -73,6 +78,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -84,6 +94,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -95,6 +110,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -106,6 +126,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -117,6 +142,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
 

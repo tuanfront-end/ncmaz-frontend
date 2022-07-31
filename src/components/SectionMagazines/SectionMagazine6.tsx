@@ -26,7 +26,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
     } = listPosts[0].node;
     const subPosts = listPosts.filter((_, i) => i > 0);
     return (
-      <main className="relative">
+      <main className="SectionMagazine6 relative">
         {/* Image */}
         <div className="aspect-w-9 aspect-h-9 md:aspect-h-5 rounded-3xl lg:rounded-[40px] overflow-hidden">
           <NcImage
@@ -76,8 +76,8 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
 
         {/* RIGHT */}
         {subPosts.length ? (
-          <div className="md:absolute mt-5 md:mt-0 h-96 md:h-auto md:right-3 md:top-3 md:bottom-3 md:w-1/2 lg:w-1/3 p-5 lg:p-8 bg-neutral-100 md:bg-white md:dark:bg-neutral-900 dark:bg-neutral-800 xl:bg-opacity-80 xl:dark:bg-opacity-80 xl:backdrop-filter xl:backdrop-blur-xl rounded-3xl lg:rounded-[34px] overflow-hidden">
-            <div className="flow-root h-full w-full overflow-y-auto hiddenScrollbar">
+          <div className="md:absolute mt-5 md:mt-0 h-auto md:right-3 md:top-3 md:bottom-3 md:w-1/2 lg:w-1/3 p-5 lg:p-8 bg-neutral-100 md:bg-white md:dark:bg-neutral-900 dark:bg-neutral-800 xl:bg-opacity-80 xl:dark:bg-opacity-80 xl:backdrop-filter xl:backdrop-blur-xl rounded-3xl lg:rounded-[34px] overflow-hidden">
+            <div className="flow-root md:h-full w-full md:overflow-y-auto hiddenScrollbar">
               <div className="-my-5 md:-my-7 divide-y divide-neutral-200 dark:divide-neutral-700">
                 {subPosts.map((post, i) => (
                   <div key={i} className="block py-5 lg:py-7">

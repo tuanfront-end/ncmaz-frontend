@@ -38,7 +38,15 @@ $section = array(
                 'dark' => 'Dark mode',
             ),
             'default' => 'light'
-        ]
+        ],
+        [
+            'id'       => 'nc-general-settings--general-switch-preview-video-card',
+            'type'     => 'switch',
+            'title'    => __('Video preview in post card', 'ncmaz-frontend'),
+            'subtitle' => __('If enabled, the video in the post card will play in preview mode when hovering the mouse over the card (or card is in view with mobile divice)', 'ncmaz-frontend'),
+            'desc'     => __('Default is on', 'ncmaz-frontend'),
+            'default'  => true,
+        ],
     ),
 );
 Redux::set_section($opt_name, $section);
@@ -235,7 +243,7 @@ $section = array(
 Redux::set_section($opt_name, $section);
 
 
-// =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
+// =========================== Global variable (Advance) SETTING__SUB2 GENRAL ========================
 $section = array(
     'title'      => esc_html__('Global variable (Advance)', 'ncmaz-frontend'),
     'desc'       => esc_html__('Customize global variable for frontend', 'ncmaz-frontend'),

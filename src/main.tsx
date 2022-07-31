@@ -66,7 +66,7 @@ declare global {
       id: number;
     };
     musicPlayerMediaSource?: ("html5" | "youtube" | "other")[];
-    musicPlayerMode: "true" | null;
+    musicPlayerMode?: boolean;
     socialsShare: string[];
     allSettings?: {
       discussionSettingsDefaultCommentStatus: string;
@@ -86,6 +86,7 @@ declare global {
 
     restVarsEndpoint: string;
     restVarsNonce: string;
+    switchPreviewVideo?: boolean;
   };
 
   var ncmazFrontendVariables: {

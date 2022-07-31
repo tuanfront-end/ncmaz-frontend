@@ -15,7 +15,7 @@ const SectionMagazine3: FC<SectionMagazine3Props> = ({
   isLoading,
 }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 2xl:gap-8">
+    <div className="SectionMagazine3 grid grid-cols-1 lg:grid-cols-2 gap-6 2xl:gap-8">
       {isLoading ? (
         <Card2Skeleton />
       ) : listPosts[0] ? (

@@ -15,18 +15,18 @@ const SectionMagazine2: FC<SectionMagazine2Props> = ({
   isLoading,
 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="SectionMagazine2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <div className="grid grid-cols-1 gap-6">
         {isLoading
           ? [1, 1].map((_, index) => (
-              <Card11Skeleton ratio="aspect-w-5 aspect-h-3" key={index} />
+              <Card11Skeleton ratio="aspect-w-16 aspect-h-9" key={index} />
             ))
           : listPosts
               .filter((_, i) => i < 3 && i > 0)
               .map((item, index) => {
                 return (
                   <Card11
-                    ratio="aspect-w-5 aspect-h-3"
+                    ratio="aspect-w-16 aspect-h-9"
                     key={index}
                     post={item.node}
                   />
@@ -43,14 +43,14 @@ const SectionMagazine2: FC<SectionMagazine2Props> = ({
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-1 md:col-span-3 xl:col-span-1">
         {isLoading
           ? [1, 1].map((_, index) => (
-              <Card11Skeleton ratio="aspect-w-5 aspect-h-3" key={index} />
+              <Card11Skeleton ratio="aspect-w-16 aspect-h-9" key={index} />
             ))
           : listPosts
               .filter((_, i) => i < 5 && i >= 3)
               .map((item, index) => {
                 return (
                   <Card11
-                    ratio="aspect-w-5 aspect-h-3"
+                    ratio="aspect-w-16 aspect-h-9"
                     key={index}
                     post={item.node}
                   />

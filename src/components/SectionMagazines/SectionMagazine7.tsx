@@ -15,7 +15,7 @@ const SectionMagazine7: FC<SectionMagazine7Props> = ({
   isLoading,
 }) => {
   return (
-    <div className={`grid grid-cols-1 gap-6 2xl:gap-8`}>
+    <div className={`SectionMagazine7 grid grid-cols-1 gap-6 2xl:gap-8`}>
       <div className={`grid gap-6 2xl:gap-8 grid-cols-1 lg:grid-cols-2`}>
         {isLoading ? (
           <Card10V3Skeleton />

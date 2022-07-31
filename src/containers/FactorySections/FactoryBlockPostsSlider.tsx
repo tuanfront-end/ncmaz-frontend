@@ -247,7 +247,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
         {isBg && <BackgroundSection />}
 
         <div className={`relative `} ref={sliderRef}>
-          {showFilterTab ? (
+          {showFilterTab && !!categories?.length ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}
               tabs={categories}
@@ -267,7 +267,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                     <li
                       key={index}
                       className={`glide__slide ${
-                        enableNexPrevOnFoot ? "pb-12 xl:pb-16" : ""
+                        enableNexPrevOnFoot ? "pb-10 xl:pb-14" : ""
                       }`}
                     >
                       {renderPostComponentLoading()}
@@ -277,7 +277,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                     <li
                       key={index}
                       className={`glide__slide ${
-                        enableNexPrevOnFoot ? "pb-12 xl:pb-16" : ""
+                        enableNexPrevOnFoot ? "pb-10 xl:pb-14" : ""
                       }`}
                     >
                       {renderPostComponent(item.node)}

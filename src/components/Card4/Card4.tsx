@@ -32,7 +32,7 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post }) => {
     >
       <a href={link} className="absolute block inset-0 "></a>
 
-      <div className="block flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 rounded-t-xl overflow-hidden z-0">
+      <div className="block flex-shrink-0 relative w-full aspect-w-16 aspect-h-10 rounded-t-2xl overflow-hidden z-0">
         <div>
           {ncPostMetaData.favoriteButtonShortcode && (
             <PostCardLikeAction

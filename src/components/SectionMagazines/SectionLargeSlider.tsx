@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useState } from "react";
 import CardLarge1 from "components/CardLarge1/CardLarge1";
 import CardLarge1Skeleton from "components/CardLarge1/CardLarge1Skeleton";
 import { ListPosts } from "data/postCardType";
@@ -15,7 +15,6 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
   listPosts,
   isLoading,
 }) => {
-  const autoPlayRef = useRef<HTMLInputElement>(null);
   //
   const [indexActive, setIndexActive] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
@@ -24,11 +23,9 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
 
   useInterval(
     () => {
-      console.log("useInterval", autoPlayRef.current);
-
       handleAutoNext();
     },
-    isRunning ? 3000 : null
+    isRunning ? 4000 : null
   );
   //
 
@@ -75,12 +72,6 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
 
   return (
     <div className="ncSectionLargeSlider">
-      <div
-        className="invisible"
-        ref={autoPlayRef}
-        data-section-largeslider-auto-play={true}
-      ></div>
-      <div className="invisible" data-section-largeslider-duration={3000}></div>
       {isLoading ? (
         <CardLarge1Skeleton />
       ) : (

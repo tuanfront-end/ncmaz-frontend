@@ -15,7 +15,7 @@ const SectionMagazine9: FC<SectionMagazine9Props> = ({
   isLoading,
 }) => {
   return (
-    <div>
+    <div className="SectionMagazine9">
       <div
         className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 2xl:gap-8`}
       >

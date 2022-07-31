@@ -3,7 +3,8 @@ try {
     _toogleMobileSidebarMenu();
     _toggleMobileSubmenuItem();
     _toggleNcmazModal();
-
+    _converViewCountToThounsand(".nc-SingleMetaAction2__views__number");
+    _converViewCountToThounsand(".simplefavorite-button-count");
     //   ==========================================
     function _toggleMobileSubmenuItem() {
       jQuery("#mobile-menu-list .menu-item-has-children .icon-after-menu").on(
@@ -69,6 +70,24 @@ try {
           });
         }
       );
+    }
+
+    //  ==========================================
+    function _converViewCountToThounsand(
+      Elclass = ".nc-SingleMetaAction2__views__number"
+    ) {
+      const viewCountsEls = jQuery(Elclass);
+      if (!viewCountsEls || !viewCountsEls.length) {
+        return;
+      }
+
+      viewCountsEls.each(function () {
+        const viewCounts = jQuery(this).text();
+        const viewCountsInt = parseInt(viewCounts);
+        if (viewCountsInt > 1000) {
+          jQuery(this).text(`${(viewCountsInt / 1000).toFixed(1)}k`);
+        }
+      });
     }
   });
 } catch (error) {

@@ -88,7 +88,10 @@ const MediaVideo: FC<MediaVideoProps> = ({
   }, [showDescUnmuted]);
 
   //
-  const START_LOAD_VIDEO = IS_MOBILE ? inViewd : isHoverState;
+  let START_LOAD_VIDEO = IS_MOBILE ? inViewd : isHoverState;
+  if (frontendObject.switchPreviewVideo === false) {
+    START_LOAD_VIDEO = false;
+  }
 
   const renderContent = () => {
     return (

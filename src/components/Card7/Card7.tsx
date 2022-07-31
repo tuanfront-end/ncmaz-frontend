@@ -15,7 +15,7 @@ export interface Card7Props {
 
 const Card7: FC<Card7Props> = ({
   className = "h-full",
-  ratio = "aspect-w-5 aspect-h-6 sm:aspect-h-7",
+  ratio = "aspect-w-5 aspect-h-6",
   post,
   hoverClass = "",
 }) => {

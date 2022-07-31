@@ -12,6 +12,7 @@ interface Props {
   onCloseModal: () => void;
   postDataBaseId: number;
   isReloadAfterDelete?: boolean;
+  linkReloadAfterDelete?: string;
 }
 
 const ModalDeletePost: FC<Props> = ({
@@ -19,6 +20,7 @@ const ModalDeletePost: FC<Props> = ({
   onCloseModal,
   postDataBaseId,
   isReloadAfterDelete = false,
+  linkReloadAfterDelete = window.frontendObject.homeURL,
 }) => {
   const [loading, setLoading] = React.useState(false);
 
@@ -49,7 +51,7 @@ const ModalDeletePost: FC<Props> = ({
         //   RELOAD PAGE
         if (isReloadAfterDelete) {
           setTimeout(() => {
-            window.location.reload();
+            window.location.replace(linkReloadAfterDelete);
           }, 800);
         }
       })
