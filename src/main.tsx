@@ -53,8 +53,9 @@ declare global {
     wpLogoutUrl?: string;
     pagePostSubmissionEditorUrl: string;
     pageNcmazAccountUrl: string;
+    pll_current_language_correct_code: string | null;
     pll_current_language: string | null;
-    pll_themeoption_actived: string | null;
+    pll_themeoption_actived: boolean | null;
     restUrl: string;
     ajaxurl: string;
     stylesheetDirectory: string;
@@ -83,10 +84,15 @@ declare global {
       writingSettingsDefaultPostFormat: string;
       writingSettingsUseSmilies: boolean;
     };
-
     restVarsEndpoint: string;
     restVarsNonce: string;
     switchPreviewVideo?: boolean;
+    //
+    frontendTranslations?: {
+      name?: string;
+      language?: string;
+      jsCode?: string;
+    }[];
   };
 
   var ncmazFrontendVariables: {

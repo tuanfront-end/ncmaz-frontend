@@ -92,7 +92,7 @@ $section = array(
 );
 Redux::set_section($opt_name, $section);
 
-// ===========================SOCIALS SETTING__SUB2 SOCIALS ========================
+// =========================== Mobile Menu SETTING__SUB2 ========================
 $section = array(
     'title'      => esc_html__('Mobile Menu', 'ncmaz-frontend'),
     'desc'       => esc_html__('All setting for mobile menu nav side', 'ncmaz-frontend'),
@@ -119,7 +119,7 @@ $section = array(
 Redux::set_section($opt_name, $section);
 
 
-// ===========================SOCIALS SETTING__SUB2 SOCIALS ========================
+// ===========================SOCIALS Login SETTING__SUB2 SOCIALS ========================
 $section = array(
     'title'      => esc_html__('Social Login', 'ncmaz-frontend'),
     'desc'       => esc_html__('All setting for socials login setting', 'ncmaz-frontend'),
@@ -196,13 +196,213 @@ $section = array(
 Redux::set_section($opt_name, $section);
 
 
-// ===========================GENERAL SETTING__SUB2 GENRAL ========================
+// =========================== Frontend translate SETTING__SUB2 ========================
+$JS_LOCALE_DEFAULT = '{
+    "Add tags": "Add tags",
+    "Go to search page": "Go to search page",
+    "Now playing": "Now playing",
+    "Listen now": "Listen now",
+    "Type the URL of the iframe you want to embed": "Type the URL of the iframe you want to embed",
+    "Buymeacoffe": "Buymeacoffe",
+    "https://buymeacoffee.com/yourname": "https://buymeacoffee.com/yourname",
+    "buymeacoffee.com": "buymeacoffee.com",
+    "yourwebsite.com": "yourwebsite.com",
+    "UX/UI Designer": "UX/UI Designer",
+    "Short Bio": "Short Bio",
+    "Upload a file": "Upload a file",
+    "Click to change": "Click to change",
+    "socials": "socials",
+    "profile": "profile",
+    "general": "general",
+    "Logout Account": "Logout Account",
+    "Add elsewhere links to your profile": "Add elsewhere links to your profile",
+    "Social profiles": "Social profiles",
+    "You should have an account here:": "You should have an account here:",
+    "A short Bio (e.g. occupation), this will show up in the author cards.": "A short Bio (e.g. occupation), this will show up in the author cards.",
+    "Biographical Info, this will show up in the author page.": "Biographical Info, this will show up in the author page.",
+    "Something about yourself in a few word.": "Something about yourself in a few word.",
+    "Biographical Info": "Biographical Info",
+    "Website": "Website",
+    "Nickname": "Nickname",
+    "required": "required",
+    "Last Name": "Last Name",
+    "First Name": "First Name",
+    "Set up your profile and manage your account": "Set up your profile and manage your account",
+    "Cover photo": "Cover photo",
+    "Profile picture": "Profile picture",
+    "Write an excerpt (optional)": "Write an excerpt (optional)",
+    "Post will be changed to draft. You can publish it later.": "Post will be changed to draft. You can publish it later.",
+    "Your account has been updated.": "Your account has been updated.",
+    "Post deleted successfully.": "Post deleted successfully.",
+    "Email": "Email",
+    "Display Name": "Display Name",
+    "Update profile": "Update profile",
+    "Edit profile": "Edit profile",
+    "Draft this post": "Draft this post",
+    "Post successful": "Post successful",
+    "Allow comments": "Allow comments",
+    "password": "password",
+    "Discussion": "Discussion",
+    "Manage your password": "Manage your password",
+    "Link copied": "Link copied!",
+    "Delete post": "Delete post",
+    "Password must be at least 6 characters": "Password must be at least 6 characters",
+    "Confirm password": "Confirm password",
+    "New password": "New password",
+    "Update your username and manage your account": "Update your username and manage your account",
+    "General settings": "General settings",
+    "Update password": "Update password",
+    "Are you sure you want to delete this post? You cannot undo this action.": "Are you sure you want to delete this post? You cannot undo this action.",
+    "Copy link": "Copy link",
+    "Update": "Update",
+    "Save draft": "Save draft",
+    "Drafts": "Drafts",
+    "Pendings": "Pendings",
+    "Published": "Published",
+    "Publish": "Publish",
+    "selected": "selected",
+    "Add up to 5 tags": "Add up to 5 tags",
+    "Add up to 5 categories": "Add up to 5 categories",
+    "Choose categories": "Choose categories",
+    "Add another": "Add another",
+    "Top tags": "Top tags",
+    "Add a cover image": "Add a cover image",
+    "Write your post content here…": "Write your post content here…",
+    "New post title here…": "New post title here…",
+    "File type is not allowed": "File type is not allowed",
+    "Only image files are permitted": "Only image files are permitted",
+    "Apply": "Apply",
+    "Cancel": "Cancel",
+    "Upload": "Upload",
+    "Insert from URL": "Insert from URL",
+    "Upload image": "Upload image",
+    "Unset link": "Unset link",
+    "Image URL": "Image URL",
+    "Gallery images": "Gallery images",
+    "Paste or type a link": "Paste or type a link",
+    "Alt text (alternative text)": "Alt text (alternative text)",
+    "Image": "Image",
+    "nothingWeFound": "Nothing we found!",
+    "author": "author",
+    "authors": "authors",
+    "all": "All",
+    "viewAll": "View All",
+    "articles": "Articles",
+    "categories": "categories",
+    "category": "category",
+    "tags": "tags",
+    "showMeMore": "Show me more",
+    "showAllPhotos": "Show all photos",
+    "relatedPosts": "Related Posts",
+    "moreFromAuthor": "More from author",
+    "ThistrackwasnotfoundMaybeitHasBeenRemoved": "This track was not found. Maybe it has been removed!",
+    "mostRecent": "Most Recent",
+    "mostLiked": "Most Liked",
+    "mostDiscussed": "Most Discussed",
+    "mostViewed": "Most Viewed",
+    "typeAndPressEnter": "Type and press enter",
+    "next": "Next",
+    "prev": "Prev",
+    "filters": "Filters",
+    "wereFoundForKeyword": "were found for keyword",
+    "LikedArticles": "Liked Articles",
+    "suggestions": "Suggestions",
+    "somethingWentWrong": "Something went wrong",
+    "other": "Other",
+    "otherTags": "Other Tags",
+    "otherCategories": "Other Categories",
+    "discoverOtherTags": "Discover other tags",
+    "discoverOtherCategories": "Discover other categories"
+  }';
+
 $section = array(
     'title'      => esc_html__('Frontend translate', 'ncmaz-frontend'),
-    'desc'       => esc_html__('All setting translate for frontend (The feature is under development, please follow this guide as an interim measure - https://nghiaxchis.gitbook.io/ncmaz-wordpress/how-to/translate-some-missing-words)', 'ncmaz-frontend'),
-    'id'         => 'nc-general-settings--translate',
+    'desc'       => esc_html__('In addition to using the Loco plugin to translate, you need to translate these words that are not included in the .pot file (These words are not in the PHP files, they are used and rendered by React)', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--Frontend-translate',
     'subsection' => true,
-    'fields'     => array(),
+    'fields'     => [
+        // ONLY DEFAULT
+        [
+            'id'       => 'nc-general-Frontend-translate__lang--default',
+            'type'     => 'ace_editor',
+            'title'    => esc_html__('Default Language code', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Please replace the values on the right (after colons and inside quotes) with your language.', 'ncmaz-frontend'),
+            'mode'     => 'javascript',
+            'theme'    => 'monokai',
+            'desc'     => 'Possible modes can be found at https://ace.c9.io/.',
+            'default'  => $JS_LOCALE_DEFAULT
+        ],
+        // WHEN ENABLE POLYLANG
+        [
+            'id'   => 'nc-general-Frontend-translate__divider_1',
+            'desc' => esc_html__('Only settings the fields below when you need multi-language, Up to 4 different languages. If you need more than 4 languages, open 1 ticket and the theme author will help you set up - https://help.chisnghiax.com', 'ncmaz-frontend'),
+            'type' => 'divide'
+        ],
+        [
+            'id'        => 'nc-general-Frontend-translate__lang_names',
+            'type'      => 'text',
+            'title'     => esc_html__('List of languages (Code)', 'ncmaz-frontend'),
+            'subtitle'  => esc_html__('Please enter the language codes you are using in the Polylang plugin. - E.g., en,vi,ja...', 'ncmaz-frontend'),
+            'desc'      => esc_html__('If you have less than 4 different languages, leave the remaining fields blank.', 'ncmaz-frontend'),
+            'data'      => array(
+                'language_1' => __('Language 1 code', 'ncmaz-frontend'),
+                'language_2' => __('Language 2 code', 'ncmaz-frontend'),
+                'language_3' => __('Language 3 code', 'ncmaz-frontend'),
+                'language_4' => __('Language 4 code', 'ncmaz-frontend'),
+            ),
+            'default'   => array(
+                'language_1' => '',
+                'language_2' => '',
+                'language_3' => '',
+                'language_4' => '',
+            ),
+            'required'  => array('nc-general-settings--general-switch-polylang', '=', true)
+        ],
+        [
+            'id'       => 'nc-general-Frontend-translate__lang--one',
+            'type'     => 'ace_editor',
+            'title'    => esc_html__('Translations for the first language', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Translations for the first language, corresponds to the Language 1 field above.', 'ncmaz-frontend'),
+            'mode'     => 'javascript',
+            'theme'    => 'monokai',
+            'desc'     => 'Possible modes can be found at https://ace.c9.io/.',
+            'default'  => $JS_LOCALE_DEFAULT,
+            'required' => array('nc-general-settings--general-switch-polylang', '=', true)
+        ],
+        [
+            'id'       => 'nc-general-Frontend-translate__lang--two',
+            'type'     => 'ace_editor',
+            'title'    => esc_html__('Translation for 2nd language.', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Translation for 2nd language, corresponds to the Language 2 field above.', 'ncmaz-frontend'),
+            'mode'     => 'javascript',
+            'theme'    => 'monokai',
+            'desc'     => 'Possible modes can be found at https://ace.c9.io/.',
+            'default'  => $JS_LOCALE_DEFAULT,
+            'required' => array('nc-general-settings--general-switch-polylang', '=', true)
+        ],
+        [
+            'id'       => 'nc-general-Frontend-translate__lang--three',
+            'type'     => 'ace_editor',
+            'title'    => esc_html__('Translation for 3rd language.', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Translation for 3rd language, corresponds to the Language 3 field above. If you don\'t need this 3rd language, leave it as it is without deleting', 'ncmaz-frontend'),
+            'mode'     => 'javascript',
+            'theme'    => 'monokai',
+            'desc'     => 'Possible modes can be found at https://ace.c9.io/.',
+            'default'  => $JS_LOCALE_DEFAULT,
+            'required' => array('nc-general-settings--general-switch-polylang', '=', true)
+        ],
+        [
+            'id'       => 'nc-general-Frontend-translate__lang--four',
+            'type'     => 'ace_editor',
+            'title'    => esc_html__('Translation for 4th language.', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Translation for 4th language, corresponds to the Language 4 field above. If you don\'t need this 4th language, leave it as it is without deleting', 'ncmaz-frontend'),
+            'mode'     => 'javascript',
+            'theme'    => 'monokai',
+            'desc'     => 'Possible modes can be found at https://ace.c9.io/.',
+            'default'  => $JS_LOCALE_DEFAULT,
+            'required' => array('nc-general-settings--general-switch-polylang', '=', true)
+        ],
+    ],
 );
 Redux::set_section($opt_name, $section);
 

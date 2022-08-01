@@ -181,3 +181,13 @@ function ncmazFe_getReadingTimeDom($postID)
     );
     return $NcReadingTime->rt_reading_time($atts);
 }
+
+// ===
+function ncmazFe_checkEnableCountViewFeature()
+{
+    global $ncmaz_redux_demo;
+    if (empty($ncmaz_redux_demo) || !defined('_NCMAZ_FRONTEND_VERSION') || !boolval($ncmaz_redux_demo['nc-single-page-settings--general-switch-count-views'])) {
+        return false;
+    }
+    return true;
+}

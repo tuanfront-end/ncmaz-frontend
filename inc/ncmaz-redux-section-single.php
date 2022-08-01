@@ -27,7 +27,14 @@ $section = array(
                 'default'   => 'Default - Custom field setting'
             ),
             'default' => 'default'
-        ]
+        ],
+        [
+            'id'       => 'nc-single-page-settings--general-switch-count-views',
+            'type'     => 'switch',
+            'title'    => esc_html__('Post view count feature', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Enable/Disable the post view count feature', 'ncmaz-frontend'),
+            'default'  => true,
+        ],
     ],
 );
 Redux::set_section($opt_name, $section);

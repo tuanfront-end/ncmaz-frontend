@@ -112,6 +112,8 @@ function ncmazFe_enqueueScriptCustomize()
     // get SLUGS
     $variablePagePostSubmissionEditorUrl =  get_permalink($ncmaz_redux_demo['adv-global-variable--pagePostSubmissionEditorUrl']);
     $variablePageNcmazAccountUrl =  get_permalink($ncmaz_redux_demo['adv-global-variable--pageNcmazAccountUrl']);
+    $IS_ENABLE_POLYLANG_SWITCH = boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang']);
+    $FRONTEND_TRANSLATE_LANG_NAMES = $ncmaz_redux_demo['nc-general-Frontend-translate__lang_names'];
     wp_add_inline_script('ncmazFe-mainJs', 'window.frontendObject = ' . json_encode(
         [
             'ajaxurl'                       => admin_url('admin-ajax.php'),
@@ -126,7 +128,8 @@ function ncmazFe_enqueueScriptCustomize()
             'allSettings'                   => empty($allSettings) ?  null : $allSettings['data']['allSettings'],
             'currentObject'                 => ['id'    => get_the_ID()],
             'pll_current_language'          => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
-            'pll_themeoption_actived'       => (function_exists('pll_current_language') && boolval($ncmaz_redux_demo['nc-general-settings--general-switch-polylang'])) ? 'true' : null,
+            'pll_current_language_correct_code' => function_exists('pll_current_language') ? pll_current_language() : null,
+            'pll_themeoption_actived'       => (function_exists('pll_current_language') && $IS_ENABLE_POLYLANG_SWITCH) ? true : null,
             'musicPlayerMode'               => true,
             'musicPlayerMediaSource'        => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
             'switchPreviewVideo'            => boolval($ncmaz_redux_demo['nc-general-settings--general-switch-preview-video-card']),
@@ -141,6 +144,35 @@ function ncmazFe_enqueueScriptCustomize()
             'authorPageCoverImgDefault'     => empty($ncmaz_redux_demo['nc-archive-page-settings--authorPageCoverImgDefault']) ? "" : $ncmaz_redux_demo['nc-archive-page-settings--authorPageCoverImgDefault']['url'],
             'archivePageCoverImgDefault'    => empty($ncmaz_redux_demo['nc-archive-page-settings--archivePageCoverImgDefault']) ? "" : $ncmaz_redux_demo['nc-archive-page-settings--archivePageCoverImgDefault']['url'],
             'searchPageCoverImgDefault'     => empty($ncmaz_redux_demo['nc-search-page-settings--media-background']) ? "" : $ncmaz_redux_demo['nc-search-page-settings--media-background']['url'],
+            // === Locales JS files
+            "frontendTranslations"          => [
+                [
+                    'name'      => 'localesJsFile__default',
+                    'language'  => 'default',
+                    'jsCode'    => $ncmaz_redux_demo['nc-general-Frontend-translate__lang--default']
+                ],
+                [
+                    'name'      => 'localesJsFile__one',
+                    'language'  => $FRONTEND_TRANSLATE_LANG_NAMES['language_1'],
+                    'jsCode'    => ($IS_ENABLE_POLYLANG_SWITCH && boolval($FRONTEND_TRANSLATE_LANG_NAMES['language_1'])) ? $ncmaz_redux_demo['nc-general-Frontend-translate__lang--one'] : null,
+                ],
+                [
+                    'name'      => 'localesJsFile__two',
+                    'language'  => $FRONTEND_TRANSLATE_LANG_NAMES['language_2'],
+                    'jsCode'    => ($IS_ENABLE_POLYLANG_SWITCH && boolval($FRONTEND_TRANSLATE_LANG_NAMES['language_2'])) ? $ncmaz_redux_demo['nc-general-Frontend-translate__lang--two'] : null,
+                ],
+                [
+                    'name'      => 'localesJsFile__three',
+                    'language'  => $FRONTEND_TRANSLATE_LANG_NAMES['language_3'],
+                    'jsCode'    => ($IS_ENABLE_POLYLANG_SWITCH && boolval($FRONTEND_TRANSLATE_LANG_NAMES['language_3'])) ? $ncmaz_redux_demo['nc-general-Frontend-translate__lang--three'] : null,
+                ],
+                [
+                    'name'      => 'localesJsFile__four',
+                    'language'  => $FRONTEND_TRANSLATE_LANG_NAMES['language_4'],
+                    'jsCode'    => ($IS_ENABLE_POLYLANG_SWITCH && boolval($FRONTEND_TRANSLATE_LANG_NAMES['language_4'])) ? $ncmaz_redux_demo['nc-general-Frontend-translate__lang--four'] : null,
+                ],
+            ]
+
         ]
     ), 'before');
 

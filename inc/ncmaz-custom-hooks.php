@@ -61,3 +61,29 @@ if (!function_exists('ncmazFe_custom_post_states')) {
         return $states;
     }
 }
+
+// NOTICES POLYLANG PLUGIN ACTIVE
+add_action('admin_notices', 'ncmazFe_admin_notice_polylang_plugin_active__error');
+function ncmazFe_admin_notice_polylang_plugin_active__error()
+{
+    if (defined('POLYLANG_VERSION') && defined('WPGRAPHQL_POLYLANG')) {
+        return;
+    }
+    if (!defined('POLYLANG_VERSION') && !defined('WPGRAPHQL_POLYLANG')) {
+        return;
+    }
+
+?>
+    <div class="notice notice-error is-dismissible">
+        <p><?php _e('You need to activate both plugins together to use multiple languages. If not, deactivate both', 'ncmaz-frontend'); ?></p>
+        <p>
+            <a href="https://wordpress.org/plugins/polylang/" target="_blank" rel="noopener noreferrer">
+                Polylang
+            </a> and
+            <a href="https://www.wpgraphql.com/extenstion-plugins/wpgraphql-polylang/" target="_blank" rel="noopener noreferrer">
+                WP GraphQL Polylang
+            </a>
+        </p>
+    </div>
+<?php
+}
