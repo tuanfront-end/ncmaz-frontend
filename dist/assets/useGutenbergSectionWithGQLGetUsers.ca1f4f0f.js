@@ -1,3 +1,0 @@
-import{I as U,J as Y,Q as y,T as c}from"./main.242e7493.js";function q({graphQLvariables:_,graphQLData:o}){const u=!_&&!!o;let n="";(_==null?void 0:_.queryString)==="GQL_QUERY_GET_USERS_BY_SPECIFIC"&&(n=y),(_==null?void 0:_.queryString)==="GQL_QUERY_GET_USERS_BY_FILTER"&&(n=c);const I=u?"":U`
-        ${n}
-      `;let t,e,E,G=()=>{};if(u)t=o;else{const[R,S]=Y(I,{notifyOnNetworkStatusChange:!0,variables:_==null?void 0:_.variables});G=R,t=S.data,e=S.loading,E=S.error}const T=(t==null?void 0:t.users.edges)||[],s=e&&!T.length;return{LISTS_DATA:T,IS_SKELETON:s,error:E,loading:e,funcGqlQueryGetUsers:G,DONOT_ANY_THING:!t&&!e&&!E}}export{q as u};

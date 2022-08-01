@@ -1,9 +1,0 @@
-import{h as n,a4 as d,U as c,a5 as f,J as p,r as a,j as e,X as i,N as h}from"./main.242e7493.js";import{C as m}from"./CircleLoading.ab2b6d6b.js";const E=n.lazy(()=>d(()=>import("./CreateNewPostEditor.29614ad2.js").then(r=>r.c),["assets/CreateNewPostEditor.29614ad2.js","assets/CreateNewPostEditor.4808eaeb.css","assets/main.242e7493.js","assets/main.5522b19c.css","assets/ButtonPrimary.8550dead.js","assets/CircleLoading.ab2b6d6b.js","assets/NcModal.1fe88e44.js","assets/ButtonClose.bd5ef9cf.js","assets/queryGraphql.175a443b.js","assets/NcImage.61d0e16f.js","assets/index.58d655af.js","assets/Textarea.d7b07b25.js","assets/CheckIcon.c9700aa3.js"])),y=n.lazy(()=>d(()=>import("./UpdatePostEditor.b5bc7a60.js"),["assets/UpdatePostEditor.b5bc7a60.js","assets/main.242e7493.js","assets/main.5522b19c.css","assets/ButtonPrimary.8550dead.js","assets/CreateNewPostEditor.29614ad2.js","assets/CreateNewPostEditor.4808eaeb.css","assets/CircleLoading.ab2b6d6b.js","assets/NcModal.1fe88e44.js","assets/ButtonClose.bd5ef9cf.js","assets/queryGraphql.175a443b.js","assets/NcImage.61d0e16f.js","assets/index.58d655af.js","assets/Textarea.d7b07b25.js","assets/CheckIcon.c9700aa3.js","assets/ButtonPrimaryDanger.6ff979f5.js"])),L=({action:r="create",postDatabaseID:t})=>{const l=c`
-    ${f}
-  `,[_,{error:o,data:s,loading:u}]=p(l,{notifyOnNetworkStatusChange:!0});return a.exports.useEffect(()=>{r==="edit"&&!!t&&_({variables:{postId:Number(t)}})},[]),r==="edit"&&!!t?o?e(i,{type:"error",children:e("div",{dangerouslySetInnerHTML:{__html:`${o.message}
-          <a
-            class="underline ml-2"
-            href="javascript:window.location.href=window.location.href"
-          >
-            Reload
-          </a>`}})}):u?e(m,{}):s?e(a.exports.Suspense,{fallback:e("div",{}),children:e(y,{postNode:s.post})}):e(i,{children:h.somethingWentWrong}):r==="create"?e(a.exports.Suspense,{fallback:e("div",{}),children:e(E,{})}):null};export{L as default};

@@ -2,7 +2,8 @@ import React, { FC, useState } from "react";
 import CardLarge1 from "components/CardLarge1/CardLarge1";
 import CardLarge1Skeleton from "components/CardLarge1/CardLarge1Skeleton";
 import { ListPosts } from "data/postCardType";
-import { useInterval, useBoolean } from "react-use";
+import useInterval from "react-use/lib/useInterval";
+import useBoolean from "react-use/lib/useBoolean";
 
 export interface SectionLargeSliderProps {
   listPosts: ListPosts["edges"];
