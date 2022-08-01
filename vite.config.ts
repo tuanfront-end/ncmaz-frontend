@@ -17,6 +17,7 @@ export default ({ mode }) => {
     // t7 = `${ncmazFrontendVariables.pluginDir}dist/`
     base: basePublicPath,
     build: {
+      cssCodeSplit: process.env.VITE_LRT_OR_RTL === "ltr",
       manifest: true,
       rollupOptions: {
         input: "/src/main.tsx",

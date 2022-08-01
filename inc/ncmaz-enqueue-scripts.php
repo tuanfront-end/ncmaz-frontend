@@ -185,7 +185,7 @@ function ncmazFe_enqueueScriptCustomize()
 }
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
+add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
 function ncmazFe_registerScripts()
 {
     $manifestJS = false;
@@ -198,8 +198,12 @@ function ncmazFe_registerScripts()
 
     $jsFileUrl = (string) $manifestJS['src/main.tsx']['file'];
     $cssFileUrl = (string) $manifestJS['src/main.tsx']['css'][0];
-    $cssLazyCssWoocommerce = (string) $manifestJS['src/LazyCssWoocommerce.tsx']['css'][0];
     $name = 'vitejs-module--' . $jsFileUrl;
+
+    $cssLazyCssWoocommerce = '';
+    if (!is_rtl()) {
+        $cssLazyCssWoocommerce = (string) $manifestJS['src/LazyCssWoocommerce.tsx']['css'][0];
+    }
     // JS
     wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['jquery', 'ncmazFe-mainJs'], null, true);
     // CSS
@@ -209,13 +213,13 @@ function ncmazFe_registerScripts()
     wp_style_add_data('ncmazFe-main', 'rtl', 'replace');
 
     // Woocommerce CSS
-    if (class_exists('WooCommerce')) {
+    if (class_exists('WooCommerce') && !empty($cssLazyCssWoocommerce)) {
         wp_enqueue_style('ncmazFe-Woocommerce', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssLazyCssWoocommerce, [], _NCMAZ_FRONTEND_VERSION, 'all');
     }
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

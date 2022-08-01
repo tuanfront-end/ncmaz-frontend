@@ -1129,10 +1129,6 @@
     "file": "assets/LazyCssRTL.4ea1586d.css",
     "src": "src/LazyCssRTL.css"
   },
-  "src/LazyCssSingleProse.css": {
-    "file": "assets/LazyCssSingleProse.5fd02c62.css",
-    "src": "src/LazyCssSingleProse.css"
-  },
   "src/LazyCssComments.css": {
     "file": "assets/LazyCssComments.83f57236.css",
     "src": "src/LazyCssComments.css"
@@ -1141,13 +1137,17 @@
     "file": "assets/CreateNewPostEditor.85b7f587.css",
     "src": "CreateNewPostEditor.css"
   },
-  "src/LazyCssWUFPlugin.css": {
-    "file": "assets/LazyCssWUFPlugin.63c46d22.css",
-    "src": "src/LazyCssWUFPlugin.css"
+  "src/LazyCssSingleProse.css": {
+    "file": "assets/LazyCssSingleProse.5fd02c62.css",
+    "src": "src/LazyCssSingleProse.css"
   },
   "src/main.css": {
     "file": "assets/main.fc3239b0.css",
     "src": "src/main.css"
+  },
+  "src/LazyCssWUFPlugin.css": {
+    "file": "assets/LazyCssWUFPlugin.63c46d22.css",
+    "src": "src/LazyCssWUFPlugin.css"
   },
   "src/LazyCssWoocommerce.css": {
     "file": "assets/LazyCssWoocommerce.28e28f2e.css",

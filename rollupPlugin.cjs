@@ -40,7 +40,7 @@ const overwiteFile = (options = {}) => {
           for (const file of files) {
             if (file.includes(".css")) {
               const filePath = join(pathToMainAssets, file);
-              if (file.search(/^main./g) > -1) {
+              if (file.search(/^style./g) > -1) {
                 fs.copyFile(filePath, `./${ROOT_CSS_RTL_NAME}`).then(() => {
                   console.log(1, "---- CSS File copied----");
                 });
