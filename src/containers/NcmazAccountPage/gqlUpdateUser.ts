@@ -1,4 +1,4 @@
-const GQL_MUTATION_UPDATE_USER = `mutation MUTAION_UPDATE_USER(
+const GQL_MUTATION_UPDATE_USER = `mutation MUTAION_UPDATE_PROFILE(
   $description: String = null,
   $websiteUrl: String = null, 
   $ncmazYoutubeUrl: String = null, 

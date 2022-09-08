@@ -26,13 +26,20 @@ export interface PageSearchProps {
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
-const FILTERS = [
-  { name: NCMAZ_TRANSLATE["filters"], value: "" },
-  { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
-  { name: NCMAZ_TRANSLATE["mostLiked"], value: "FAVORITES_COUNT" },
-  { name: NCMAZ_TRANSLATE["mostDiscussed"], value: "COMMENT_COUNT" },
-  { name: NCMAZ_TRANSLATE["mostViewed"], value: "VIEWS_COUNT" },
-];
+const FILTERS = window.frontendObject.isActivePluginFavorites
+  ? [
+      { name: NCMAZ_TRANSLATE["filters"], value: "" },
+      { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
+      { name: NCMAZ_TRANSLATE["mostLiked"], value: "FAVORITES_COUNT" },
+      { name: NCMAZ_TRANSLATE["mostDiscussed"], value: "COMMENT_COUNT" },
+      { name: NCMAZ_TRANSLATE["mostViewed"], value: "VIEWS_COUNT" },
+    ]
+  : [
+      { name: NCMAZ_TRANSLATE["filters"], value: "" },
+      { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
+      { name: NCMAZ_TRANSLATE["mostDiscussed"], value: "COMMENT_COUNT" },
+      { name: NCMAZ_TRANSLATE["mostViewed"], value: "VIEWS_COUNT" },
+    ];
 
 //
 type TabType = "Articles" | "Categories" | "Tags" | "Authors";

@@ -28,15 +28,17 @@ import { UserViewer } from "data/types";
 
 declare global {
   // ON FAVORITES PLUGIN - NEED UPDATE WHEN UPDATE PLUGIN
-  var Favorites: {
-    userFavorites?: [
-      {
-        groups: any;
-        posts?: Record<number, any>;
-        site_id: number;
+  var Favorites:
+    | {
+        userFavorites?: [
+          {
+            groups: any;
+            posts?: Record<number, any>;
+            site_id: number;
+          }
+        ];
       }
-    ];
-  };
+    | undefined;
   //
   var locales: Record<string, Record<string, string>>;
   //
@@ -93,6 +95,8 @@ declare global {
       language?: string;
       jsCode?: string;
     }[];
+    //
+    isActivePluginFavorites?: boolean;
   };
 
   var ncmazFrontendVariables: {

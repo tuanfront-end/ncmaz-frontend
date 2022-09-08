@@ -43,12 +43,19 @@ export interface PageArchiveProps {
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
-export const ARCHIVE_PAGE_FILTERS = [
-  { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
-  { name: NCMAZ_TRANSLATE["mostLiked"], value: "FAVORITES_COUNT" },
-  { name: NCMAZ_TRANSLATE["mostDiscussed"], value: "COMMENT_COUNT" },
-  { name: NCMAZ_TRANSLATE["mostViewed"], value: "VIEWS_COUNT" },
-];
+export const ARCHIVE_PAGE_FILTERS = window.frontendObject
+  .isActivePluginFavorites
+  ? [
+      { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
+      { name: NCMAZ_TRANSLATE["mostLiked"], value: "FAVORITES_COUNT" },
+      { name: NCMAZ_TRANSLATE["mostDiscussed"], value: "COMMENT_COUNT" },
+      { name: NCMAZ_TRANSLATE["mostViewed"], value: "VIEWS_COUNT" },
+    ]
+  : [
+      { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
+      { name: NCMAZ_TRANSLATE["mostDiscussed"], value: "COMMENT_COUNT" },
+      { name: NCMAZ_TRANSLATE["mostViewed"], value: "VIEWS_COUNT" },
+    ];
 
 const FILTERS = ARCHIVE_PAGE_FILTERS;
 

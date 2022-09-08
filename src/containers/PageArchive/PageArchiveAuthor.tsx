@@ -29,7 +29,6 @@ import twitterpng from "images/IntegrationIcons/twitter.png";
 import vimeopng from "images/IntegrationIcons/vimeo.png";
 import youtubepng from "images/IntegrationIcons/youtube.png";
 import ButtonSecondary from "components/Button/ButtonSecondary";
-import GLOBAL_VARIABLE from "contains/globalVariable";
 
 interface Data {
   posts: ListPosts;
@@ -49,6 +48,9 @@ export interface PageArchiveAuthorProps {
 
   // NEU listIDFavorites == undefined thi trang hien tai dang la cua minh => listIDFavorites = Favorites.userFavorites[0].posts
   listIDFavorites?: Record<number, number>;
+
+  // Check xem co phai dang trong trang author cua minh khong
+  isCurrentMyPage?: boolean;
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
@@ -61,13 +63,14 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   sectionCategoriesTrending,
   userData,
   listIDFavorites,
+  isCurrentMyPage,
 }) => {
   let TABS = [];
 
-  const TRANG_CUA_MINH = !listIDFavorites;
+  const TRANG_CUA_MINH = isCurrentMyPage;
 
   // VAO TRANG AUTHOR CUA USER KHAC
-  if (listIDFavorites) {
+  if (!TRANG_CUA_MINH) {
     TABS = [NCMAZ_TRANSLATE["articles"], NCMAZ_TRANSLATE["LikedArticles"]];
   }
   // VAO TRANG AUTHOR CUA USER CUA MINH
@@ -78,6 +81,10 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
       NCMAZ_TRANSLATE["Drafts"],
       NCMAZ_TRANSLATE["Pendings"],
     ];
+  }
+  // NEU KHONG KICK HOAT PLUGIN FAVORITES
+  if (!window.Favorites) {
+    TABS = TABS.filter((item) => item !== NCMAZ_TRANSLATE["LikedArticles"]);
   }
 
   const POST_PER_PAGE =
@@ -99,22 +106,29 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   }
 
   // FAVORITES POSTS VARIABEL
-  if (tabActive === TABS[1]) {
+  if (tabActive === NCMAZ_TRANSLATE["LikedArticles"]) {
     // GET LIST FAVORITES ID FROM PLUGIN FAVORITE JS GLOBALFavorites
     let inIDs: number[] | string[] | string = "";
 
     // VAO TRANG AUTHOR CUA USER KHAC
-    if (listIDFavorites) {
-      const userlistIds = Object.values(listIDFavorites);
-      if (userlistIds.length) {
-        inIDs = userlistIds;
+    if (!TRANG_CUA_MINH) {
+      if (listIDFavorites) {
+        let userlistIds: number[] = [];
+        try {
+          userlistIds = Object.values(listIDFavorites);
+        } catch (error) {}
+
+        if (userlistIds.length) {
+          inIDs = userlistIds;
+        }
       }
     } else {
       // VAO TRANG AUTHOR CUA MINH (listIDFavorites = undefined)
       // TAI SAO KHONG SU DUNG LUON listIDFavorites cho trang cua minh: VI cua minh con update khi click like button,
       // trong khi do listIDFavorites co dinh global nen khong su dung duoc.Phai su dung userFavorites
       if (
-        Favorites.userFavorites &&
+        window.Favorites &&
+        Favorites?.userFavorites &&
         Favorites.userFavorites[0] &&
         Favorites.userFavorites[0].posts
       ) {
@@ -124,6 +138,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
         }
       }
     }
+
     variables = {
       order: "DESC",
       first: 100,
@@ -132,7 +147,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   }
 
   // DRAFTS POSTS VARIABLE
-  if (tabActive === TABS[2]) {
+  if (tabActive === NCMAZ_TRANSLATE["Drafts"]) {
     variables = {
       order: "DESC",
       field: orderByState,
@@ -143,7 +158,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   }
 
   // PENDING POSTS VARIABLE
-  if (tabActive === TABS[3]) {
+  if (tabActive === NCMAZ_TRANSLATE["Pendings"]) {
     variables = {
       order: "DESC",
       field: orderByState,

@@ -171,7 +171,9 @@ function ncmazFe_enqueueScriptCustomize()
                     'language'  => $FRONTEND_TRANSLATE_LANG_NAMES['language_4'],
                     'jsCode'    => ($IS_ENABLE_POLYLANG_SWITCH && boolval($FRONTEND_TRANSLATE_LANG_NAMES['language_4'])) ? $ncmaz_redux_demo['nc-general-Frontend-translate__lang--four'] : null,
                 ],
-            ]
+            ],
+            // 
+            "isActivePluginFavorites" => boolval(defined("FAVORITES_PLUGIN_FILE"))
 
         ]
     ), 'before');
