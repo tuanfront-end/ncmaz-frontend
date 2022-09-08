@@ -26,7 +26,7 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
     () => {
       handleAutoNext();
     },
-    isRunning ? 4000 : null
+    isRunning ? 5000 : null
   );
   //
 
@@ -68,7 +68,7 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
     }
     TIME_OUT = setTimeout(() => {
       toggleIsRunning(true);
-    }, 2000);
+    }, 1000);
   };
 
   return (
