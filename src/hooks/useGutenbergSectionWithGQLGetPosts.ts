@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  GutenbergApiAttr_BlockMagazine,
   ListPostsGQLResultData,
   VariablesGutenbergGQLGetPosts,
 } from "data/gutenbergAttrType";
+import { PostNode } from "data/postCardType";
 import {
   GQL_QUERY_GET_POSTS_BY_FILTER,
   GQL_QUERY_GET_POSTS_BY_SPECIFIC,
@@ -20,12 +22,15 @@ import {
 function useGutenbergSectionWithGQLGetPosts({
   graphQLvariables,
   graphQLData,
+  hasSSrInitData,
 }: {
   graphQLvariables?: VariablesGutenbergGQLGetPosts;
   graphQLData?: ListPostsGQLResultData;
+  hasSSrInitData?: GutenbergApiAttr_BlockMagazine["hasSSrInitData"];
 }) {
   const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
   // const IS_SPECIFIC_DATA = false;
+  const IS_HAS_INIT_DATA = hasSSrInitData?.hasSSrInitData;
 
   const [variablesFilter, setVariablesFilter] = useState(
     graphQLvariables?.variables || {}
@@ -98,10 +103,18 @@ function useGutenbergSectionWithGQLGetPosts({
   //
 
   // =========================================================
-  const LISTS_POSTS = data?.posts.edges || [];
-  const IS_SKELETON = loading && !LISTS_POSTS.length;
+  let LISTS_POSTS = data?.posts.edges || [];
+  let IS_SKELETON = loading && !LISTS_POSTS.length;
   // SECTION CHUA LAM GI/HOAC CHUA VAO VIEW
   const DONOT_ANY_THING = !data && !loading && !error;
+
+  if (tabActiveId === -1 && IS_HAS_INIT_DATA) {
+    LISTS_POSTS = hasSSrInitData.initPostIDs.map((item, index) => {
+      return {
+        node: window.ncmazCoreVariables?.ncmazCoreInitPosts[item] as PostNode,
+      };
+    });
+  }
 
   //
   // =========================================================
@@ -115,7 +128,7 @@ function useGutenbergSectionWithGQLGetPosts({
     data,
     setTabActiveId,
     tabActiveId,
-    funcGqlQueryGetPosts,
+    funcGqlQueryGetPosts: IS_HAS_INIT_DATA ? () => {} : funcGqlQueryGetPosts,
   };
 }
 

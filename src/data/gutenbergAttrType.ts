@@ -63,6 +63,10 @@ export interface ListTermsGQLResultData {
 export interface GutenbergApiAttr_BlockTermSlider {
   graphQLvariables?: VariablesGutenbergGQLGetTerms;
   graphQLData?: ListTermsGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initTermIDs: (number | string)[];
+  };
   settings: {
     blockLayoutStyle: "layout-1" | "layout-2";
     termCardName: "card2" | "card3" | "card4" | "card5";
@@ -83,6 +87,10 @@ export interface GutenbergApiAttr_BlockTermSlider {
 export interface GutenbergApiAttr_BlockTermGrid {
   graphQLvariables?: VariablesGutenbergGQLGetTerms;
   graphQLData?: ListTermsGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initTermIDs: (number | string)[];
+  };
   settings: {
     blockLayoutStyle: "layout-1" | "layout-2";
     termCardName: "card2" | "card3" | "card4" | "card5";
@@ -99,6 +107,10 @@ export interface GutenbergApiAttr_BlockTermGrid {
 export interface GutenbergAttr__BlockUsersSlider {
   graphQLvariables?: VariablesGutenbergGQLGetUsers;
   graphQLData?: ListUsersGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initUserIDs: (number | string)[];
+  };
   settings: {
     userCardName: "card1" | "card2";
     heading: string;
@@ -120,6 +132,10 @@ export interface GutenbergAttr__BlockUsersSlider {
 export interface GutenbergAttr__BlockUsersGrid {
   graphQLvariables?: VariablesGutenbergGQLGetUsers;
   graphQLData?: ListUsersGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initUserIDs: (number | string)[];
+  };
   settings: {
     userCardName: "card1" | "card2";
     gridClass: string;
@@ -136,6 +152,10 @@ export interface GutenbergAttr__BlockUsersGrid {
 export interface GutenbergApiAttr_BlockPostsGrid {
   graphQLvariables?: VariablesGutenbergGQLGetPosts;
   graphQLData?: ListPostsGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initPostIDs: number[];
+  };
   settings: {
     blockLayoutStyle: "layout-1" | "layout-2";
     postCardName: string;
@@ -154,10 +174,14 @@ export interface GutenbergApiAttr_BlockPostsGrid {
   };
 }
 
-// =========================_Block User Grid============================================
+// =========================_Block POST SLIDER============================================
 export interface GutenbergApiAttr_BlockPostsSlider {
   graphQLvariables?: VariablesGutenbergGQLGetPosts;
   graphQLData?: ListPostsGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initPostIDs: number[];
+  };
   settings: {
     blockLayoutStyle: "layout-1" | "layout-2";
     postCardName: string;
@@ -182,6 +206,10 @@ export interface GutenbergApiAttr_BlockPostsSlider {
 export interface GutenbergApiAttr_BlockMagazine {
   graphQLvariables?: VariablesGutenbergGQLGetPosts;
   graphQLData?: ListPostsGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initPostIDs: number[];
+  };
   settings: {
     sectionName: string;
     showFilterTab: boolean;
@@ -193,7 +221,7 @@ export interface GutenbergApiAttr_BlockMagazine {
     expectedNumberResults?: number;
   };
 }
-// =========================_Block User Grid============================================
+// =========================_Block VIDEO============================================
 export interface GutenbergApiAttr_BlockVideos {
   settings: {
     heading: string;
@@ -207,25 +235,39 @@ export interface GutenbergApiAttr_BlockVideos {
 export interface GutenbergApiAttr_BlockWidgetPots {
   graphQLvariables?: VariablesGutenbergGQLGetPosts;
   graphQLData?: ListPostsGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initPostIDs: number[];
+  };
   settings: {
     postCardName: string;
     heading: string;
     expectedNumberResults?: number;
   };
 }
+
 // =========================_Block Widget Users============================================
 export interface GutenbergApiAttr_BlockWidgetUsers {
   graphQLvariables?: VariablesGutenbergGQLGetUsers;
   graphQLData?: ListUsersGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initUserIDs: (number | string)[];
+  };
   settings: {
     heading: string;
     expectedNumberResults?: number;
   };
 }
-// =========================_Block Widget Users============================================
+
+// =========================_Block Widget TERMS============================================
 export interface GutenbergApiAttr_BlockWidgetTerms {
   graphQLvariables?: VariablesGutenbergGQLGetTerms;
   graphQLData?: ListTermsGQLResultData;
+  hasSSrInitData?: {
+    hasSSrInitData: boolean;
+    initTermIDs: (number | string)[];
+  };
   settings: {
     heading: string;
     termCardName?: "card1" | "tag-card";

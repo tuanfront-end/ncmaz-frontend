@@ -57,7 +57,8 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   sectionIndex,
 }) => {
   // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
-  const { graphQLvariables, settings, graphQLData } = apiSettings;
+  const { graphQLvariables, settings, graphQLData, hasSSrInitData } =
+    apiSettings;
 
   const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
 
@@ -75,6 +76,7 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   } = useGutenbergSectionWithGQLGetPosts({
     graphQLData,
     graphQLvariables,
+    hasSSrInitData,
   });
 
   //

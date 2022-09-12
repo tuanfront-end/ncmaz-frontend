@@ -60,9 +60,12 @@ module.exports = {
 
     // CORE PLUGIN -----
     // lam dieu nay vi trong core co nhieu block render HTML ma theme khong the phat hien class
-    "../ncmaz-core/index.html",
-    "../ncmaz-core/src/**/*.{js,jsx,ts,tsx}",
-    "!../ncmaz-core/src/*.{js,jsx,ts,tsx}",
+    "../ncmaz-core-v2/src/**/*.{js,jsx,ts,tsx}",
+    // "../ncmaz-core-v2/src/**/*.{js,jsx,ts,tsx}",
+    // "!../ncmaz-core-v2/src/*.{js,jsx,ts,tsx}",
+    "../ncmaz-core-v2/src/block-become-author/*.{js,jsx,ts,tsx}",
+    "../ncmaz-core-v2/src/block-newsletter/*.{js,jsx,ts,tsx}",
+    "../ncmaz-core-v2/src/block-videos/*.{js,jsx,ts,tsx}",
 
     // THEME -----
     "../../themes/ncmaz/assets/**/*.{js,jsx,ts,tsx}",
