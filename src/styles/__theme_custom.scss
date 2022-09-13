@@ -68,7 +68,11 @@
 }
 
 .nc-box-has-hover {
-  @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:shadow-xl hover:border-transparent transition-shadow;
+  @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:border-transparent transition-shadow;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
+      rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  }
 }
 
 .nc-dark-box-bg-has-hover {
@@ -85,7 +89,11 @@
   }
 
   .sm\:nc-box-has-hover {
-    @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:shadow-xl hover:border-transparent transition-shadow;
+    @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:border-transparent transition-shadow;
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
+        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    }
   }
 
   .sm\:nc-dark-box-bg-has-hover {
@@ -103,7 +111,11 @@
   }
 
   .md\:nc-box-has-hover {
-    @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:shadow-xl hover:border-transparent transition-shadow;
+    @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:border-transparent transition-shadow;
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
+        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    }
   }
 
   .md\:nc-dark-box-bg-has-hover {

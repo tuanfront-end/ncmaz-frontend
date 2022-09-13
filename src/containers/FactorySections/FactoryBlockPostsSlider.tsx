@@ -41,9 +41,8 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   sectionIndex,
 }) => {
   const sliderRef = useRef(null);
-  // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
-  const { graphQLvariables, settings, graphQLData } = apiSettings;
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, settings, graphQLData, hasSSrInitData } =
+    apiSettings;
 
   //
   const {
@@ -60,15 +59,12 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   } = useGutenbergSectionWithGQLGetPosts({
     graphQLData,
     graphQLvariables,
+    hasSSrInitData,
   });
 
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex, tabActiveId).ref;
 
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
@@ -139,7 +135,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
       // @ts-ignore
       slider.destroy();
     };
-  }, [data, sliderRef, settings]);
+  }, [LISTS_POSTS, sliderRef, settings]);
 
   const renderPostComponent = (post: PostNode) => {
     switch (apiSettings.settings.postCardName) {

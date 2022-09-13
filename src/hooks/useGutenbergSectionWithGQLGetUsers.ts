@@ -1,5 +1,5 @@
-import React from "react";
 import {
+  GutenbergAttr__BlockUsersGrid,
   ListUsersGQLResultData,
   VariablesGutenbergGQLGetUsers,
 } from "data/gutenbergAttrType";
@@ -15,16 +15,18 @@ import {
   useLazyQuery,
   DocumentNode,
 } from "@apollo/client";
+import { AuthorNode } from "data/postCardType";
 
 function useGutenbergSectionWithGQLGetUsers({
   graphQLvariables,
   graphQLData,
+  hasSSrInitData,
 }: {
   graphQLvariables?: VariablesGutenbergGQLGetUsers;
   graphQLData?: ListUsersGQLResultData;
+  hasSSrInitData?: GutenbergAttr__BlockUsersGrid["hasSSrInitData"];
 }) {
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
-  // const IS_SPECIFIC_DATA = false;
+  const IS_HAS_INIT_DATA = hasSSrInitData?.hasSSrInitData;
 
   let GQL_QUERY__string = "";
   if (graphQLvariables?.queryString === "GQL_QUERY_GET_USERS_BY_SPECIFIC") {
@@ -34,11 +36,9 @@ function useGutenbergSectionWithGQLGetUsers({
     GQL_QUERY__string = GQL_QUERY_GET_USERS_BY_FILTER;
   }
 
-  const queryGql = !IS_SPECIFIC_DATA
-    ? gql`
-        ${GQL_QUERY__string}
-      `
-    : "";
+  const queryGql = gql`
+    ${GQL_QUERY__string}
+  `;
 
   // =========================================================
   // =========================================================
@@ -50,26 +50,36 @@ function useGutenbergSectionWithGQLGetUsers({
     ) => void = () => {};
 
   // -----
-  if (IS_SPECIFIC_DATA) {
-    data = graphQLData;
-  } else {
-    const [gqlQueryGetTerms, useLazyQueryResultData] =
-      useLazyQuery<ListUsersGQLResultData>(queryGql as DocumentNode, {
-        notifyOnNetworkStatusChange: true,
-        variables: graphQLvariables?.variables,
-      });
-    funcGqlQueryGetUsers = gqlQueryGetTerms;
-    data = useLazyQueryResultData.data;
-    loading = useLazyQueryResultData.loading;
-    error = useLazyQueryResultData.error;
-  }
+  const [gqlQueryGetTerms, useLazyQueryResultData] =
+    useLazyQuery<ListUsersGQLResultData>(queryGql as DocumentNode, {
+      notifyOnNetworkStatusChange: true,
+      variables: graphQLvariables?.variables,
+    });
+  funcGqlQueryGetUsers = gqlQueryGetTerms;
+  data = useLazyQueryResultData.data;
+  loading = useLazyQueryResultData.loading;
+  error = useLazyQueryResultData.error;
   //
 
   // =========================================================
 
-  const LISTS_DATA = data?.users.edges || [];
+  let LISTS_DATA = data?.users.edges || [];
   const IS_SKELETON = loading && !LISTS_DATA.length;
   const DONOT_ANY_THING = !data && !loading && !error;
+
+  // IF IS_HAS_INIT_DATA
+  if (IS_HAS_INIT_DATA) {
+    funcGqlQueryGetUsers = () => {};
+    LISTS_DATA = hasSSrInitData.initUserIDs.map((item, index) => {
+      return {
+        node: window.ncmazCoreVariables?.ncmazCoreInitUsers[
+          item as number
+        ] as AuthorNode,
+      };
+    });
+  } else {
+    funcGqlQueryGetUsers = gqlQueryGetTerms;
+  }
 
   return {
     LISTS_DATA,

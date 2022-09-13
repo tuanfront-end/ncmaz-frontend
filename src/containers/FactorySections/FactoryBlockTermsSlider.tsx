@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
@@ -20,8 +20,8 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, graphQLData, settings } = apiSettings;
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, graphQLData, settings, hasSSrInitData } =
+    apiSettings;
 
   const {
     IS_SKELETON,
@@ -29,15 +29,15 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
     error,
     funcGqlQueryGetTerms,
     DONOT_ANY_THING,
-  } = useGutenbergSectionWithGQLGetTerms({ graphQLvariables, graphQLData });
+  } = useGutenbergSectionWithGQLGetTerms({
+    graphQLvariables,
+    graphQLData,
+    hasSSrInitData,
+  });
 
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetTerms, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetTerms, sectionIndex).ref;
 
   const renderContent = () => {
     const {
@@ -59,28 +59,26 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
       <div
         className={`nc-FactoryBlockTermsSlider relative ${
           isBg ? "py-16" : ""
-        }  ${className}`}
+        } ${className}`}
         ref={ref}
       >
         {isBg && <BackgroundSection />}
 
         <div className="relative">
-          {!DONOT_ANY_THING && (
-            <SectionSliderNewCategories
-              categories={LIST_TERMS}
-              heading={heading}
-              subHeading={subHeading}
-              categoryCardType={termCardName}
-              isLoading={IS_SKELETON}
-              //
-              itemPerView={itemPerView}
-              sliderAnimationDuration={sliderAnimationDuration}
-              sliderAutoplayTime={sliderAutoplayTime}
-              sliderHoverpause={sliderHoverpause}
-              sliderRewind={sliderRewind}
-              sliderStartAt={sliderStartAt}
-            />
-          )}
+          <SectionSliderNewCategories
+            categories={LIST_TERMS}
+            heading={heading}
+            subHeading={subHeading}
+            categoryCardType={termCardName}
+            isLoading={IS_SKELETON}
+            //
+            itemPerView={itemPerView}
+            sliderAnimationDuration={sliderAnimationDuration}
+            sliderAutoplayTime={sliderAutoplayTime}
+            sliderHoverpause={sliderHoverpause}
+            sliderRewind={sliderRewind}
+            sliderStartAt={sliderStartAt}
+          />
 
           {/* ------------ */}
           <DataStatementBlockV2

@@ -155,7 +155,7 @@ export interface PostNode {
 
 interface Author {
   node: AuthorNode2;
-  __typename: string;
+  __typename?: string;
 }
 
 interface AuthorNode2 {
@@ -225,17 +225,17 @@ interface Avatar {
   size: number;
   url: string;
   width: number;
-  __typename: string;
+  __typename?: string;
 }
 
 interface Categories {
   edges: CategoriesEdge2[];
-  __typename: string;
+  __typename?: string;
 }
 
 export interface CategoriesEdge2 {
   node: CategoriesNode3;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface CategoriesNode3 {
@@ -247,15 +247,15 @@ export interface CategoriesNode3 {
   count: number;
   categoryId: number;
   ncTaxonomyMeta: NcTaxonomyMeta;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface Tags {
   edges: {
     node: TagNode3;
-    __typename: string;
+    __typename?: string;
   }[];
-  __typename: string;
+  __typename?: string;
 }
 
 export interface TagNode3 {
@@ -267,7 +267,7 @@ export interface TagNode3 {
   count: number;
   tagId: number;
   ncTaxonomyMeta: NcTaxonomyMeta;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface TermNode {
@@ -279,7 +279,7 @@ export interface TermNode {
   count: number;
   databaseId: number;
   ncTaxonomyMeta: NcTaxonomyMeta;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface NcTaxonomyMeta {
@@ -292,7 +292,7 @@ export interface NcTaxonomyMeta {
 
 interface FeaturedImage {
   node: Node4;
-  __typename: string;
+  __typename?: string;
 }
 
 interface Node4 {

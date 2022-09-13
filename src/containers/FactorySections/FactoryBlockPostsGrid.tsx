@@ -49,9 +49,8 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   sectionIndex,
 }) => {
   // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
-  const { graphQLvariables, settings, graphQLData } = apiSettings;
-
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, settings, graphQLData, hasSSrInitData } =
+    apiSettings;
 
   //
   const {
@@ -67,15 +66,12 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   } = useGutenbergSectionWithGQLGetPosts({
     graphQLData,
     graphQLvariables,
+    hasSSrInitData,
   });
 
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex, tabActiveId).ref;
 
   //
   const {

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import CardLarge1 from "components/CardLarge1/CardLarge1";
 import CardLarge1Skeleton from "components/CardLarge1/CardLarge1Skeleton";
 import { ListPosts } from "data/postCardType";
@@ -21,6 +21,11 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
   const [isClicked, setIsClicked] = useState(false);
 
   const [isRunning, toggleIsRunning] = useBoolean(true);
+
+  useEffect(() => {
+    setIndexActive(0);
+    handleAfterClick();
+  }, [listPosts]);
 
   useInterval(
     () => {

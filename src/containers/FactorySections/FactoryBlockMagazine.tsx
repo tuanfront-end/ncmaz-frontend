@@ -1,4 +1,4 @@
-import React, { FC, Suspense, useRef } from "react";
+import React, { FC, Suspense } from "react";
 import ReactDOM from "react-dom";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -60,8 +60,6 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   const { graphQLvariables, settings, graphQLData, hasSSrInitData } =
     apiSettings;
 
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
-
   //
   const {
     funcGqlQueryGetPosts,
@@ -81,12 +79,9 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
 
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex, tabActiveId).ref;
 
+  //
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
       setTabActiveId(item);

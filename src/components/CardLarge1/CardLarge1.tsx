@@ -94,16 +94,17 @@ const CardLarge1: FC<CardLarge1Props> = ({
           />
           <div className="absolute inset-x-4 bottom-5 sm:bottom-3 flex justify-center z-10">
             <div className="flex items-center justify-center ">
-              {postsLength.map((_, index) => (
-                <div
-                  key={index}
-                  className={` rounded-full mx-1 ${
-                    index === indexActive
-                      ? " w-2 h-2 bg-white"
-                      : "w-1.5 h-1.5 bg-neutral-200/70"
-                  }`}
-                ></div>
-              ))}
+              {postsLength.length > 1 &&
+                postsLength.map((_, index) => (
+                  <div
+                    key={index}
+                    className={` rounded-full mx-1 ${
+                      index === indexActive
+                        ? " w-2 h-2 bg-white"
+                        : "w-1.5 h-1.5 bg-neutral-200/70"
+                    }`}
+                  ></div>
+                ))}
             </div>
           </div>
         </a>

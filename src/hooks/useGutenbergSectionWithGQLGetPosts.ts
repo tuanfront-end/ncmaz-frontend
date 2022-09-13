@@ -28,8 +28,7 @@ function useGutenbergSectionWithGQLGetPosts({
   graphQLData?: ListPostsGQLResultData;
   hasSSrInitData?: GutenbergApiAttr_BlockMagazine["hasSSrInitData"];
 }) {
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
-  // const IS_SPECIFIC_DATA = false;
+  //
   const IS_HAS_INIT_DATA = hasSSrInitData?.hasSSrInitData;
 
   const [variablesFilter, setVariablesFilter] = useState(
@@ -39,11 +38,8 @@ function useGutenbergSectionWithGQLGetPosts({
 
   //
   useEffect(() => {
-    if (IS_SPECIFIC_DATA) {
-      return;
-    }
     setVariablesFilter(graphQLvariables?.variables || {});
-  }, [graphQLvariables, IS_SPECIFIC_DATA]);
+  }, [graphQLvariables]);
 
   let GQL_QUERY__string = "";
   if (graphQLvariables?.queryString === "GQL_QUERY_GET_POSTS_BY_FILTER") {
@@ -53,16 +49,15 @@ function useGutenbergSectionWithGQLGetPosts({
     GQL_QUERY__string = GQL_QUERY_GET_POSTS_BY_SPECIFIC;
   }
 
-  const queryGql = !IS_SPECIFIC_DATA
-    ? gql`
-        ${GQL_QUERY__string}
-      `
-    : "";
+  const queryGql = gql`
+    ${GQL_QUERY__string}
+  `;
 
   useEffect(() => {
-    if (IS_SPECIFIC_DATA) {
+    if (tabActiveId === -1 && IS_HAS_INIT_DATA) {
       return;
     }
+
     setVariablesFilter((variables) => {
       return {
         ...variables,
@@ -86,20 +81,17 @@ function useGutenbergSectionWithGQLGetPosts({
       | undefined;
 
   // -----
-  if (IS_SPECIFIC_DATA) {
-    data = graphQLData;
-  } else {
-    const [gqlQueryGetPosts, useLazyQueryResultData] =
-      useLazyQuery<ListPostsGQLResultData>(queryGql as DocumentNode, {
-        notifyOnNetworkStatusChange: true,
-        variables: variablesFilter,
-      });
-    funcGqlQueryGetPosts = gqlQueryGetPosts;
-    data = useLazyQueryResultData.data;
-    loading = useLazyQueryResultData.loading;
-    error = useLazyQueryResultData.error;
-    fetchMore = useLazyQueryResultData.fetchMore;
-  }
+  const [gqlQueryGetPosts, useLazyQueryResultData] =
+    useLazyQuery<ListPostsGQLResultData>(queryGql as DocumentNode, {
+      notifyOnNetworkStatusChange: true,
+      variables: variablesFilter,
+    });
+
+  funcGqlQueryGetPosts = gqlQueryGetPosts;
+  data = useLazyQueryResultData.data;
+  loading = useLazyQueryResultData.loading;
+  error = useLazyQueryResultData.error;
+  fetchMore = useLazyQueryResultData.fetchMore;
   //
 
   // =========================================================
@@ -108,12 +100,16 @@ function useGutenbergSectionWithGQLGetPosts({
   // SECTION CHUA LAM GI/HOAC CHUA VAO VIEW
   const DONOT_ANY_THING = !data && !loading && !error;
 
+  // IF IS_HAS_INIT_DATA
   if (tabActiveId === -1 && IS_HAS_INIT_DATA) {
+    funcGqlQueryGetPosts = () => {};
     LISTS_POSTS = hasSSrInitData.initPostIDs.map((item, index) => {
       return {
         node: window.ncmazCoreVariables?.ncmazCoreInitPosts[item] as PostNode,
       };
     });
+  } else {
+    funcGqlQueryGetPosts = gqlQueryGetPosts;
   }
 
   //
@@ -128,7 +124,7 @@ function useGutenbergSectionWithGQLGetPosts({
     data,
     setTabActiveId,
     tabActiveId,
-    funcGqlQueryGetPosts: IS_HAS_INIT_DATA ? () => {} : funcGqlQueryGetPosts,
+    funcGqlQueryGetPosts,
   };
 }
 

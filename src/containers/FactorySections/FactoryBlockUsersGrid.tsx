@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { GutenbergAttr__BlockUsersGrid } from "data/gutenbergAttrType";
@@ -20,20 +20,20 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, graphQLData, settings } = apiSettings;
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, graphQLData, settings, hasSSrInitData } =
+    apiSettings;
 
   const { funcGqlQueryGetUsers, IS_SKELETON, LISTS_DATA, error } =
-    useGutenbergSectionWithGQLGetUsers({ graphQLvariables, graphQLData });
+    useGutenbergSectionWithGQLGetUsers({
+      graphQLvariables,
+      graphQLData,
+      hasSSrInitData,
+    });
 
   // =========================================================
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetUsers, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetUsers, sectionIndex).ref;
 
   // =========================================================
 

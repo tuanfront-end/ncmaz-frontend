@@ -17,6 +17,7 @@ export interface SingleMoreFromAuthorGridPostsProps {
   orderBy?: string;
   numberOfPosts?: number;
   authorId: number;
+  currentPostDatabaseId?: number;
 }
 
 const SingleMoreFromAuthorGridPosts: FC<SingleMoreFromAuthorGridPostsProps> = ({
@@ -24,6 +25,7 @@ const SingleMoreFromAuthorGridPosts: FC<SingleMoreFromAuthorGridPostsProps> = ({
   order,
   orderBy,
   authorId,
+  currentPostDatabaseId,
 }) => {
   //
   let GQL_QUERY__string = "";
@@ -38,6 +40,7 @@ const SingleMoreFromAuthorGridPosts: FC<SingleMoreFromAuthorGridPostsProps> = ({
     orderBy,
     first: Number(numberOfPosts),
     authorIn: [Number(authorId)],
+    notIn: currentPostDatabaseId ? [currentPostDatabaseId] : [],
   };
 
   const gqlQuery = gql`

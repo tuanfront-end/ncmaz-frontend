@@ -5,11 +5,11 @@ import { GraphQlPageInfo } from "./types";
 export interface Users {
   edges: Edge[];
   pageInfo: GraphQlPageInfo;
-  __typename: string;
+  __typename?: string;
 }
 export interface Edge {
   node: AuthorNode;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface ApiParamPostByFilter {
