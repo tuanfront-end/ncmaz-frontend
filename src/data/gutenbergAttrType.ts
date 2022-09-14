@@ -1,4 +1,5 @@
 import { HeaderSectionFilterTabItem } from "components/HeaderSectionFilter/HeaderSectionFilter";
+import { PageInfo } from "containers/SingleComments/commentType";
 import { AuthorNode, ListPosts, ListTerms } from "./postCardType";
 import { GraphQlPageInfo } from "./types";
 
@@ -155,6 +156,7 @@ export interface GutenbergApiAttr_BlockPostsGrid {
   hasSSrInitData?: {
     hasSSrInitData: boolean;
     initPostIDs: number[];
+    initPageInfo?: PageInfo;
   };
   settings: {
     blockLayoutStyle: "layout-1" | "layout-2";
@@ -181,6 +183,7 @@ export interface GutenbergApiAttr_BlockPostsSlider {
   hasSSrInitData?: {
     hasSSrInitData: boolean;
     initPostIDs: number[];
+    initPageInfo?: PageInfo;
   };
   settings: {
     blockLayoutStyle: "layout-1" | "layout-2";
@@ -209,6 +212,7 @@ export interface GutenbergApiAttr_BlockMagazine {
   hasSSrInitData?: {
     hasSSrInitData: boolean;
     initPostIDs: number[];
+    initPageInfo?: PageInfo;
   };
   settings: {
     sectionName: string;

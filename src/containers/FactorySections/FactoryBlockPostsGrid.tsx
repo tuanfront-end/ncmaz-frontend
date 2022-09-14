@@ -1,6 +1,5 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useState } from "react";
 import ReactDOM from "react-dom";
-
 import { PostNode } from "data/postCardType";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -51,7 +50,9 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
   // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
   const { graphQLvariables, settings, graphQLData, hasSSrInitData } =
     apiSettings;
-
+  //
+  const [firstClickLoadMore, setFirstClickLoadMore] = useState(false);
+  //
   //
   const {
     funcGqlQueryGetPosts,
@@ -63,16 +64,38 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     fetchMore,
     setTabActiveId,
     tabActiveId,
+    funcGqlGetPostsForAllHasInitData,
   } = useGutenbergSectionWithGQLGetPosts({
     graphQLData,
     graphQLvariables,
     hasSSrInitData,
   });
-
   //
+
   let ref: React.RefObject<HTMLDivElement> | null = null;
   ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex, tabActiveId).ref;
 
+  //
+
+  const IS_HAS_INIT_DATA = hasSSrInitData?.hasSSrInitData;
+  const IS_HAS_INIT_DATA_NEXT_PAGE = hasSSrInitData?.initPageInfo?.hasNextPage;
+  // const LISTS_POSTS_INIT = hasSSrInitData?.initPostIDs.map((item) => {
+  //   return {
+  //     node: window.ncmazCoreVariables?.ncmazCoreInitPosts[item] as PostNode,
+  //   };
+  // });
+
+  // //
+  // let MY_LISTS_POSTS = LISTS_POSTS;
+  // //
+  // if (tabActiveId === -1 && IS_HAS_INIT_DATA) {
+  //   MY_LISTS_POSTS = LISTS_POSTS_INIT || [];
+  //   if (IS_HAS_INIT_DATA_NEXT_PAGE && firstClickLoadMore) {
+  //     MY_LISTS_POSTS = [...(LISTS_POSTS_INIT || []), ...LISTS_POSTS];
+  //   }
+  // }
+
+  let MY_LISTS_POSTS = LISTS_POSTS;
   //
   const {
     hasBackground,
@@ -105,7 +128,9 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     previousResult: ListPostsGQLResultData,
     { fetchMoreResult }: { fetchMoreResult?: ListPostsGQLResultData }
   ): ListPostsGQLResultData => {
-    if (!fetchMoreResult?.posts?.edges.length) return previousResult;
+    if (!fetchMoreResult?.posts?.edges.length) {
+      return previousResult;
+    }
     return {
       ...fetchMoreResult,
       posts: {
@@ -123,11 +148,19 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
       return;
     }
     e.preventDefault();
-    const notIn = LISTS_POSTS.map((item) => item.node.postId);
+    const notIn = MY_LISTS_POSTS.map((item) => item.node.postId);
+
+    // IF ELSE này để thực hiện load more cho block khi có dữ liệu initData
+    if (IS_HAS_INIT_DATA && tabActiveId === -1 && !firstClickLoadMore) {
+      funcGqlGetPostsForAllHasInitData({
+        variables: { notIn },
+      });
+      setFirstClickLoadMore(true);
+      return;
+    }
+
     fetchMore({
-      variables: {
-        notIn,
-      },
+      variables: { notIn },
       updateQuery,
     });
   };
@@ -204,6 +237,46 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     );
   };
 
+  const renderButtonLoadmore = () => {
+    //
+    let isShowLoadmoreBtn = false;
+    if (tabActiveId === -1) {
+      if (!firstClickLoadMore) {
+        isShowLoadmoreBtn = !!IS_HAS_INIT_DATA && !!IS_HAS_INIT_DATA_NEXT_PAGE;
+      } else {
+        isShowLoadmoreBtn = loading || !!data?.posts.pageInfo?.hasNextPage;
+      }
+    } else {
+      isShowLoadmoreBtn = !!data?.posts.pageInfo?.hasNextPage;
+    }
+
+    if (!enableLoadMoreButton) {
+      return null;
+    }
+
+    if (!!loadMoreButtonHref) {
+      return (
+        <div className="flex mt-12 md:mt-14 justify-center items-center">
+          <ButtonPrimary href={loadMoreButtonHref}>
+            {NCMAZ_TRANSLATE["showMeMore"]}
+          </ButtonPrimary>
+        </div>
+      );
+    }
+
+    if (filterDataBy === "by_specific" || !isShowLoadmoreBtn) {
+      return null;
+    }
+
+    return (
+      <div className="flex mt-12 md:mt-14 justify-center items-center">
+        <ButtonPrimary onClick={handleClickLoadmoreBtn} loading={loading}>
+          {NCMAZ_TRANSLATE["showMeMore"]}
+        </ButtonPrimary>
+      </div>
+    );
+  };
+
   const renderContent = () => {
     const isBg = hasBackground;
 
@@ -238,37 +311,19 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
               ? Array.from(
                   Array(Number(settings.expectedNumberResults || 8) || 8).keys()
                 ).map(renderCardLoading)
-              : LISTS_POSTS.map((post) => renderCard(post.node))}
+              : MY_LISTS_POSTS.map((post) => renderCard(post.node))}
           </div>
 
           {/* ------------ */}
           <DataStatementBlockV2
             className="my-5"
-            data={LISTS_POSTS}
+            data={MY_LISTS_POSTS}
             error={error}
             isSkeleton={IS_SKELETON}
           />
           {/* ------------ */}
 
-          {enableLoadMoreButton ? (
-            !!loadMoreButtonHref ? (
-              <div className="flex mt-12 md:mt-20 justify-center items-center">
-                <ButtonPrimary href={loadMoreButtonHref}>
-                  {NCMAZ_TRANSLATE["showMeMore"]}
-                </ButtonPrimary>
-              </div>
-            ) : filterDataBy !== "by_specific" &&
-              data?.posts.pageInfo?.hasNextPage ? (
-              <div className="flex mt-12 md:mt-20 justify-center items-center">
-                <ButtonPrimary
-                  onClick={handleClickLoadmoreBtn}
-                  loading={loading}
-                >
-                  {NCMAZ_TRANSLATE["showMeMore"]}
-                </ButtonPrimary>
-              </div>
-            ) : null
-          ) : null}
+          {renderButtonLoadmore()}
         </div>
       </div>
     );

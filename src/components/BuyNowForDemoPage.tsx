@@ -3,9 +3,9 @@ import React from "react";
 const BuyNowForDemoPage = () => {
   return (
     <div className="relative z-20">
-      <div className="fixed right-2 xl:right-3 top-1/3 2xl:top-1/4 inline-flex flex-col space-y-1 sm:space-y-2">
+      <div className="fixed right-2 xl:right-3 top-1/2 2xl:top-1/4 inline-flex flex-col space-y-1 sm:space-y-2">
         <a
-          className="inline-flex p-2.5 sm:p-3.5 transition-colors rounded sm:rounded-xl bg-white shadow-xl dark:bg-neutral-700 dark:hover:bg-neutral-6000 ring-1 ring-neutral-900/5 dark:ring-neutral-100/10 hover:bg-neutral-100 text-black dark:text-white"
+          className="inline-flex p-2.5 sm:p-3.5 transition-colors rounded-lg sm:rounded-xl bg-white shadow-xl dark:bg-neutral-700 dark:hover:bg-neutral-6000 ring-1 ring-neutral-900/5 dark:ring-neutral-100/10 hover:bg-neutral-100 text-black dark:text-white"
           href="https://chisnghiax.com/ncmaz-wp-landing/#demos"
           target="_blank"
           rel="noopener noreferrer"
@@ -53,7 +53,7 @@ const BuyNowForDemoPage = () => {
           </svg>
         </a>
         <a
-          className="inline-flex p-2.5 sm:p-3.5 text-primary-500 dark:text-primary-300 transition-colors rounded sm:rounded-xl bg-white shadow-xl dark:bg-neutral-700 dark:hover:bg-neutral-6000 ring-1 ring-neutral-900/5 dark:ring-neutral-100/10 hover:bg-neutral-100"
+          className="inline-flex p-2.5 sm:p-3.5 text-primary-500 dark:text-primary-300 transition-colors  rounded-lg sm:rounded-xl bg-white shadow-xl dark:bg-neutral-700 dark:hover:bg-neutral-6000 ring-1 ring-neutral-900/5 dark:ring-neutral-100/10 hover:bg-neutral-100"
           href="https://themeforest.net/item/ncmaz-blog-magazine-wordpress-theme/34122841"
           target="_blank"
           rel="noopener noreferrer"

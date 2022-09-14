@@ -28,7 +28,7 @@ const SearchDropdown = () => {
       <button
         type="button"
         onClick={openModal}
-        className="text-2xl md:text-[28px] sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center"
+        className="text-[28px] md:text-[28px] h-10 sm:w-12 sm:h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center"
       >
         <i className="las la-search"></i>
       </button>

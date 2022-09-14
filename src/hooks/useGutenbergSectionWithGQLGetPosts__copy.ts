@@ -17,7 +17,6 @@ import {
   useLazyQuery,
   DocumentNode,
 } from "@apollo/client";
-import { PostNode } from "data/postCardType";
 
 function useGutenbergSectionWithGQLGetPosts({
   graphQLvariables,
@@ -45,6 +44,7 @@ function useGutenbergSectionWithGQLGetPosts({
     if (tabActiveId === -1 && IS_HAS_INIT_DATA) {
       return;
     }
+
     setVariablesFilter((variables) => {
       return {
         ...variables,
@@ -69,66 +69,34 @@ function useGutenbergSectionWithGQLGetPosts({
   `;
 
   //
+  //
   let LISTS_POSTS = [];
   let IS_SKELETON = false;
   // SECTION CHUA LAM GI/HOAC CHUA VAO VIEW
   let DONOT_ANY_THING = false;
 
-  let data: ListPostsGQLResultData | undefined = undefined;
-  let loading: boolean | undefined = undefined;
-  let error: ApolloError | undefined;
-  let funcGqlQueryGetPosts: (
-    options?: QueryLazyOptions<OperationVariables> | undefined
-  ) => void = () => {};
-  let fetchMore:
-    | LazyQueryResult<ListPostsGQLResultData, OperationVariables>["fetchMore"]
-    | undefined;
+  let data: ListPostsGQLResultData | undefined = undefined,
+    loading: boolean | undefined = undefined,
+    error: ApolloError | undefined,
+    funcGqlQueryGetPosts: (
+      options?: QueryLazyOptions<OperationVariables> | undefined
+    ) => void = () => {},
+    fetchMore:
+      | LazyQueryResult<ListPostsGQLResultData, OperationVariables>["fetchMore"]
+      | undefined;
 
   let funcGqlGetPostsForAllHasInitData: (
     options?: QueryLazyOptions<OperationVariables> | undefined
   ) => void = () => {};
 
-  // DEFAULT LAZY QUERY
-  const [gqlQueryGetPosts, useLazyQueryResultData] =
-    useLazyQuery<ListPostsGQLResultData>(queryGql as DocumentNode, {
-      notifyOnNetworkStatusChange: true,
-      variables: variablesFilter,
-    });
-  //
-  // LAZY QUERY NAY chỉ phục vụ cho các khối có dữ liệu init (Click load-more vao tab all khi co init data)
-  const [
-    gqlQueryGetPostsForAllHasInitData,
-    useLazyQueryResultDataForAllHasInitData,
-  ] = useLazyQuery<ListPostsGQLResultData>(queryGql as DocumentNode, {
-    notifyOnNetworkStatusChange: true,
-    variables: VARIABLE_FILTER_ROOT,
-  });
-
-  // ===================================================================================
-  if (tabActiveId === -1 && IS_HAS_INIT_DATA) {
-    // IF IS_HAS_INIT_DATA =========================
-    funcGqlQueryGetPosts = () => {};
-    funcGqlGetPostsForAllHasInitData = gqlQueryGetPostsForAllHasInitData;
-    data = useLazyQueryResultDataForAllHasInitData.data;
-    loading = useLazyQueryResultDataForAllHasInitData.loading;
-    error = useLazyQueryResultDataForAllHasInitData.error;
-    fetchMore = useLazyQueryResultDataForAllHasInitData.fetchMore;
+  // =========================================================
+  if (tabActiveId !== -1 || !IS_HAS_INIT_DATA) {
+    const [gqlQueryGetPosts, useLazyQueryResultData] =
+      useLazyQuery<ListPostsGQLResultData>(queryGql as DocumentNode, {
+        notifyOnNetworkStatusChange: true,
+        variables: variablesFilter,
+      });
     //
-    IS_SKELETON = false;
-    LISTS_POSTS = data?.posts.edges || [];
-    DONOT_ANY_THING = !data && !loading && !error;
-
-    //
-    const LISTS_POSTS_INIT =
-      hasSSrInitData?.initPostIDs.map((item) => {
-        return {
-          node: window.ncmazCoreVariables?.ncmazCoreInitPosts[item] as PostNode,
-        };
-      }) || [];
-
-    LISTS_POSTS = [...LISTS_POSTS_INIT, ...LISTS_POSTS];
-  } else {
-    // DEFAULT BLOCKS
     funcGqlQueryGetPosts = gqlQueryGetPosts;
     data = useLazyQueryResultData.data;
     loading = useLazyQueryResultData.loading;
@@ -137,9 +105,32 @@ function useGutenbergSectionWithGQLGetPosts({
     //
     LISTS_POSTS = data?.posts.edges || [];
     IS_SKELETON = loading && !LISTS_POSTS.length;
+    // SECTION CHUA LAM GI/HOAC CHUA VAO VIEW
+    DONOT_ANY_THING = !data && !loading && !error;
+  } else {
+    // IF IS_HAS_INIT_DATA =========================================================
+    // LAZY QUERY NAY chỉ phục vụ cho các khối có dữ liệu init khi click vào load-more lần đầu tiên
+    const [
+      gqlQueryGetPostsForAllHasInitData,
+      useLazyQueryResultDataForAllHasInitData,
+    ] = useLazyQuery<ListPostsGQLResultData>(queryGql as DocumentNode, {
+      notifyOnNetworkStatusChange: true,
+      variables: VARIABLE_FILTER_ROOT,
+    });
+
+    funcGqlQueryGetPosts = () => {};
+    // funcGqlQueryGetPosts = gqlQueryGetPostsForAllHasInitData;
+    data = useLazyQueryResultDataForAllHasInitData.data;
+    loading = useLazyQueryResultDataForAllHasInitData.loading;
+    error = useLazyQueryResultDataForAllHasInitData.error;
+    fetchMore = useLazyQueryResultDataForAllHasInitData.fetchMore;
+    funcGqlGetPostsForAllHasInitData = gqlQueryGetPostsForAllHasInitData;
+    IS_SKELETON = false;
+    LISTS_POSTS = data?.posts.edges || [];
     DONOT_ANY_THING = !data && !loading && !error;
   }
 
+  //
   // =========================================================
   return {
     IS_SKELETON,

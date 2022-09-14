@@ -111,7 +111,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     let btnClassName =
       "w-10 h-10 bg-white dark:bg-neutral-900 border border-neutral-200 hover:border-neutral-300 dark:border-neutral-6000 dark:hover:border-neutral-500 rounded-full flex items-center justify-center  -- disabled:opacity-70 disabled:text-gray-500  disabled:cursor-default disabled:hover:border-neutral-200 dark:disabled:hover:border-neutral-6000";
     return (
-      <div className="nc-NextPrev mt-8 ml-2 relative flex items-center justify-center text-neutral-900 dark:text-neutral-300 space-x-2.5 ">
+      <div className="nc-NextPrev mt-6 relative flex items-center justify-center text-neutral-900 dark:text-neutral-300 space-x-2.5 ">
         <button
           className={btnClassName}
           disabled={!pageInfo.hasPreviousPage}
@@ -191,7 +191,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
             : ""
         }`}
       >
-        <div className="px-4 py-5 ">
+        <div className="p-5">
           <DataStatementBlockV2
             className="my-5"
             data={POSTS}
@@ -202,7 +202,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
           {/* LOOP ITEMS */}
           {IS_SKELETON || POSTS.length ? (
             <div
-              className={`grid gap-4 ${
+              className={`grid gap-5 ${
                 showTabFilter ? "grid-cols-4" : "grid-cols-5"
               }`}
             >
@@ -228,7 +228,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
         ref={ref}
         className="nc-megamenu-item absolute top-full py-3 -inset-x-10"
       >
-        <div className="w-full flex overflow-hidden rounded-2xl shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 ">
+        <div className="w-full flex overflow-hidden rounded-3xl shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 ">
           {showTabFilter && renderLeft()}
           {renderRight()}
         </div>

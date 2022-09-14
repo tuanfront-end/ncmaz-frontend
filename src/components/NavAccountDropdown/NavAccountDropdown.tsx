@@ -1,7 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import Avatar from "components/Avatar/Avatar";
 import React, { FC, Fragment } from "react";
-import getAvatarUrlDefaultWordpress from "utils/getAvatarUrlWordpress";
 
 interface Item {
   id: string;
@@ -20,14 +19,17 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
   footData,
 }) => {
   const { currentUser, homeURL } = frontendObject;
+
+  const AVATAR =
+    currentUser?.ncUserMeta?.featuredImage?.sourceUrl ||
+    currentUser?.avatar?.url ||
+    "";
+
   const renderAvatar = () => {
     return (
-      <div className="flex-shrink-0 sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ">
+      <div className="flex-shrink-0 sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ">
         <Avatar
-          imgUrl={getAvatarUrlDefaultWordpress(
-            currentUser?.avatar?.url,
-            currentUser?.ncUserMeta?.featuredImage?.sourceUrl
-          )}
+          imgUrl={AVATAR}
           userName={currentUser?.name}
           radius="rounded-full"
           containerClassName="ring-2 ring-neutral-200 dark:ring-neutral-700 ring-offset-2"
@@ -58,10 +60,7 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
               className="px-3 py-2 flex items-center space-x-3"
             >
               <Avatar
-                imgUrl={getAvatarUrlDefaultWordpress(
-                  currentUser?.avatar?.url,
-                  currentUser?.ncUserMeta?.featuredImage?.sourceUrl
-                )}
+                imgUrl={AVATAR}
                 userName={currentUser?.name}
                 radius="rounded-full"
                 sizeClass="h-9 w-9 sm:h-10 sm:w-10 text-base"

@@ -163,7 +163,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
           ncmazGalleryImgs_7_databaseID: $ncmazGalleryImgs_7_databaseID
           ncmazGalleryImgs_8_databaseID: $ncmazGalleryImgs_8_databaseID
           content: $content
-          categories: { nodes: $categoryNodes }
+          categories: { append: false, nodes: $categoryNodes }
           ncTags: $ncTags
           ncmazVideoUrl: $ncmazVideoUrl
           postFormats: {
