@@ -263,7 +263,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                     <li
                       key={index}
                       className={`glide__slide ${
-                        enableNexPrevOnFoot ? "pb-10 xl:pb-14" : ""
+                        enableNexPrevOnFoot ? "pb-10 xl:pb-12" : ""
                       }`}
                     >
                       {renderPostComponentLoading()}
@@ -273,7 +273,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                     <li
                       key={index}
                       className={`glide__slide ${
-                        enableNexPrevOnFoot ? "pb-10 xl:pb-14" : ""
+                        enableNexPrevOnFoot ? "pb-10 xl:pb-12" : ""
                       }`}
                     >
                       {renderPostComponent(item.node)}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MoonIcon } from "@heroicons/react/solid";
-import { SunIcon } from "@heroicons/react/outline";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 
 export interface SwitchDarkModeProps {
   className?: string;
@@ -8,21 +7,14 @@ export interface SwitchDarkModeProps {
 const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({
   className = "w-12 h-12",
 }) => {
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-  );
+  //
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.theme === "dark");
   //
   const rootEl = document.documentElement;
   //
 
   useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
+    if (localStorage.theme === "dark") {
       if (!rootEl.classList.contains("dark")) {
         rootEl.classList.add("dark");
       }
@@ -32,6 +24,24 @@ const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({
       }
     }
   }, [isDarkMode]);
+
+  useEffect(() => {
+    // TINH TOAN KHI NGUOI DUNG SU DUNG O NHIEU NOI
+    const a = document.getElementById("dialog-overlay-site-navigation-mobile");
+    const b = document.getElementById("btn-close-modal-mobile-sidebar-menu");
+    const opens = document.querySelectorAll(".btn-toogle-mobile-sidebar-menu");
+    opens?.forEach((element) => {
+      element.addEventListener("click", () => {
+        setIsDarkMode(localStorage.theme === "dark");
+      });
+    });
+    a?.addEventListener("click", () =>
+      setIsDarkMode(localStorage.theme === "dark")
+    );
+    b?.addEventListener("click", () =>
+      setIsDarkMode(localStorage.theme === "dark")
+    );
+  }, []);
 
   const handleClick = () => {
     if (isDarkMode) {
@@ -49,9 +59,9 @@ const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({
     >
       <span className="sr-only">Enable dark mode</span>
       {isDarkMode ? (
-        <MoonIcon className="w-7 h-7" aria-hidden="true" />
+        <MoonIcon className="w-6 h-6 sm:w-7 sm:h-7" aria-hidden="true" />
       ) : (
-        <SunIcon className="w-7 h-7" aria-hidden="true" />
+        <SunIcon className="w-6 h-6 sm:w-7 sm:h-7" aria-hidden="true" />
       )}
     </button>
   );

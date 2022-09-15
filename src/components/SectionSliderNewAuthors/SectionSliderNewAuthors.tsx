@@ -181,7 +181,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
                   <li
                     key={index}
                     className={`glide__slide ${
-                      !isLayout2 ? "pb-10 md:pb-14" : ""
+                      !isLayout2 ? "pb-10 md:pb-12" : ""
                     }`}
                   >
                     {renderCardSkeleton()}
@@ -191,7 +191,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
                   <li
                     key={index}
                     className={`glide__slide ${
-                      !isLayout2 ? "pb-10 md:pb-14" : ""
+                      !isLayout2 ? "pb-10 md:pb-12" : ""
                     }`}
                   >
                     {renderCard(item.node)}

@@ -27,9 +27,9 @@ try {
     }
     //
     const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        _handleSiteHeaderIsTop(entry.isIntersecting);
-      });
+      // entries.forEach((entry) => {
+      //   _handleSiteHeaderIsTop(entry.isIntersecting);
+      // });
     };
     if (!OBSERVER) {
       OBSERVER = new IntersectionObserver(

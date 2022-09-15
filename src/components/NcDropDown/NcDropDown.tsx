@@ -1,4 +1,4 @@
-import { DotsHorizontalIcon } from "@heroicons/react/solid";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import React, { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import twFocusClass from "utils/twFocusClass";
@@ -90,7 +90,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
         {renderTrigger ? (
           renderTrigger()
         ) : (
-          <DotsHorizontalIcon
+          <EllipsisHorizontalIcon
             className={iconClass}
             aria-hidden="true"
             stroke="none"

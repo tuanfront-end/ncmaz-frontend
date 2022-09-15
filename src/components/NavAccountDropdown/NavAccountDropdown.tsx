@@ -27,7 +27,7 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
 
   const renderAvatar = () => {
     return (
-      <div className="flex-shrink-0 sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ">
+      <div className="flex-shrink-0 w-10 h-10 xl:w-12 xl:h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center ">
         <Avatar
           imgUrl={AVATAR}
           userName={currentUser?.name}

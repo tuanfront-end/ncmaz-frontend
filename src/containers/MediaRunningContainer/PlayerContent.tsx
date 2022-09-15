@@ -639,14 +639,14 @@ const PlayerContent: FC<PlayerContentProps> = ({
         </div>
       </div>
       <Transition
-        className="h-16 flex lg:hidden justify-center border-t border-neutral-300 dark:border-neutral-700 transition-all "
+        className="h-16 flex lg:hidden justify-center border-t border-neutral-300 dark:border-neutral-700 transition-all"
         show={isShowContentOnMobile}
         enter="duration-150"
-        enterFrom="-mb-16"
-        enterTo="mb-0"
+        enterFrom="-mb-16 opacity-0 invisible"
+        enterTo="mb-0 opacity-100 visible "
         leave="duration-150"
-        leaveFrom="mb-0"
-        leaveTo="-mb-16"
+        leaveFrom="mb-0 opacity-100 visible "
+        leaveTo="-mb-16 opacity-0 invisible"
       >
         <div className="flex flex-grow items-center justify-evenly text-neutral-500 dark:text-neutral-300 max-w-xs sm:max-w-sm md:max-w-md ">
           <div className="w-12 flex justify-center">

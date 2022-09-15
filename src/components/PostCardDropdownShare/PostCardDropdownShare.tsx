@@ -3,7 +3,7 @@ import SocialShareItem from "components/SocialShareItem";
 import NCMAZ_TRANSLATE from "contains/translate";
 import React from "react";
 import { FC } from "react";
-import { Slide, toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 let SOCIALS_SHARE = frontendObject.socialsShare.map((item) => ({
   id: item,
@@ -46,9 +46,12 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
 
     /* Copy the text inside the text field */
     navigator.clipboard.writeText(inputRef.current.value);
-    toast(NCMAZ_TRANSLATE["Link copied"], {
-      transition: Slide,
-      autoClose: 1000,
+    toast.success(NCMAZ_TRANSLATE["Link copied"], {
+      id: "PostCardDropdownShare-clipboard",
+      style: {
+        background: "#333",
+        color: "#fff",
+      },
     });
   };
 

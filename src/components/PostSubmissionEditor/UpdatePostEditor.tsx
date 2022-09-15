@@ -17,7 +17,7 @@ import TiptapEditor from "./TiptapEditor";
 import { Editor } from "@tiptap/react";
 import { gql, useMutation } from "@apollo/client";
 import Alert from "components/Alert/Alert";
-import { Slide, toast } from "react-toastify";
+import toast from "react-hot-toast";
 import ModalDraftPost from "./ModalDraftPost";
 import { handleBeforeunload } from "./CreateNewPostEditor";
 
@@ -206,9 +206,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
       return;
     }
     window.removeEventListener("beforeunload", handleBeforeunload, true);
-    toast.success(NCMAZ_TRANSLATE["Post successful"] + "!", {
-      transition: Slide,
-    });
+    toast.success(NCMAZ_TRANSLATE["Post successful"] + "!");
     setTimeout(() => {
       window.location.href = data?.updatePost.post.link;
     }, 500);

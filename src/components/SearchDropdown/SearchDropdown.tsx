@@ -4,6 +4,7 @@ import NCMAZ_TRANSLATE from "contains/translate";
 import React, { Fragment, Suspense, useState } from "react";
 const PostOnSearchLazy = React.lazy(() => import("./PostOnSearch"));
 import _ from "lodash";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 const SearchDropdown = () => {
   const inputRef = React.createRef<HTMLInputElement>();
@@ -28,9 +29,9 @@ const SearchDropdown = () => {
       <button
         type="button"
         onClick={openModal}
-        className="text-[28px] md:text-[28px] h-10 sm:w-12 sm:h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center"
+        className="text-[28px] md:text-[28px] h-10 w-10 sm:w-12 sm:h-12 rounded-full text-neutral-700 dark:text-neutral-300 sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center"
       >
-        <i className="las la-search"></i>
+        <MagnifyingGlassIcon className="w-6 h-6 sm:w-7 sm:h-7" />
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>

@@ -326,8 +326,8 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
       data-nc-id="PageArchiveAuthor"
     >
       {/* HEADER */}
-      <div className="w-screen px-2 max-w-full 2xl:max-w-screen-2xl mx-auto">
-        <div className="rounded-3xl relative aspect-w-16 aspect-h-12 sm:aspect-h-7 xl:aspect-h-5 overflow-hidden ">
+      <div className="w-full">
+        <div className="relative aspect-w-16 aspect-h-9 sm:aspect-h-6 lg:aspect-h-5 xl:aspect-h-4 2xl:aspect-h-3">
           <NcImage
             containerClassName="absolute inset-0"
             src={
@@ -338,9 +338,9 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="relative px-1 sm:container -mt-20 lg:-mt-40">
+        <div className="relative px-1 sm:container -mt-20 lg:-mt-32">
           <div
-            className="relative bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 p-5 lg:p-8 rounded-[40px] shadow-2xl 
+            className="relative bg-white dark:bg-neutral-800 dark:border dark:border-neutral-700 p-4 sm:p-5 lg:p-8 rounded-3xl lg:rounded-[32px] shadow-xl 
           flex flex-col sm:flex-row sm:items-center"
           >
             <div className="flex-shrink-0 ">
@@ -348,12 +348,12 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
                 containerClassName="ring-4 ring-white dark:ring-0 shadow-xl"
                 imgUrl={ncUserMeta.featuredImage?.sourceUrl || avatar?.url}
                 userName={name}
-                sizeClass="w-32 h-32 lg:w-44 lg:h-44 text-3xl xl:text-5xl"
+                sizeClass="w-28 h-28 sm:w-32 sm:h-32 lg:w-44 lg:h-44 text-3xl xl:text-5xl"
                 radius="rounded-3xl"
               />
               {!!ncUserMeta.buymeacoffeUrl && (
                 <a
-                  className="flex sm:justify-center lg:hidden mt-3 ml-2 sm:ml-0"
+                  className="flex sm:justify-center lg:hidden mt-3"
                   href={ncUserMeta.buymeacoffeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -498,7 +498,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
       </div>
       {/* ====================== END HEADER ====================== */}
 
-      <div className="container py-16 lg:pb-28 lg:pt-24 space-y-16 lg:space-y-28">
+      <div className="container py-16 lg:pb-24 lg:pt-20 space-y-16 lg:space-y-24">
         <main>
           {/* TABS FILTER */}
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">

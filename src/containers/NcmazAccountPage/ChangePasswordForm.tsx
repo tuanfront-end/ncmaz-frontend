@@ -5,7 +5,8 @@ import Label from "components/Label/Label";
 import NCMAZ_TRANSLATE from "contains/translate";
 import { UserFullData } from "data/types";
 import React, { FC } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 import useMutaionUpdateUser from "./useMutaionUpdateUser";
 
 interface ChangePasswordFormProps {
@@ -30,9 +31,7 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ userData }) => {
       return;
     }
     if (newPasswordValue !== confirmPasswordValue) {
-      toast.error("Passwords do not match.", {
-        autoClose: 4000,
-      });
+      toast.error("Passwords do not match.");
       return;
     }
 

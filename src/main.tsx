@@ -22,7 +22,6 @@ import "./index.css";
 import "./styles/index.scss";
 import "react-loading-skeleton/dist/skeleton.css";
 import "@glidejs/glide/dist/css/glide.core.min.css";
-import "react-toastify/dist/ReactToastify.css";
 
 if (
   window.frontendObject?.graphQLBasePath &&

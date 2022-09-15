@@ -2,8 +2,9 @@ import React, { Suspense } from "react";
 import GutenbergSections from "GutenbergSections";
 import HeaderFactory from "HeaderFactory";
 import FactoryComponents from "containers/FactoryComponents/FactoryComponents";
+import ReactDOM from "react-dom";
 import ErrorBoundary from "ErrorBoundary";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunningContainer";
 
 //
@@ -20,6 +21,27 @@ const LazyCssWoocommerceLazy = React.lazy(() => import("./LazyCssWoocommerce"));
 //
 
 function App() {
+  const renderFooterFixedContent = () => {
+    return (
+      // <div className="fixed bottom-0 inset-x-0 flex flex-col items-end z-30">
+      <>
+        <Suspense fallback={<div />}>
+          <ScrollTopLazy />
+        </Suspense>
+
+        <MediaRunningContainer />
+      </>
+    );
+  };
+
+  const renderFooterFixed = () => {
+    const domNode = document.getElementById("nc-footer-fixed-area");
+    if (!domNode) {
+      return null;
+    }
+    return ReactDOM.createPortal(renderFooterFixedContent(), domNode);
+  };
+
   return (
     <>
       <ErrorBoundary>
@@ -27,20 +49,13 @@ function App() {
       </ErrorBoundary>
 
       {/* ------- */}
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop={false}
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover={false}
-        theme="dark"
-        style={{
-          top: (document.getElementById("wpadminbar")?.clientHeight || 0) + 6,
+      <Toaster
+        containerStyle={{
+          top: 50,
+          left: 50,
+          bottom: 50,
+          right: 50,
         }}
-        toastClassName={"toast-container-class"}
       />
 
       {/* ------- */}
@@ -51,14 +66,14 @@ function App() {
 
       {/* ---------- */}
 
-      <div className="fixed bottom-0 inset-x-0 flex flex-col items-end z-30">
+      {renderFooterFixed()}
+      {/* <div className="fixed bottom-0 inset-x-0 flex flex-col items-end z-30">
         <Suspense fallback={<div />}>
           <ScrollTopLazy />
         </Suspense>
-
-        {/* ---------- */}
+ 
         <MediaRunningContainer />
-      </div>
+      </div> */}
 
       {/* ---------- */}
       {/* LOAD RTL CSS WHEN RTL MODE ENABLE */}

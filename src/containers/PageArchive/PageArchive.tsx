@@ -156,7 +156,10 @@ const PageArchive: FC<PageArchiveProps> = ({
   const IS_SKELETON = loading && !POSTS.length;
 
   return (
-    <div className={`nc-PageArchive ${className}`} data-nc-id="PageArchive">
+    <div
+      className={`nc-PageArchive mt-4 sm:mt-7 ${className}`}
+      data-nc-id="PageArchive"
+    >
       {/* HEADER */}
       <div className="w-full px-2 xl:max-w-screen-2xl mx-auto">
         <div className="rounded-3xl relative aspect-w-16 aspect-h-12 sm:aspect-h-8 lg:aspect-h-7 xl:aspect-h-5 overflow-hidden ">
@@ -193,7 +196,7 @@ const PageArchive: FC<PageArchiveProps> = ({
           dangerouslySetInnerHTML={{ __html: termData.description }}
         ></div>
       )}
-      <div className="container py-16 lg:pb-28 lg:pt-24 space-y-16 lg:space-y-28">
+      <div className="container py-16 lg:pb-24 space-y-16 lg:space-y-24">
         <div>
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">
             <div className="flex space-x-2.5">

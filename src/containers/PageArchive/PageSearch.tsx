@@ -95,8 +95,8 @@ const PageSearch: FC<PageSearchProps> = ({
 
   const renderHeader = () => {
     return (
-      <div className="w-screen px-2 max-w-full 2xl:max-w-screen-2xl mx-auto">
-        <div className="rounded-3xl relative aspect-w-16 aspect-h-12 sm:aspect-h-7 xl:aspect-h-5 overflow-hidden ">
+      <div className="w-full">
+        <div className="relative aspect-w-16 aspect-h-9 sm:aspect-h-6 lg:aspect-h-5 xl:aspect-h-4 2xl:aspect-h-3">
           <NcImage
             containerClassName="absolute inset-0"
             src={
@@ -108,10 +108,10 @@ const PageSearch: FC<PageSearchProps> = ({
           />
         </div>
         {/* CONTENT */}
-        <div className="relative px-1 sm:container -mt-20 lg:-mt-48">
-          <div className=" bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 p-5 lg:p-12 rounded-[40px] shadow-2xl flex items-center">
+        <div className="relative px-1 sm:container -mt-20 lg:-mt-40">
+          <div className=" bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 p-4 sm:p-5 lg:p-12 rounded-lg sm:rounded-3xl lg:rounded-[32px] shadow-xl flex items-center">
             <header className="w-full max-w-3xl mx-auto text-center flex flex-col items-center">
-              <h1 className="text-2xl sm:text-4xl font-semibold">
+              <h1 className="text-xl sm:text-3xl md:text-4xl font-semibold">
                 {searchText ? searchText : `" "`}
               </h1>
 
@@ -126,7 +126,7 @@ const PageSearch: FC<PageSearchProps> = ({
                 </div>
               )}
               <form
-                className="relative w-full mt-8 sm:mt-11 text-left"
+                className="relative w-full mt-5 sm:mt-8 md:mt-11 text-left"
                 method="post"
                 onSubmit={handleSubmitFormSearch}
               >
@@ -139,18 +139,18 @@ const PageSearch: FC<PageSearchProps> = ({
                     id="ncmaz-search-input"
                     type="search"
                     placeholder={NCMAZ_TRANSLATE["typeAndPressEnter"]}
-                    sizeClass="pl-14 py-5 pr-5 md:pl-16"
+                    sizeClass="pl-10 sm:pl-14 py-4 sm:py-5 pr-4 sm:pr-5 md:pl-16"
                     className="placeholder:text-sm"
                     defaultValue={searchText}
                   />
                   <ButtonCircle
-                    className="absolute right-2.5 top-1/2 transform -translate-y-1/2"
+                    className="absolute right-1.5 sm:right-2.5 top-1/2 transform -translate-y-1/2"
                     size=" w-11 h-11"
                     type="submit"
                   >
                     <i className="las la-arrow-right text-xl"></i>
                   </ButtonCircle>
-                  <span className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">
+                  <span className="absolute left-3 sm:left-5 top-1/2 transform -translate-y-1/2 text-2xl md:left-6">
                     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path
                         stroke="currentColor"
@@ -251,7 +251,7 @@ const PageSearch: FC<PageSearchProps> = ({
       {renderHeader()}
       {/* ====================== END HEADER ====================== */}
 
-      <div className="container py-16 lg:pb-28 lg:pt-24 space-y-16 lg:space-y-28">
+      <div className="container py-16 lg:pb-24 lg:pt-20 space-y-16 lg:space-y-24">
         <div>
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">
             <Nav
