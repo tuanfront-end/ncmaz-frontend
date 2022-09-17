@@ -241,7 +241,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     //
     let isShowLoadmoreBtn = false;
     if (tabActiveId === -1) {
-      if (!firstClickLoadMore) {
+      if (IS_HAS_INIT_DATA && !firstClickLoadMore) {
         isShowLoadmoreBtn = !!IS_HAS_INIT_DATA && !!IS_HAS_INIT_DATA_NEXT_PAGE;
       } else {
         isShowLoadmoreBtn = loading || !!data?.posts.pageInfo?.hasNextPage;

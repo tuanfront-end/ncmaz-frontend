@@ -1,15 +1,26 @@
-import NavAccountDropdown from "components/NavAccountDropdown/NavAccountDropdown";
-import NcDropDown from "components/NcDropDown/NcDropDown";
-import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
-import SearchDropdown from "components/SearchDropdown/SearchDropdown";
-import SocialsShare from "components/SocialsShare/SocialsShare";
-import SwitchDarkMode from "components/SwitchDarkMode/SwitchDarkMode";
-
 import ErrorBoundary from "ErrorBoundary";
-
 import React, { FC, Suspense } from "react";
 import ReactDOM from "react-dom";
 
+//
+const SwitchDarkModeLazy = React.lazy(
+  () => import("components/SwitchDarkMode/SwitchDarkMode")
+);
+const SocialsShareLazy = React.lazy(
+  () => import("components/SocialsShare/SocialsShare")
+);
+const SearchDropdownLazy = React.lazy(
+  () => import("components/SearchDropdown/SearchDropdown")
+);
+const PostCardDropdownShareLazy = React.lazy(
+  () => import("components/PostCardDropdownShare/PostCardDropdownShare")
+);
+const NcDropDownLazy = React.lazy(
+  () => import("components/NcDropDown/NcDropDown")
+);
+const NavAccountDropdownLazy = React.lazy(
+  () => import("components/NavAccountDropdown/NavAccountDropdown")
+);
 //
 const NcmazAccountPageLazy = React.lazy(
   () => import("containers/NcmazAccountPage/NcmazAccountPage")
@@ -118,7 +129,9 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "PostCardDropdownShare":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
-            <PostCardDropdownShare {...componentProps} />
+            <Suspense fallback={<div />}>
+              <PostCardDropdownShareLazy {...componentProps} />
+            </Suspense>
           </ErrorBoundary>,
           dom
         );
@@ -126,7 +139,9 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "NcDropDown":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
-            <NcDropDown {...componentProps} />
+            <Suspense fallback={<div />}>
+              <NcDropDownLazy {...componentProps} />
+            </Suspense>
           </ErrorBoundary>,
           dom
         );
@@ -134,7 +149,9 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "SocialsShare":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
-            <SocialsShare {...componentProps} />
+            <Suspense fallback={<div />}>
+              <SocialsShareLazy {...componentProps} />
+            </Suspense>
           </ErrorBoundary>,
           dom
         );
@@ -232,7 +249,9 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "SwitchDarkMode":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
-            <SwitchDarkMode {...componentProps} />
+            <Suspense fallback={<div />}>
+              <SwitchDarkModeLazy {...componentProps} />
+            </Suspense>
           </ErrorBoundary>,
           dom
         );
@@ -240,7 +259,9 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "SearchDropdown":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
-            <SearchDropdown {...componentProps} />
+            <Suspense fallback={<div />}>
+              <SearchDropdownLazy {...componentProps} />
+            </Suspense>
           </ErrorBoundary>,
           dom
         );
@@ -248,7 +269,9 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
       case "NavAccountDropdown":
         return ReactDOM.createPortal(
           <ErrorBoundary key={index}>
-            <NavAccountDropdown {...componentProps} />
+            <Suspense fallback={<div />}>
+              <NavAccountDropdownLazy {...componentProps} />
+            </Suspense>
           </ErrorBoundary>,
           dom
         );
