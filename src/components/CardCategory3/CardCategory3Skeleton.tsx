@@ -15,7 +15,7 @@ const CardCategory3Skeleton: FC<CardCategory3SkeletonProps> = ({
       data-nc-id="CardCategory3Skeleton"
     >
       <div
-        className={`flex-shrink-0 relative w-full aspect-w-5 aspect-h-4 sm:aspect-h-7 h-0 rounded-2xl overflow-hidden group`}
+        className={`flex-shrink-0 relative w-full aspect-w-5 aspect-h-4 sm:aspect-h-5 h-0 rounded-2xl overflow-hidden z-0 group`}
       >
         <NcImage src={"."} className="object-cover w-full h-full rounded-2xl" />
         <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"></span>

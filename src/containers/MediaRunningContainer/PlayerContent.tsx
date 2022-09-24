@@ -109,7 +109,10 @@ const PlayerContent: FC<PlayerContentProps> = ({
             containerClassName={`absolute left-0 w-12 h-12 flex-shrink-0 transform transition-transform nc-animation-spin rounded-full overflow-hidden z-0 ${
               mediaState === "playing" ? "playing" : ""
             }`}
-            src={featuredImage?.node.sourceUrl}
+            src={featuredImage?.node.sourceUrl || "."}
+            srcSet={featuredImage?.node.srcSet}
+            imageSizes="THUMBNAIL"
+            alt={featuredImage?.node.altText}
             className="object-cover w-full h-full rounded-full shadow-md"
           />
           <div className="flex-grow overflow-hidden ">

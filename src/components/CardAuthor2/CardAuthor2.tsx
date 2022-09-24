@@ -31,6 +31,11 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
         containerClassName="flex-shrink-0 mr-3"
         radius="rounded-full"
         imgUrl={node.ncUserMeta?.featuredImage?.sourceUrl || node.avatar?.url}
+        srcSet={
+          node.ncUserMeta?.featuredImage?.sourceUrl
+            ? node.ncUserMeta?.featuredImage?.srcSet
+            : undefined
+        }
         userName={node.username}
       />
       <div className="overflow-hidden">

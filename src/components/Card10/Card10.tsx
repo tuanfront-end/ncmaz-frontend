@@ -4,13 +4,21 @@ import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import PostCardMetaV2 from "components/PostCardMeta/PostCardMetaV2";
 import { PostNode } from "data/postCardType";
 import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
 
 export interface Card10Props {
   className?: string;
   post: PostNode;
+  ratio?: string;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
-const Card10: FC<Card10Props> = ({ className = "h-full", post }) => {
+const Card10: FC<Card10Props> = ({
+  className = "h-full",
+  post,
+  ratio = "aspect-w-9 aspect-h-7 sm:aspect-h-10",
+  imageSizes,
+}) => {
   const { link, categories, ncPostMetaData, postId } = post;
   const [isHover, setIsHover] = useState(false);
 
@@ -23,9 +31,15 @@ const Card10: FC<Card10Props> = ({ className = "h-full", post }) => {
     >
       <a href={link} className="block absolute inset-0"></a>
 
-      <div className="block rounded-3xl flex-shrink-0 relative w-full aspect-w-9 aspect-h-7 sm:aspect-h-10 overflow-hidden z-0">
+      <div
+        className={`block rounded-3xl flex-shrink-0 relative w-full ${ratio} overflow-hidden z-0`}
+      >
         <div>
-          <PostFeaturedMedia post={post} isHover={isHover} />
+          <PostFeaturedMedia
+            imageSizes={imageSizes}
+            post={post}
+            isHover={isHover}
+          />
         </div>
         <a
           href={link}

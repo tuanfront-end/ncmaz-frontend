@@ -1,0 +1,133 @@
+/* FONT VA COLOR NAM O FILE STYLE.CSS O THEME */
+
+/* FONT  */
+:root {
+  --font-display: Poppins;
+  --font-body: Poppins;
+}
+
+/* COLOR */
+:root {
+  /* // PRIMARY COLOR */
+  --c-primary-50: 238, 242, 255;
+  --c-primary-100: 224, 231, 255;
+  --c-primary-200: 199, 210, 254;
+  --c-primary-300: 165, 180, 252;
+  --c-primary-400: 129, 140, 248;
+  --c-primary-500: 99, 102, 241;
+  --c-primary-600: 79, 70, 229;
+  --c-primary-700: 67, 56, 202;
+  --c-primary-800: 55, 48, 163;
+  --c-primary-900: 49, 46, 129;
+
+  /* // SECONDARY COLOR */
+  --c-secondary-50: 240, 253, 250;
+  --c-secondary-100: 204, 251, 241;
+  --c-secondary-200: 153, 246, 228;
+  --c-secondary-300: 153, 246, 228;
+  --c-secondary-400: 45, 212, 191;
+  --c-secondary-500: 20, 184, 166;
+  --c-secondary-600: 13, 148, 136;
+  --c-secondary-700: 15, 118, 110;
+  --c-secondary-800: 17, 94, 89;
+  --c-secondary-900: 19, 78, 74;
+
+  /* // NEUTRAL COLOR */
+  --c-neutral-50: 249, 250, 251;
+  --c-neutral-100: 243, 244, 246;
+  --c-neutral-200: 229, 231, 235;
+  --c-neutral-300: 209, 213, 219;
+  --c-neutral-400: 156, 163, 175;
+  --c-neutral-500: 107, 114, 128;
+  --c-neutral-600: 75, 85, 99;
+  --c-neutral-700: 55, 65, 81;
+  --c-neutral-800: 31, 41, 55;
+  --c-neutral-900: 17, 24, 39;
+}
+
+/* CSS VARIABLE ROOT */
+:root {
+  --radius-sm: 0.125rem;
+  --radius-DEFAULT: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+.ncmaztheme-no-radius {
+  --radius-sm: 0;
+  --radius-DEFAULT: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-full: 0;
+}
+
+.ncmaztheme-sm-radius {
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.25rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.25rem;
+  --radius-2xl: 0.25rem;
+  --radius-3xl: 0.25rem;
+  --radius-full: 0.25rem;
+}
+
+.ncmaztheme-md-radius {
+  --radius-sm: 0.375rem;
+  --radius-DEFAULT: 0.375rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.375rem;
+  --radius-2xl: 0.375rem;
+  --radius-3xl: 0.375rem;
+  --radius-full: 0.375rem;
+}
+.ncmaztheme-lg-radius {
+  --radius-sm: 0.5rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.5rem;
+  --radius-full: 0.5rem;
+}
+
+.ncmaztheme-xl-radius {
+  --radius-sm: 0.75rem;
+  --radius-DEFAULT: 0.75rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 0.75rem;
+  --radius-3xl: 0.75rem;
+  --radius-full: 0.75rem;
+}
+.ncmaztheme-2xl-radius {
+  --radius-sm: 1rem;
+  --radius-DEFAULT: 1rem;
+  --radius-md: 1rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1rem;
+  --radius-full: 1rem;
+}
+
+.ncmaztheme-3xl-radius {
+  --radius-sm: 1.5rem;
+  --radius-DEFAULT: 1.5rem;
+  --radius-md: 1.5rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 1.5rem;
+}

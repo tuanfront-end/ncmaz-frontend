@@ -13,6 +13,11 @@
   scrollbar-width: none; /* Firefox */
 }
 
+.nc-card-title {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
 .customScrollBar {
   /* width */
   &::-webkit-scrollbar {
@@ -63,67 +68,37 @@
 }
 
 //
+.nc-box-has-hover,
 .nc-box-no-hover {
-  @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50;
+  @apply bg-white rounded-3xl border border-neutral-200/80;
 }
 
-.nc-box-has-hover {
-  @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:border-transparent transition-shadow;
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
-      rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  }
-}
-
-.nc-dark-box-bg-has-hover {
-  @apply dark:bg-neutral-800 dark:bg-opacity-30 dark:border dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:shadow-2xl;
-}
-
+.nc-dark-box-bg-has-hover,
 .nc-dark-box-bg {
-  @apply dark:bg-neutral-800 dark:bg-opacity-30 dark:border dark:border-neutral-700 dark:shadow-2xl;
+  @apply dark:bg-neutral-800 dark:bg-opacity-30 dark:border dark:border-neutral-700;
 }
 
 @screen sm {
-  .sm\:nc-box-no-hover {
-    @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50;
-  }
-
+  .sm\:nc-box-no-hover,
   .sm\:nc-box-has-hover {
-    @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:border-transparent transition-shadow;
-    &:hover {
-      box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
-        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-    }
+    @apply bg-white rounded-3xl border border-neutral-200/80;
   }
 
-  .sm\:nc-dark-box-bg-has-hover {
-    @apply dark:bg-neutral-800 dark:bg-opacity-30 dark:border dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:shadow-2xl;
-  }
-
+  .sm\:nc-dark-box-bg-has-hover,
   .sm\:nc-dark-box-bg {
-    @apply dark:bg-neutral-800 dark:bg-opacity-30 dark:border dark:border-neutral-700 dark:shadow-2xl;
+    @apply dark:bg-neutral-800 dark:bg-opacity-30 dark:border dark:border-neutral-700;
   }
 }
 
 @screen md {
-  .md\:nc-box-no-hover {
-    @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50;
-  }
-
+  .md\:nc-box-no-hover,
   .md\:nc-box-has-hover {
-    @apply bg-white rounded-3xl border border-neutral-200 border-opacity-70 hover:bg-neutral-50 hover:border-transparent transition-shadow;
-    &:hover {
-      box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px,
-        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-    }
+    @apply bg-white rounded-3xl border border-neutral-200/80;
   }
 
-  .md\:nc-dark-box-bg-has-hover {
-    @apply dark:bg-neutral-800 dark:bg-opacity-30  dark:border dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:shadow-2xl;
-  }
-
+  .md\:nc-dark-box-bg-has-hover,
   .md\:nc-dark-box-bg {
-    @apply dark:bg-neutral-800 dark:bg-opacity-30  dark:border dark:border-neutral-700 dark:shadow-2xl;
+    @apply dark:bg-neutral-800 dark:bg-opacity-30 dark:border dark:border-neutral-700;
   }
 }
 
@@ -444,3 +419,4 @@ form.search-form {
 .nc-iframe-wrapper iframe {
   @apply w-full aspect-[16/9];
 }
+//

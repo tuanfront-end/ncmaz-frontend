@@ -63,12 +63,9 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   //
   const {
     funcGqlQueryGetPosts,
-    loading,
     IS_SKELETON,
     LISTS_POSTS,
-    data,
     error,
-    fetchMore,
     setTabActiveId,
     tabActiveId,
   } = useGutenbergSectionWithGQLGetPosts({

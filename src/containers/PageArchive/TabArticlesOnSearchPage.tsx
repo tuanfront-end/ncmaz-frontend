@@ -120,7 +120,7 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
               <Card11Skeleton key={index} />
             ))}
           {POSTS.map((post) => (
-            <Card11 key={post.node.id} post={post.node} />
+            <Card11 imageSizes="MEDIUM" key={post.node.id} post={post.node} />
           ))}
         </div>
       ) : null}

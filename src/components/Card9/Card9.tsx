@@ -7,19 +7,24 @@ import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import { PostNode } from "data/postCardType";
 import ncFormatDate from "utils/formatDate";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
 
 export interface Card9Props {
   className?: string;
+  titleClassName?: string;
   ratio?: string;
   post: PostNode;
   hoverClass?: string;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
 const Card9: FC<Card9Props> = ({
   className = "h-full",
+  titleClassName = "block text-base sm:text-lg font-semibold text-white ",
   ratio = "aspect-w-6 aspect-h-5 sm:aspect-w-5 sm:aspect-h-6",
   post,
   hoverClass = "",
+  imageSizes,
 }) => {
   const { title, link, featuredImage, categories, author, date, postFormats } =
     post;
@@ -28,10 +33,12 @@ const Card9: FC<Card9Props> = ({
     return (
       <div className="inline-flex items-center text-xs text-neutral-300">
         <a href={link} className="block relative overflow-hidden">
-          <h3 className="block text-base sm:text-lg font-semibold text-white ">
-            <span className="line-clamp-2" title={title}>
-              {title}
-            </span>
+          <h3 className={`${titleClassName} nc-card-title`}>
+            <span
+              className="line-clamp-2 "
+              title={title}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
+            ></span>
           </h3>
           <div className="flex mt-2.5 truncate">
             <span className="block text-neutral-200 hover:text-white font-medium truncate">
@@ -63,7 +70,7 @@ const Card9: FC<Card9Props> = ({
       <div className={`flex items-start relative w-full ${ratio}`}></div>
       {postFormats?.edges[0]?.node.slug === "post-format-audio" ? (
         <div className="absolute inset-0">
-          <PostFeaturedMedia post={post} />
+          <PostFeaturedMedia imageSizes={imageSizes} post={post} />
         </div>
       ) : (
         <a href={link}>
@@ -71,6 +78,9 @@ const Card9: FC<Card9Props> = ({
             containerClassName="absolute inset-0 rounded-3xl"
             className="object-cover w-full h-full rounded-3xl"
             src={featuredImage?.node.sourceUrl || "."}
+            srcSet={featuredImage?.node.srcSet}
+            imageSizes={imageSizes}
+            alt={title}
           />
           <PostTypeFeaturedIcon
             className="absolute top-3 left-3 group-hover:hidden"
@@ -78,12 +88,12 @@ const Card9: FC<Card9Props> = ({
             wrapSize="w-7 h-7"
             iconSize="w-4 h-4"
           />
-          <span className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+          <span className="absolute inset-0 bg-neutral-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></span>
         </a>
       )}
       <a
         href={link}
-        className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black"
+        className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/60"
       ></a>
       <div className="absolute bottom-0 inset-x-0 p-4 flex flex-col flex-grow">
         <a href={link} className="absolute inset-0"></a>

@@ -21,6 +21,11 @@ const CardAuthorBox: FC<CardAuthorBoxProps> = ({ className = "", author }) => {
         sizeClass="w-20 h-20 text-2xl"
         radius="rounded-full"
         imgUrl={ncUserMeta?.featuredImage?.sourceUrl || avatar?.url}
+        srcSet={
+          ncUserMeta?.featuredImage?.sourceUrl
+            ? ncUserMeta?.featuredImage?.srcSet
+            : undefined
+        }
         userName={username}
       />
       <div className="mt-3">

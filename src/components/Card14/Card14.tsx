@@ -5,12 +5,14 @@ import Avatar from "components/Avatar/Avatar";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
 import ncFormatDate from "utils/formatDate";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
 
 export interface Card14Props {
   className?: string;
   post: PostNode;
   hoverClass?: string;
   ratio?: string;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
 const Card14: FC<Card14Props> = ({
@@ -18,6 +20,7 @@ const Card14: FC<Card14Props> = ({
   ratio = "aspect-w-5 aspect-h-5",
   post,
   hoverClass = "",
+  imageSizes,
 }) => {
   const { title, link, featuredImage, categories, author, date, postFormats } =
     post;
@@ -32,9 +35,12 @@ const Card14: FC<Card14Props> = ({
           containerClassName="absolute inset-0 overflow-hidden z-0"
           className="object-cover w-full h-full rounded-3xl "
           src={featuredImage?.node.sourceUrl || "."}
+          srcSet={featuredImage?.node.srcSet}
+          imageSizes={imageSizes}
+          alt={title}
         />
 
-        <span className="absolute inset-0 bg-black bg-opacity-40">
+        <span className="absolute inset-0 bg-black/30">
           <PostTypeFeaturedIcon
             className="absolute top-4 right-4"
             postType={postType}
@@ -50,9 +56,12 @@ const Card14: FC<Card14Props> = ({
 
       <div className="dark absolute bottom-4 inset-x-4 sm:bottom-5 sm:inset-x-5 flex flex-col flex-grow">
         <h3 className="nc-card-title block text-base font-semibold text-white ">
-          <a href={link} className="line-clamp-2" title={title}>
-            {title}
-          </a>
+          <a
+            href={link}
+            className="line-clamp-2"
+            title={title}
+            dangerouslySetInnerHTML={{ __html: title || "" }}
+          ></a>
         </h3>
 
         <div className="p-2 sm:p-2.5 mt-4 sm:mt-5 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full flex items-center text-neutral-50 text-xs sm:text-sm font-medium">
@@ -67,6 +76,11 @@ const Card14: FC<Card14Props> = ({
               imgUrl={
                 author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
                 author?.node.avatar?.url
+              }
+              srcSet={
+                author?.node.ncUserMeta?.featuredImage?.sourceUrl
+                  ? author?.node.ncUserMeta?.featuredImage?.srcSet
+                  : undefined
               }
               userName={author?.node.username}
             />

@@ -119,7 +119,9 @@ const CategoriesInput: FC<CategoriesInputProps> = ({
           <NcImage
             containerClassName="w-10 h-10 rounded-2xl overflow-hidden z-0"
             src={cat.node.ncTaxonomyMeta.featuredImage?.sourceUrl || "."}
+            srcSet={cat.node.ncTaxonomyMeta.featuredImage?.srcSet}
             alt={cat.node.name}
+            imageSizes="THUMBNAIL"
           />
           <span className="ml-2 text-sm"> {cat.node.name}</span>
         </div>

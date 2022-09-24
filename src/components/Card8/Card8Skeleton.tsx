@@ -4,15 +4,19 @@ import Skeleton from "react-loading-skeleton";
 
 export interface Card8SkeletonProps {
   className?: string;
+  ratio?: string;
 }
 
-const Card8Skeleton: FC<Card8SkeletonProps> = ({ className = "h-full" }) => {
+const Card8Skeleton: FC<Card8SkeletonProps> = ({
+  className = "h-full",
+  ratio = "pt-[100%] sm:pt-[55%] ",
+}) => {
   return (
     <div
       className={`nc-Card8Skeleton group relative [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] overflow-hidden ${className}`}
       data-nc-id="Card8Skeleton"
     >
-      <div className="block w-full h-0 pt-[100%] sm:pt-[55%] rounded-xl overflow-hidden">
+      <div className={`block w-full h-0 ${ratio} rounded-xl overflow-hidden`}>
         <NcImage containerClassName="absolute inset-0" src={"."} />
       </div>
 

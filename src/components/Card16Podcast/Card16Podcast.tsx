@@ -6,17 +6,20 @@ import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningCo
 import NcImage from "components/NcImage/NcImage";
 import { PostFormatsType, PostNode } from "data/postCardType";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
 
 export interface Card16PodcastProps {
   className?: string;
   post: PostNode;
   ratio?: string;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
 const Card16Podcast: FC<Card16PodcastProps> = ({
   className = "h-full",
   post,
   ratio = "aspect-w-3 xl:aspect-w-4 aspect-h-3",
+  imageSizes,
 }) => {
   const { title, link, categories, excerpt, featuredImage, postFormats } = post;
   const postFormatName: PostFormatsType | undefined =
@@ -73,7 +76,12 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
         href={link}
         className={`block flex-shrink-0 relative w-full rounded-3xl overflow-hidden z-0 ${ratio}`}
       >
-        <NcImage src={featuredImage?.node.sourceUrl || "."} />
+        <NcImage
+          src={featuredImage?.node.sourceUrl || "."}
+          srcSet={featuredImage?.node.srcSet}
+          alt={title}
+          imageSizes={imageSizes}
+        />
         <span className="bg-neutral-900 bg-opacity-30"></span>
       </a>
 
@@ -106,9 +114,12 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
         </div>
         <div className="p-5 mt-5 bg-white dark:bg-neutral-900 shadow-xl dark:shadow-2xl rounded-3xl rounded-tl-none flex flex-col flex-grow ">
           <h3 className="nc-card-title block text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
-            <a href={link} className="line-clamp-1" title={title}>
-              {title}
-            </a>
+            <a
+              href={link}
+              className="line-clamp-2"
+              title={title}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
+            ></a>
           </h3>
           <span className="block text-sm text-neutral-500 dark:text-neutral-400 mt-3 mb-5">
             {excerpt && (

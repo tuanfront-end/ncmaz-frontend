@@ -9,6 +9,7 @@ import PostMoreActionDropdown from "components/PostMoreActionDropdown";
 import checkCurrentUserCanEditPostById from "utils/checkCurrentUserCanEditPostById";
 import { useAppSelector } from "app/hooks";
 import { selectRecentPostsDeleted } from "app/postsDeleted/postsDeleted";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
 
 export interface Card11Props {
   className?: string;
@@ -16,6 +17,7 @@ export interface Card11Props {
   ratio?: string;
   hiddenAuthor?: boolean;
   onClickLike?: (id: number) => void;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
 const Card11: FC<Card11Props> = ({
@@ -24,6 +26,7 @@ const Card11: FC<Card11Props> = ({
   hiddenAuthor = false,
   ratio = "aspect-w-4 aspect-h-3",
   onClickLike,
+  imageSizes,
 }) => {
   const { title, link, categories, date, author } = post;
 
@@ -48,7 +51,11 @@ const Card11: FC<Card11Props> = ({
         className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden z-0 ${ratio}`}
       >
         <div>
-          <PostFeaturedMedia post={post} isHover={isHover} />
+          <PostFeaturedMedia
+            imageSizes={imageSizes}
+            post={post}
+            isHover={isHover}
+          />
         </div>
       </div>
       <span className="absolute top-3 inset-x-3 z-10">
@@ -66,7 +73,7 @@ const Card11: FC<Card11Props> = ({
             <a
               href={link}
               className="line-clamp-2"
-              dangerouslySetInnerHTML={{ __html: title }}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
               title={title}
             ></a>
           ) : null}

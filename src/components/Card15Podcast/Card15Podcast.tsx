@@ -89,18 +89,20 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
 
   return (
     <div
-      className={`nc-Card15Podcast relative flex group items-center p-3 [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
+      className={`nc-Card15Podcast relative flex group items-center p-3 [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] hover:shadow-md transition-shadow ${className}`}
       data-nc-id="Card15Podcast"
     >
       <div className="w-1/4 flex-shrink-0">
         <a
           href={link}
-          className={`block h-0 aspect-w-1 aspect-h-1 relative rounded-full overflow-hidden shadow-lg `}
+          className={`block h-0 aspect-w-1 aspect-h-1 relative rounded-full overflow-hidden shadow-md `}
         >
           <NcImage
             containerClassName="absolute inset-0"
             className="object-cover w-full h-full "
             src={featuredImage?.node.sourceUrl || "."}
+            srcSet={featuredImage?.node.srcSet}
+            sizes="THUMBNAIL"
             alt={title}
           />
         </a>
@@ -108,9 +110,12 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
 
       <div className="flex flex-col flex-grow ml-4 overflow-hidden">
         <h3 className={`nc-card-title block font-semibold text-sm sm:text-lg`}>
-          <a href={link} className="line-clamp-1" title={title}>
-            {title}
-          </a>
+          <a
+            href={link}
+            className="line-clamp-2"
+            title={title}
+            dangerouslySetInnerHTML={{ __html: title || "" }}
+          ></a>
         </h3>
         {excerpt ? (
           <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 ">

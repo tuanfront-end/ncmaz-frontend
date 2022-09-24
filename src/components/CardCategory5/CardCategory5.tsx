@@ -27,6 +27,8 @@ const CardCategory5: FC<CardCategory5Props> = ({
       >
         <NcImage
           src={featuredImage?.sourceUrl || "."}
+          srcSet={featuredImage?.srcSet}
+          alt={name}
           className="object-cover w-full h-full rounded-2xl"
         />
         <span className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity"></span>

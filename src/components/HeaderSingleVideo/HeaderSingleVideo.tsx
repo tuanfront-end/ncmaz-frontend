@@ -23,7 +23,9 @@ const HeaderSingleVideo: FC<HeaderSingleVideoProps> = ({
     }, []);
 
     return (
-      <div className="aspect-w-16 aspect-h-16 sm:aspect-h-9 bg-neutral-800 rounded-3xl overflow-hidden z-0 border-4 border-white dark:border-neutral-900 sm:rounded-3xl shadow-2xl">
+      <div
+        className={`aspect-w-16 aspect-h-16 sm:aspect-h-9 bg-neutral-800 rounded-3xl overflow-hidden z-0 border-4 border-white dark:border-neutral-900 sm:rounded-3xl shadow-2xl ${className}`}
+      >
         {!!featuredImage && !isPlay && (
           <div
             className="absolute inset-0 z-10 cursor-pointer rounded-[18px] overflow-hidden"
@@ -32,6 +34,7 @@ const HeaderSingleVideo: FC<HeaderSingleVideoProps> = ({
             <NcImage
               src={featuredImage}
               containerClassName="absolute inset-0"
+              loading="eager"
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <NcPlayIcon />

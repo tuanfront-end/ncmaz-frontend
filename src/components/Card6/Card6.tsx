@@ -21,20 +21,26 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
     postFormats,
     ncPostMetaData,
   } = post;
+  const postType = postFormats?.edges[0]?.node.slug;
 
   return (
     <div
-      className={`nc-Card6 relative flex group flex-row items-center p-0 sm:p-4 mb-2.5 sm:mb-0 [ sm:nc-box-has-hover ] [ sm:nc-dark-box-bg-has-hover ] ${className}`}
+      className={`nc-Card6 overflow-hidden relative flex group flex-row items-center p-2 pr-0 sm:p-4 [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-md sm:!rounded-2xl ${className}`}
       data-nc-id="Card6"
     >
       <a href={link} className="absolute inset-0 z-0"></a>
-      <div className="flex flex-col flex-grow">
+      <div className="flex flex-col flex-grow max-w-full">
         <div className="space-y-1.5 sm:space-y-3 mb-2 sm:mb-4">
           <CategoryBadgeList categories={categories} />
-          <h3 className={`block font-semibold text-sm sm:text-base`}>
-            <a href={link} className="line-clamp-2" title={title}>
-              {title}
-            </a>
+          <h3
+            className={`block font-semibold text-sm sm:text-base nc-card-title`}
+          >
+            <a
+              href={link}
+              className="line-clamp-2 "
+              title={title}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
+            ></a>
           </h3>
           <PostCardMeta meta={{ ...post }} />
         </div>
@@ -54,24 +60,29 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
         </div>
       </div>
 
-      <a
-        href={link}
-        className={`block relative flex-shrink-0 w-20 h-20 sm:w-40 sm:h-full ml-5 rounded-2xl overflow-hidden `}
-      >
-        <NcImage
-          containerClassName="absolute inset-0"
-          className="object-cover w-full h-full"
-          src={featuredImage?.node.sourceUrl || "."}
-          alt={title}
-        />
-        <span className="absolute bottom-1 left-1">
-          <PostTypeFeaturedIcon
-            wrapSize="h-7 w-7"
-            iconSize="h-4 w-4"
-            postType={postFormats?.edges[0]?.node.slug}
+      <div className={`flex-shrink-0 ml-5 w-20 sm:w-24 md:w-40`}>
+        <a
+          href={link}
+          className={`w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-xl overflow-hidden z-0`}
+        >
+          <NcImage
+            containerClassName="absolute inset-0"
+            className="object-cover w-full h-full group-hover:scale-105 duration-500 transition-transform"
+            src={featuredImage?.node.sourceUrl || "."}
+            srcSet={featuredImage?.node.srcSet}
+            alt={title}
+            imageSizes="MEDIUM"
           />
-        </span>
-      </a>
+          <span>
+            <PostTypeFeaturedIcon
+              className="absolute left-2 bottom-2"
+              postType={postType}
+              wrapSize="w-7 h-7"
+              iconSize="w-3.5 h-3.5"
+            />
+          </span>
+        </a>
+      </div>
     </div>
   );
 };

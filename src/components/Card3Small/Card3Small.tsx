@@ -38,7 +38,8 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full", post }) => {
           containerClassName=""
           className="object-cover aspect-1 rounded-lg hover:opacity-90 transition-opacity"
           src={featuredImage?.node.sourceUrl || "."}
-          title={title}
+          srcSet={featuredImage?.node.srcSet}
+          alt={title}
         />
       </a>
     </div>

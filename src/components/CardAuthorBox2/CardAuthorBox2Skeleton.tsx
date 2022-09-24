@@ -20,7 +20,7 @@ const CardAuthorBox2Skeleton: FC<CardAuthorBox2SkeletonProps> = ({
         <div>
           <NcImage
             containerClassName="flex aspect-w-7 aspect-h-5 sm:aspect-h-6 w-full h-0"
-            src={","}
+            src={"."}
           />
         </div>
         <div className="absolute top-3 inset-x-3 flex">

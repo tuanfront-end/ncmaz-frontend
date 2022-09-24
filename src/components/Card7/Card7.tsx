@@ -5,12 +5,14 @@ import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
 import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
 
 export interface Card7Props {
   className?: string;
   post: PostNode;
   hoverClass?: string;
   ratio?: string;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
 const Card7: FC<Card7Props> = ({
@@ -18,6 +20,7 @@ const Card7: FC<Card7Props> = ({
   ratio = "aspect-w-5 aspect-h-6",
   post,
   hoverClass = "",
+  imageSizes,
 }) => {
   const {
     title,
@@ -49,6 +52,9 @@ const Card7: FC<Card7Props> = ({
           containerClassName="absolute inset-0 overflow-hidden z-0"
           className="object-cover w-full h-full rounded-3xl "
           src={featuredImage?.node.sourceUrl || "."}
+          srcSet={featuredImage?.node.srcSet}
+          imageSizes={imageSizes}
+          alt={title}
         />
         <PostTypeFeaturedIcon
           className="absolute top-3 left-3"
@@ -64,9 +70,12 @@ const Card7: FC<Card7Props> = ({
         <div className="space-y-2.5 mb-3">
           <CategoryBadgeList categories={categories} />
           <h3 className="block text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100 ">
-            <a href={link} className="line-clamp-2" title={title}>
-              {title}
-            </a>
+            <a
+              href={link}
+              className="line-clamp-2"
+              title={title}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
+            ></a>
           </h3>
         </div>
         <CardAuthor2

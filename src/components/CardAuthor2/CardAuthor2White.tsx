@@ -23,6 +23,11 @@ const CardAuthor2White: FC<CardAuthor2WhiteProps> = ({
         containerClassName="flex-shrink-0 mr-3"
         radius="rounded-full"
         imgUrl={ncUserMeta?.featuredImage?.sourceUrl || avatar?.url}
+        srcSet={
+          ncUserMeta?.featuredImage?.sourceUrl
+            ? ncUserMeta?.featuredImage?.srcSet
+            : undefined
+        }
         userName={username}
       />
       <div>

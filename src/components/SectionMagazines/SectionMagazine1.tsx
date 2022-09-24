@@ -15,14 +15,14 @@ const SectionMagazine1: FC<SectionMagazine1Props> = ({
   isLoading,
 }) => {
   return (
-    <div>
-      <div className="SectionMagazine1 grid grid-cols-1 lg:grid-cols-2 gap-6 2xl:gap-8">
+    <div className="SectionMagazine1">
+      <div className=" grid grid-cols-1 lg:grid-cols-2 gap-6 2xl:gap-7">
         {isLoading ? (
           <Card2Skeleton />
         ) : listPosts[0] ? (
           <Card2 size="large" post={listPosts[0]?.node} />
         ) : null}
-        <div className="grid  grid-cols-1 gap-6 2xl:gap-8">
+        <div className="flex flex-col space-y-5 md:space-y-7">
           {isLoading
             ? [1, 1, 1].map((_, index) => <Card6Skeleton key={index} />)
             : listPosts
@@ -30,6 +30,15 @@ const SectionMagazine1: FC<SectionMagazine1Props> = ({
                 .map((item, index) => <Card6 key={index} post={item.node} />)}
         </div>
       </div>
+      {!isLoading && listPosts[4] && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-7 mt-5 md:mt-7">
+          {listPosts
+            .filter((_, i) => i >= 4)
+            .map((item, index) => (
+              <Card6 key={index} post={item.node} />
+            ))}
+        </div>
+      )}
     </div>
   );
 };

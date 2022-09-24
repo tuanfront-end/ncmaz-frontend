@@ -1,4 +1,4 @@
-import { ImageState } from "components/ImageUploadToServer";
+import { FeaturedImage } from "./postCardType";
 
 export type TwMainColor =
   | "pink"
@@ -25,6 +25,17 @@ export interface GraphQlPageInfo {
   startCursor: string;
 }
 
+export interface FullImageNode {
+  databaseId?: string;
+  id?: string;
+  altText?: string;
+  caption?: string;
+  sourceUrl: string;
+  sizes?: string;
+  srcSet?: string;
+  __typename?: string;
+}
+
 //
 export interface UserViewer {
   avatar?: {
@@ -37,9 +48,7 @@ export interface UserViewer {
   ncUserMeta?: {
     color: string;
     ncBio: string;
-    featuredImage?: {
-      sourceUrl: string;
-    };
+    featuredImage?: FullImageNode;
   };
   slug: string;
   uri: string;

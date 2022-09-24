@@ -25,7 +25,9 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
         <div>
           <NcImage
             containerClassName="flex aspect-w-7 aspect-h-5 w-full h-0"
-            src={ncUserMeta.backgroundImage?.sourceUrl || ","}
+            src={ncUserMeta.backgroundImage?.sourceUrl || "."}
+            srcSet={ncUserMeta.backgroundImage?.srcSet}
+            imageSizes="MEDIUM"
           />
         </div>
         <div className="absolute top-3 inset-x-3 flex">
@@ -42,6 +44,11 @@ const CardAuthorBox2: FC<CardAuthorBox2Props> = ({
           sizeClass="w-14 h-14 text-2xl"
           radius="rounded-full"
           imgUrl={ncUserMeta?.featuredImage?.sourceUrl || avatar?.url}
+          srcSet={
+            ncUserMeta?.featuredImage?.sourceUrl
+              ? ncUserMeta?.featuredImage?.srcSet
+              : undefined
+          }
           userName={username}
         />
         <div className="mt-3">

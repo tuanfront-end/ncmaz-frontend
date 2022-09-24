@@ -17,15 +17,43 @@ import NextPrev from "components/NextPrev/NextPrev";
 import Card14 from "components/Card14/Card14";
 import { GutenbergApiAttr_BlockPostsSlider } from "data/gutenbergAttrType";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
+import Card3Skeleton from "components/Card3/Card3Skeleton";
 import Card4Skeleton from "components/Card4/Card4Skeleton";
 import Card7Skeleton from "components/Card7/Card7Skeleton";
 import Card9Skeleton from "components/Card9/Card9Skeleton";
-import Card10Skeleton from "components/Card10/Card10Skeleton";
 import Card10V2Skeleton from "components/Card10/Card10V2Skeleton";
+import Card10Skeleton from "components/Card10/Card10Skeleton";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import Card14Skeleton from "components/Card14/Card14Skeleton";
+import Card15PodcastSkeleton from "components/Card15Podcast/Card15PodcastSkeleton";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
 import useGutenbergSectionWithGQLGetPosts from "hooks/useGutenbergSectionWithGQLGetPosts";
+
+import Card1 from "components/Card1/Card1";
+import Card2 from "components/Card2/Card2";
+import Card5 from "components/Card5/Card5";
+import Card6 from "components/Card6/Card6";
+import Card8 from "components/Card8/Card8";
+import Card12 from "components/Card12/Card12";
+import Card13 from "components/Card13/Card13";
+import Card16Podcast from "components/Card16Podcast/Card16Podcast";
+import Card17Podcast from "components/Card17Podcast/Card17Podcast";
+import Card18 from "components/Card18/Card18";
+import Card19 from "components/Card19/Card19";
+import Card1Skeleton from "components/Card1/Card1Skeleton";
+import Card2Skeleton from "components/Card2/Card2Skeleton";
+import Card6Skeleton from "components/Card6/Card6Skeleton";
+import Card5Skeleton from "components/Card5/Card5Skeleton";
+import Card8Skeleton from "components/Card8/Card8Skeleton";
+import Card12Skeleton from "components/Card12/Card12Skeleton";
+import Card13Skeleton from "components/Card13/Card13Skeleton";
+import Card16PodcastSkeleton from "components/Card16Podcast/Card16PodcastSkeleton";
+import Card17PodcastSkeleton from "components/Card17Podcast/Card17PodcastSkeleton";
+import Card18Skeleton from "components/Card18/Card18Skeleton";
+import Card19Skeleton from "components/Card19/Card19Skeleton";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
+import Card3 from "components/Card3/Card3";
+import Card15Podcast from "components/Card15Podcast/Card15Podcast";
 
 export interface FactoryBlockPostsSliderProps {
   className?: string;
@@ -137,72 +165,121 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
     };
   }, [LISTS_POSTS, sliderRef, settings]);
 
-  const renderPostComponent = (post: PostNode) => {
+  const renderPostComponent = (post: PostNode, index: number) => {
+    const IMAGE_SIZES: NC_IMAGE_SIZES | undefined =
+      perView >= 3 ? "MEDIUM" : undefined;
+
     switch (apiSettings.settings.postCardName) {
+      case "card1":
+        return <Card1 key={post.id} post={post} />;
+      case "card2":
+        return <Card2 imageSizes={IMAGE_SIZES} key={post.id} post={post} />;
+      case "card3":
+        return (
+          <div className="w-full" key={post.id}>
+            <Card3 post={post} />
+          </div>
+        );
       case "card4":
-        return (
-          <Card4
-            post={post}
-            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
-          />
-        );
+        return <Card4 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
+      case "card5":
+        return <Card5 key={post.id} post={post} index={index + 1} />;
+      case "card6":
+        return <Card6 key={post.id} post={post} />;
       case "card7":
-        return <Card7 post={post} />;
+        return <Card7 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
+      case "card8":
+        return (
+          <Card8
+            hasExcerpt={false}
+            ratio="pt-[100%]"
+            key={post.id}
+            post={post}
+            imageSizes={IMAGE_SIZES}
+          />
+        );
       case "card9":
-        return <Card9 post={post} />;
+        return <Card9 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
       case "card10":
-        return <Card10 post={post} />;
+        return (
+          <Card10
+            ratio="aspect-w-1 aspect-h-1 "
+            key={post.id}
+            post={post}
+            imageSizes={IMAGE_SIZES}
+          />
+        );
       case "card10V2":
-        return <Card10V2 post={post} />;
+        return <Card10V2 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
       case "card11":
-        return (
-          <Card11
-            post={post}
-            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
-          />
-        );
+        return <Card11 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
+      case "card12":
+        return <Card12 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
+      case "card13":
+        return <Card13 key={post.id} post={post} />;
       case "card14":
-        return <Card14 post={post} />;
-      default:
+        return <Card14 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
+      case "card15Podcast":
+        return <Card15Podcast key={post.id} post={post} />;
+      case "card16Podcast":
         return (
-          <Card4
-            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
-            post={post}
-          />
+          <Card16Podcast key={post.id} post={post} imageSizes={IMAGE_SIZES} />
         );
+      case "card17Podcast":
+        return <Card17Podcast key={post.id} post={post} />;
+      case "card18":
+        return <Card18 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
+      case "card19":
+        return <Card19 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
+      default:
+        return null;
     }
   };
 
-  const renderPostComponentLoading = () => {
+  const renderCardLoading = (index: number) => {
     switch (apiSettings.settings.postCardName) {
+      case "card1":
+        return <Card1Skeleton key={index} />;
+      case "card2":
+        return <Card2Skeleton key={index} />;
+      case "card3":
+        return <Card3Skeleton key={index} />;
       case "card4":
-        return (
-          <Card4Skeleton
-            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
-          />
-        );
+        return <Card4Skeleton key={index} />;
+      case "card5":
+        return <Card5Skeleton key={index} index={index + 1} />;
+      case "card6":
+        return <Card6Skeleton key={index} />;
       case "card7":
-        return <Card7Skeleton />;
+        return <Card7Skeleton key={index} />;
+      case "card8":
+        return <Card8Skeleton ratio="pt-[100%] " key={index} />;
       case "card9":
-        return <Card9Skeleton />;
+        return <Card9Skeleton key={index} />;
       case "card10":
-        return <Card10Skeleton />;
+        return <Card10Skeleton ratio="aspect-w-1 aspect-h-1 " key={index} />;
       case "card10V2":
-        return <Card10V2Skeleton />;
+        return <Card10V2Skeleton key={index} />;
       case "card11":
-        return (
-          <Card11Skeleton
-            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
-          />
-        );
+        return <Card11Skeleton key={index} />;
+      case "card12":
+        return <Card12Skeleton key={index} />;
+      case "card13":
+        return <Card13Skeleton key={index} />;
       case "card14":
-        return <Card14Skeleton />;
+        return <Card14Skeleton key={index} />;
+      case "card15Podcast":
+        return <Card15PodcastSkeleton key={index} />;
+      case "card16Podcast":
+        return <Card16PodcastSkeleton key={index} />;
+      case "card17Podcast":
+        return <Card17PodcastSkeleton key={index} />;
+      case "card18":
+        return <Card18Skeleton key={index} />;
+      case "card19":
+        return <Card19Skeleton key={index} />;
       default:
-        return (
-          <Card4Skeleton
-            className={!enableNexPrevOnFoot ? "hover:!shadow-sm" : undefined}
-          />
-        );
+        return null;
     }
   };
 
@@ -266,7 +343,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                         enableNexPrevOnFoot ? "pb-10 xl:pb-12" : ""
                       }`}
                     >
-                      {renderPostComponentLoading()}
+                      {renderCardLoading(index)}
                     </li>
                   ))
                 : LISTS_POSTS.map((item, index) => (
@@ -276,7 +353,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                         enableNexPrevOnFoot ? "pb-10 xl:pb-12" : ""
                       }`}
                     >
-                      {renderPostComponent(item.node)}
+                      {renderPostComponent(item.node, index)}
                     </li>
                   ))}
             </ul>

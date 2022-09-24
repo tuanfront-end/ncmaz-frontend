@@ -34,6 +34,8 @@ const CardCategory2: FC<CardCategory2Props> = ({
       <NcImage
         containerClassName={`flex-shrink-0 w-20 h-20 rounded-full overflow-hidden z-0`}
         src={featuredImage?.sourceUrl || "."}
+        srcSet={featuredImage?.srcSet}
+        alt={name}
       />
       <div className="mt-3 ">
         <h4 className={`text-base sm:text-lg font-semibold `}>

@@ -60,9 +60,9 @@ module.exports = {
 
     // CORE PLUGIN -----
     // lam dieu nay vi trong core co nhieu block render HTML ma theme khong the phat hien class
-    "../ncmaz-core-v2/src/block-become-author/*.{js,jsx,ts,tsx}",
-    "../ncmaz-core-v2/src/block-newsletter/*.{js,jsx,ts,tsx}",
-    "../ncmaz-core-v2/src/block-videos/*.{js,jsx,ts,tsx}",
+    "../ncmaz-core/src/block-become-author/*.{js,jsx,ts,tsx}",
+    "../ncmaz-core/src/block-newsletter/*.{js,jsx,ts,tsx}",
+    "../ncmaz-core/src/block-videos/*.{js,jsx,ts,tsx}",
 
     // THEME -----
     "../../themes/ncmaz/assets/**/*.{js,jsx,ts,tsx}",
@@ -84,6 +84,17 @@ module.exports = {
     fontFamily: {
       display: ["var(--font-display)", ...defaultTheme.fontFamily.sans],
       body: ["var(--font-body)", ...defaultTheme.fontFamily.sans],
+    },
+    borderRadius: {
+      none: "0px",
+      sm: "var(--radius-sm)",
+      DEFAULT: "var(--radius-DEFAULT)",
+      md: "var(--radius-md)",
+      lg: "var(--radius-lg)",
+      xl: "var(--radius-xl)",
+      "2xl": "var(--radius-2xl)",
+      "3xl": "var(--radius-3xl)",
+      full: "var(--radius-full)",
     },
 
     extend: {

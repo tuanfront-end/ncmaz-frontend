@@ -24,10 +24,10 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
       } ${className}`}
       data-nc-id="PostCardMetaV2"
     >
-      <div className="relative flex items-center space-x-2 overflow-hidden">
+      <div className="relative flex space-x-2 overflow-hidden">
         {!hiddenAvatar && (
           <a
-            className="flex flex-shrink-0"
+            className="flex flex-shrink-0 pt-1"
             href={frontendObject.homeURL + author?.node.uri}
           >
             <Avatar
@@ -39,19 +39,27 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
                 author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
                 author?.node.avatar?.url
               }
+              srcSet={
+                author?.node.ncUserMeta?.featuredImage?.sourceUrl
+                  ? author?.node.ncUserMeta?.featuredImage?.srcSet
+                  : undefined
+              }
               userName={author?.node.username}
             />
           </a>
         )}
         <a href={link} className="grid grid-cols-1 overflow-hidden">
           <h4
-            className={`block font-semibold ${
+            className={`block font-semibold nc-card-title ${
               size === "normal"
                 ? "text-sm sm:text-base"
                 : "text-base sm:text-lg"
             }`}
           >
-            <span className="line-clamp-1">{title}</span>
+            <span
+              className="line-clamp-2"
+              dangerouslySetInnerHTML={{ __html: title || "" }}
+            ></span>
           </h4>
 
           <div className="flex mt-1.5 truncate">

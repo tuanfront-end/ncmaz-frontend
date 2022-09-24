@@ -73,6 +73,70 @@ function ncmazFe_print_scripts()
 
         } catch (_) {}
     </script>
+    <?php
+}
+
+// ADD THEME STYLE RADIUS FOR BODY CLASS
+add_filter('body_class', function ($classes) {
+    global $ncmaz_redux_demo;
+    if (empty($ncmaz_redux_demo['nc-general-settings--general-theme-radius']) || $ncmaz_redux_demo['nc-general-settings--general-theme-radius'] === 'DEFAULT') {
+        return false;
+    }
+    $radiusClass = ' ncmaztheme-' . $ncmaz_redux_demo['nc-general-settings--general-theme-radius'] . '-radius ';
+    return array_merge($classes, array($radiusClass));
+});
+
+// ADD THEME STYLE FONTS FOR HEAD
+add_action('wp_head', 'ncmazFe_hook_fonts_css');
+function ncmazFe_hook_fonts_css()
+{
+    global $ncmaz_redux_demo;
+    if (empty($ncmaz_redux_demo['nc-general-settings--general-theme-font-display'])) {
+    ?>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
+    <?php
+        // Exit here!
+        return false;
+    }
+
+    $themeFontDisplay = $ncmaz_redux_demo['nc-general-settings--general-theme-font-display'];
+    $themeFontBody = $ncmaz_redux_demo['nc-general-settings--general-theme-font-body'];
+    ?>
+    <style>
+        body {
+            --font-display: <?php echo $themeFontDisplay['font-family']; ?>;
+            --font-body: <?php echo $themeFontBody['font-family']; ?>;
+        }
+    </style>
+<?php
+}
+// ADD THEME STYLE COLOR FOR HEAD
+add_action('wp_head', 'ncmazFe_hook_colors_css');
+function ncmazFe_hook_colors_css()
+{
+    global $ncmaz_redux_demo;
+    if (empty($ncmaz_redux_demo['nc-general-settings--general-theme-color-primary-hex']) || !function_exists('ncmazFe_hex2rgba')) {
+        return false;
+    }
+    $themeColorPirmary = $ncmaz_redux_demo['nc-general-settings--general-theme-color-primary-hex'];
+    $rgb = ncmazFe_hex2rgba($themeColorPirmary['color']);
+?>
+    <style>
+        body {
+            --c-primary-50: <?php echo $rgb; ?>;
+            --c-primary-100: <?php echo $rgb; ?>;
+            --c-primary-200: <?php echo $rgb; ?>;
+            --c-primary-300: <?php echo $rgb; ?>;
+            --c-primary-400: <?php echo $rgb; ?>;
+            --c-primary-500: <?php echo $rgb; ?>;
+            --c-primary-600: <?php echo $rgb; ?>;
+            --c-primary-700: <?php echo $rgb; ?>;
+            --c-primary-800: <?php echo $rgb; ?>;
+            --c-primary-900: <?php echo $rgb; ?>;
+        }
+    </style>
 <?php
 }
 
@@ -187,7 +251,7 @@ function ncmazFe_enqueueScriptCustomize()
 }
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
+// add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
 function ncmazFe_registerScripts()
 {
     $manifestJS = false;
@@ -221,7 +285,7 @@ function ncmazFe_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

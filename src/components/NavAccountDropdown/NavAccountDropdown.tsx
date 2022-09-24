@@ -24,6 +24,9 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
     currentUser?.ncUserMeta?.featuredImage?.sourceUrl ||
     currentUser?.avatar?.url ||
     "";
+  const SRCSET = currentUser?.ncUserMeta?.featuredImage?.sourceUrl
+    ? currentUser?.ncUserMeta?.featuredImage?.srcSet
+    : undefined;
 
   const renderAvatar = () => {
     return (
@@ -31,6 +34,9 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
         <Avatar
           imgUrl={AVATAR}
           userName={currentUser?.name}
+          srcSet={SRCSET}
+          imageSizes="IS_SIZES"
+          sizes="100px"
           radius="rounded-full"
           containerClassName="ring-2 ring-neutral-200 dark:ring-neutral-700 ring-offset-2"
           sizeClass="h-7 w-7 text-base "
@@ -61,9 +67,12 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
             >
               <Avatar
                 imgUrl={AVATAR}
+                srcSet={SRCSET}
                 userName={currentUser?.name}
                 radius="rounded-full"
                 sizeClass="h-9 w-9 sm:h-10 sm:w-10 text-base"
+                imageSizes="IS_SIZES"
+                sizes="100px"
               />
               <div className="flex flex-col justify-center text-sm truncate">
                 <span className="text-base font-medium truncate capitalize leading-tight mb-0.5">

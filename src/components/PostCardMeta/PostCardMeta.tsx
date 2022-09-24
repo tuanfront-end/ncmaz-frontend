@@ -40,11 +40,16 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
               author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
               author?.node?.avatar?.url
             }
+            srcSet={
+              author?.node.ncUserMeta?.featuredImage?.sourceUrl
+                ? author?.node.ncUserMeta?.featuredImage?.srcSet
+                : undefined
+            }
             userName={author?.node.username}
           />
         )}
-        <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium py-1 ">
-          <span className="line-clamp-1"> {author?.node.name}</span>
+        <span className="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium ">
+          <span className="line-clamp-1 py-1"> {author?.node.name}</span>
         </span>
       </a>
       <>

@@ -1,3 +1,4 @@
+import NCMAZ_TRANSLATE from "contains/translate";
 import React, { FC } from "react";
 import ModalDeletePost from "./ModalDeletePost";
 import NcDropDown, { NcDropDownItem } from "./NcDropDown/NcDropDown";
@@ -27,7 +28,7 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
     {
       icon: "las la-edit",
       id: "edit",
-      name: "Edit post",
+      name: NCMAZ_TRANSLATE["Edit post"],
       href:
         frontendObject.pagePostSubmissionEditorUrl +
         "?pid=" +
@@ -37,13 +38,13 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
     {
       icon: "las la-comment-dots",
       id: "gotocoommment",
-      name: "Comment this post",
+      name: NCMAZ_TRANSLATE["Comment this post"],
       href: `${href}#comment`,
     },
     {
       icon: "las la-trash-alt",
       id: "delete_post",
-      name: "Delete post",
+      name: NCMAZ_TRANSLATE["Delete post"],
     },
   ];
   DATA = hasComment ? DATA : DATA.filter((_, i) => i != 1);

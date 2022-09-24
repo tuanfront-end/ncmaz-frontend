@@ -64,9 +64,7 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
     // KHI LẦN ĐẦU CHẠY SAU F5 THÌ CÓ THỂ VIDEO CHƯA LOAD XONG MÀ STATE LẠI ĐANG LÀ PLAYING HOẶC PAUSED,
     // DẪN ĐẾN NGƯỜI DÙNG CÓ THỂ BẤM VÀO NÚT VÀ GÂY HOẠT ĐỘNG SAI, VÌ VẬY CẦN CHUYỂN THÀNH LOADING NGAY
     if (!newestAudioPlayerUrl && !!currentAudioUrl && !isFirtTimeSeekTo) {
-      // if (mediaRunningState === "playing") {
       dispatch(changeStateMediaRunning("paused"));
-      // }
     }
   }, [
     newestAudioPlayerUrl,

@@ -27,17 +27,14 @@ const Card3: FC<Card3Props> = ({ className = "", post }) => {
 
   return (
     <div
-      className={`nc-Card3 relative flex sm:items-center rounded-3xl group sm:p-5 2xl:p-6 [ sm:nc-box-has-hover ] [ sm:nc-dark-box-bg-has-hover ]  ${className}`}
-      data-nc-id="Card3"
+      className={`nc-Card3 relative flex sm:items-center group sm:p-5 2xl:p-5 [ nc-box-has-hover nc-dark-box-bg-has-hover ] ${className}`}
     >
       <a href={link} className="absolute inset-0"></a>
       <div className="w-full flex flex-col flex-grow">
         <div className="space-y-2 sm:space-y-3.5 mb-3 sm:mb-4">
           <CategoryBadgeList categories={categories} />
           <div>
-            <h3
-              className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-sm sm:text-base lg:text-xl`}
-            >
+            <h3 className="nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-sm sm:text-base lg:text-xl">
               <a
                 href={link}
                 className="line-clamp-2"
@@ -80,7 +77,10 @@ const Card3: FC<Card3Props> = ({ className = "", post }) => {
         >
           <NcImage
             containerClassName="absolute inset-0"
+            className="object-cover w-full h-full group-hover:scale-105 duration-500 transition-transform"
             src={featuredImage?.node.sourceUrl || "."}
+            srcSet={featuredImage?.node.srcSet}
+            imageSizes="MEDIUM"
             alt={title}
           />
           <span>

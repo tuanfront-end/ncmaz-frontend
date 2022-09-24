@@ -4,13 +4,15 @@ import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import { PostNode } from "data/postCardType";
 import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
 import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
 
 export interface Card4Props {
   className?: string;
   post: PostNode;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
-const Card4: FC<Card4Props> = ({ className = "h-full", post }) => {
+const Card4: FC<Card4Props> = ({ className = "h-full", post, imageSizes }) => {
   const {
     title,
     link,
@@ -44,7 +46,11 @@ const Card4: FC<Card4Props> = ({ className = "h-full", post }) => {
         </div>
 
         <div className="absolute inset-0">
-          <PostFeaturedMedia post={post} isHover={isHover} />
+          <PostFeaturedMedia
+            post={post}
+            isHover={isHover}
+            imageSizes={imageSizes}
+          />
         </div>
       </div>
 

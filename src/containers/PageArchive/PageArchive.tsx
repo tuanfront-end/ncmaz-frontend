@@ -170,6 +170,8 @@ const PageArchive: FC<PageArchiveProps> = ({
               frontendObject.archivePageCoverImgDefault ||
               "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
+            srcSet={termData.ncTaxonomyMeta.featuredImage?.srcSet}
+            imageSizes="_1536X1536"
             className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-black text-white bg-opacity-30 flex flex-col items-center justify-center text-center">
@@ -228,7 +230,11 @@ const PageArchive: FC<PageArchiveProps> = ({
                   <Card11Skeleton key={index} />
                 ))}
               {POSTS.map((post) => (
-                <Card11 key={post.node.id} post={post.node} />
+                <Card11
+                  imageSizes="MEDIUM"
+                  key={post.node.id}
+                  post={post.node}
+                />
               ))}
             </div>
           ) : null}

@@ -1,9 +1,12 @@
 let NCMAZ_TRANSLATE = {
+  // 22-9-2023
+  "Comment this post": "Comment this post",
+  "Edit post": "Edit post",
+  // OLD
   "Add tags": "Add tags",
   "Go to search page": "Go to search page",
   "Now playing": "Now playing",
   "Listen now": "Listen now",
-  //
   "Type the URL of the iframe you want to embed":
     "Type the URL of the iframe you want to embed",
   Buymeacoffe: "Buymeacoffe",
@@ -14,7 +17,6 @@ let NCMAZ_TRANSLATE = {
   "Short Bio": "Short Bio",
   "Upload a file": "Upload a file",
   "Click to change": "Click to change",
-  //
   socials: "socials",
   profile: "profile",
   general: "general",
@@ -94,7 +96,6 @@ let NCMAZ_TRANSLATE = {
   "Paste or type a link": "Paste or type a link",
   "Alt text (alternative text)": "Alt text (alternative text)",
   Image: "Image",
-  //
   nothingWeFound: "Nothing we found!",
   author: "author",
   authors: "authors",

@@ -1,4 +1,3 @@
-import { ListTermsGQLResultData, Users } from "data/gutenbergAttrType";
 import { UserViewer } from "data/types";
 
 declare global {

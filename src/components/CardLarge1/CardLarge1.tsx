@@ -51,9 +51,12 @@ const CardLarge1: FC<CardLarge1Props> = ({
           <CategoryBadgeList categories={categories} />
 
           <h2 className="nc-card-title text-xl sm:text-2xl font-semibold ">
-            <a href={link} className="line-clamp-2" title={title}>
-              {title}
-            </a>
+            <a
+              href={link}
+              className="line-clamp-2"
+              title={title}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
+            ></a>
           </h2>
 
           <CardAuthor2
@@ -90,7 +93,9 @@ const CardLarge1: FC<CardLarge1Props> = ({
             containerClassName="aspect-w-16 aspect-h-12 sm:aspect-h-9 md:aspect-h-14 lg:aspect-h-10 2xl:aspect-h-9 relative"
             className="absolute inset-0 object-cover rounded-3xl"
             src={featuredImage?.node.sourceUrl || "."}
+            srcSet={featuredImage?.node.srcSet}
             alt={title}
+            loading="eager"
           />
           <div className="absolute inset-x-4 bottom-5 sm:bottom-3 flex justify-center z-10">
             <div className="flex items-center justify-center ">

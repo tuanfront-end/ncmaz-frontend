@@ -53,7 +53,10 @@ const CardCategory4: FC<CardCategory4Props> = ({
       >
         <NcImage
           src={featuredImage?.sourceUrl || "."}
+          srcSet={featuredImage?.srcSet}
+          alt={name}
           className="object-cover w-full h-full rounded-2xl"
+          imageSizes="MEDIUM"
         />
         <div>
           {index && (

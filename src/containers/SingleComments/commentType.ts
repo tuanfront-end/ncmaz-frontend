@@ -1,3 +1,5 @@
+import { FullImageNode } from "data/types";
+
 export interface Author {
   node: Node2;
 }
@@ -21,11 +23,7 @@ export interface Avatar {
 }
 
 export interface NcUserMeta {
-  featuredImage?: FeaturedImage;
-}
-
-export interface FeaturedImage {
-  sourceUrl: string;
+  featuredImage?: FullImageNode;
 }
 
 export interface PageInfo {

@@ -85,6 +85,7 @@ function App() {
     if (!domNode) {
       return null;
     }
+
     return ReactDOM.createPortal(renderFooterFixedContent(), domNode);
   };
 

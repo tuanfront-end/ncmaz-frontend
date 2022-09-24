@@ -4,9 +4,10 @@ import NextPrev from "components/NextPrev/NextPrev";
 import ButtonClose from "components/ButtonClose/ButtonClose";
 import Glide from "@glidejs/glide";
 import NcImage from "components/NcImage/NcImage";
+import { FullImageNode } from "data/types";
 
 export interface ModalPhotosProps {
-  imgs: string[];
+  imgs: FullImageNode[];
   onClose: () => void;
   isOpen: boolean;
   initFocus?: number;
@@ -65,11 +66,17 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
             {imgs.map((item, index) => (
               <li className="glide__slide relative h-full" key={index}>
                 <NcImage
-                  src={item}
+                  src={item.sourceUrl || "."}
+                  srcSet={item.srcSet}
+                  imageSizes="_2048X2048"
                   containerClassName=" w-full h-full rounded-2xl flex justify-center items-center"
                   className=" rounded-2xl max-h-full max-w-full"
-                  // className="absolute object-contain w-full max-h-screen rounded-2xl"
                 />
+                {/* {item.caption && (
+                  <span className="text-white text-xs block mt-1">
+                    {item.caption}
+                  </span>
+                )} */}
               </li>
             ))}
           </ul>

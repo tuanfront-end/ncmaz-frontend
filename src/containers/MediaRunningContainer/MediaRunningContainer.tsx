@@ -10,7 +10,7 @@ const MediaRunningContainerChildLazy = React.lazy(
   () => import("containers/MediaRunningContainer/MediaRunningContainerChild")
 );
 
-function MediaRunningContainer() {
+const MediaRunningContainer = () => {
   if (!frontendObject.musicPlayerMode) {
     return null;
   }
@@ -31,6 +31,6 @@ function MediaRunningContainer() {
       </Suspense>
     </ErrorBoundary>
   );
-}
+};
 
 export default MediaRunningContainer;

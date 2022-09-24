@@ -66,6 +66,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   isCurrentMyPage,
 }) => {
   let TABS = [];
+  console.log(11, { userData });
 
   const TRANG_CUA_MINH = isCurrentMyPage;
 
@@ -303,7 +304,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
                 <Card11Skeleton key={index} />
               ))}
             {POSTS.map((post) => (
-              <Card11 key={post.node.id} post={post.node} />
+              <Card11 imageSizes="MEDIUM" key={post.node.id} post={post.node} />
             ))}
           </div>
         ) : null}
@@ -335,7 +336,10 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
               frontendObject.authorPageCoverImgDefault ||
               "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             }
+            srcSet={ncUserMeta.backgroundImage?.srcSet}
+            imageSizes="_1536X1536"
             className="object-cover w-full h-full"
+            loading="eager"
           />
         </div>
         <div className="relative px-1 sm:container -mt-20 lg:-mt-32">
@@ -347,9 +351,16 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
               <Avatar
                 containerClassName="ring-4 ring-white dark:ring-0 shadow-xl"
                 imgUrl={ncUserMeta.featuredImage?.sourceUrl || avatar?.url}
+                srcSet={
+                  ncUserMeta.featuredImage?.sourceUrl
+                    ? ncUserMeta.featuredImage?.srcSet
+                    : undefined
+                }
+                loading="eager"
                 userName={name}
                 sizeClass="w-28 h-28 sm:w-32 sm:h-32 lg:w-44 lg:h-44 text-3xl xl:text-5xl"
                 radius="rounded-3xl"
+                imageSizes="MEDIUM"
               />
               {!!ncUserMeta.buymeacoffeUrl && (
                 <a
