@@ -1,6 +1,4 @@
 <?php
-
-
 // =====================================GENERAL SETTING ==================================================
 $section = array(
     'title'  => esc_html__('General settings', 'ncmaz-frontend'),
@@ -10,6 +8,7 @@ $section = array(
     'fields' => array(),
 );
 Redux::set_section($opt_name, $section);
+
 
 // ===========================GENERAL SETTING__SUB2 GENRAL ========================
 $section = array(
@@ -171,6 +170,7 @@ $section = array(
 );
 Redux::set_section($opt_name, $section);
 
+
 // ===========================SOCIALS SHARE SETTING__SUB ========================
 $section = array(
     'title'      => esc_html__('Social share', 'ncmaz-frontend'),
@@ -214,7 +214,6 @@ $section = array(
 Redux::set_section($opt_name, $section);
 
 
-
 // =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
 $section = array(
     'title'      => esc_html__('Music Player', 'ncmaz-frontend'),
@@ -249,6 +248,7 @@ $section = array(
     ),
 );
 Redux::set_section($opt_name, $section);
+
 
 // =========================== THEME FONTS SETTING__SUB2 GENRAL ========================
 $section = array(
@@ -314,7 +314,6 @@ $section = array(
     ),
 );
 Redux::set_section($opt_name, $section);
-
 
 
 // =========================== THEME COLORS SETTING__SUB2 GENRAL ========================
