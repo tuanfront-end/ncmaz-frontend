@@ -55,89 +55,8 @@ $section = array(
             ),
             'default' => 'DEFAULT'
         ],
-        // COLOR
-        [
-            'id'        => 'nc-general-settings--general-theme-color-primary-hex',
-            'type'      => 'color_rgba',
-            'title'     =>   __('Theme Primary Color', 'ncmaz-frontend'),
-            'subtitle'  => __('Select color primary for theme.', 'ncmaz-frontend'),
-            'desc'      => __('Currently the default Primary Color has 9 variations. If you change here, all variants will use the same value', 'ncmaz-frontend'),
-            'default'   => [],
-            'options'       => array(
-                'show_input'                => true,
-                'show_initial'              => true,
-                'show_alpha'                => false,
-                'show_palette'              => true,
-                'show_palette_only'         => false,
-                'show_selection_palette'    => true,
-                'max_palette_size'          => 10,
-                'allow_empty'               => true,
-                'clickout_fires_change'     => false,
-                'choose_text'               => 'Choose',
-                'cancel_text'               => 'Cancel',
-                'show_buttons'              => true,
-                'use_extended_classes'      => true,
-                'palette'                   => null,
-                'input_text'                => 'Select Color'
-            ),
 
-        ],
-        // END COLOR
 
-        // FONTS
-        [
-            'id'          => 'nc-general-settings--general-theme-font-display',
-            'type'        => 'typography',
-            'title'       => esc_html__('Select google font for heading', 'ncmaz-frontend'),
-            'google'        => true,
-            'font-backup'   => false,
-            'font-style'    => false,
-            'font-weight'   => false,
-            'font-size'     => false,
-            'subsets'       => false,
-            'line-height'   => false,
-            'word-spacing'  => false,
-            'letter-spacing' => false,
-            'text-align'    => false,
-            'color'         => false,
-            'preview' => [
-                "text" => "Preview font for heading tags",
-                "font-size" => "32px",
-                "always_display" => true,
-            ],
-            'subtitle'    => esc_html__('Heading font applies to heading tags from H1 - H6.', 'ncmaz-frontend'),
-            'default'     => array(
-                'font-family' => 'Poppins',
-                'google'      => true,
-            ),
-        ],
-        [
-            'id'          => 'nc-general-settings--general-theme-font-body',
-            'type'        => 'typography',
-            'title'       => esc_html__('Select google font for body', 'ncmaz-frontend'),
-            'google'        => true,
-            'font-backup'   => false,
-            'font-style'    => false,
-            'font-weight'   => false,
-            'font-size'     => false,
-            'subsets'       => false,
-            'line-height'   => false,
-            'word-spacing'  => false,
-            'letter-spacing' => false,
-            'text-align'    => false,
-            'color'         => false,
-            'preview' => [
-                "text" => "Preview font for body tags",
-                "font-size" => "18px",
-                "always_display" => true,
-            ],
-            'subtitle'    => esc_html__('Body font applied to body tags (p, span...)', 'ncmaz-frontend'),
-            'default'     => array(
-                'font-family' => 'Poppins',
-                'google'      => true,
-            ),
-        ],
-        // END FONTS
         [
             'id'       => 'nc-general-settings--general-switch-preview-video-card',
             'type'     => 'switch',
@@ -295,6 +214,170 @@ $section = array(
 Redux::set_section($opt_name, $section);
 
 
+
+// =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
+$section = array(
+    'title'      => esc_html__('Music Player', 'ncmaz-frontend'),
+    'desc'       => esc_html__('All setting for Music Player', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--music-player',
+    'subsection' => true,
+    'fields'     => array(
+        [
+            'id'       => 'nc-general-settings--music-player-opt-switch',
+            'type'     => 'switch',
+            'title'    => esc_html__('Switch On', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Music player on/off', 'ncmaz-frontend'),
+            'desc'      => __('Choose off if your site doesn\'t want to use the music player', 'ncmaz-frontend'),
+            'default'  => true,
+            'disabled'  => true,
+        ],
+        [
+            'id'       => 'nc-general-settings--music-player-media-source',
+            'type'     => 'select',
+            'multi'    => true,
+            'title'    => __('Select Media source', 'ncmaz-frontend'),
+            'subtitle' => __('Select the source for your tracks', 'ncmaz-frontend'),
+            'desc'      => __('Choose your source correctly. Currently the player best supports sources from Youtube and from mp3/mp4 files.', 'ncmaz-frontend'),
+            'options'  => [
+                'html5'     => 'Mp3/Mp4',
+                'youtube'   => 'Youtube',
+                'other'     => 'Other (Beta)',
+            ],
+            'default'  => ['html5', 'youtube']
+        ],
+
+    ),
+);
+Redux::set_section($opt_name, $section);
+
+// =========================== THEME FONTS SETTING__SUB2 GENRAL ========================
+$section = array(
+    'title'      => esc_html__('Theme Fonts', 'ncmaz-frontend'),
+    'desc'       => esc_html__('Customize Fonts for theme', 'ncmaz-frontend'),
+    'id'         => 'nc-general--theme-fonts',
+    'subsection' => true,
+    'fields'     => array(
+        // FONTS
+        [
+            'id'          => 'nc-general-settings--general-theme-font-display',
+            'type'        => 'typography',
+            'title'       => esc_html__('Select google font for heading', 'ncmaz-frontend'),
+            'google'        => true,
+            'font-backup'   => false,
+            'font-style'    => false,
+            'font-weight'   => false,
+            'font-size'     => false,
+            'subsets'       => false,
+            'line-height'   => false,
+            'word-spacing'  => false,
+            'letter-spacing' => false,
+            'text-align'    => false,
+            'color'         => false,
+            'preview' => [
+                "text" => "Preview font for heading tags",
+                "font-size" => "32px",
+                "always_display" => true,
+            ],
+            'subtitle'    => esc_html__('Heading font applies to heading tags from H1 - H6.', 'ncmaz-frontend'),
+            'default'     => array(
+                'font-family' => 'Poppins',
+                'google'      => true,
+            ),
+        ],
+        [
+            'id'          => 'nc-general-settings--general-theme-font-body',
+            'type'        => 'typography',
+            'title'       => esc_html__('Select google font for body', 'ncmaz-frontend'),
+            'google'        => true,
+            'font-backup'   => false,
+            'font-style'    => false,
+            'font-weight'   => false,
+            'font-size'     => false,
+            'subsets'       => false,
+            'line-height'   => false,
+            'word-spacing'  => false,
+            'letter-spacing' => false,
+            'text-align'    => false,
+            'color'         => false,
+            'preview' => [
+                "text" => "Preview font for body tags",
+                "font-size" => "18px",
+                "always_display" => true,
+            ],
+            'subtitle'    => esc_html__('Body font applied to body tags (p, span...)', 'ncmaz-frontend'),
+            'default'     => array(
+                'font-family' => 'Poppins',
+                'google'      => true,
+            ),
+        ],
+        // END FONTS
+    ),
+);
+Redux::set_section($opt_name, $section);
+
+
+
+// =========================== THEME COLORS SETTING__SUB2 GENRAL ========================
+$section = array(
+    'title'      => esc_html__('Theme Colors', 'ncmaz-frontend'),
+    'desc'       => esc_html__('Customize colors for theme', 'ncmaz-frontend'),
+    'id'         => 'nc-general--theme-colors',
+    'subsection' => true,
+    'fields'     => array(
+        [
+            'id'       => 'nc-general--theme-color---pre-built-mode',
+            'type'     => 'switch',
+            'off'       => 'Customize primary color',
+            'on'        => 'Choose a pre-built color palette',
+
+            'title'    => esc_html__('Choose 1 color palette Or customize the main color', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Customize the primary color or choose from a pre-built designer color palette!', 'ncmaz-frontend'),
+            'default'  => true,
+        ],
+        // COLOR
+        [
+            'id'        => 'nc-general--theme-color--primary-hex',
+            'type'      => 'color',
+            'title'     =>   __('Customize Primary Color', 'ncmaz-frontend'),
+            'subtitle'  => __('Customize color primary for theme.', 'ncmaz-frontend'),
+            'desc'      => __('Currently the default Primary Color has 9 variations. If you change here, all variants will use the same value', 'ncmaz-frontend'),
+            'validate' => 'color',
+            'transparent' => false,
+            'required' => array('nc-general--theme-color---pre-built-mode', '=', false)
+        ],
+        // END COLOR
+        // PALETTE
+        [
+            'id'       => 'nc-general--theme-color--pre-built-palette',
+            'type'     => 'select',
+            'title'    => esc_html__('Select a pre-built palette', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('The color palettes have been meticulously selected by the designer.', 'ncmaz-frontend'),
+            'desc'     => esc_html__('The color palettes are all built for Primary, Secondary and Neutral colors.', 'ncmaz-frontend'),
+            'options'  => array(
+                'DEFAULT' => 'DEFAULT',
+                'theme-cyan-blueGrey' => 'cyan-blueGrey',
+                'theme-blue-blueGrey' => 'blue-blueGrey',
+                'theme-purple-blueGrey' => 'purple-blueGrey',
+                'theme-teal-blueGrey' => 'teal-blueGrey',
+                'theme-blueGrey-blueGrey' => 'blueGrey-blueGrey',
+                'theme-red-warmGrey' => 'red-warmGrey',
+                'theme-cyan-warmGrey' => 'cyan-warmGrey',
+                'theme-blue-coolGrey' => 'blue-coolGrey',
+                'theme-lightBlue-coolGrey' => 'lightBlue-coolGrey',
+                'theme-pink-coolGrey' => 'pink-coolGrey',
+                'theme-green-grey' => 'green-grey',
+                'theme-yellow-grey' => 'yellow-grey',
+                'theme-orange-grey' => 'orange-grey',
+                'theme-fuchsia-blueGrey' => 'fuchsia-blueGrey',
+            ),
+            'default'  => 'DEFAULT',
+            'required' => array('nc-general--theme-color---pre-built-mode', '=', true)
+        ]
+    ),
+);
+Redux::set_section($opt_name, $section);
+
+
 // =========================== Frontend translate SETTING__SUB2 ========================
 $JS_LOCALE_DEFAULT = '{
     "Comment this post": "Comment this post",
@@ -437,7 +520,7 @@ $section = array(
         [
             'id'   => 'nc-general-Frontend-translate__divider_1',
             'desc' => esc_html__('Only settings the fields below when you need multi-language, Up to 4 different languages. If you need more than 4 languages, open 1 ticket and the theme author will help you set up - https://help.chisnghiax.com', 'ncmaz-frontend'),
-            'type' => 'divide'
+            'type' => 'divide',
         ],
         [
             'id'        => 'nc-general-Frontend-translate__lang_names',
@@ -507,41 +590,6 @@ $section = array(
 );
 Redux::set_section($opt_name, $section);
 
-
-// =========================== MUSIC PLAYER SETTING__SUB2 GENRAL ========================
-$section = array(
-    'title'      => esc_html__('Music Player', 'ncmaz-frontend'),
-    'desc'       => esc_html__('All setting for Music Player', 'ncmaz-frontend'),
-    'id'         => 'nc-general-settings--music-player',
-    'subsection' => true,
-    'fields'     => array(
-        [
-            'id'       => 'nc-general-settings--music-player-opt-switch',
-            'type'     => 'switch',
-            'title'    => esc_html__('Switch On', 'ncmaz-frontend'),
-            'subtitle' => esc_html__('Music player on/off', 'ncmaz-frontend'),
-            'desc'      => __('Choose off if your site doesn\'t want to use the music player', 'ncmaz-frontend'),
-            'default'  => true,
-            'disabled'  => true,
-        ],
-        [
-            'id'       => 'nc-general-settings--music-player-media-source',
-            'type'     => 'select',
-            'multi'    => true,
-            'title'    => __('Select Media source', 'ncmaz-frontend'),
-            'subtitle' => __('Select the source for your tracks', 'ncmaz-frontend'),
-            'desc'      => __('Choose your source correctly. Currently the player best supports sources from Youtube and from mp3/mp4 files.', 'ncmaz-frontend'),
-            'options'  => [
-                'html5'     => 'Mp3/Mp4',
-                'youtube'   => 'Youtube',
-                'other'     => 'Other (Beta)',
-            ],
-            'default'  => ['html5', 'youtube']
-        ],
-
-    ),
-);
-Redux::set_section($opt_name, $section);
 
 
 // =========================== Global variable (Advance) SETTING__SUB2 GENRAL ========================

@@ -79,7 +79,10 @@ function ncmazFe_print_scripts()
 // ADD THEME STYLE RADIUS FOR BODY CLASS
 add_filter('body_class', function ($classes) {
     global $ncmaz_redux_demo;
-    if (empty($ncmaz_redux_demo['nc-general-settings--general-theme-radius']) || $ncmaz_redux_demo['nc-general-settings--general-theme-radius'] === 'DEFAULT') {
+    if (
+        empty($ncmaz_redux_demo['nc-general-settings--general-theme-radius'])
+        || $ncmaz_redux_demo['nc-general-settings--general-theme-radius'] === 'DEFAULT'
+    ) {
         return false;
     }
     $radiusClass = ' ncmaztheme-' . $ncmaz_redux_demo['nc-general-settings--general-theme-radius'] . '-radius ';
@@ -110,34 +113,67 @@ function ncmazFe_hook_fonts_css()
             --font-body: <?php echo $themeFontBody['font-family']; ?>;
         }
     </style>
-<?php
+    <?php
 }
 // ADD THEME STYLE COLOR FOR HEAD
 add_action('wp_head', 'ncmazFe_hook_colors_css');
 function ncmazFe_hook_colors_css()
 {
     global $ncmaz_redux_demo;
-    if (empty($ncmaz_redux_demo['nc-general-settings--general-theme-color-primary-hex']) || !function_exists('ncmazFe_hex2rgba')) {
+    if (
+        !isset($ncmaz_redux_demo['nc-general--theme-color---pre-built-mode'])
+        || !function_exists('ncmazFe_hex2rgba')
+    ) {
         return false;
     }
-    $themeColorPirmary = $ncmaz_redux_demo['nc-general-settings--general-theme-color-primary-hex'];
-    $rgb = ncmazFe_hex2rgba($themeColorPirmary['color']);
-?>
-    <style>
-        body {
-            --c-primary-50: <?php echo $rgb; ?>;
-            --c-primary-100: <?php echo $rgb; ?>;
-            --c-primary-200: <?php echo $rgb; ?>;
-            --c-primary-300: <?php echo $rgb; ?>;
-            --c-primary-400: <?php echo $rgb; ?>;
-            --c-primary-500: <?php echo $rgb; ?>;
-            --c-primary-600: <?php echo $rgb; ?>;
-            --c-primary-700: <?php echo $rgb; ?>;
-            --c-primary-800: <?php echo $rgb; ?>;
-            --c-primary-900: <?php echo $rgb; ?>;
+
+    // SELECT PRE-BULD COLOR 
+    if (boolval($ncmaz_redux_demo['nc-general--theme-color---pre-built-mode'])) {
+        if (
+            empty($ncmaz_redux_demo['nc-general--theme-color--pre-built-palette'])
+            || $ncmaz_redux_demo['nc-general--theme-color--pre-built-palette'] === "DEFAULT"
+        ) {
+            return false;
+        } else {
+            add_filter('body_class', function ($classes) {
+                global $ncmaz_redux_demo;
+                return array_merge($classes, array($ncmaz_redux_demo['nc-general--theme-color--pre-built-palette']));
+            });
         }
-    </style>
+        // CUSTOMIZE PRIMARY COLOR
+    } else {
+        if (empty($ncmaz_redux_demo['nc-general--theme-color--primary-hex'])) {
+            return false;
+        }
+        $rgb = ncmazFe_hex2rgba($ncmaz_redux_demo['nc-general--theme-color--primary-hex']);
+    ?>
+        <style>
+            body {
+                --c-primary-50: var(--c-neutral-50);
+                --c-primary-100: var(--c-neutral-100);
+                --c-primary-200: <?php echo $rgb; ?>;
+                --c-primary-300: <?php echo $rgb; ?>;
+                --c-primary-400: <?php echo $rgb; ?>;
+                --c-primary-500: <?php echo $rgb; ?>;
+                --c-primary-600: <?php echo $rgb; ?>;
+                --c-primary-700: <?php echo $rgb; ?>;
+                --c-primary-800: <?php echo $rgb; ?>;
+                --c-primary-900: <?php echo $rgb; ?>;
+                /*  */
+                --c-secondary-50: var(--c-neutral-50);
+                --c-secondary-100: var(--c-neutral-100);
+                --c-secondary-200: <?php echo $rgb; ?>;
+                --c-secondary-300: <?php echo $rgb; ?>;
+                --c-secondary-400: <?php echo $rgb; ?>;
+                --c-secondary-500: <?php echo $rgb; ?>;
+                --c-secondary-600: <?php echo $rgb; ?>;
+                --c-secondary-700: <?php echo $rgb; ?>;
+                --c-secondary-800: <?php echo $rgb; ?>;
+                --c-secondary-900: <?php echo $rgb; ?>;
+            }
+        </style>
 <?php
+    }
 }
 
 // JAVASCRIPT

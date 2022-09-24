@@ -1,3 +1,9 @@
+/* FONT DEFAULT  */
+:root {
+  --font-display: Poppins;
+  --font-body: Poppins;
+}
+
 /*  ---------body ------ */
 html body {
   @apply font-body antialiased;
