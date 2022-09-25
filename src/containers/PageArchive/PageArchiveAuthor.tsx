@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import ArchiveFilterListBox from "components/ArchiveFilterListBox/ArchiveFilterListBox";
 import Card11 from "components/Card11/Card11";
@@ -9,6 +9,7 @@ import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import SectionTrendingCategories from "./SectionTrendingCategories";
 import {
+  ArchiveOrderBy,
   ARCHIVE_PAGE_FILTERS,
   SectionCategoriesTrendingArchivePageOption,
 } from "./PageArchive";
@@ -65,8 +66,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   listIDFavorites,
   isCurrentMyPage,
 }) => {
-  let TABS = [];
-  console.log(11, { userData });
+  let TABS: string[] = [];
 
   const TRANG_CUA_MINH = isCurrentMyPage;
 
@@ -93,6 +93,30 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
 
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
   const [tabActive, setTabActive] = useState(TABS[0]);
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const orderByParam = urlParams.get("orderBy");
+    const tabParam = urlParams.get("tab");
+    const orderByParamCorrect: ArchiveOrderBy[] = [
+      "COMMENT_COUNT",
+      "DATE",
+      "FAVORITES_COUNT",
+      "VIEWS_COUNT",
+    ];
+
+    if (
+      orderByParam &&
+      orderByParamCorrect.includes(orderByParam as ArchiveOrderBy)
+    ) {
+      setorderByState(orderByParam as ArchiveOrderBy);
+    }
+    if (tabParam && TABS.includes(tabParam)) {
+      setTabActive(tabParam);
+    }
+  }, []);
+
   //
   let variables = {};
 
@@ -263,12 +287,21 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
     };
   };
 
-  const handleClickTab = (item: string) => {
-    setTabActive(item);
+  const setHistoryStateParams = (tab: string, order: ArchiveOrderBy) => {
+    let queryParams = new URLSearchParams(window.location.search);
+    queryParams.set("tab", tab);
+    queryParams.set("orderBy", order);
+    history.replaceState(null, "", `?${queryParams.toString()}`);
   };
 
-  const handleChangeFilter = (item: ListBoxItemType) => {
+  const handleClickTab = (item: string) => {
+    setTabActive(item);
+    setHistoryStateParams(item, orderByState);
+  };
+
+  const handleChangeFilter = (item: typeof ARCHIVE_PAGE_FILTERS[number]) => {
     setorderByState(item.value);
+    setHistoryStateParams(tabActive, item.value);
   };
 
   const handleClickLoadmore = () => {
@@ -528,7 +561,8 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
             <div className="flex justify-end">
               <ArchiveFilterListBox
                 lists={FILTERS}
-                onChangeSelect={handleChangeFilter}
+                onChangeSelect={handleChangeFilter as any}
+                defaultValue={orderByState}
               />
             </div>
           </div>

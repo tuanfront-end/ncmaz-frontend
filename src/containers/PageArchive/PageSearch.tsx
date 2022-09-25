@@ -26,7 +26,17 @@ export interface PageSearchProps {
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
-const FILTERS = window.frontendObject.isActivePluginFavorites
+export type SearchPageOrderBy =
+  | ""
+  | "DATE"
+  | "FAVORITES_COUNT"
+  | "COMMENT_COUNT"
+  | "VIEWS_COUNT";
+
+const FILTERS: {
+  name: string;
+  value: SearchPageOrderBy;
+}[] = window.frontendObject.isActivePluginFavorites
   ? [
       { name: NCMAZ_TRANSLATE["filters"], value: "" },
       { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
@@ -60,6 +70,27 @@ const PageSearch: FC<PageSearchProps> = ({
   const [searchText, setSearchText] = useState(searchQuery);
   //
   useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const orderByParam = urlParams.get("orderBy");
+    const tabParam = urlParams.get("tab");
+    const orderByParamCorrect: SearchPageOrderBy[] = [
+      "",
+      "COMMENT_COUNT",
+      "DATE",
+      "FAVORITES_COUNT",
+      "VIEWS_COUNT",
+    ];
+
+    if (orderByParamCorrect.includes(orderByParam as SearchPageOrderBy)) {
+      setorderByState((orderByParam as SearchPageOrderBy) || "");
+    }
+    if (tabParam && TABS.includes(tabParam as TabType)) {
+      setTabActive(tabParam as TabType);
+    }
+  }, []);
+  //
+  useEffect(() => {
     const inputEl = document.getElementById(
       "ncmaz-search-input"
     ) as HTMLInputElement;
@@ -69,8 +100,9 @@ const PageSearch: FC<PageSearchProps> = ({
     inputEl.value = searchText;
   }, [searchText]);
   //
-  const handleChangeFilter = (item: ListBoxItemType) => {
+  const handleChangeFilter = (item: typeof FILTERS[number]) => {
     setorderByState(item.value);
+    setHistoryStateParams(searchText, tabActive, item.value);
   };
 
   const handleClickTab = (item: TabType) => {
@@ -78,6 +110,32 @@ const PageSearch: FC<PageSearchProps> = ({
       return;
     }
     setTabActive(item);
+    if (item === "Articles") {
+      setHistoryStateParams(searchText, item, orderByState);
+    } else {
+      setHistoryStateParams(searchText, item);
+    }
+  };
+
+  const setHistoryStateParams = (
+    search: string,
+    tab: TabType,
+    order?: SearchPageOrderBy
+  ) => {
+    let queryParams = new URLSearchParams(window.location.search);
+    queryParams.set("s", search);
+    queryParams.set("tab", tab);
+    if (tab === "Articles") {
+      if (!!order) {
+        queryParams.set("orderBy", order);
+      } else {
+        queryParams.delete("orderBy");
+      }
+    } else {
+      queryParams.delete("orderBy");
+    }
+
+    history.replaceState(null, "", `?${queryParams.toString()}`);
   };
 
   const handleSubmitFormSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -88,9 +146,11 @@ const PageSearch: FC<PageSearchProps> = ({
     setSearchText(textValue);
 
     // Replace current querystring with the new one.
-    let queryParams = new URLSearchParams(window.location.search);
-    queryParams.set("s", textValue);
-    history.replaceState(null, "", "?" + queryParams.toString());
+    if (tabActive === "Articles") {
+      setHistoryStateParams(textValue, tabActive, orderByState);
+    } else {
+      setHistoryStateParams(textValue, tabActive);
+    }
   };
 
   const renderHeader = () => {
@@ -275,8 +335,9 @@ const PageSearch: FC<PageSearchProps> = ({
             {tabActive === "Articles" ? (
               <div className="flex justify-end">
                 <ArchiveFilterListBox
-                  onChangeSelect={handleChangeFilter}
                   lists={FILTERS}
+                  onChangeSelect={handleChangeFilter as any}
+                  defaultValue={orderByState}
                 />
               </div>
             ) : null}

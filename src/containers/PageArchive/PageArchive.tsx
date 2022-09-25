@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ModalCategories from "./ModalCategories";
 import ModalTags from "./ModalTags";
 import ButtonPrimary from "components/Button/ButtonPrimary";
@@ -43,8 +43,16 @@ export interface PageArchiveProps {
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
-export const ARCHIVE_PAGE_FILTERS = window.frontendObject
-  .isActivePluginFavorites
+export type ArchiveOrderBy =
+  | "DATE"
+  | "FAVORITES_COUNT"
+  | "COMMENT_COUNT"
+  | "VIEWS_COUNT";
+
+export const ARCHIVE_PAGE_FILTERS: {
+  name: string;
+  value: ArchiveOrderBy;
+}[] = window.frontendObject.isActivePluginFavorites
   ? [
       { name: NCMAZ_TRANSLATE["mostRecent"], value: "DATE" },
       { name: NCMAZ_TRANSLATE["mostLiked"], value: "FAVORITES_COUNT" },
@@ -74,19 +82,28 @@ const PageArchive: FC<PageArchiveProps> = ({
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
 
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const orderByParam = urlParams.get("orderBy");
+    const orderByParamCorrect: ArchiveOrderBy[] = [
+      "COMMENT_COUNT",
+      "DATE",
+      "FAVORITES_COUNT",
+      "VIEWS_COUNT",
+    ];
+
+    if (
+      !orderByParam ||
+      !orderByParamCorrect.includes(orderByParam as ArchiveOrderBy)
+    ) {
+      return;
+    }
+
+    setorderByState((orderByParam as ArchiveOrderBy) || "DATE");
+  }, []);
   //
   let variables = {};
-  // let taxonomy = "";
-  //
-
-  // if (isCategory) {
-  //   taxonomy = "CATEGORY";
-  // } else if (isTag) {
-  //   taxonomy = "TAG";
-  // } else if (isFormatAudio || isFormatVideo) {
-  //   taxonomy = "POSTFORMAT";
-  // }
-
   //
   if (isTag) {
     variables = {
@@ -94,7 +111,6 @@ const PageArchive: FC<PageArchiveProps> = ({
       field: orderByState,
       tagIn: [termId],
       first: POST_PER_PAGE,
-      // taxonomy,
     };
   } else {
     variables = {
@@ -102,7 +118,6 @@ const PageArchive: FC<PageArchiveProps> = ({
       field: orderByState,
       categoryIn: [termId],
       first: POST_PER_PAGE,
-      // taxonomy,
     };
   }
   //
@@ -136,8 +151,11 @@ const PageArchive: FC<PageArchiveProps> = ({
     };
   };
 
-  const handleChangeFilter = (item: ListBoxItemType) => {
+  const handleChangeFilter = (item: typeof ARCHIVE_PAGE_FILTERS[number]) => {
     setorderByState(item.value);
+    let queryParams = new URLSearchParams(window.location.search);
+    queryParams.set("orderBy", item.value);
+    history.replaceState(null, "", `?${queryParams.toString()}`);
   };
 
   const handleClickLoadmore = () => {
@@ -208,8 +226,9 @@ const PageArchive: FC<PageArchiveProps> = ({
             <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
             <div className="flex justify-end">
               <ArchiveFilterListBox
-                onChangeSelect={handleChangeFilter}
+                onChangeSelect={handleChangeFilter as any}
                 lists={FILTERS}
+                defaultValue={orderByState}
               />
             </div>
           </div>

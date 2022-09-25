@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import ModalCategories from "./ModalCategories";
 import ModalTags from "./ModalTags";
 import ButtonPrimary from "components/Button/ButtonPrimary";
@@ -7,11 +7,11 @@ import Card11 from "components/Card11/Card11";
 import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
-import { ListBoxItemType } from "components/NcListBox/NcListBox";
 import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import SectionTrendingCategories from "./SectionTrendingCategories";
 import {
+  ArchiveOrderBy,
   ARCHIVE_PAGE_FILTERS,
   SectionCategoriesTrendingArchivePageOption,
 } from "./PageArchive";
@@ -48,6 +48,27 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
 
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const orderByParam = urlParams.get("orderBy");
+    const orderByParamCorrect: ArchiveOrderBy[] = [
+      "COMMENT_COUNT",
+      "DATE",
+      "FAVORITES_COUNT",
+      "VIEWS_COUNT",
+    ];
+
+    if (
+      !orderByParam ||
+      !orderByParamCorrect.includes(orderByParam as ArchiveOrderBy)
+    ) {
+      return;
+    }
+
+    setorderByState((orderByParam as ArchiveOrderBy) || "DATE");
+  }, []);
   //
   let variables = {};
   //
@@ -90,8 +111,11 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
     };
   };
 
-  const handleChangeFilter = (item: ListBoxItemType) => {
+  const handleChangeFilter = (item: typeof ARCHIVE_PAGE_FILTERS[number]) => {
     setorderByState(item.value);
+    let queryParams = new URLSearchParams(window.location.search);
+    queryParams.set("orderBy", item.value);
+    history.replaceState(null, "", `?${queryParams.toString()}`);
   };
 
   const handleClickLoadmore = () => {
@@ -130,8 +154,9 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
             <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
             <div className="flex justify-end">
               <ArchiveFilterListBox
-                onChangeSelect={handleChangeFilter}
+                onChangeSelect={handleChangeFilter as any}
                 lists={FILTERS}
+                defaultValue={orderByState}
               />
             </div>
           </div>

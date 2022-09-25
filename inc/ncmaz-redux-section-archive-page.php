@@ -121,7 +121,7 @@ $section = array(
             'title'         => __('Header Background Image', 'ncmaz-frontend'),
             'subtitle'      => __('Upload image for header background on search page', 'ncmaz-frontend'),
             'default'       => array(
-                'url' => 'https://chisnghiax.com/ncmaz/static/media/placeholder-large.ed676656.png'
+                'url' => 'https://images.pexels.com/photos/2138922/pexels-photo-2138922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
             ),
         ],
         [

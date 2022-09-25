@@ -176,7 +176,7 @@ function ncmazFe_hook_colors_css()
     }
 }
 
-// JAVASCRIPT
+// JAVASCRIPT FRONTEND OBJECT VARIABLES
 add_action('wp_enqueue_scripts', 'ncmazFe_enqueueScriptCustomize');
 function ncmazFe_enqueueScriptCustomize()
 {
