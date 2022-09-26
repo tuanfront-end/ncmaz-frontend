@@ -92,7 +92,7 @@ const GQL_QUERY_GET_CATEGORIES_BY_SPECIFIC = `
     ) {
 		categories(where: {
       language: $language
-      termTaxonomId: $termTaxonomId
+      termTaxonomyId: $termTaxonomId
      }) { ${EDGES_TERMS_COMMONT_FIELDS} }
 	}
 `;
@@ -131,7 +131,7 @@ const GQL_QUERY_GET_TAGS_BY_SPECIFIC = `
     ) {
 		tags(where: {
       language: $language
-      termTaxonomId: $termTaxonomId
+      termTaxonomyId: $termTaxonomId
      }) { ${EDGES_TERMS_COMMONT_FIELDS} }
 	}
 `;

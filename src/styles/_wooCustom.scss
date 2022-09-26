@@ -160,8 +160,10 @@ p.demo_store {
     }
   }
   .nav-mini-cart {
-    @apply hidden xl:block absolute top-full right-0 opacity-0 transition-all invisible translate-y-2 bg-white 
-    dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl will-change-transform;
+    @apply hidden xl:block absolute top-full right-0 opacity-0 transition-all invisible translate-y-2 will-change-transform py-3 bg-transparent;
+    > .mini-cart-wrap.woocommerce {
+      @apply bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl;
+    }
   }
   &:hover {
     .nav-mini-cart {

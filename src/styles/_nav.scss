@@ -15,7 +15,7 @@
 .site-header-nav-main {
   .menu-item-has-children {
     .sub-menu-wrap {
-      @apply hidden py-3 bg-transparent text-sm;
+      @apply hidden bg-transparent text-sm;
     }
     &:hover {
       > .sub-menu-wrap {
@@ -25,6 +25,7 @@
   }
 
   #primary-menu-list > .menu-item {
+    @apply flex items-center;
     > a {
       @apply text-neutral-800 hover:text-black dark:text-neutral-200 dark:hover:text-white inline-flex items-center py-2.5 px-3 lg:px-4 xl:px-[1.125rem] rounded-full mr-0.5;
     }
@@ -53,7 +54,7 @@
     }
     &.menu-item-has-children {
       > .sub-menu-wrap {
-        @apply absolute py-3 z-50 w-60 top-full m-0;
+        @apply absolute z-50 w-60 top-full m-0;
         > ul.sub-menu {
           @apply p-3 shadow-xl border border-neutral-100 dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900;
           .sub-menu-wrap {

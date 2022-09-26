@@ -25,9 +25,10 @@ function useGqlQuerySection(
   }, []);
 
   useEffect(() => {
-    if (tabActiveId === -1) {
+    if (typeof tabActiveId !== "number" || tabActiveId === -1) {
       return;
     }
+
     gqlQueryGetPosts();
   }, [tabActiveId]);
   //

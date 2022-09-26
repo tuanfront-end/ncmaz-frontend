@@ -13,7 +13,7 @@ const Card18Skeleton: FC<Card18SkeletonProps> = ({ className = "h-full" }) => {
       className={`nc-Card18Skeleton group relative flex flex-col ${className}`}
       data-nc-id="Card18Skeleton"
     >
-      <div className="w-full block h-0 aspect-h-9 aspect-w-10 rounded-2xl overflow-hidden">
+      <div className="w-full block h-0 aspect-h-5 aspect-w-7 rounded-2xl overflow-hidden">
         <NcImage containerClassName="absolute inset-0 " src={"."} />
         <div>
           <PostTypeFeaturedIcon
@@ -28,10 +28,13 @@ const Card18Skeleton: FC<Card18SkeletonProps> = ({ className = "h-full" }) => {
         <Skeleton width="40%" />
       </div>
 
-      <h3 className={`block mt-2 font-medium text-sm`}>
+      <h3 className={`block mt-3 font-medium text-sm`}>
+        <Skeleton width="90%" />
         <Skeleton width="80%" />
-        <Skeleton width="60%" />
       </h3>
+      <span className="text-xs mt-1.5">
+        <Skeleton width="40%" />
+      </span>
     </div>
   );
 };

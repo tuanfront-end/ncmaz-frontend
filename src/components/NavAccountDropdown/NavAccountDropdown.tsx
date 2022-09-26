@@ -59,7 +59,7 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-neutral-800 rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-neutral-100  dark:divide-neutral-700 text-sm">
+        <Menu.Items className="absolute right-0 w-56 mt-1.5 xl:mt-2.5 origin-top-right bg-white dark:bg-neutral-800 rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-neutral-100  dark:divide-neutral-700 text-sm">
           <div className="px-1 py-2">
             <a
               href={homeURL + currentUser?.uri}
