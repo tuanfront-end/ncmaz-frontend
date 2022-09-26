@@ -98,10 +98,11 @@ function App() {
       {/* ------- */}
       <Toaster
         containerStyle={{
-          top: 50,
-          left: 50,
-          bottom: 50,
-          right: 50,
+          top: 40,
+          left: 40,
+          bottom: 40,
+          right: 40,
+          zIndex: 9999999,
         }}
       />
 

@@ -296,13 +296,31 @@ p.demo_store {
     }
   }
   .add_to_cart_button {
-    @apply pointer-events-auto bg-primary-6000 py-2 px-3 font-medium text-white hover:bg-primary-500 flex-grow flex justify-center;
+    @apply relative pointer-events-auto bg-primary-6000 py-2 px-3 font-medium text-white hover:bg-primary-500 flex-1 flex justify-center whitespace-nowrap;
     &.loading {
-      @apply cursor-wait opacity-60 bg-primary-700;
+      @apply cursor-wait opacity-80 bg-primary-700;
+      font-size: 0 !important;
+
+      font-family: "Line Awesome Free";
+      font-weight: 900;
+      -webkit-font-smoothing: antialiased;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+
+      &:before {
+        content: "\f1ce";
+        @apply absolute text-lg animate-spin;
+      }
+      &:after {
+        content: "t";
+        @apply text-base opacity-0;
+      }
     }
   }
   .added_to_cart {
-    @apply ml-2;
+    @apply ml-2 flex-1;
   }
 
   .nc_wc_content_product_open_div {
