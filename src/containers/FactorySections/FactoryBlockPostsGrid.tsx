@@ -318,7 +318,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
 
     if (!!loadMoreButtonHref) {
       return (
-        <div className="flex mt-12 md:mt-14 justify-center items-center">
+        <div className="flex mt-8 sm:mt-10 lg:mt-14 justify-center items-center">
           <ButtonPrimary href={loadMoreButtonHref}>
             {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>
@@ -331,7 +331,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
     }
 
     return (
-      <div className="flex mt-12 md:mt-14 justify-center items-center">
+      <div className="flex mt-8 sm:mt-10 lg:mt-14 justify-center items-center">
         <ButtonPrimary onClick={handleClickLoadmoreBtn} loading={loading}>
           {NCMAZ_TRANSLATE["showMeMore"]}
         </ButtonPrimary>

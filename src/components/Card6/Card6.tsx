@@ -25,7 +25,7 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
 
   return (
     <div
-      className={`nc-Card6 overflow-hidden relative flex group flex-row items-center p-3 sm:p-4 [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-md sm:!rounded-2xl ${className}`}
+      className={`nc-Card6 relative flex group flex-row items-center p-3 sm:p-4 [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-md sm:!rounded-2xl ${className}`}
       data-nc-id="Card6"
     >
       <a href={link} className="absolute inset-0 z-0"></a>

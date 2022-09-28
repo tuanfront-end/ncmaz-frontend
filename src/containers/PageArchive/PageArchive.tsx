@@ -14,6 +14,9 @@ import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlo
 import SectionTrendingCategories from "./SectionTrendingCategories";
 import NCMAZ_TRANSLATE from "contains/translate";
 import GLOBAL_VARIABLE from "contains/globalVariable";
+import useWindowSize from "hooks/useWindowSize";
+import Card6 from "components/Card6/Card6";
+import Card6Skeleton from "components/Card6/Card6Skeleton";
 
 interface Data {
   posts: ListPosts;
@@ -172,6 +175,7 @@ const PageArchive: FC<PageArchiveProps> = ({
   };
 
   const IS_SKELETON = loading && !POSTS.length;
+  const WINDOW_WIDTH = useWindowSize().width;
 
   return (
     <div
@@ -245,22 +249,30 @@ const PageArchive: FC<PageArchiveProps> = ({
           {IS_SKELETON || POSTS.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8 mt-8 lg:mt-10">
               {IS_SKELETON &&
-                Array.from("88888888").map((_, index) => (
-                  <Card11Skeleton key={index} />
-                ))}
-              {POSTS.map((post) => (
-                <Card11
-                  imageSizes="MEDIUM"
-                  key={post.node.id}
-                  post={post.node}
-                />
-              ))}
+                Array.from("88888888").map((_, index) =>
+                  WINDOW_WIDTH >= 640 ? (
+                    <Card11Skeleton key={index} />
+                  ) : (
+                    <Card6Skeleton key={index} />
+                  )
+                )}
+              {POSTS.map((post) =>
+                WINDOW_WIDTH >= 640 ? (
+                  <Card11
+                    imageSizes="MEDIUM"
+                    key={post.node.id}
+                    post={post.node}
+                  />
+                ) : (
+                  <Card6 key={post.node.id} post={post.node} />
+                )
+              )}
             </div>
           ) : null}
 
           {/* PAGINATIONS */}
           {data?.posts.pageInfo?.hasNextPage && (
-            <div className="flex justify-center mt-12 lg:mt-16">
+            <div className="flex justify-center mt-8 sm:mt-10 lg:mt-14">
               <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
                 {NCMAZ_TRANSLATE["showMeMore"]}
               </ButtonPrimary>
