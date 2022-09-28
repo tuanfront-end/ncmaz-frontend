@@ -10,7 +10,7 @@ export interface ListTerms {
   pageInfo?: PageInfo;
 }
 
-interface Post {
+export interface Post {
   node: PostNode;
 }
 

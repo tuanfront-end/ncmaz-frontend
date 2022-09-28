@@ -51,7 +51,7 @@ const FactoryBlockUsersGrid: FC<FactoryBlockUsersGridProps> = ({
     return (
       <div
         className={`nc-FactoryBlockUsersGrid relative ${
-          hasBackground ? "py-16" : ""
+          hasBackground ? "py-14 sm:py-16" : ""
         }  ${className}`}
         ref={ref}
       >

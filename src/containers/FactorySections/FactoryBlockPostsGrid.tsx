@@ -365,7 +365,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
             renderHeading()
           )}
           <div
-            className={`grid grid-cols-1 gap-x-3 gap-y-5 sm:gap-6 2xl:gap-8 ${GRID_CLASSNAME}`}
+            className={`grid grid-cols-1 gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8 ${GRID_CLASSNAME}`}
           >
             {IS_SKELETON
               ? Array.from(

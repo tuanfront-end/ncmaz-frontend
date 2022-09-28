@@ -3,11 +3,9 @@ import ModalCategories from "./ModalCategories";
 import ModalTags from "./ModalTags";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import ArchiveFilterListBox from "components/ArchiveFilterListBox/ArchiveFilterListBox";
-import Card11 from "components/Card11/Card11";
 import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
-import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import SectionTrendingCategories from "./SectionTrendingCategories";
 import {
@@ -16,9 +14,7 @@ import {
   SectionCategoriesTrendingArchivePageOption,
 } from "./PageArchive";
 import NCMAZ_TRANSLATE from "contains/translate";
-import useWindowSize from "hooks/useWindowSize";
-import Card6Skeleton from "components/Card6/Card6Skeleton";
-import Card6 from "components/Card6/Card6";
+import ArchiveGridPost from "./ArchiveGridPost";
 
 interface Data {
   posts: ListPosts;
@@ -135,7 +131,6 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
   };
 
   const IS_SKELETON = loading && !POSTS.length;
-  const WINDOW_WIDTH = useWindowSize().width;
 
   return (
     <div
@@ -174,29 +169,7 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
           />
 
           {/* LOOP ITEMS */}
-          {IS_SKELETON || POSTS.length ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8 mt-8 lg:mt-10">
-              {IS_SKELETON &&
-                Array.from("88888888").map((_, index) =>
-                  WINDOW_WIDTH >= 640 ? (
-                    <Card11Skeleton key={index} />
-                  ) : (
-                    <Card6Skeleton key={index} />
-                  )
-                )}
-              {POSTS.map((post) =>
-                WINDOW_WIDTH >= 640 ? (
-                  <Card11
-                    imageSizes="MEDIUM"
-                    key={post.node.id}
-                    post={post.node}
-                  />
-                ) : (
-                  <Card6 key={post.node.id} post={post.node} />
-                )
-              )}
-            </div>
-          ) : null}
+          <ArchiveGridPost is_skeleton={IS_SKELETON} posts={POSTS} />
 
           {/* PAGINATIONS */}
           {data?.posts.pageInfo?.hasNextPage && (

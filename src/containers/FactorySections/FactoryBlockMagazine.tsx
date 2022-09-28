@@ -208,7 +208,7 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     return (
       <div
         className={`nc-FactoryBlockMagazine relative ${
-          isBg ? "py-16" : ""
+          isBg ? "py-14 sm:py-16" : ""
         }  ${className}`}
         ref={ref}
       >

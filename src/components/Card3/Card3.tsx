@@ -31,7 +31,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full", post }) => {
     >
       <a href={link} className="absolute inset-0"></a>
       <div className="flex flex-col flex-1">
-        <div className="space-y-2 sm:space-y-3.5 mb-3 sm:mb-4">
+        <div className="space-y-2 sm:space-y-3.5 sm:mb-4">
           <CategoryBadgeList categories={categories} />
           <div>
             <h3 className="nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-sm sm:text-base lg:text-xl">
@@ -85,10 +85,10 @@ const Card3: FC<Card3Props> = ({ className = "h-full", post }) => {
           />
           <span>
             <PostTypeFeaturedIcon
-              className="absolute left-2 bottom-2"
+              className="absolute left-1 bottom-1 sm:left-2 sm:bottom-2"
               postType={postType}
-              wrapSize="w-8 h-8"
-              iconSize="w-4 h-4"
+              wrapSize="w-6 h-6 sm:w-8 sm:h-8"
+              iconSize="w-3 h-3 sm:w-4 sm:h-4"
             />
           </span>
         </a>

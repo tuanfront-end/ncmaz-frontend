@@ -1,18 +1,14 @@
 import React, { FC, useEffect } from "react";
 import ButtonPrimary from "components/Button/ButtonPrimary";
-import Card11 from "components/Card11/Card11";
 import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import {
   POSTS_SECTION_BY_FILTER__string,
   POSTS_SECTION_BY_SEARCH_NO_FILTER__string,
 } from "./queryGraphql";
-import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import NCMAZ_TRANSLATE from "contains/translate";
-import useWindowSize from "hooks/useWindowSize";
-import Card6Skeleton from "components/Card6/Card6Skeleton";
-import Card6 from "components/Card6/Card6";
+import ArchiveGridPost from "./ArchiveGridPost";
 
 interface Data {
   posts: ListPosts;
@@ -104,7 +100,6 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
   };
 
   const IS_SKELETON = loading && !POSTS.length;
-  const WINDOW_WIDTH = useWindowSize().width;
 
   return (
     <div className="mt-8 lg:mt-10">
@@ -117,25 +112,7 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
       />
 
       {/* LOOP ITEMS */}
-      {IS_SKELETON || POSTS.length ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8 ">
-          {IS_SKELETON &&
-            Array.from("88888888").map((_, index) =>
-              WINDOW_WIDTH >= 640 ? (
-                <Card11Skeleton key={index} />
-              ) : (
-                <Card6Skeleton key={index} />
-              )
-            )}
-          {POSTS.map((post) =>
-            WINDOW_WIDTH >= 640 ? (
-              <Card11 imageSizes="MEDIUM" key={post.node.id} post={post.node} />
-            ) : (
-              <Card6 key={post.node.id} post={post.node} />
-            )
-          )}
-        </div>
-      ) : null}
+      <ArchiveGridPost className="" is_skeleton={IS_SKELETON} posts={POSTS} />
 
       {/* PAGINATIONS */}
       {data?.posts.pageInfo?.hasNextPage && (

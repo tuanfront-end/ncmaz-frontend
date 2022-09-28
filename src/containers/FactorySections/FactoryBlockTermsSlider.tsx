@@ -58,7 +58,7 @@ const FactoryBlockTermsSlider: FC<FactoryBlockTermsSliderProps> = ({
     return (
       <div
         className={`nc-FactoryBlockTermsSlider relative ${
-          isBg ? "py-16" : ""
+          isBg ? "py-14 sm:py-16" : ""
         } ${className}`}
         ref={ref}
       >

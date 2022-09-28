@@ -59,7 +59,7 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
     return (
       <div
         className={`nc-FactoryBlockUsersSlider relative ${
-          hasBackground ? "py-16" : ""
+          hasBackground ? "py-14 sm:py-16" : ""
         }  ${className}`}
         ref={ref}
       >

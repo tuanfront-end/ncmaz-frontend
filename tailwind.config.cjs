@@ -35,9 +35,14 @@ const safelist = [
     variants: ["sm", "md", "lg", "xl", "2xl"],
   },
   {
+    pattern: /h-(14|16|20|24)/,
+    variants: ["sm", "xl"],
+  },
+  {
     pattern: /container/,
     variants: ["sm", "md", "lg", "xl", "2xl"],
   },
+
   //
   "!container",
   //

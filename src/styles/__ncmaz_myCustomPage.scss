@@ -11,7 +11,7 @@
   .nc-SectionLatestPosts-hasSidebar {
     @apply flex flex-col lg:flex-row;
     > .wp-block-column:nth-child(1) {
-      @apply w-full lg:w-3/5 xl:w-2/3 xl:pr-6;
+      @apply w-full lg:w-3/5 xl:w-2/3 xl:pr-2 2xl:pr-6;
       flex-basis: unset !important;
     }
     > .wp-block-column:nth-child(2) {

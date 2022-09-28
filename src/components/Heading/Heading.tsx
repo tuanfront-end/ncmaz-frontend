@@ -11,7 +11,7 @@ export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 const Heading: React.FC<HeadingProps> = ({
   children,
   desc = "Discover the most outstanding articles in all topics of life. ",
-  className = "mb-12 md:mb-14 text-neutral-900 dark:text-neutral-50",
+  className = "mb-10 md:mb-14 text-neutral-900 dark:text-neutral-50",
   isCenter = false,
   hasNextPrev = false,
   ...args
@@ -27,17 +27,20 @@ const Heading: React.FC<HeadingProps> = ({
           isCenter ? "text-center w-full max-w-2xl mx-auto " : "max-w-2xl"
         }
       >
-        <h3 className={`text-3xl md:text-4xl font-semibold`} {...args}>
+        <h3
+          className={`text-2xl sm:text-3xl md:text-4xl font-semibold`}
+          {...args}
+        >
           {children}
         </h3>
         {desc && (
-          <span className="mt-2 md:mt-3 font-normal block text-base sm:text-xl text-neutral-500 dark:text-neutral-400">
+          <span className="mt-2 md:mt-3 font-normal block text-base md:text-xl text-neutral-500 dark:text-neutral-400">
             {desc}
           </span>
         )}
       </div>
       {hasNextPrev && !isCenter && (
-        <div className="mt-4 flex justify-end sm:ml-2 sm:mt-0 flex-shrink-0">
+        <div className="mt-4 hidden sm:flex justify-end sm:ml-2 sm:mt-0 flex-shrink-0">
           <NextPrev onClickNext={() => {}} onClickPrev={() => {}} />
         </div>
       )}

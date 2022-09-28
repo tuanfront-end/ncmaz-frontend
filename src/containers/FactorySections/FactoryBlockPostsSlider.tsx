@@ -314,7 +314,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
     return (
       <div
         className={`nc-FactoryBlockPostsSlider relative  ${
-          isBg ? "py-16" : ""
+          isBg ? "py-14 sm:py-16" : ""
         }  ${className}`}
         ref={ref}
       >
@@ -341,7 +341,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                     <li
                       key={index}
                       className={`glide__slide ${
-                        enableNexPrevOnFoot ? "pb-10 xl:pb-12" : ""
+                        enableNexPrevOnFoot ? "sm:pb-10 xl:pb-12" : ""
                       }`}
                     >
                       {renderCardLoading(index)}
@@ -351,7 +351,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                     <li
                       key={index}
                       className={`glide__slide !h-auto ${
-                        enableNexPrevOnFoot ? "pb-10 xl:pb-12" : ""
+                        enableNexPrevOnFoot ? "sm:pb-10 xl:pb-12" : ""
                       }`}
                     >
                       {renderPostComponent(item.node, index)}
@@ -373,7 +373,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
           {enableNexPrevOnFoot && (
             <NextPrev
               btnClassName="w-12 h-12"
-              containerClassName="justify-center"
+              containerClassName="hidden sm:flex justify-center"
             />
           )}
         </div>

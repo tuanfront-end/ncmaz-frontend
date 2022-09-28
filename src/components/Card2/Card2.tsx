@@ -50,7 +50,7 @@ const Card2: FC<Card2Props> = ({
       <div
         className={`p-4 flex flex-col ${size === "large" ? " sm:p-5 " : ""}`}
       >
-        <div className="space-y-3">
+        <div className="sm:space-y-3">
           <CategoryBadgeList
             className="hidden sm:flex"
             categories={categories}
@@ -78,7 +78,7 @@ const Card2: FC<Card2Props> = ({
         </div>
 
         <CardAuthor2
-          className="relative my-4"
+          className="relative my-3 sm:my-4"
           date={date}
           author={author}
           readingTimeShortcode={ncPostMetaData.readingTimeShortcode}

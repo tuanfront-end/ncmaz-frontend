@@ -181,7 +181,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
                   <li
                     key={index}
                     className={`glide__slide ${
-                      !isLayout2 ? "pb-10 md:pb-12" : ""
+                      !isLayout2 ? "sm:pb-10 md:pb-12" : ""
                     }`}
                   >
                     {renderCardSkeleton()}
@@ -191,7 +191,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
                   <li
                     key={index}
                     className={`glide__slide !h-auto ${
-                      !isLayout2 ? "pb-10 md:pb-12" : ""
+                      !isLayout2 ? "sm:pb-10 md:pb-12" : ""
                     }`}
                   >
                     {renderCard(item.node)}
@@ -202,7 +202,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
         {!isLayout2 && (
           <NextPrev
             btnClassName="w-12 h-12"
-            containerClassName="justify-center"
+            containerClassName="hidden sm:flex justify-center"
           />
         )}
       </div>
