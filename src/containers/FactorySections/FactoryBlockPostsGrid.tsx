@@ -204,7 +204,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
         return (
           <Card8
             hasExcerpt={false}
-            ratio="pt-[100%]"
+            ratio="pt-[75%] sm:pt-[100%]"
             key={post.id}
             post={post}
             imageSizes={IMAGE_SIZES}
@@ -213,14 +213,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
       case "card9":
         return <Card9 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
       case "card10":
-        return (
-          <Card10
-            ratio="aspect-w-1 aspect-h-1 "
-            key={post.id}
-            post={post}
-            imageSizes={IMAGE_SIZES}
-          />
-        );
+        return <Card10 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
       case "card10V2":
         return <Card10V2 key={post.id} post={post} imageSizes={IMAGE_SIZES} />;
       case "card11":
@@ -265,7 +258,7 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
       case "card7":
         return <Card7Skeleton key={index} />;
       case "card8":
-        return <Card8Skeleton ratio="pt-[100%] " key={index} />;
+        return <Card8Skeleton ratio="pt-[75%] sm:pt-[100%]" key={index} />;
       case "card9":
         return <Card9Skeleton key={index} />;
       case "card10":
@@ -371,7 +364,9 @@ const FactoryBlockPostsGrid: FC<FactoryBlockPostsGridProps> = ({
           ) : (
             renderHeading()
           )}
-          <div className={`grid grid-cols-1 gap-6 2xl:gap-8 ${GRID_CLASSNAME}`}>
+          <div
+            className={`grid grid-cols-1 gap-x-3 gap-y-5 sm:gap-6 2xl:gap-8 ${GRID_CLASSNAME}`}
+          >
             {IS_SKELETON
               ? Array.from(
                   Array(Number(settings.expectedNumberResults || 8) || 8).keys()

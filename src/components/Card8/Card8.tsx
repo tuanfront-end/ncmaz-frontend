@@ -17,7 +17,7 @@ export interface Card8Props {
 const Card8: FC<Card8Props> = ({
   className = "h-full",
   post,
-  ratio = "pt-[100%] sm:pt-[55%] ",
+  ratio = "pt-[75%] sm:pt-[55%] ",
   hasExcerpt = true,
   imageSizes,
 }) => {

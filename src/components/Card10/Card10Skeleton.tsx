@@ -9,7 +9,7 @@ export interface Card10SkeletonProps {
 
 const Card10Skeleton: FC<Card10SkeletonProps> = ({
   className = "h-full",
-  ratio = "aspect-w-9 aspect-h-7 sm:aspect-h-10",
+  ratio = "aspect-w-8 aspect-h-5 sm:aspect-w-4 sm:aspect-h-3",
 }) => {
   return (
     <div

@@ -24,10 +24,10 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
       } ${className}`}
       data-nc-id="PostCardMetaV2"
     >
-      <div className="relative flex space-x-2 overflow-hidden">
+      <div className="relative flex sm:space-x-2 overflow-hidden">
         {!hiddenAvatar && (
           <a
-            className="flex flex-shrink-0 pt-1"
+            className="hidden sm:flex flex-shrink-0 pt-1"
             href={frontendObject.homeURL + author?.node.uri}
           >
             <Avatar

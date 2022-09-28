@@ -17,7 +17,7 @@ export interface Card14Props {
 
 const Card14: FC<Card14Props> = ({
   className = "h-full",
-  ratio = "aspect-w-5 aspect-h-5",
+  ratio = "aspect-w-4 aspect-h-3 sm:aspect-w-1 sm:aspect-h-1",
   post,
   hoverClass = "",
   imageSizes,
@@ -27,13 +27,13 @@ const Card14: FC<Card14Props> = ({
   const postType = postFormats?.edges[0]?.node.slug;
   return (
     <div
-      className={`nc-Card14 relative flex flex-col group rounded-3xl overflow-hidden z-0 ${hoverClass} ${className}`}
+      className={`nc-Card14 relative flex flex-col group rounded-2xl sm:rounded-3xl overflow-hidden z-0 ${hoverClass} ${className}`}
       data-nc-id="Card14"
     >
       <a href={link} className={`flex items-start relative w-full ${ratio}`}>
         <NcImage
           containerClassName="absolute inset-0 overflow-hidden z-0"
-          className="object-cover w-full h-full rounded-3xl "
+          className="object-cover w-full h-full rounded-2xl sm:rounded-3xl "
           src={featuredImage?.node.sourceUrl || "."}
           srcSet={featuredImage?.node.srcSet}
           imageSizes={imageSizes}
@@ -50,7 +50,7 @@ const Card14: FC<Card14Props> = ({
         </span>
       </a>
 
-      <div className="absolute top-4 inset-x-4 sm:top-5 sm:inset-x-5">
+      <div className="hidden sm:block absolute top-4 inset-x-4 sm:top-5 sm:inset-x-5">
         <CategoryBadgeList itemClass="px-3 py-[6px]" categories={categories} />
       </div>
 
@@ -64,7 +64,7 @@ const Card14: FC<Card14Props> = ({
           ></a>
         </h3>
 
-        <div className="p-2 sm:p-2.5 mt-4 sm:mt-5 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full flex items-center text-neutral-50 text-xs sm:text-sm font-medium">
+        <div className="p-2 sm:p-2.5 mt-2.5 sm:mt-4 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full flex items-center text-neutral-50 text-xs sm:text-sm font-medium">
           <a
             href={frontendObject.homeURL + author?.node.uri}
             className="relative flex items-center space-x-2"

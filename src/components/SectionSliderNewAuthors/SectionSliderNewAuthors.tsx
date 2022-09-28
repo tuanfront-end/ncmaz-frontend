@@ -83,7 +83,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
         gap: 20,
       },
       500: {
-        perView: 1.2,
+        perView: 1.3,
         gap: 20,
       },
     },
@@ -190,7 +190,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
               : authorNodes.map((item, index) => (
                   <li
                     key={index}
-                    className={`glide__slide ${
+                    className={`glide__slide !h-auto ${
                       !isLayout2 ? "pb-10 md:pb-12" : ""
                     }`}
                   >

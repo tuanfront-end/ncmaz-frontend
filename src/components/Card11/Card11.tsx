@@ -24,7 +24,7 @@ const Card11: FC<Card11Props> = ({
   className = "h-full",
   post,
   hiddenAuthor = false,
-  ratio = "aspect-w-4 aspect-h-3",
+  ratio = "aspect-w-8 aspect-h-5 sm:aspect-w-4 sm:aspect-h-3",
   onClickLike,
   imageSizes,
 }) => {
@@ -58,9 +58,9 @@ const Card11: FC<Card11Props> = ({
           />
         </div>
       </div>
-      <span className="absolute top-3 inset-x-3 z-10">
+      <div className=" absolute top-3 inset-x-3 z-10">
         <CategoryBadgeList categories={categories} />
-      </span>
+      </div>
 
       <div className="p-4 h-full flex flex-col flex-grow">
         {!hiddenAuthor ? (

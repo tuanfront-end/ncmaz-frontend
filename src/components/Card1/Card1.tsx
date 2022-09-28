@@ -16,7 +16,7 @@ const Card1: FC<Card1Props> = ({ className = "h-full", post }) => {
 
   return (
     <div
-      className={`nc-Card1 relative min-h-[95px] p-2 pr-0 sm:p-4 flex flex-row  [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-md sm:!rounded-2xl ${className}`}
+      className={`nc-Card1 group relative min-h-[95px] p-2 sm:p-4 flex flex-row  [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-md sm:!rounded-2xl ${className}`}
       data-nc-id="Card1"
       data-nc-post-id={id}
     >
@@ -50,14 +50,14 @@ const Card1: FC<Card1Props> = ({ className = "h-full", post }) => {
       </div>
 
       {/* ACTIONS */}
-      <div className={`block flex-shrink-0 ml-5 w-20 lg:w-24`}>
+      <div className="flex-shrink-0 ml-2.5 w-24">
         <a
           href={link}
-          className={`w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-xl overflow-hidden z-0`}
+          className="w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-xl overflow-hidden z-0"
         >
           <NcImage
             containerClassName="absolute inset-0"
-            className="object-cover w-full h-full group-hover:scale-105 duration-500 transition-transform"
+            className="object-cover w-full h-full group-hover:opacity-90 transition-opacity"
             src={featuredImage?.node.sourceUrl || "."}
             srcSet={featuredImage?.node.srcSet}
             imageSizes="MEDIUM"

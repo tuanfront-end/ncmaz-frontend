@@ -20,7 +20,7 @@ const Card1Skeleton = ({ className = "h-full" }) => {
       </div>
 
       {/* ACTIONS */}
-      <div className={`block flex-shrink-0 ml-5 w-20 lg:w-24`}>
+      <div className={`block flex-shrink-0 ml-5 w-24`}>
         <div
           className={`w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-xl overflow-hidden z-0`}
         >

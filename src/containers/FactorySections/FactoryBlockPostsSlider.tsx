@@ -106,7 +106,8 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
   };
 
   const enableNexPrevOnFoot =
-    settings.blockLayoutStyle === "layout-2" || settings.showFilterTab;
+    settings.blockLayoutStyle === "layout-2" ||
+    (settings.showFilterTab && !!settings?.categories?.length);
 
   // ==================== GLIDE SLIDER SETTING ====================
   const perView = settings.itemPerView || 5;
@@ -176,7 +177,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
         return <Card2 imageSizes={IMAGE_SIZES} key={post.id} post={post} />;
       case "card3":
         return (
-          <div className="w-full" key={post.id}>
+          <div className="w-full h-full" key={post.id}>
             <Card3 post={post} />
           </div>
         );
@@ -349,7 +350,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
                 : LISTS_POSTS.map((item, index) => (
                     <li
                       key={index}
-                      className={`glide__slide ${
+                      className={`glide__slide !h-auto ${
                         enableNexPrevOnFoot ? "pb-10 xl:pb-12" : ""
                       }`}
                     >

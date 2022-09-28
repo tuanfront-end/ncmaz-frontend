@@ -137,7 +137,7 @@ const Card10V3: FC<Card10V3Props> = ({
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden z-0">
+      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 overflow-hidden z-0">
         {renderFeaturedImage()}
 
         <a
@@ -157,8 +157,8 @@ const Card10V3: FC<Card10V3Props> = ({
       <div className="space-y-2.5 mt-4 px-4 flex flex-col">
         <h3 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
           <a
+            className="line-clamp-2"
             href={link}
-            className="line-clamp-1"
             title={title}
             dangerouslySetInnerHTML={{ __html: title || "" }}
           ></a>

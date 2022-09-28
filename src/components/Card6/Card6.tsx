@@ -25,11 +25,11 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
 
   return (
     <div
-      className={`nc-Card6 overflow-hidden relative flex group flex-row items-center p-2 pr-0 sm:p-4 [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-md sm:!rounded-2xl ${className}`}
+      className={`nc-Card6 overflow-hidden relative flex group flex-row items-center p-3 sm:p-4 [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-md sm:!rounded-2xl ${className}`}
       data-nc-id="Card6"
     >
       <a href={link} className="absolute inset-0 z-0"></a>
-      <div className="flex flex-col flex-grow max-w-full">
+      <div className="flex flex-col flex-grow">
         <div className="space-y-1.5 sm:space-y-3 mb-2 sm:mb-4">
           <CategoryBadgeList categories={categories} />
           <h3
@@ -44,7 +44,7 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
           </h3>
           <PostCardMeta meta={{ ...post }} />
         </div>
-        <div className="flex items-center flex-wrap justify-between mt-auto">
+        <div className="hidden sm:flex items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment className="relative" postData={post} />
           <div className="flex items-center space-x-2 text-xs text-neutral-700 dark:text-neutral-300 ">
             <span
@@ -60,7 +60,7 @@ const Card6: FC<Card6Props> = ({ className = "h-full", post }) => {
         </div>
       </div>
 
-      <div className={`flex-shrink-0 ml-5 w-20 sm:w-24 md:w-40`}>
+      <div className={`flex-shrink-0 ml-5 w-4/12 sm:w-24 md:w-40`}>
         <a
           href={link}
           className={`w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-xl overflow-hidden z-0`}

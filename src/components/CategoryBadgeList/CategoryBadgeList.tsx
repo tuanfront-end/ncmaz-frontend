@@ -15,7 +15,7 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
   className = "",
   itemClass = "",
   categories,
-  numberCategoriesWillShow = 4,
+  numberCategoriesWillShow = 3,
 }) => {
   return (
     <div
@@ -32,7 +32,7 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
           }
           return (
             <Badge
-              className={`relative my-1 ${itemClass}`}
+              className={`relative my-1 text-[10px] sm:text-xs ${itemClass}`}
               key={index}
               name={item.node.name}
               href={item.node.link}

@@ -16,7 +16,7 @@ export interface Card10Props {
 const Card10: FC<Card10Props> = ({
   className = "h-full",
   post,
-  ratio = "aspect-w-9 aspect-h-7 sm:aspect-h-10",
+  ratio = "aspect-w-7 aspect-h-5 sm:aspect-w-1 sm:aspect-h-1",
   imageSizes,
 }) => {
   const { link, categories, ncPostMetaData, postId } = post;
@@ -32,7 +32,7 @@ const Card10: FC<Card10Props> = ({
       <a href={link} className="block absolute inset-0"></a>
 
       <div
-        className={`block rounded-3xl flex-shrink-0 relative w-full ${ratio} overflow-hidden z-0`}
+        className={`block rounded-2xl sm:rounded-3xl flex-shrink-0 relative w-full ${ratio} overflow-hidden z-0`}
       >
         <div>
           <PostFeaturedMedia
@@ -47,7 +47,7 @@ const Card10: FC<Card10Props> = ({
         ></a>
       </div>
 
-      <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4 z-10">
+      <div className="hidden absolute top-3 inset-x-3 sm:flex justify-between items-start space-x-4 z-10">
         <CategoryBadgeList categories={categories} />
         <PostCardLikeAction
           postId={postId}
@@ -55,7 +55,7 @@ const Card10: FC<Card10Props> = ({
         />
       </div>
 
-      <div className="space-y-2.5 mt-4 relative">
+      <div className="space-y-2.5 mt-2.5 sm:mt-4 relative">
         <PostCardMetaV2 className="leading-none w-full" meta={post} />
       </div>
     </div>

@@ -46,8 +46,8 @@ const Card19: FC<Card19Props> = ({ className = "", post, imageSizes }) => {
         className="absolute hidden md:grid gap-0 right-4 top-4 opacity-0 z-[-1] group-hover:z-10 group-hover:opacity-100 transition-all duration-300"
       />
 
-      <div className=" mt-5 flex flex-col">
-        <h3 className="nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-base">
+      <div className="mt-2.5 sm:mt-5 flex flex-col">
+        <h3 className="nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-sm sm:text-base">
           <a
             href={link}
             className="line-clamp-2"
@@ -56,7 +56,7 @@ const Card19: FC<Card19Props> = ({ className = "", post, imageSizes }) => {
           ></a>
         </h3>
 
-        <PostCardMeta className="mt-3.5" meta={post} />
+        <PostCardMeta className="mt-2 sm:mt-3.5" meta={post} />
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export interface Card9Props {
 const Card9: FC<Card9Props> = ({
   className = "h-full",
   titleClassName = "block text-base sm:text-lg font-semibold text-white ",
-  ratio = "aspect-w-6 aspect-h-5 sm:aspect-w-5 sm:aspect-h-6",
+  ratio = "aspect-w-4 aspect-h-3 sm:aspect-w-5 sm:aspect-h-6",
   post,
   hoverClass = "",
   imageSizes,
@@ -97,7 +97,7 @@ const Card9: FC<Card9Props> = ({
       ></a>
       <div className="absolute bottom-0 inset-x-0 p-4 flex flex-col flex-grow">
         <a href={link} className="absolute inset-0"></a>
-        <div className="mb-3">
+        <div className="hidden sm:block mb-3">
           <CategoryBadgeList categories={categories} />
         </div>
         {renderMeta()}

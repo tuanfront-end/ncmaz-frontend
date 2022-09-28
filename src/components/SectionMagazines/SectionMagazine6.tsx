@@ -82,7 +82,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
     return (
       <main className="SectionMagazine6 relative">
         {/* Image */}
-        <div className="aspect-w-9 aspect-h-9 md:aspect-h-5 rounded-3xl lg:rounded-[40px] overflow-hidden">
+        <div className="aspect-w-9 aspect-h-7 md:aspect-h-5 rounded-3xl lg:rounded-[40px] overflow-hidden">
           <NcImage
             containerClassName="absolute inset-0"
             src={isLoading ? "." : featuredImage?.node.sourceUrl || "."}
@@ -98,7 +98,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
           {/* CONTENT */}
           <div className="group dark absolute md:w-1/2 lg:w-2/3 max-w-2xl flex flex-col justify-end p-5 lg:p-14">
             <div className="">
-              <h3 className="nc-card-title text-2xl lg:text-3xl xl:text-4xl font-semibold text-white">
+              <h3 className="nc-card-title text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-semibold text-white">
                 {isLoading ? (
                   <Skeleton />
                 ) : (
@@ -121,7 +121,7 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
               ) : null}
             </div>
 
-            <div className="mt-7 ">
+            <div className="mt-5 sm:mt-7 ">
               {renderAuthor(author, date, ncPostMetaData.readingTimeShortcode)}
             </div>
           </div>

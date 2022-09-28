@@ -12,7 +12,7 @@ export interface Card3Props {
   post: PostNode;
 }
 
-const Card3: FC<Card3Props> = ({ className = "", post }) => {
+const Card3: FC<Card3Props> = ({ className = "h-full", post }) => {
   const {
     title,
     link,
@@ -27,10 +27,10 @@ const Card3: FC<Card3Props> = ({ className = "", post }) => {
 
   return (
     <div
-      className={`nc-Card3 relative flex sm:items-center group sm:p-5 2xl:p-5 [ nc-box-has-hover nc-dark-box-bg-has-hover ] ${className}`}
+      className={`nc-Card3 relative flex sm:items-center group p-2 sm:p-5 2xl:p-5 [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-lg sm:!rounded-3xl ${className}`}
     >
       <a href={link} className="absolute inset-0"></a>
-      <div className="w-full flex flex-col flex-grow">
+      <div className="flex flex-col flex-1">
         <div className="space-y-2 sm:space-y-3.5 mb-3 sm:mb-4">
           <CategoryBadgeList categories={categories} />
           <div>
@@ -54,7 +54,7 @@ const Card3: FC<Card3Props> = ({ className = "", post }) => {
 
           <PostCardMeta className="w-full" meta={{ ...post }} />
         </div>
-        <div className="flex items-center flex-wrap justify-between mt-auto">
+        <div className="hidden sm:flex items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment postData={post} />
           <div className="flex items-center space-x-2 text-xs text-neutral-700 dark:text-neutral-300 ">
             <span
@@ -70,10 +70,10 @@ const Card3: FC<Card3Props> = ({ className = "", post }) => {
         </div>
       </div>
 
-      <div className={`block flex-shrink-0 ml-5 w-20 sm:w-44 2xl:w-56 `}>
+      <div className="block flex-shrink-0 ml-2.5 sm:ml-5 w-4/12 max-w-[120px] sm:max-w-none sm:w-44 2xl:w-56">
         <a
           href={link}
-          className={`w-full block h-0 aspect-h-16 aspect-w-16 rounded-md sm:rounded-2xl overflow-hidden z-0`}
+          className="w-full block h-0 aspect-h-16 aspect-w-16 rounded-lg sm:rounded-2xl overflow-hidden z-0"
         >
           <NcImage
             containerClassName="absolute inset-0"

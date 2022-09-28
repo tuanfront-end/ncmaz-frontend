@@ -35,7 +35,7 @@ const Card2: FC<Card2Props> = ({
 
       <div
         className={`block flex-shrink-0 relative w-full h-0 pt-[75%] ${
-          size === "large" ? "flex-grow sm:pt-[55%] " : ""
+          size === "large" ? "flex-grow pt-[55%] " : ""
         } rounded-xl sm:rounded-b-none overflow-hidden z-0`}
       >
         <div className="absolute inset-0">
@@ -51,7 +51,10 @@ const Card2: FC<Card2Props> = ({
         className={`p-4 flex flex-col ${size === "large" ? " sm:p-5 " : ""}`}
       >
         <div className="space-y-3">
-          <CategoryBadgeList categories={categories} />
+          <CategoryBadgeList
+            className="hidden sm:flex"
+            categories={categories}
+          />
           <h3
             className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors ${
               size === "large" ? "text-lg sm:text-2xl" : "text-base"
@@ -65,10 +68,12 @@ const Card2: FC<Card2Props> = ({
             ></a>
           </h3>
           {excerpt && size === "large" ? (
-            <div
-              className="block text-neutral-500 dark:text-neutral-400 text-sm line-clamp-2"
-              dangerouslySetInnerHTML={{ __html: excerpt }}
-            ></div>
+            <div className="hidden sm:block text-neutral-500 dark:text-neutral-400 text-sm ">
+              <p
+                className="line-clamp-2"
+                dangerouslySetInnerHTML={{ __html: excerpt }}
+              ></p>
+            </div>
           ) : null}
         </div>
 

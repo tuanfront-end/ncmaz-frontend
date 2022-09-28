@@ -34,7 +34,10 @@ const NcImage: FC<NcImageProps> = ({
   };
 
   return (
-    <div className={`nc-NcImage ${containerClassName}`} data-nc-id="NcImage">
+    <div
+      className={`nc-NcImage ${containerClassName} overflow-hidden z-0`}
+      data-nc-id="NcImage"
+    >
       {!!src && src.includes("http") ? (
         <img
           src={src}

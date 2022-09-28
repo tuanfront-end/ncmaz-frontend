@@ -167,7 +167,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
               className={`group py-2.5 pl-8 flex items-center justify-between relative rounded-r-full cursor-pointer ${
                 isActive
                   ? "bg-primary-50 dark:bg-neutral-800 text-primary-900 font-medium dark:text-primary-50"
-                  : "hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
+                  : "hover:bg-neutral-100/80 dark:hover:bg-neutral-800/50"
               }`}
               key={item.categoryId}
               onClick={() => handleMoutEnterTerm(item)}

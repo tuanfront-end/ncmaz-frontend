@@ -46,7 +46,7 @@ const Card13: FC<Card13Props> = ({ className = "", post }) => {
       </div>
 
       <div
-        className={`block relative flex-shrink-0 w-20 sm:w-28 md:w-36 xl:w-48 ml-3 sm:ml-5`}
+        className={`block relative flex-shrink-0 w-4/12 sm:w-28 md:w-36 xl:w-48 ml-3 sm:ml-5`}
       >
         <a
           href={link}

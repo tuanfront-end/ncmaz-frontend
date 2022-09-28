@@ -85,7 +85,7 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
         gap: 20,
       },
       500: {
-        perView: 1.2,
+        perView: 1.3,
         gap: 20,
       },
     },
@@ -171,7 +171,10 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
                   </li>
                 ))
               : categories.map((item, index) => (
-                  <li key={index} className={`glide__slide ${itemClassName}`}>
+                  <li
+                    key={index}
+                    className={`glide__slide !h-auto ${itemClassName}`}
+                  >
                     {renderCard(item, index)}
                   </li>
                 ))}

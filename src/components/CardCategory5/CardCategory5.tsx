@@ -23,7 +23,7 @@ const CardCategory5: FC<CardCategory5Props> = ({
       data-nc-id="CardCategory5"
     >
       <div
-        className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-7 sm:aspect-h-5 h-0 rounded-2xl sm:rounded-3xl overflow-hidden z-0 group`}
+        className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-2xl sm:rounded-3xl overflow-hidden z-0 group`}
       >
         <NcImage
           src={featuredImage?.sourceUrl || "."}
@@ -34,7 +34,7 @@ const CardCategory5: FC<CardCategory5Props> = ({
         <span className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity"></span>
       </div>
       <Badge
-        className="absolute top-3 right-3"
+        className="hidden sm:block absolute top-3 right-3"
         color={color as TwMainColor}
         name={
           <div>
@@ -45,7 +45,7 @@ const CardCategory5: FC<CardCategory5Props> = ({
       />
       <div className="absolute inset-0 flex items-center justify-center">
         <h3
-          className={`text-base font-medium px-4 py-2 sm:px-6 sm:py-3 bg-white text-neutral-900 bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-full border-2 border-white border-opacity-60`}
+          className={`text-sm sm:text-base font-medium px-3 py-1.5 sm:px-6 sm:py-3 bg-white text-neutral-900 bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-full border-2 border-white border-opacity-60`}
         >
           <span className="line-clamp-1"> {name}</span>
         </h3>

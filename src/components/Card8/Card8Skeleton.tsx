@@ -9,7 +9,7 @@ export interface Card8SkeletonProps {
 
 const Card8Skeleton: FC<Card8SkeletonProps> = ({
   className = "h-full",
-  ratio = "pt-[100%] sm:pt-[55%] ",
+  ratio = "pt-[75%] sm:pt-[55%] ",
 }) => {
   return (
     <div

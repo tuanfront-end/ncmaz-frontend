@@ -13,13 +13,13 @@ const CardAuthorBox2Skeleton: FC<CardAuthorBox2SkeletonProps> = ({
 }) => {
   return (
     <div
-      className={`nc-CardAuthorBox2Skeleton flex flex-col overflow-hidden [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
+      className={`nc-CardAuthorBox2Skeleton flex flex-col overflow-hidden [ nc-box-has-hover nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="CardAuthorBox2Skeleton"
     >
       <div className="relative flex-shrink-0 ">
         <div>
           <NcImage
-            containerClassName="flex aspect-w-7 aspect-h-5 sm:aspect-h-6 w-full h-0"
+            containerClassName="flex aspect-w-8 sm:aspect-w-7 aspect-h-5 sm:aspect-h-6 w-full h-0"
             src={"."}
           />
         </div>

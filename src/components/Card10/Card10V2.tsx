@@ -26,7 +26,7 @@ const Card10V2: FC<Card10V2Props> = ({
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="block group rounded-2xl sm:rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-11 sm:aspect-h-10 overflow-hidden z-0">
+      <div className="block group rounded-xl sm:rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 overflow-hidden z-0">
         <div>
           <PostFeaturedMedia
             imageSizes={imageSizes}
@@ -40,7 +40,7 @@ const Card10V2: FC<Card10V2Props> = ({
           className="absolute block inset-0 bg-neutral-900 bg-opacity-20 opacity-0 transition-opacity"
         ></a>
       </div>
-      <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4 z-10">
+      <div className="hidden absolute top-3 inset-x-3 sm:flex justify-between items-start space-x-4 z-10">
         <CategoryBadgeList categories={categories} />
         <PostCardLikeAction
           postId={postId}
@@ -48,7 +48,7 @@ const Card10V2: FC<Card10V2Props> = ({
         />
       </div>
 
-      <div className="space-y-2.5 mt-4 sm:px-4">
+      <div className="space-y-2.5 mt-4 sm:px-2.5">
         <PostCardMetaV2 className="leading-none" meta={post} />
       </div>
     </div>

@@ -50,9 +50,9 @@ const Card12: FC<Card12Props> = ({
         className="absolute hidden md:grid gap-0.5 right-4 top-4 opacity-0 z-[-1] group-hover:z-10 group-hover:opacity-100 transition-all duration-300"
       />
 
-      <div className=" mt-8 pr-10 flex flex-col">
+      <div className="mt-4 sm:mt-8 max-w-xl flex flex-col">
         <h3
-          className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-lg sm:text-2xl`}
+          className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 transition-colors text-base sm:text-lg lg:text-2xl`}
         >
           <a
             href={link}
@@ -69,7 +69,7 @@ const Card12: FC<Card12Props> = ({
             />
           </span>
         )}
-        <PostCardMeta className="mt-5" meta={post} />
+        <PostCardMeta className="mt-2 sm:mt-5" meta={post} />
       </div>
     </div>
   );

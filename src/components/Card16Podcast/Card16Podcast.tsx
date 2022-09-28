@@ -18,7 +18,7 @@ export interface Card16PodcastProps {
 const Card16Podcast: FC<Card16PodcastProps> = ({
   className = "h-full",
   post,
-  ratio = "aspect-w-3 xl:aspect-w-4 aspect-h-3",
+  ratio = "aspect-w-4 aspect-h-3",
   imageSizes,
 }) => {
   const { title, link, categories, excerpt, featuredImage, postFormats } = post;
@@ -113,7 +113,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
           />
         </div>
         <div className="p-5 mt-5 bg-white dark:bg-neutral-900 shadow-xl dark:shadow-2xl rounded-3xl rounded-tl-none flex flex-col flex-grow ">
-          <h3 className="nc-card-title block text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
+          <h3 className="nc-card-title block text-base sm:text-lg lg:text-xl font-semibold text-neutral-900 dark:text-neutral-100 ">
             <a
               href={link}
               className="line-clamp-2"
@@ -121,7 +121,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
               dangerouslySetInnerHTML={{ __html: title || "" }}
             ></a>
           </h3>
-          <span className="block text-sm text-neutral-500 dark:text-neutral-400 mt-3 mb-5">
+          <span className="hidden sm:block text-sm text-neutral-500 dark:text-neutral-400 mt-3 mb-5">
             {excerpt && (
               <span
                 className="line-clamp-2"
@@ -129,7 +129,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
               />
             )}
           </span>
-          <div className="flex items-end justify-between mt-auto">
+          <div className="mt-3 flex items-end justify-between sm:mt-auto">
             <PostCardLikeAndComment className="relative" postData={post} />
             <PostCardDropdownShare
               href={post.link}
