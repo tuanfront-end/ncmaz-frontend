@@ -1,7 +1,6 @@
 try {
   let IS_OK = false;
   let interval = setInterval(() => {
-    console.log(123, "-------setInterval----------", jQuery);
     if (typeof jQuery !== "function") {
       return;
     }
@@ -15,7 +14,6 @@ try {
   }, 1000);
 
   function startRunAll() {
-    console.log(456, "-------startRunAll----------");
     _toogleMobileSidebarMenu();
     _toggleMobileSubmenuItem();
     _toggleNcmazModal();

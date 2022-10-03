@@ -27,7 +27,7 @@ const safelist = [
     variants: ["sm", "md", "lg", "xl", "2xl"],
   },
   {
-    pattern: /space-y-(7|16|28)/,
+    pattern: /space-y-(7|16|24|28)/,
     variants: ["sm", "md", "lg", "xl", "2xl"],
   },
   {
@@ -36,6 +36,10 @@ const safelist = [
   },
   {
     pattern: /h-(14|16|20|24)/,
+    variants: ["sm", "xl"],
+  },
+  {
+    pattern: /!h-(14|16|20|24)/,
     variants: ["sm", "xl"],
   },
   {
