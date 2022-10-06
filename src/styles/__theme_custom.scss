@@ -259,6 +259,9 @@
         @apply text-rose-600;
       }
     }
+    &.loading {
+      @apply opacity-70 cursor-progress;
+    }
   }
 
   &.large {
@@ -420,3 +423,10 @@ form.search-form {
   @apply w-full aspect-[16/9];
 }
 //
+
+.PageArchiveAuthor__clearFavoritesButton .simplefavorites-clear {
+  @apply relative inline-flex items-center justify-center rounded-xl transition-colors text-xs lg:text-sm px-4 py-2 sm:py-2.5 hover:border-neutral-300 w-full border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-6000 dark:focus:ring-offset-0 bg-red-500 text-white disabled:hidden hover:bg-opacity-80;
+  &.loading {
+    @apply bg-opacity-60 cursor-progress disabled:flex;
+  }
+}

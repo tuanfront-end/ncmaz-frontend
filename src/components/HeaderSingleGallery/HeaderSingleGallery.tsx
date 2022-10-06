@@ -53,7 +53,7 @@ interface Sizes {
 
 export interface HeaderSingleGalleryProps {
   className?: string;
-  photos?: ACFImageType[];
+  photos?: (ACFImageType | null)[];
 }
 
 const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
@@ -61,11 +61,15 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
   photos = [],
 }) => {
   //
-  console.log({ photos });
 
-  let PHOTOS = photos.filter((item) => !!item.url);
-  PHOTOS = PHOTOS.filter((_, index) => index < 5);
-  if (!PHOTOS[0]) {
+  const PHOTOS_HAS_VALUE: ACFImageType[] = photos.filter(
+    (item) => !!item?.url
+  ) as ACFImageType[];
+
+  let FIVE_PHOTOS = PHOTOS_HAS_VALUE;
+  FIVE_PHOTOS = FIVE_PHOTOS.filter((_, index) => index < 5);
+
+  if (!FIVE_PHOTOS[0]) {
     return null;
   }
 
@@ -78,25 +82,58 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
   };
   const handleCloseModal = () => setIsOpen(false);
 
-  return (
-    <div className={className}>
-      {/* SINGLE HEADER */}
-      <header className="rounded-xl">
-        <div className="relative grid grid-cols-3 sm:grid-cols-4 gap-2 my-10">
+  const renderGridContent = () => {
+    if (FIVE_PHOTOS.length === 2) {
+      return (
+        <div className="relative grid grid-cols-4 gap-2 ">
           <div
             className="col-span-2 row-span-2 relative rounded-xl overflow-hidden z-0 cursor-pointer"
             onClick={() => handleOpenModal(0)}
           >
             <NcImage
-              containerClassName="absolute inset-0"
+              containerClassName="aspect-w-4 aspect-h-3"
               className="object-cover w-full h-full rounded-xl"
-              src={PHOTOS[0].url}
-              alt={PHOTOS[0].alt}
+              src={FIVE_PHOTOS[0].url}
+              alt={FIVE_PHOTOS[0].alt}
               loading="eager"
             />
             <div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity"></div>
           </div>
-          {PHOTOS.filter((_, i) => i >= 1).map((item, index) => (
+          <div
+            className="col-span-2 row-span-2 relative rounded-xl overflow-hidden z-0 cursor-pointer"
+            onClick={() => handleOpenModal(1)}
+          >
+            <NcImage
+              containerClassName="aspect-w-4 aspect-h-3"
+              className="object-cover w-full h-full rounded-xl"
+              src={FIVE_PHOTOS[1].url}
+              alt={FIVE_PHOTOS[1].alt}
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity"></div>
+          </div>
+        </div>
+      );
+    }
+
+    if (FIVE_PHOTOS.length === 3) {
+      return (
+        <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-2 ">
+          <div
+            className="col-span-2 relative rounded-xl overflow-hidden z-0 cursor-pointer"
+            onClick={() => handleOpenModal(0)}
+          >
+            <NcImage
+              containerClassName="aspect-w-16 aspect-h-9 sm:absolute sm:inset-0"
+              className="object-cover w-full h-full rounded-xl"
+              src={FIVE_PHOTOS[0].url}
+              alt={FIVE_PHOTOS[0].alt}
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity"></div>
+          </div>
+
+          {FIVE_PHOTOS.filter((_, i) => i >= 1).map((item, index) => (
             <div
               key={index}
               className={`relative rounded-xl overflow-hidden z-0 ${
@@ -104,10 +141,10 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
               }`}
             >
               <NcImage
-                containerClassName="aspect-w-6 aspect-h-5"
+                containerClassName="aspect-w-3 aspect-h-4"
                 className="object-cover w-full h-full rounded-xl "
-                src={item?.sizes?.large || item.url}
-                alt={item.alt}
+                src={item?.sizes?.large || item?.url}
+                alt={item?.alt}
               />
 
               {/* OVERLAY */}
@@ -117,7 +154,56 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
               />
             </div>
           ))}
+        </div>
+      );
+    }
 
+    return (
+      <div className="relative grid grid-cols-3 lg:grid-cols-4 gap-2 ">
+        <div
+          className="col-span-2 row-span-2 relative rounded-xl overflow-hidden z-0 cursor-pointer"
+          onClick={() => handleOpenModal(0)}
+        >
+          <NcImage
+            containerClassName="absolute inset-0"
+            className="object-cover w-full h-full rounded-xl"
+            src={FIVE_PHOTOS[0].url}
+            alt={FIVE_PHOTOS[0].alt}
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity"></div>
+        </div>
+
+        {FIVE_PHOTOS.filter((_, i) => i >= 1).map((item, index) => (
+          <div
+            key={index}
+            className={`relative rounded-xl overflow-hidden z-0 ${
+              index >= 2 ? "hidden lg:block" : ""
+            }`}
+          >
+            <NcImage
+              containerClassName="aspect-w-6 aspect-h-5"
+              className="object-cover w-full h-full rounded-xl "
+              src={item?.sizes?.large || item?.url}
+              alt={item?.alt}
+            />
+
+            {/* OVERLAY */}
+            <div
+              className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
+              onClick={() => handleOpenModal(index + 1)}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderGrid = () => {
+    return (
+      <header className="rounded-xl">
+        <div className="relative my-8 sm:my-10">
+          {renderGridContent()}
           <div
             className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 cursor-pointer hover:bg-neutral-200 z-10"
             onClick={() => handleOpenModal(0)}
@@ -142,15 +228,33 @@ const HeaderSingleGallery: FC<HeaderSingleGalleryProps> = ({
           </div>
         </div>
       </header>
-      {/* MODAL PHOTOS */}
+    );
+  };
+
+  const renderImage = () => {
+    return (
+      <header className="rounded-xl my-10">
+        <NcImage
+          className="w-full rounded-xl"
+          src={FIVE_PHOTOS[0].url}
+          alt={FIVE_PHOTOS[0].alt}
+          loading="eager"
+        />
+      </header>
+    );
+  };
+
+  return (
+    <div className={className}>
+      {/* SINGLE HEADER */}
+      {FIVE_PHOTOS.length > 1 ? renderGrid() : renderImage()}
+      {/*  */}
       <ModalPhotos
-        imgs={photos
-          .filter((item) => !!item)
-          .map((j) => ({
-            sourceUrl: j.url,
-            altText: j.alt,
-            caption: j.caption,
-          }))}
+        imgs={PHOTOS_HAS_VALUE.map((j) => ({
+          sourceUrl: j.url,
+          altText: j.alt,
+          caption: j.caption,
+        }))}
         isOpen={isOpen}
         onClose={handleCloseModal}
         initFocus={openFocusIndex}

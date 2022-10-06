@@ -45,11 +45,7 @@ export interface UserViewer {
   databaseId: number;
   email?: string;
   name?: string;
-  ncUserMeta?: {
-    color: string;
-    ncBio: string;
-    featuredImage?: FullImageNode;
-  };
+  ncUserMeta?: NcUserMeta;
   slug: string;
   uri: string;
   url: string;
@@ -97,7 +93,7 @@ export interface UserFullData {
 export interface NcUserMeta {
   buymeacoffeUrl: string;
   facebookUrl: string;
-  backgroundImage?: OjbImage;
+  backgroundImage?: FullImageNode;
   githubUrl: string;
   instagramUrl: string;
   linkedinUrl: any;
@@ -109,7 +105,7 @@ export interface NcUserMeta {
   vimeoUrl: any;
   websiteUrl: string;
   youtubeUrl: string;
-  featuredImage?: OjbImage;
+  featuredImage?: FullImageNode;
 }
 
 export interface OjbImage {

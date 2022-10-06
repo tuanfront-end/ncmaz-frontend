@@ -207,7 +207,11 @@ function ncmazFe_registerScripts()
         $cssLazyCssWoocommerce = (string) $manifestJS['src/LazyCssWoocommerce.tsx']['css'][0];
     }
     // JS 
-    wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['ncmazFe-mainJs'], null, true);
+    if (is_author()) {
+        wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['ncmazFe-mainJs'], ['jquery'], true);
+    } else {
+        wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['ncmazFe-mainJs'], null, true);
+    }
     // CSS
     wp_enqueue_style('ncmazFe-main', _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $cssFileUrl, [], _NCMAZ_FRONTEND_VERSION, 'all');
 

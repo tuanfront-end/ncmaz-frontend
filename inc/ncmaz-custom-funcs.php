@@ -51,18 +51,40 @@ function ncmazFe_getCurrentUserGraphql()
                 id
                 email
                 name
+				description
                 ncUserMeta {
-                  ncBio
-                  featuredImage {
-                    id
-                    databaseId
-                    altText
-                    caption
-                    sizes
-                    srcSet
-                    sourceUrl
+                    ncBio
+                    youtubeUrl
+                    facebookUrl
+                    mediumUrl
+                    githubUrl
+                    vimeoUrl
+                    twitterUrl
+                    instagramUrl
+                    linkedinUrl
+                    pinterestUrl
+                    twitchUrl
+                    websiteUrl
+                    buymeacoffeUrl
+                    backgroundImage {
+                      id
+                      altText
+                      caption
+                      databaseId
+                      sizes
+                      sourceUrl
+                      srcSet
+                    }
+                    featuredImage {
+                      id
+                      altText
+                      caption
+                      databaseId
+                      sizes
+                      sourceUrl
+                      srcSet
+                    }
                   }
-                }
                 slug
                 uri
                 url

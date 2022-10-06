@@ -34,23 +34,15 @@ const PostCardLikeAction: FC<PostCardLikeActionProps> = ({
     onClick && onClick();
 
     // LAM CAI NAY DE UPDATE BUTTON LIKE KHI RE-RENDER LAI POST
-    jQuery(document).ajaxComplete(function (event, xhr, settings) {
-      const dataSettings = settings.data as string;
-      const isAjaxFavoriteThisPost = dataSettings.includes(
-        "action=favorites_favorite"
-      );
-      if (!isAjaxFavoriteThisPost) {
-        return;
-      }
+    jQuery(document).one("ajaxStop", function () {
+      console.log(22);
 
-      if (xhr.status === 200) {
-        _timeOut = setTimeout(() => {
-          NEW_UPDATE_LIKE_BUTTONS = {
-            ...NEW_UPDATE_LIKE_BUTTONS,
-            [postId]: divRef.current?.innerHTML || "",
-          };
-        }, 300);
-      }
+      _timeOut = setTimeout(() => {
+        NEW_UPDATE_LIKE_BUTTONS = {
+          ...NEW_UPDATE_LIKE_BUTTONS,
+          [postId]: divRef.current?.innerHTML || "",
+        };
+      }, 200);
     });
   };
 
@@ -64,7 +56,7 @@ const PostCardLikeAction: FC<PostCardLikeActionProps> = ({
       className={`ncmaz-button-like-post ${className}`}
       onClick={handleClick}
       dangerouslySetInnerHTML={{
-        __html: NEW_UPDATE_LIKE_BUTTONS[postId] || favoriteButtonShortcode,
+        __html: favoriteButtonShortcode,
       }}
     />
   );

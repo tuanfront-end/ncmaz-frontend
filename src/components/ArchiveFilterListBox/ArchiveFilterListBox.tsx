@@ -39,7 +39,7 @@ const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
           onChangeSelect && onChangeSelect(item);
         }}
       >
-        <div className="relative md:min-w-[200px]">
+        <div className="relative lg:min-w-[200px]">
           <Listbox.Button as={"div"}>
             <ButtonDropdown>{itemSelected.name}</ButtonDropdown>
           </Listbox.Button>

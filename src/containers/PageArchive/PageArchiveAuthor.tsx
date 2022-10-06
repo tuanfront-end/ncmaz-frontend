@@ -28,6 +28,7 @@ import vimeopng from "images/IntegrationIcons/vimeo.png";
 import youtubepng from "images/IntegrationIcons/youtube.png";
 import ButtonSecondary from "components/Button/ButtonSecondary";
 import ArchiveGridPost from "./ArchiveGridPost";
+import toast from "react-hot-toast";
 
 interface Data {
   posts: ListPosts;
@@ -41,13 +42,11 @@ export interface AuthorSocialType {
 }
 export interface PageArchiveAuthorProps {
   className?: string;
+  clearFavoritesButton?: string;
   userData: AuthorNode;
-  //
   sectionCategoriesTrending: SectionCategoriesTrendingArchivePageOption;
-
   // NEU listIDFavorites == undefined thi trang hien tai dang la cua minh => listIDFavorites = Favorites.userFavorites[0].posts
   listIDFavorites?: Record<number, number>;
-
   // Check xem co phai dang trong trang author cua minh khong
   isCurrentMyPage?: boolean;
 }
@@ -59,6 +58,7 @@ const FILTERS = ARCHIVE_PAGE_FILTERS;
 // Tag and category have same data type - we will use one demo data
 const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   className = "",
+  clearFavoritesButton,
   sectionCategoriesTrending,
   userData,
   listIDFavorites,
@@ -67,6 +67,9 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
   let TABS: string[] = [];
 
   const TRANG_CUA_MINH = isCurrentMyPage;
+  if (TRANG_CUA_MINH && frontendObject.currentUser) {
+    userData = frontendObject.currentUser as AuthorNode;
+  }
 
   // VAO TRANG AUTHOR CUA USER KHAC
   if (!TRANG_CUA_MINH) {
@@ -115,6 +118,30 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
     }
   }, []);
 
+  // CHEKC XEM DA XOA TOAN BO FAVORITES CHUA
+  useEffect(() => {
+    if (typeof jQuery !== "function" || !window.Favorites) {
+      return;
+    }
+    jQuery(document).ajaxComplete(function (event, xhr, settings) {
+      const dataSettings = settings.data as string;
+      const isAjaxClearAllFavorites = dataSettings.includes(
+        "action=favorites_clear"
+      );
+      if (!isAjaxClearAllFavorites) {
+        return;
+      }
+      if (xhr.status !== 200) {
+        toast.error(
+          `${xhr.statusText}: ${
+            xhr.responseText || NCMAZ_TRANSLATE["somethingWentWrong"]
+          }`
+        );
+      }
+      location.search = "";
+    });
+  }, []);
+
   //
   let variables = {};
 
@@ -149,6 +176,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
       // VAO TRANG AUTHOR CUA MINH (listIDFavorites = undefined)
       // TAI SAO KHONG SU DUNG LUON listIDFavorites cho trang cua minh: VI cua minh con update khi click like button,
       // trong khi do listIDFavorites co dinh global nen khong su dung duoc.Phai su dung userFavorites
+      // userFavorites se tu dong cap nhat khi ta like/dislike a post
       if (
         window.Favorites &&
         Favorites?.userFavorites &&
@@ -321,7 +349,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
       <>
         {/* SECTION STATE */}
         <DataStatementBlockV2
-          className="my-5"
+          className="my-10"
           data={POSTS}
           error={error}
           isSkeleton={IS_SKELETON}
@@ -342,6 +370,12 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
     );
   };
 
+  const IS_SHOW_CLEAR_FAVORITES =
+    clearFavoritesButton &&
+    window.Favorites &&
+    TRANG_CUA_MINH &&
+    tabActive === NCMAZ_TRANSLATE["LikedArticles"] &&
+    !!POSTS.length;
   return (
     <div
       className={`nc-PageArchiveAuthor ${className}`}
@@ -489,6 +523,15 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
                   ))}
                 </nav>
               ) : null}
+
+              {IS_SHOW_CLEAR_FAVORITES && (
+                <div
+                  className="PageArchiveAuthor__clearFavoritesButton inline-flex lg:hidden"
+                  dangerouslySetInnerHTML={{
+                    __html: clearFavoritesButton,
+                  }}
+                ></div>
+              )}
             </div>
 
             <div className="flex flex-col space-y-2.5 absolute top-0 right-0 p-5 lg:p-8">
@@ -524,6 +567,15 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
                   />
                 </a>
               )}
+
+              {IS_SHOW_CLEAR_FAVORITES && (
+                <div
+                  className="PageArchiveAuthor__clearFavoritesButton hidden lg:block"
+                  dangerouslySetInnerHTML={{
+                    __html: clearFavoritesButton,
+                  }}
+                ></div>
+              )}
             </div>
           </div>
         </div>
@@ -534,7 +586,10 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
         <main>
           {/* TABS FILTER */}
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">
-            <Nav className="sm:space-x-2 overflow-x-auto hiddenScrollbar">
+            <Nav
+              containerClassName="flex-1 sm:pr-5 overflow-hidden"
+              className="lg:space-x-2 overflow-x-auto hiddenScrollbar"
+            >
               {TABS.map((item, index) => (
                 <NavItem
                   key={index}
@@ -546,7 +601,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
               ))}
             </Nav>
             <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
-            <div className="flex justify-end">
+            <div className="flex flex-shrink-0 justify-end">
               <ArchiveFilterListBox
                 lists={FILTERS}
                 onChangeSelect={handleChangeFilter as any}

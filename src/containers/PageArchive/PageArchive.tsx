@@ -232,7 +232,7 @@ const PageArchive: FC<PageArchiveProps> = ({
 
           {/* SECTION STATE */}
           <DataStatementBlockV2
-            className="my-5"
+            className="my-10"
             data={POSTS}
             error={error}
             isSkeleton={IS_SKELETON}
