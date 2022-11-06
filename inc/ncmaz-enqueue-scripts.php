@@ -187,7 +187,7 @@ function ncmazFe_enqueueScriptCustomize()
 }
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts');
+add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts', 999);
 function ncmazFe_registerScripts()
 {
     $manifestJS = false;
@@ -208,7 +208,7 @@ function ncmazFe_registerScripts()
     }
     // JS 
     if (is_author()) {
-        wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['ncmazFe-mainJs'], ['jquery'], true);
+        wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['jquery', 'ncmazFe-mainJs'], null, true);
     } else {
         wp_enqueue_script($name, _NCMAZ_FRONTEND_DIR_URL . 'dist/' . $jsFileUrl, ['ncmazFe-mainJs'], null, true);
     }

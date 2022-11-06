@@ -170,6 +170,48 @@ $section = array(
 );
 Redux::set_section($opt_name, $section);
 
+// ===========================reCAPTCHA Login SETTING__SUB2 SOCIALS ========================
+$section = array(
+    'title'      => esc_html__('reCAPTCHA v3 Login', 'ncmaz-frontend'),
+    'desc'       => esc_html__('All setting for reCAPTCHA login setting', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--recaptcha-login',
+    'subsection' => true,
+    'fields'     => array(
+        [
+            'id'       => 'nc-general-settings--recaptcha-login--enable-on-modal',
+            'type'     => 'switch',
+            'title'    => __('Enable reCAPTCHA v3 in form modal', 'ncmaz-frontend'),
+            'subtitle' => __('Enable reCAPTCHA v3 in frontend signin/signup form modal', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
+        [
+            'id'       => 'nc-general-settings--recaptcha-login--enable-on-wplogin',
+            'type'     => 'switch',
+            'title'    => __('Enable reCAPTCHA v3 in Wp-login', 'ncmaz-frontend'),
+            'subtitle' => __('Enable reCAPTCHA v3 in Wp-login page WordPress default', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
+        [
+            'id'       => 'nc-general-settings--recaptcha-login--recaptcha_site_key',
+            'type'     => 'text',
+            'title'    => esc_html__('Google reCAPTCHA Site Key', 'ncmaz-frontend'),
+            'subtitle'    => esc_html__('https://docs.oceanwp.org/article/536-get-your-google-recaptcha-site-key-and-secret-key', 'ncmaz-frontend'),
+            'default'  => '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+        ],
+        [
+            'id'       => 'nc-general-settings--recaptcha-login-recaptcha_secret_key',
+            'type'     => 'text',
+            'title'    => esc_html__('Google reCAPTCHA Secret Key', 'ncmaz-frontend'),
+            'subtitle'    => esc_html__('https://docs.oceanwp.org/article/536-get-your-google-recaptcha-site-key-and-secret-key', 'ncmaz-frontend'),
+            'default'  => '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe',
+        ],
+
+
+
+    ),
+);
+Redux::set_section($opt_name, $section);
+
 
 // ===========================SOCIALS SHARE SETTING__SUB ========================
 $section = array(
