@@ -85,14 +85,14 @@ add_action('graphql_input_fields', function ($fields, $type_name, $config) {
             'ncmazAudioUrl' => ['type' => 'String'],
             'ncmazVideoUrl' => ['type' => 'String'],
             // 
-            'ncmazGalleryImgs_1_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_2_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_3_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_4_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_5_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_6_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_7_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_8_databaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs1DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs2DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs3DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs4DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs5DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs6DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs7DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs8DatabaseID' => ['type' => 'Int'],
         ]);
     }
     if ($type_name === 'UpdateUserInput') {
