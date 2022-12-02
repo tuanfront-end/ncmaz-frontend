@@ -154,14 +154,14 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
           excerpt: $excerpt
           ncFeaturedImageDatabaseId: $ncFeaturedImageDatabaseId
           ncmazAudioUrl: $ncmazAudioUrl
-          ncmazGalleryImgs_1_databaseID: $ncmazGalleryImgs_1_databaseID
-          ncmazGalleryImgs_2_databaseID: $ncmazGalleryImgs_2_databaseID
-          ncmazGalleryImgs_3_databaseID: $ncmazGalleryImgs_3_databaseID
-          ncmazGalleryImgs_4_databaseID: $ncmazGalleryImgs_4_databaseID
-          ncmazGalleryImgs_5_databaseID: $ncmazGalleryImgs_5_databaseID
-          ncmazGalleryImgs_6_databaseID: $ncmazGalleryImgs_6_databaseID
-          ncmazGalleryImgs_7_databaseID: $ncmazGalleryImgs_7_databaseID
-          ncmazGalleryImgs_8_databaseID: $ncmazGalleryImgs_8_databaseID
+          ncmazGalleryImgs1DatabaseID: $ncmazGalleryImgs_1_databaseID
+          ncmazGalleryImgs2DatabaseID: $ncmazGalleryImgs_2_databaseID
+          ncmazGalleryImgs3DatabaseID: $ncmazGalleryImgs_3_databaseID
+          ncmazGalleryImgs4DatabaseID: $ncmazGalleryImgs_4_databaseID
+          ncmazGalleryImgs5DatabaseID: $ncmazGalleryImgs_5_databaseID
+          ncmazGalleryImgs6DatabaseID: $ncmazGalleryImgs_6_databaseID
+          ncmazGalleryImgs7DatabaseID: $ncmazGalleryImgs_7_databaseID
+          ncmazGalleryImgs8DatabaseID: $ncmazGalleryImgs_8_databaseID
           content: $content
           categories: { append: false, nodes: $categoryNodes }
           ncTags: $ncTags

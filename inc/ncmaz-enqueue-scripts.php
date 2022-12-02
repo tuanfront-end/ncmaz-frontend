@@ -124,8 +124,8 @@ function ncmazFe_enqueueScriptCustomize()
             'graphQLBasePath'               => get_site_url(null, '/graphql'),
             'socialsShare'                  => $ncmaz_redux_demo['nc-general-settings--multi-socials-share'],
             'homeURL'                       => get_site_url(),
-            'currentUser'                   => empty($currentUser) ?  null : $currentUser['data']['viewer'],
-            'allSettings'                   => empty($allSettings) ?  null : $allSettings['data']['allSettings'],
+            'currentUser'                   => empty($currentUser['data']['viewer']) ?  null : $currentUser['data']['viewer'],
+            'allSettings'                   => empty($allSettings['data']['allSettings']) ?  null : $allSettings['data']['allSettings'],
             'currentObject'                 => ['id'    => get_the_ID()],
             'pll_current_language'          => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
             'pll_current_language_correct_code' => function_exists('pll_current_language') ? pll_current_language() : null,
@@ -236,7 +236,7 @@ function ncmaz_frontend_enqueue_script($hook)
     window.__vite_plugin_react_preamble_installed__  = true
 </script>';
 
-    wp_enqueue_script('@vite-client-js', 'http://localhost:5173/@vite/client', [], null, true);
-    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:5173/src/main.tsx', [], null, true);
+    wp_enqueue_script('@vite-client-js', 'http://localhost:5173/@vite/client', ['jquery'], null, true);
+    wp_enqueue_script('ncmaz-frontend-src-main-tsx', 'http://localhost:5173/src/main.tsx', ['jquery'], null, true);
 }
 // --------------------------------------------------------------------------------------

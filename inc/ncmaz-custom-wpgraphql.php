@@ -130,29 +130,29 @@ add_action('graphql_post_object_mutation_update_additional_data', function ($pos
     if (isset($input['ncmazVideoUrl'])) {
         update_field('video_url', $input['ncmazVideoUrl'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_1_databaseID'])) {
-        update_field('image_1', $input['ncmazGalleryImgs_1_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs1DatabaseID'])) {
+        update_field('image_1', $input['ncmazGalleryImgs1DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_2_databaseID'])) {
-        update_field('image_2', $input['ncmazGalleryImgs_2_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs2DatabaseID'])) {
+        update_field('image_2', $input['ncmazGalleryImgs2DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_3_databaseID'])) {
-        update_field('image_3', $input['ncmazGalleryImgs_3_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs3DatabaseID'])) {
+        update_field('image_3', $input['ncmazGalleryImgs3DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_4_databaseID'])) {
-        update_field('image_4', $input['ncmazGalleryImgs_4_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs4DatabaseID'])) {
+        update_field('image_4', $input['ncmazGalleryImgs4DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_5_databaseID'])) {
-        update_field('image_5', $input['ncmazGalleryImgs_5_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs5DatabaseID'])) {
+        update_field('image_5', $input['ncmazGalleryImgs5DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_6_databaseID'])) {
-        update_field('image_6', $input['ncmazGalleryImgs_6_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs6DatabaseID'])) {
+        update_field('image_6', $input['ncmazGalleryImgs6DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_7_databaseID'])) {
-        update_field('image_7', $input['ncmazGalleryImgs_7_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs7DatabaseID'])) {
+        update_field('image_7', $input['ncmazGalleryImgs7DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_8_databaseID'])) {
-        update_field('image_8', $input['ncmazGalleryImgs_8_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs8DatabaseID'])) {
+        update_field('image_8', $input['ncmazGalleryImgs8DatabaseID'], $post_id);
     }
     if (!empty($input['ncFeaturedImageDatabaseId'])) {
         set_post_thumbnail($post_id,  $input['ncFeaturedImageDatabaseId']);
