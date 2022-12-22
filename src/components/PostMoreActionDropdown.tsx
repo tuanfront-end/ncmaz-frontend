@@ -1,6 +1,8 @@
 import NCMAZ_TRANSLATE from "contains/translate";
 import React, { FC } from "react";
 import ModalDeletePost from "./ModalDeletePost";
+import ModalDraftPost from "./ModalDraftPost";
+import ModalPublishPost from "./ModalPublishPost";
 import NcDropDown, { NcDropDownItem } from "./NcDropDown/NcDropDown";
 
 interface PostMoreActionDropdownProps {
@@ -11,7 +13,15 @@ interface PostMoreActionDropdownProps {
   data?: NcDropDownItem[];
   isReloadAfterDelete?: boolean;
   hasComment?: boolean;
+  singlePostStatus?: "publish" | "future" | "draft" | "pending" | "private";
 }
+
+type PostMoreActionDropdownIDs =
+  | "edit"
+  | "gotocoommment"
+  | "delete_post"
+  | "publish_post"
+  | "draft_post";
 
 const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
   className = "text-neutral-700 bg-neutral-50 hover:bg-blue-50 hover:text-blue-700 dark:hover:text-blue-700 dark:text-neutral-100 dark:bg-neutral-800 dark:hover:bg-blue-100 transition-colors duration-300 h-7 w-7 sm:h-8 sm:w-8",
@@ -21,10 +31,13 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
   isReloadAfterDelete = false,
   hasComment = true,
   data,
+  singlePostStatus,
 }) => {
   const [showModalDeletePost, setShowModalDeletePost] = React.useState(false);
+  const [showModalPublishPost, setShowModalPublishPost] = React.useState(false);
+  const [showModalDraftPost, setShowModalDraftPost] = React.useState(false);
 
-  let DATA = [
+  const DATA_INIT: NcDropDownItem<PostMoreActionDropdownIDs>[] = [
     {
       icon: "las la-edit",
       id: "edit",
@@ -42,20 +55,51 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
       href: `${href}#comment`,
     },
     {
+      icon: "las la-upload",
+      id: "publish_post",
+      name: NCMAZ_TRANSLATE["Publish post"],
+    },
+    {
+      icon: "las la-recycle",
+      id: "draft_post",
+      name: NCMAZ_TRANSLATE["Draft post"],
+    },
+    //
+    {
       icon: "las la-trash-alt",
       id: "delete_post",
       name: NCMAZ_TRANSLATE["Delete post"],
     },
   ];
-  DATA = hasComment ? DATA : DATA.filter((_, i) => i != 1);
 
+  let DATA: NcDropDownItem[] = DATA_INIT;
+
+  DATA = hasComment ? DATA : DATA.filter((item) => item.id !== "gotocoommment");
+
+  //
+  const isDraftsTabOnAuthorPage =
+    frontendObject.currentPageType === "author" &&
+    location.search.includes("tab=Drafts");
+  if (isDraftsTabOnAuthorPage || singlePostStatus === "draft") {
+    DATA = DATA.filter((item) => item.id !== "draft_post");
+  } else {
+    DATA = DATA.filter((item) => item.id !== "publish_post");
+  }
+
+  //
   if (data) {
     DATA = data;
   }
 
   const handleClickItem = (item: NcDropDownItem) => {
     if (item.id === "delete_post") {
-      setShowModalDeletePost(true);
+      return setShowModalDeletePost(true);
+    }
+    if (item.id === "publish_post") {
+      return setShowModalPublishPost(true);
+    }
+    if (item.id === "draft_post") {
+      return setShowModalDraftPost(true);
     }
     console.log("clicked", item);
   };
@@ -73,6 +117,18 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
         onCloseModal={() => setShowModalDeletePost(false)}
         postDataBaseId={postDataBaseId}
         isReloadAfterDelete={isReloadAfterDelete}
+      />
+      <ModalPublishPost
+        show={showModalPublishPost}
+        onCloseModal={() => setShowModalPublishPost(false)}
+        postDataBaseId={postDataBaseId}
+        isReloadAfterDelete={true}
+      />
+      <ModalDraftPost
+        show={showModalDraftPost}
+        onCloseModal={() => setShowModalDraftPost(false)}
+        postDataBaseId={postDataBaseId}
+        isReloadAfterDelete={true}
       />
     </>
   );

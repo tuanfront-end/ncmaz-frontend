@@ -20,19 +20,40 @@ $section = array(
         [
             'id'       => 'nc-single-page-settings--general-single-widget-opt',
             'type'     => 'radio',
-            'title'    => esc_html__('Single-Widget Radio Option', 'ncmaz-frontend'),
+            'title'    => esc_html__('Sidebar on single pages', 'ncmaz-frontend'),
             'data'  => array(
-                'enable'    => 'Enable single-widget for all',
-                'disable'   => 'Disable single-widget for all',
-                'default'   => 'Default - Custom field setting'
+                'enable'    => 'Enable sidebar in all single pages',
+                'disable'   => 'Disable sidebar in all single pages',
+                'default'   => 'Default - Customization inside every single page'
             ),
             'default' => 'default'
+        ],
+        [
+            'id'       => 'nc-single-page-settings--general-single-stype-opt',
+            'type'     => 'radio',
+            'title'    => esc_html__('Single page stype', 'ncmaz-frontend'),
+            'data'  => array(
+                '1'         => 'Style 1',
+                '2'         => 'Style 2',
+                '3'         => 'Style 3',
+                '1_required'         => 'Style 1 - Required (Apply to all posts, and custom fields in each post will not work)',
+                '2_required'         => 'Style 2 - Required (Apply to all posts, and custom fields in each post will not work)',
+                '3_required'         => 'Style 3 - Required (Apply to all posts, and custom fields in each post will not work)',
+            ),
+            'default' => '1'
         ],
         [
             'id'       => 'nc-single-page-settings--general-switch-count-views',
             'type'     => 'switch',
             'title'    => esc_html__('Post view count feature', 'ncmaz-frontend'),
             'subtitle' => esc_html__('Enable/Disable the post view count feature', 'ncmaz-frontend'),
+            'default'  => true,
+        ],
+        [
+            'id'       => 'nc-single-page-settings--general-switch-video-autoPlay',
+            'type'     => 'switch',
+            'title'    => esc_html__('Auto play video on post type video', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Enable/Disable auto play on post type video', 'ncmaz-frontend'),
             'default'  => true,
         ],
     ],

@@ -3,8 +3,8 @@ import React, { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import twFocusClass from "utils/twFocusClass";
 
-export interface NcDropDownItem {
-  id: string;
+export interface NcDropDownItem<T = string> {
+  id: T;
   name: string;
   icon: string;
   href?: string;

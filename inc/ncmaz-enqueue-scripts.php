@@ -173,7 +173,8 @@ function ncmazFe_enqueueScriptCustomize()
                 ],
             ],
             // 
-            "isActivePluginFavorites" => boolval(defined("FAVORITES_PLUGIN_FILE"))
+            "isActivePluginFavorites"       => boolval(defined("FAVORITES_PLUGIN_FILE")),
+            "currentPageType"               => ncmazFe_getPageType()
 
         ]
     ), 'before');

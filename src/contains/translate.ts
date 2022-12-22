@@ -1,5 +1,12 @@
 let NCMAZ_TRANSLATE = {
-  // 22-9-2023
+  "Are you sure you want to draft this post? You cannot undo this action.":
+    "Are you sure you want to draft this post? You cannot undo this action.",
+  "Are you sure you want to publish this post? You cannot undo this action.":
+    "Are you sure you want to publish this post? You cannot undo this action.",
+  "Draft post": "Draft post",
+  "Publish post": "Publish post",
+  // 20-12-2022
+  // 22-9-2022
   "Comment this post": "Comment this post",
   "Edit post": "Edit post",
   // OLD

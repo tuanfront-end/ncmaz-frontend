@@ -328,7 +328,7 @@ function ncmazFrontend_acf_add_local_field_groups()
             'fields' => array(
                 array(
                     'key' => 'field_61532afb973d2',
-                    'label' => 'single page style',
+                    'label' => 'Single page style',
                     'name' => 'single_page_style',
                     'type' => 'select',
                     'instructions' => '',
@@ -341,11 +341,12 @@ function ncmazFrontend_acf_add_local_field_groups()
                     ),
                     'show_in_graphql' => 1,
                     'choices' => array(
-                        1 => '1',
-                        2 => '2',
-                        3 => '3',
+                        'by_theme_options' => 'By theme options',
+                        1 => 'Style 1',
+                        2 => 'Style 2',
+                        3 => 'Style 3',
                     ),
-                    'default_value' => false,
+                    'default_value' => 'By theme options',
                     'allow_null' => 0,
                     'multiple' => 0,
                     'ui' => 0,

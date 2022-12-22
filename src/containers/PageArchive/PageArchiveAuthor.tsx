@@ -124,8 +124,8 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
       return;
     }
     jQuery(document).ajaxComplete(function (event, xhr, settings) {
-      const dataSettings = settings.data as string;
-      const isAjaxClearAllFavorites = dataSettings.includes(
+      const dataSettings = settings?.data as string;
+      const isAjaxClearAllFavorites = dataSettings?.includes(
         "action=favorites_clear"
       );
       if (!isAjaxClearAllFavorites) {

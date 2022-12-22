@@ -73,6 +73,22 @@ declare global {
     }[];
     //
     isActivePluginFavorites?: boolean;
+    currentPageType?:
+      | "notfound"
+      | "front"
+      | "page"
+      | "home"
+      | "attachment"
+      | "single"
+      | "category"
+      | "tag"
+      | "tax"
+      | "day"
+      | "month"
+      | "year"
+      | "author"
+      | "archive"
+      | "search";
   };
 
   //
