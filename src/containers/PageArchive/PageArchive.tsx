@@ -206,6 +206,7 @@ const PageArchive: FC<PageArchiveProps> = ({
           </div>
         </div>
       </div>
+
       {/* ====================== END HEADER ====================== */}
       {termData.description && (
         <div

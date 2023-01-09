@@ -89,9 +89,16 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     );
   };
 
+  const standardHasFeaturedImage =
+    postType === "Standard" && featuredImage && featuredImage.node.id;
+
   return (
     <div
-      className={`nc-PostFeaturedMedia relative ${className}`}
+      className={`nc-PostFeaturedMedia relative ${className} ${
+        standardHasFeaturedImage
+          ? "standardhasFeaturedImage"
+          : "standardnotFeaturedImage"
+      }`}
       data-nc-id="PostFeaturedMedia"
     >
       {renderContent()}

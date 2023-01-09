@@ -4,6 +4,7 @@ import PostCardMeta from "components/PostCardMeta/PostCardMeta";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
 import ncFormatDate from "utils/formatDate";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card13Props {
   className?: string;
@@ -12,6 +13,7 @@ export interface Card13Props {
 
 const Card13: FC<Card13Props> = ({ className = "", post }) => {
   const { title, link, excerpt, featuredImage, date, postFormats } = post;
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
 
   return (
     <div
@@ -45,31 +47,33 @@ const Card13: FC<Card13Props> = ({ className = "", post }) => {
         </div>
       </div>
 
-      <div
-        className={`block relative flex-shrink-0 w-4/12 sm:w-28 md:w-36 xl:w-48 ml-3 sm:ml-5`}
-      >
-        <a
-          href={link}
-          className={`w-full block h-0 aspect-h-1 aspect-w-1 rounded-md sm:rounded-xl overflow-hidden z-0`}
+      {standardHasFeaturedImage && (
+        <div
+          className={`block relative flex-shrink-0 w-4/12 sm:w-28 md:w-36 xl:w-48 ml-3 sm:ml-5`}
         >
-          <NcImage
-            containerClassName="absolute inset-0 "
-            className="object-cover w-full h-full rounded-xl sm:rounded-3xl"
-            src={featuredImage?.node.sourceUrl || "."}
-            alt={title}
-            srcSet={featuredImage?.node.srcSet}
-            imageSizes="MEDIUM"
-          />
-          <div>
-            <PostTypeFeaturedIcon
-              className="absolute bottom-2 left-2"
-              postType={postFormats?.edges[0]?.node.slug}
-              wrapSize="w-8 h-8"
-              iconSize="w-4 h-4"
+          <a
+            href={link}
+            className={`w-full block h-0 aspect-h-1 aspect-w-1 rounded-md sm:rounded-xl overflow-hidden z-0`}
+          >
+            <NcImage
+              containerClassName="absolute inset-0 "
+              className="object-cover w-full h-full rounded-xl sm:rounded-3xl"
+              src={featuredImage?.node.sourceUrl || "."}
+              alt={title}
+              srcSet={featuredImage?.node.srcSet}
+              imageSizes="MEDIUM"
             />
-          </div>
-        </a>
-      </div>
+            <div>
+              <PostTypeFeaturedIcon
+                className="absolute bottom-2 left-2"
+                postType={postFormats?.edges[0]?.node.slug}
+                wrapSize="w-8 h-8"
+                iconSize="w-4 h-4"
+              />
+            </div>
+          </a>
+        </div>
+      )}
     </div>
   );
 };

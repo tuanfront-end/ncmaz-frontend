@@ -133,6 +133,7 @@ function ncmazFe_enqueueScriptCustomize()
             'musicPlayerMode'               => true,
             'musicPlayerMediaSource'        => $ncmaz_redux_demo['nc-general-settings--music-player-media-source'],
             'switchPreviewVideo'            => boolval($ncmaz_redux_demo['nc-general-settings--general-switch-preview-video-card']),
+            'isPlaceholderPostNotFeatured'    => boolval($ncmaz_redux_demo['post-card--placeholder-for-post-has-not-featured']),
             'restVarsEndpoint'              => esc_url_raw(rest_url('/wp/v2/media/')),
             'restVarsNonce'                 => wp_create_nonce('wp_rest'),
             'pagePostSubmissionEditorUrl'   => empty($variablePagePostSubmissionEditorUrl) ? "" : $variablePagePostSubmissionEditorUrl,
@@ -174,7 +175,9 @@ function ncmazFe_enqueueScriptCustomize()
             ],
             // 
             "isActivePluginFavorites"       => boolval(defined("FAVORITES_PLUGIN_FILE")),
-            "currentPageType"               => ncmazFe_getPageType()
+            "currentPageType"               => ncmazFe_getPageType(),
+            // 
+            "archivePostCardType"           => $ncmaz_redux_demo['nc-search-page-settings--post-card-type'] ?? "card11",
 
         ]
     ), 'before');
@@ -188,7 +191,7 @@ function ncmazFe_enqueueScriptCustomize()
 }
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts', 999);
+// add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts', 999);
 function ncmazFe_registerScripts()
 {
     $manifestJS = false;
@@ -226,7 +229,7 @@ function ncmazFe_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

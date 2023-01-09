@@ -1,5 +1,39 @@
 import { UserViewer } from "data/types";
 
+export type ArchivePostCardName =
+  | "card1"
+  | "card2"
+  | "card3"
+  | "card4"
+  | "card5"
+  | "card6"
+  | "card7"
+  | "card8"
+  | "card9"
+  | "card10"
+  | "card11"
+  | "card12"
+  | "card13"
+  | "card14"
+  | "card16Podcast"
+  | "card17Podcast"
+  | "card19";
+export type CurrentPageType =
+  | "notfound"
+  | "front"
+  | "page"
+  | "home"
+  | "attachment"
+  | "single"
+  | "category"
+  | "tag"
+  | "tax"
+  | "day"
+  | "month"
+  | "year"
+  | "author"
+  | "archive"
+  | "search";
 declare global {
   // ON FAVORITES PLUGIN - NEED UPDATE WHEN UPDATE PLUGIN
   var Favorites:
@@ -65,6 +99,7 @@ declare global {
     restVarsEndpoint: string;
     restVarsNonce: string;
     switchPreviewVideo?: boolean;
+    isPlaceholderPostNotFeatured?: boolean;
     //
     frontendTranslations?: {
       name?: string;
@@ -73,22 +108,8 @@ declare global {
     }[];
     //
     isActivePluginFavorites?: boolean;
-    currentPageType?:
-      | "notfound"
-      | "front"
-      | "page"
-      | "home"
-      | "attachment"
-      | "single"
-      | "category"
-      | "tag"
-      | "tax"
-      | "day"
-      | "month"
-      | "year"
-      | "author"
-      | "archive"
-      | "search";
+    currentPageType?: CurrentPageType;
+    archivePostCardType?: ArchivePostCardName;
   };
 
   //

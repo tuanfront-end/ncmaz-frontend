@@ -3,6 +3,7 @@ import NcImage from "components/NcImage/NcImage";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
 import { PostNode } from "data/postCardType";
 import NCMAZ_TRANSLATE from "contains/translate";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card15PodcastProps {
   className?: string;
@@ -86,29 +87,32 @@ const Card15Podcast: FC<Card15PodcastProps> = ({
       </div>
     );
   };
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
 
   return (
     <div
       className={`nc-Card15Podcast relative flex group items-center p-3 [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] hover:shadow-md transition-shadow ${className}`}
       data-nc-id="Card15Podcast"
     >
-      <div className="w-1/4 flex-shrink-0">
-        <a
-          href={link}
-          className={`block h-0 aspect-w-1 aspect-h-1 relative rounded-full overflow-hidden shadow-md `}
-        >
-          <NcImage
-            containerClassName="absolute inset-0"
-            className="object-cover w-full h-full "
-            src={featuredImage?.node.sourceUrl || "."}
-            srcSet={featuredImage?.node.srcSet}
-            sizes="THUMBNAIL"
-            alt={title}
-          />
-        </a>
-      </div>
+      {standardHasFeaturedImage && (
+        <div className="w-1/4 flex-shrink-0 mr-4">
+          <a
+            href={link}
+            className={`block h-0 aspect-w-1 aspect-h-1 relative rounded-full overflow-hidden shadow-md `}
+          >
+            <NcImage
+              containerClassName="absolute inset-0"
+              className="object-cover w-full h-full "
+              src={featuredImage?.node.sourceUrl || "."}
+              srcSet={featuredImage?.node.srcSet}
+              sizes="THUMBNAIL"
+              alt={title}
+            />
+          </a>
+        </div>
+      )}
 
-      <div className="flex flex-col flex-grow ml-4 overflow-hidden">
+      <div className="flex flex-col flex-grow overflow-hidden">
         <h3 className={`nc-card-title block font-semibold text-sm sm:text-lg`}>
           <a
             href={link}

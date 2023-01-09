@@ -18,6 +18,33 @@ $section = array(
     'subsection' => true,
     'fields'     => array(
         [
+            'id'       => 'nc-search-page-settings--post-card-type',
+            'type'     => 'select',
+            'title'    => esc_html__('Post card name', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Select the type of post-card that will be displayed on archive pages and search pages', 'ncmaz-frontend'),
+            'desc'     => esc_html__('Default is Card 11', 'ncmaz-frontend'),
+            'options' => array(
+                'card1' => 'Card 1',
+                'card2' => 'Card 2',
+                'card3' => 'Card 3',
+                'card4' => 'Card 4',
+                'card5' => 'Card 5',
+                'card6' => 'Card 6',
+                'card7' => 'Card 7',
+                'card8' => 'Card 8',
+                'card9' => 'Card 9',
+                'card10' => 'Card 10',
+                'card11' => 'Card 11',
+                'card12' => 'Card 12',
+                'card13' => 'Card 13',
+                'card14' => 'Card 14',
+                'card16Podcast' => 'Card 16',
+                'card17Podcast' => 'Card 17',
+                'card19' => 'Card 19'
+            ),
+            'default' => 'card11'
+        ],
+        [
             'id'       => 'nc-archive-page-settings--authorPageCoverImgDefault',
             'type'     => 'media',
             'url'      => true,
@@ -114,6 +141,7 @@ $section = array(
     'id'         => 'nc-search-page-settings',
     'subsection' => true,
     'fields'     => array(
+
         [
             'id'            => 'nc-search-page-settings--media-background',
             'type'          => 'media',

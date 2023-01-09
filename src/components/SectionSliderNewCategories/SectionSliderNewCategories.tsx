@@ -47,8 +47,7 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 }) => {
   const sliderRef = useRef(null);
 
-  const sliderConfiguration: Glide.Options = {
-    // @ts-ignore
+  const sliderConfiguration: Partial<Glide.Options> = {
     direction:
       document.querySelector("html")?.getAttribute("dir") === "rtl"
         ? "rtl"
@@ -93,13 +92,14 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 
   useEffect(() => {
     if (!sliderRef.current) {
-      return;
+      return () => {};
     }
 
     const slider = new Glide(sliderRef.current, sliderConfiguration);
     slider.mount();
-    // @ts-ignore
-    return () => slider.destroy();
+    return () => {
+      slider.destroy();
+    };
   }, [
     categories,
     sliderRef,

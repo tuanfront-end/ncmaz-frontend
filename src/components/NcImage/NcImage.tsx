@@ -20,7 +20,7 @@ const NcImage: FC<NcImageProps> = ({
   ...args
 }) => {
   let SIZES = getImageSizesBySizeName({ sizeName: imageSizes, sizes });
-
+  const urlMabeOk = !!src && src.includes("http");
   const renderLoadingPlaceholder = () => {
     return (
       <div
@@ -35,10 +35,12 @@ const NcImage: FC<NcImageProps> = ({
 
   return (
     <div
-      className={`nc-NcImage ${containerClassName} overflow-hidden z-0`}
+      className={`nc-NcImage ${containerClassName} overflow-hidden z-0 ${
+        urlMabeOk ? "mabeUrlOk" : "mabeUrlNotOk"
+      }`}
       data-nc-id="NcImage"
     >
-      {!!src && src.includes("http") ? (
+      {urlMabeOk ? (
         <img
           src={src}
           alt={alt}

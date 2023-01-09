@@ -5,6 +5,7 @@ import PostCardMeta from "components/PostCardMeta/PostCardMeta";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
 import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card12Props {
   className?: string;
@@ -19,31 +20,34 @@ const Card12: FC<Card12Props> = ({
 }) => {
   const { title, link, featuredImage, excerpt, postFormats } = post;
 
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
   return (
     <div
       className={`nc-Card12 group relative flex flex-col ${className}`}
       data-nc-id="Card12"
     >
-      <a
-        href={link}
-        className="block flex-shrink-0 relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden z-0"
-      >
-        <NcImage
-          containerClassName="absolute inset-0"
-          src={featuredImage?.node.sourceUrl || "."}
-          srcSet={featuredImage?.node.srcSet}
-          imageSizes={imageSizes || "MEDIUM_LARGE"}
-          alt={title}
-        />
-        <span>
-          <PostTypeFeaturedIcon
-            className="absolute bottom-2 left-2"
-            postType={postFormats?.edges[0]?.node.slug}
-            wrapSize="w-8 h-8"
-            iconSize="w-4 h-4"
+      {standardHasFeaturedImage && (
+        <a
+          href={link}
+          className="block flex-shrink-0 relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden z-0"
+        >
+          <NcImage
+            containerClassName="absolute inset-0"
+            src={featuredImage?.node.sourceUrl || "."}
+            srcSet={featuredImage?.node.srcSet}
+            imageSizes={imageSizes || "MEDIUM_LARGE"}
+            alt={title}
           />
-        </span>
-      </a>
+          <span>
+            <PostTypeFeaturedIcon
+              className="absolute bottom-2 left-2"
+              postType={postFormats?.edges[0]?.node.slug}
+              wrapSize="w-8 h-8"
+              iconSize="w-4 h-4"
+            />
+          </span>
+        </a>
+      )}
 
       <SocialsShare
         href={link}

@@ -54,13 +54,30 @@ $section = array(
             ),
             'default' => 'DEFAULT'
         ],
+    ),
+);
+Redux::set_section($opt_name, $section);
 
-
+// ===========================GENERAL SETTING__SUB2 POST CARD ========================
+$section = array(
+    'title'      => esc_html__('Post card', 'ncmaz-frontend'),
+    'desc'       => esc_html__('All setting for post card', 'ncmaz-frontend'),
+    'id'         => 'nc-general-settings--post-card',
+    'subsection' => true,
+    'fields'     => array(
         [
             'id'       => 'nc-general-settings--general-switch-preview-video-card',
             'type'     => 'switch',
             'title'    => __('Video preview in post card', 'ncmaz-frontend'),
             'subtitle' => __('If enabled, the video in the post card will play in preview mode when hovering the mouse over the card (or card is in view with mobile divice)', 'ncmaz-frontend'),
+            'desc'     => __('Default is on', 'ncmaz-frontend'),
+            'default'  => true,
+        ],
+        [
+            'id'       => 'post-card--placeholder-for-post-has-not-featured',
+            'type'     => 'switch',
+            'title'    => __('Placeholder image post card', 'ncmaz-frontend'),
+            'subtitle' => __('If enabled, Display placeholder images for posts without featured images (Only applicable for some main post-card types)', 'ncmaz-frontend'),
             'desc'     => __('Default is on', 'ncmaz-frontend'),
             'default'  => true,
         ],

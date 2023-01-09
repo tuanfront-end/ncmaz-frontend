@@ -812,7 +812,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     array(
                         'param' => 'user_form',
                         'operator' => '==',
-                        'value' => 'all',
+                        'value' => 'edit',
                     ),
                 ),
             ),

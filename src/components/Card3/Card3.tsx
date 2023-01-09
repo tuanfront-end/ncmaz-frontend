@@ -6,6 +6,7 @@ import CategoryBadgeList from "components/CategoryBadgeList/CategoryBadgeList";
 import PostTypeFeaturedIcon from "components/PostTypeFeaturedIcon/PostTypeFeaturedIcon";
 import { PostNode } from "data/postCardType";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card3Props {
   className?: string;
@@ -24,6 +25,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full", post }) => {
   } = post;
 
   const postType = postFormats?.edges[0]?.node.slug;
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
 
   return (
     <div
@@ -70,29 +72,31 @@ const Card3: FC<Card3Props> = ({ className = "h-full", post }) => {
         </div>
       </div>
 
-      <div className="block flex-shrink-0 ml-2.5 sm:ml-5 w-4/12 max-w-[120px] sm:max-w-none sm:w-44 2xl:w-56">
-        <a
-          href={link}
-          className="w-full block h-0 aspect-h-16 aspect-w-16 rounded-lg sm:rounded-2xl overflow-hidden z-0"
-        >
-          <NcImage
-            containerClassName="absolute inset-0"
-            className="object-cover w-full h-full group-hover:scale-105 duration-500 transition-transform"
-            src={featuredImage?.node.sourceUrl || "."}
-            srcSet={featuredImage?.node.srcSet}
-            imageSizes="MEDIUM"
-            alt={title}
-          />
-          <span>
-            <PostTypeFeaturedIcon
-              className="absolute left-1 bottom-1 sm:left-2 sm:bottom-2"
-              postType={postType}
-              wrapSize="w-6 h-6 sm:w-8 sm:h-8"
-              iconSize="w-3 h-3 sm:w-4 sm:h-4"
+      {standardHasFeaturedImage && (
+        <div className="block flex-shrink-0 ml-2.5 sm:ml-5 w-4/12 max-w-[120px] sm:max-w-none sm:w-44 2xl:w-56">
+          <a
+            href={link}
+            className="w-full block h-0 aspect-h-16 aspect-w-16 rounded-lg sm:rounded-2xl overflow-hidden z-0"
+          >
+            <NcImage
+              containerClassName="absolute inset-0"
+              className="object-cover w-full h-full group-hover:scale-105 duration-500 transition-transform"
+              src={featuredImage?.node.sourceUrl || "."}
+              srcSet={featuredImage?.node.srcSet}
+              imageSizes="MEDIUM"
+              alt={title}
             />
-          </span>
-        </a>
-      </div>
+            <span>
+              <PostTypeFeaturedIcon
+                className="absolute left-1 bottom-1 sm:left-2 sm:bottom-2"
+                postType={postType}
+                wrapSize="w-6 h-6 sm:w-8 sm:h-8"
+                iconSize="w-3 h-3 sm:w-4 sm:h-4"
+              />
+            </span>
+          </a>
+        </div>
+      )}
     </div>
   );
 };

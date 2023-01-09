@@ -111,8 +111,7 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
 
   // ==================== GLIDE SLIDER SETTING ====================
   const perView = settings.itemPerView || 5;
-  const sliderConfiguration: Glide.Options = {
-    // @ts-ignore
+  const sliderConfiguration: Partial<Glide.Options> = {
     direction:
       document.querySelector("html")?.getAttribute("dir") === "rtl"
         ? "rtl"
@@ -155,13 +154,12 @@ const FactoryBlockPostsSlider: FC<FactoryBlockPostsSliderProps> = ({
 
   useEffect(() => {
     if (!sliderRef.current) {
-      return;
+      return () => {};
     }
 
     const slider = new Glide(sliderRef.current, sliderConfiguration);
     slider.mount();
     return () => {
-      // @ts-ignore
       slider.destroy();
     };
   }, [LISTS_POSTS, sliderRef, settings]);

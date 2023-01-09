@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
 import { PostFormatsType, PostNode } from "data/postCardType";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card17PodcastProps {
   className?: string;
@@ -75,6 +76,7 @@ const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
       </span>
     );
   };
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
 
   return (
     <div
@@ -82,16 +84,18 @@ const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
       data-nc-id="Card17Podcast"
     >
       <a href={link} className="flex items-center space-x-4 overflow-hidden">
-        <div className="block flex-shrink-0 w-11 h-11 sm:w-16 sm:h-16 relative rounded-full overflow-hidden shadow-lg">
-          <NcImage
-            containerClassName="absolute inset-0"
-            className="object-cover w-full h-full "
-            src={featuredImage?.node.sourceUrl || "."}
-            srcSet={featuredImage?.node.srcSet}
-            alt={title}
-            imageSizes="THUMBNAIL"
-          />
-        </div>
+        {standardHasFeaturedImage && (
+          <div className="block flex-shrink-0 w-11 h-11 sm:w-16 sm:h-16 relative rounded-full overflow-hidden shadow-lg">
+            <NcImage
+              containerClassName="absolute inset-0"
+              className="object-cover w-full h-full "
+              src={featuredImage?.node.sourceUrl || "."}
+              srcSet={featuredImage?.node.srcSet}
+              alt={title}
+              imageSizes="THUMBNAIL"
+            />
+          </div>
+        )}
         <div className="flex flex-col flex-1 ">
           <h3
             className={`nc-card-title block font-semibold text-sm sm:text-lg`}

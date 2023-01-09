@@ -10,6 +10,7 @@ import checkCurrentUserCanEditPostById from "utils/checkCurrentUserCanEditPostBy
 import { useAppSelector } from "app/hooks";
 import { selectRecentPostsDeleted } from "app/postsDeleted/postsDeleted";
 import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card11Props {
   className?: string;
@@ -28,7 +29,8 @@ const Card11: FC<Card11Props> = ({
   onClickLike,
   imageSizes,
 }) => {
-  const { title, link, categories, date, author } = post;
+  const { title, link, categories, date, author, featuredImage, postFormats } =
+    post;
 
   const recentPostsDeleted = useAppSelector(selectRecentPostsDeleted);
 
@@ -39,6 +41,8 @@ const Card11: FC<Card11Props> = ({
     return null;
   }
 
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
+
   return (
     <div
       className={`nc-Card11 relative flex flex-col group [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
@@ -47,18 +51,24 @@ const Card11: FC<Card11Props> = ({
       onMouseLeave={() => setIsHover(false)}
     >
       <a href={link} className="block absolute inset-0"></a>
-      <div
-        className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden z-0 ${ratio}`}
-      >
-        <div>
-          <PostFeaturedMedia
-            imageSizes={imageSizes}
-            post={post}
-            isHover={isHover}
-          />
+      {standardHasFeaturedImage && (
+        <div
+          className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden z-0 ${ratio}`}
+        >
+          <div>
+            <PostFeaturedMedia
+              imageSizes={imageSizes}
+              post={post}
+              isHover={isHover}
+            />
+          </div>
         </div>
-      </div>
-      <div className=" absolute top-3 inset-x-3 z-10">
+      )}
+      <div
+        className={`top-3 inset-x-3 z-10 ${
+          standardHasFeaturedImage ? "absolute" : "m-3"
+        }`}
+      >
         <CategoryBadgeList categories={categories} />
       </div>
 

@@ -6,6 +6,7 @@ import { PostNode } from "data/postCardType";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
 import PostFeaturedMedia from "components/PostFeaturedMedia/PostFeaturedMedia";
 import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card2Props {
   className?: string;
@@ -23,6 +24,7 @@ const Card2: FC<Card2Props> = ({
   const { title, link, date, categories, excerpt, author, ncPostMetaData } =
     post;
   const [isHover, setIsHover] = useState(false);
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
 
   return (
     <div
@@ -33,19 +35,21 @@ const Card2: FC<Card2Props> = ({
     >
       <a href={link} className="absolute inset-0" />
 
-      <div
-        className={`block flex-shrink-0 relative w-full h-0 pt-[75%] ${
-          size === "large" ? "flex-grow pt-[55%] " : ""
-        } rounded-xl sm:rounded-b-none overflow-hidden z-0`}
-      >
-        <div className="absolute inset-0">
-          <PostFeaturedMedia
-            post={post}
-            isHover={isHover}
-            imageSizes={imageSizes}
-          />
+      {standardHasFeaturedImage && (
+        <div
+          className={`block flex-shrink-0 relative w-full h-0 pt-[75%] ${
+            size === "large" ? "flex-grow pt-[55%] " : ""
+          } rounded-xl sm:rounded-b-none overflow-hidden z-0`}
+        >
+          <div className="absolute inset-0">
+            <PostFeaturedMedia
+              post={post}
+              isHover={isHover}
+              imageSizes={imageSizes}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div
         className={`p-4 flex flex-col ${size === "large" ? " sm:p-5 " : ""}`}

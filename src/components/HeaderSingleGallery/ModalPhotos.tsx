@@ -27,7 +27,6 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
       return;
     }
     new Glide(`.${UNIQUE_CLASS}`, {
-      // @ts-ignore
       direction:
         document.querySelector("html")?.getAttribute("dir") === "rtl"
           ? "rtl"
@@ -38,7 +37,6 @@ const ModalPhotos: FC<ModalPhotosProps> = ({
     }).mount();
   }, [isOpen, initFocus, imgs]);
 
-  console.log(111, { imgs });
   const renderSlider = () => {
     return (
       <div
