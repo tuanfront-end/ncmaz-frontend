@@ -178,6 +178,7 @@ function ncmazFe_enqueueScriptCustomize()
             "currentPageType"               => ncmazFe_getPageType(),
             // 
             "archivePostCardType"           => $ncmaz_redux_demo['nc-search-page-settings--post-card-type'] ?? "card11",
+            "enableScrollToTop"             => boolval($ncmaz_redux_demo['nc-general-settings--general-switch-scroll-to-top'] ?? true),
 
         ]
     ), 'before');
@@ -191,7 +192,7 @@ function ncmazFe_enqueueScriptCustomize()
 }
 
 // ======================== ENABLE WHEN PRODUCT/DEPLOY MODE ========================
-// add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts', 999);
+add_action('wp_enqueue_scripts', 'ncmazFe_registerScripts', 999);
 function ncmazFe_registerScripts()
 {
     $manifestJS = false;
@@ -229,7 +230,7 @@ function ncmazFe_registerScripts()
 }
 
 // ======================== ENABLE WHEN ONLY DEV MODE ========================
-add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
+// add_action('wp_enqueue_scripts', 'ncmaz_frontend_enqueue_script');
 function ncmaz_frontend_enqueue_script($hook)
 {
     echo '<script type="module">

@@ -71,9 +71,11 @@ function App() {
   const renderFooterFixedContent = () => {
     return (
       <>
-        <Suspense fallback={<div />}>
-          <ScrollTopLazy />
-        </Suspense>
+        {frontendObject.enableScrollToTop && (
+          <Suspense fallback={<div />}>
+            <ScrollTopLazy />
+          </Suspense>
+        )}
 
         <MediaRunningContainer />
       </>

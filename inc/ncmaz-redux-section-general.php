@@ -54,6 +54,13 @@ $section = array(
             ),
             'default' => 'DEFAULT'
         ],
+        [
+            'id'       => 'nc-general-settings--general-switch-scroll-to-top',
+            'type'     => 'switch',
+            'title'    => __('Show scroll to top button', 'ncmaz-frontend'),
+            'subtitle' => __('Enable/Disable button Scroll to top', 'ncmaz-frontend'),
+            'default'  => true,
+        ],
     ),
 );
 Redux::set_section($opt_name, $section);

@@ -110,6 +110,7 @@ declare global {
     isActivePluginFavorites?: boolean;
     currentPageType?: CurrentPageType;
     archivePostCardType?: ArchivePostCardName;
+    enableScrollToTop?: boolean;
   };
 
   //
