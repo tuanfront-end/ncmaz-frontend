@@ -3,6 +3,12 @@ import React, { FC, Suspense } from "react";
 import ReactDOM from "react-dom";
 
 //
+const HeaderPageArchiveAuthorLazy = React.lazy(
+  () => import("containers/PageArchive/HeaderPageArchiveAuthor")
+);
+const SectionTrendingCategoriesLazy = React.lazy(
+  () => import("containers/PageArchive/SectionTrendingCategories")
+);
 const SwitchDarkModeLazy = React.lazy(
   () => import("components/SwitchDarkMode/SwitchDarkMode")
 );
@@ -271,6 +277,25 @@ const FactoryComponents: FC<FactoryComponentsProps> = ({}) => {
           <ErrorBoundary key={index}>
             <Suspense fallback={<div />}>
               <NavAccountDropdownLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
+          dom
+        );
+
+      case "SectionTrendingCategories":
+        return ReactDOM.createPortal(
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <SectionTrendingCategoriesLazy {...componentProps} />
+            </Suspense>
+          </ErrorBoundary>,
+          dom
+        );
+      case "HeaderPageArchiveAuthor":
+        return ReactDOM.createPortal(
+          <ErrorBoundary key={index}>
+            <Suspense fallback={<div />}>
+              <HeaderPageArchiveAuthorLazy {...componentProps} />
             </Suspense>
           </ErrorBoundary>,
           dom

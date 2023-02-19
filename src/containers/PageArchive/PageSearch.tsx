@@ -156,7 +156,7 @@ const PageSearch: FC<PageSearchProps> = ({
   const renderHeader = () => {
     return (
       <div className="w-full">
-        <div className="relative aspect-w-16 aspect-h-9 sm:aspect-h-6 lg:aspect-h-5 xl:aspect-h-4 2xl:aspect-h-3">
+        {/* <div className="relative aspect-w-16 aspect-h-9 sm:aspect-h-6 lg:aspect-h-5 xl:aspect-h-4 2xl:aspect-h-3">
           <NcImage
             containerClassName="absolute inset-0"
             src={
@@ -166,9 +166,9 @@ const PageSearch: FC<PageSearchProps> = ({
             }
             className="object-cover w-full h-full"
           />
-        </div>
+        </div> */}
         {/* CONTENT */}
-        <div className="relative px-1 sm:container -mt-20 lg:-mt-40">
+        <div className="relative px-1 -mt-20 lg:-mt-40">
           <div className=" bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 p-4 sm:p-5 lg:p-12 rounded-lg sm:rounded-3xl lg:rounded-[32px] shadow-xl flex items-center">
             <header className="w-full max-w-3xl mx-auto text-center flex flex-col items-center">
               <h1 className="text-xl sm:text-3xl md:text-4xl font-semibold">
@@ -303,15 +303,12 @@ const PageSearch: FC<PageSearchProps> = ({
   };
 
   return (
-    <div
-      className={`nc-PageSearch overflow-hidden ${className}`}
-      data-nc-id="PageSearch"
-    >
+    <div className={`nc-PageSearch ${className}`} data-nc-id="PageSearch">
       {/* HEADER */}
       {renderHeader()}
       {/* ====================== END HEADER ====================== */}
 
-      <div className="container py-16 lg:pb-24 lg:pt-20 space-y-16 lg:space-y-24">
+      <div className=" py-16 lg:pb-24 lg:pt-20 space-y-16 lg:space-y-24">
         <div>
           <div className="flex flex-col sm:items-center sm:justify-between sm:flex-row">
             <Nav
@@ -345,13 +342,6 @@ const PageSearch: FC<PageSearchProps> = ({
 
           {renderContent()}
         </div>
-
-        {sectionCategoriesTrending.enable && (
-          <SectionTrendingCategories
-            {...sectionCategoriesTrending}
-            isCategory={false}
-          />
-        )}
       </div>
     </div>
   );

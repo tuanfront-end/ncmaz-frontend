@@ -40,12 +40,14 @@ interface Props {
   className?: string;
   posts: ListPosts["edges"];
   is_skeleton: boolean;
+  isSmallContainer?: boolean;
 }
 
 const ArchiveGridPost: FC<Props> = ({
   className = "mt-8 lg:mt-10",
   is_skeleton,
   posts = [],
+  isSmallContainer = false,
 }) => {
   const getArchivePostCardAndPostCardPlaceholder = () => {
     const postName = frontendObject.archivePostCardType || "card11";
@@ -183,7 +185,7 @@ const ArchiveGridPost: FC<Props> = ({
     classes = "lg:grid-cols-3 ";
   }
   if (type === 3) {
-    classes = "lg:grid-cols-3 xl:grid-cols-4";
+    classes = `lg:grid-cols-3 ${isSmallContainer ? "" : "xl:grid-cols-4"}`;
   }
 
   return (
