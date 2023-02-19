@@ -193,7 +193,7 @@ const ArchiveGridPost: FC<Props> = ({
       {/* LOOP ITEMS */}
       {IS_SKELETON || POSTS.length ? (
         <div
-          className={`grid grid-cols-1 sm:grid-cols-2 ${classes} gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8  ${className}`}
+          className={`grid grid-cols-1 sm:grid-cols-2 ${classes} gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8 ${className}`}
         >
           {IS_SKELETON &&
             Array.from("88888888").map((_, index) =>
