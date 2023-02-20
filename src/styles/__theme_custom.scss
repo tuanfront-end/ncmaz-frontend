@@ -430,3 +430,10 @@ form.search-form {
     @apply bg-opacity-60 cursor-progress disabled:flex;
   }
 }
+
+.nc_page_author_is_not_liked_articles_tab {
+  .PageArchiveAuthor__clearFavoritesButton {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}

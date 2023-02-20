@@ -29,6 +29,7 @@ export interface PageArchiveDateProps {
   pageTitle: string;
   //
   sectionCategoriesTrending: SectionCategoriesTrendingArchivePageOption;
+  enableSidebar?: boolean;
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
@@ -40,8 +41,8 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
   day,
   monthnum,
   year,
-  sectionCategoriesTrending,
   pageTitle,
+  enableSidebar = false,
 }) => {
   const POST_PER_PAGE =
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
@@ -133,62 +134,50 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
   const IS_SKELETON = loading && !POSTS.length;
 
   return (
-    <div
-      className={`nc-PageArchiveDate ${className}`}
-      data-nc-id="PageArchiveDate"
-    >
-      {/* HEADER */}
-
-      <div className="container py-16 lg:py-28 space-y-16 lg:space-y-28">
-        <div>
-          <h1
-            className="inline-block max-w-screen-2xl text-4xl font-semibold md:text-5xl"
-            dangerouslySetInnerHTML={{ __html: pageTitle }}
-          ></h1>
-          <div className="mt-14 flex flex-col sm:items-center sm:justify-between sm:flex-row">
-            <div className="flex space-x-2.5">
-              <ModalCategories />
-              <ModalTags />
-            </div>
-            <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
-            <div className="flex justify-end">
-              <ArchiveFilterListBox
-                onChangeSelect={handleChangeFilter as any}
-                lists={FILTERS}
-                defaultValue={orderByState}
-              />
-            </div>
-          </div>
-
-          {/* SECTION STATE */}
-          <DataStatementBlockV2
-            className="my-5"
-            data={POSTS}
-            error={error}
-            isSkeleton={IS_SKELETON}
-          />
-
-          {/* LOOP ITEMS */}
-          <ArchiveGridPost is_skeleton={IS_SKELETON} posts={POSTS} />
-
-          {/* PAGINATIONS */}
-          {data?.posts.pageInfo?.hasNextPage && (
-            <div className="flex justify-center mt-8 sm:mt-10 lg:mt-14">
-              <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
-                {NCMAZ_TRANSLATE["showMeMore"]}
-              </ButtonPrimary>
-            </div>
-          )}
+    <>
+      <h1
+        className="inline-block max-w-screen-2xl text-4xl font-semibold md:text-5xl"
+        dangerouslySetInnerHTML={{ __html: pageTitle }}
+      ></h1>
+      <div className="mt-14 flex flex-col sm:items-center sm:justify-between sm:flex-row">
+        <div className="flex space-x-2.5">
+          <ModalCategories />
+          <ModalTags />
         </div>
-
-        {sectionCategoriesTrending.enable && (
-          <SectionTrendingCategories
-            {...sectionCategoriesTrending}
-            isCategory={false}
+        <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
+        <div className="flex justify-end">
+          <ArchiveFilterListBox
+            onChangeSelect={handleChangeFilter as any}
+            lists={FILTERS}
+            defaultValue={orderByState}
           />
-        )}
+        </div>
       </div>
-    </div>
+
+      {/* SECTION STATE */}
+      <DataStatementBlockV2
+        className="my-5"
+        data={POSTS}
+        error={error}
+        isSkeleton={IS_SKELETON}
+      />
+
+      {/* LOOP ITEMS */}
+      <ArchiveGridPost
+        isSmallContainer={enableSidebar}
+        is_skeleton={IS_SKELETON}
+        posts={POSTS}
+      />
+
+      {/* PAGINATIONS */}
+      {data?.posts.pageInfo?.hasNextPage && (
+        <div className="flex justify-center mt-8 sm:mt-10 xl:mt-14">
+          <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
+            {NCMAZ_TRANSLATE["showMeMore"]}
+          </ButtonPrimary>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -64,7 +64,7 @@ const SearchDropdown = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg overflow-hidden rounded-2xl text-left align-middle shadow-xl">
+                <Dialog.Panel className="w-full max-w-xl overflow-hidden rounded-2xl text-left align-middle shadow-xl">
                   <form
                     role="search"
                     method="GET"

@@ -18,6 +18,13 @@ $section = array(
     'subsection' => true,
     'fields'     => array(
         [
+            'id'       => 'nc-archive-page-settings--sidebar',
+            'type'     => 'switch',
+            'title'    => __('Show/Hide Sidebar', 'ncmaz-frontend'),
+            'subtitle' => __('Show/Hide Sidebar on Archive pages (archive pages and author pages)', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
+        [
             'id'       => 'nc-search-page-settings--post-card-type',
             'type'     => 'select',
             'title'    => esc_html__('Post card name', 'ncmaz-frontend'),
@@ -141,7 +148,13 @@ $section = array(
     'id'         => 'nc-search-page-settings',
     'subsection' => true,
     'fields'     => array(
-
+        [
+            'id'       => 'nc-search-page-settings--sidebar',
+            'type'     => 'switch',
+            'title'    => __('Show/Hide Sidebar', 'ncmaz-frontend'),
+            'subtitle' => __('Show/Hide Sidebar on search pages', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
         [
             'id'            => 'nc-search-page-settings--media-background',
             'type'          => 'media',

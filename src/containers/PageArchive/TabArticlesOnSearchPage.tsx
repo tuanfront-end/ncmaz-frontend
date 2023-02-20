@@ -18,12 +18,14 @@ export interface TabArticlesOnSearchPageProps {
   searchText: string;
   orderByState: string;
   onUpdateTotal: (totalString: string) => void;
+  isSmallContainer?: boolean;
 }
 
 const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
   searchText,
   orderByState,
   onUpdateTotal,
+  isSmallContainer = false,
 }) => {
   const POST_PER_PAGE =
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
@@ -112,11 +114,16 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
       />
 
       {/* LOOP ITEMS */}
-      <ArchiveGridPost className="" is_skeleton={IS_SKELETON} posts={POSTS} />
+      <ArchiveGridPost
+        isSmallContainer={isSmallContainer}
+        className=""
+        is_skeleton={IS_SKELETON}
+        posts={POSTS}
+      />
 
       {/* PAGINATIONS */}
       {data?.posts.pageInfo?.hasNextPage && (
-        <div className="flex justify-center mt-8 sm:mt-10 lg:mt-14">
+        <div className="flex justify-center mt-8 sm:mt-10 xl:mt-14">
           <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
             {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>

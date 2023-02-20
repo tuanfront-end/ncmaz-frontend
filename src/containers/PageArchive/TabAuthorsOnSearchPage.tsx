@@ -115,7 +115,7 @@ const TabAuthorsOnSearchPage: FC<TabAuthorsOnSearchPageProps> = ({
       </div>
 
       {data?.users.pageInfo.hasNextPage && (
-        <div className="flex justify-center mt-8 sm:mt-10 lg:mt-14">
+        <div className="flex justify-center mt-8 sm:mt-10 xl:mt-14">
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
             {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>

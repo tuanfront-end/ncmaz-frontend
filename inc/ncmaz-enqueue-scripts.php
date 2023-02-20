@@ -126,7 +126,7 @@ function ncmazFe_enqueueScriptCustomize()
             'homeURL'                       => get_site_url(),
             'currentUser'                   => empty($currentUser['data']['viewer']) ?  null : $currentUser['data']['viewer'],
             'allSettings'                   => empty($allSettings['data']['allSettings']) ?  null : $allSettings['data']['allSettings'],
-            'currentObject'                 => ['id'    => get_the_ID()],
+            'currentObject'                 => ['id'    => get_queried_object_id()],
             'pll_current_language'          => function_exists('pll_current_language') ? strtoupper(pll_current_language()) : null,
             'pll_current_language_correct_code' => function_exists('pll_current_language') ? pll_current_language() : null,
             'pll_themeoption_actived'       => (function_exists('pll_current_language') && $IS_ENABLE_POLYLANG_SWITCH) ? true : null,

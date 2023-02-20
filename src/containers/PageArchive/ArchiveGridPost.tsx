@@ -40,12 +40,14 @@ interface Props {
   className?: string;
   posts: ListPosts["edges"];
   is_skeleton: boolean;
+  isSmallContainer?: boolean;
 }
 
 const ArchiveGridPost: FC<Props> = ({
   className = "mt-8 lg:mt-10",
   is_skeleton,
   posts = [],
+  isSmallContainer = false,
 }) => {
   const getArchivePostCardAndPostCardPlaceholder = () => {
     const postName = frontendObject.archivePostCardType || "card11";
@@ -183,7 +185,7 @@ const ArchiveGridPost: FC<Props> = ({
     classes = "lg:grid-cols-3 ";
   }
   if (type === 3) {
-    classes = "lg:grid-cols-3 xl:grid-cols-4";
+    classes = `lg:grid-cols-3 ${isSmallContainer ? "" : "xl:grid-cols-4"}`;
   }
 
   return (
@@ -191,7 +193,7 @@ const ArchiveGridPost: FC<Props> = ({
       {/* LOOP ITEMS */}
       {IS_SKELETON || POSTS.length ? (
         <div
-          className={`grid grid-cols-1 sm:grid-cols-2 ${classes} gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8  ${className}`}
+          className={`grid grid-cols-1 sm:grid-cols-2 ${classes} gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8 ${className}`}
         >
           {IS_SKELETON &&
             Array.from("88888888").map((_, index) =>
