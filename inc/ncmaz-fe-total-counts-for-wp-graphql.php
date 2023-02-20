@@ -1,6 +1,6 @@
 <?php
 
-namespace Cactus\GQLTC;
+namespace NCMAZFE\GQLTC;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -16,6 +16,8 @@ function init()
      */
     if (!class_exists('WPGraphQL')) {
         add_action('admin_init', __NAMESPACE__ . '\show_admin_notice');
+    } elseif (in_array('total-counts-for-wp-graphql/total-counts-for-wp-graphql.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+        add_action('admin_init', __NAMESPACE__ . '\show_admin_notice_total_count_plugin');
     } else {
         add_filter('graphql_connection_page_info', __NAMESPACE__ . '\resolve_total_field', 10, 2);
         add_filter('graphql_connection_query_args', __NAMESPACE__ . '\count_total_rows');
@@ -24,6 +26,9 @@ function init()
 }
 
 add_action('init', __NAMESPACE__ . '\init');
+
+
+
 
 /**
  * Show admin notice to admins if this plugin is active but either ACF and/or WPGraphQL
@@ -47,7 +52,33 @@ function show_admin_notice()
         <div class="error notice">
             <p><?php _e(
                     'WPGraphQL must be active for "total-counts-for-wpgraphql" to work',
-                    'cactus-gqltc'
+                    'ncmaz-frontend'
+                ); ?></p>
+        </div>
+    <?php
+        }
+    );
+
+    return true;
+}
+
+function show_admin_notice_total_count_plugin()
+{
+    /**
+     * For users with lower capabilities, don't show the notice
+     */
+    if (!current_user_can('manage_options')) {
+        return false;
+    }
+
+    add_action(
+        'admin_notices',
+        function () {
+    ?>
+        <div class="error notice">
+            <p><?php _e(
+                    'You are using Ncmaz version 4.3.1 or later, so you don\'t need to use total-counts-for-wp-graphql plugin, please deactivate and remove the plugin total-counts-for-wp-graphql.',
+                    'ncmaz-frontend'
                 ); ?></p>
         </div>
 <?php
