@@ -20,14 +20,14 @@ if (!location.pathname.includes("/wp-admin/")) {
   const root = createRoot(container);
   //
   root.render(
-    // <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Suspense fallback={<div />}>
-          <App />
-        </Suspense>
-      </PersistGate>
-    </Provider>
-    // </React.StrictMode>
+    <React.StrictMode>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Suspense fallback={<div />}>
+            <App />
+          </Suspense>
+        </PersistGate>
+      </Provider>
+    </React.StrictMode>
   );
 }

@@ -381,7 +381,9 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
 
   // HIDDEN WHEN NOT READY - isFirtTimeSeekTo
   const HIDDEN_CLASS =
-    !newestAudioPlayerUrl && !isFirtTimeSeekTo ? "opacity-0 -z-10" : "";
+    !newestAudioPlayerUrl && !isFirtTimeSeekTo
+      ? "opacity-0 -z-10 invisible"
+      : "";
 
   return (
     <div

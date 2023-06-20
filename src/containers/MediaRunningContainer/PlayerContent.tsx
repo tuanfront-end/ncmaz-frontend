@@ -12,6 +12,7 @@ import NcImage from "components/NcImage/NcImage";
 import { Transition } from "@headlessui/react";
 import PostCardLikeAction from "components/PostCardLikeAction/PostCardLikeAction";
 import PostCardDropdownShare from "components/PostCardDropdownShare/PostCardDropdownShare";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 export interface PlayerContentProps {
   isError: boolean;
@@ -103,10 +104,10 @@ const PlayerContent: FC<PlayerContentProps> = ({
       <div className="mr-2 flex items-center flex-grow lg:flex-shrink-0 basis-64 w-64 overflow-hidden z-0 lg:overflow-visible">
         <a
           href={link}
-          className="relative h-16 flex items-center space-x-3 pl-12 overflow-hidden"
+          className="relative h-16 flex items-center space-x-2 sm:space-x-3 pl-12 overflow-hidden"
         >
           <NcImage
-            containerClassName={`absolute left-0 w-12 h-12 flex-shrink-0 transform transition-transform nc-animation-spin rounded-full overflow-hidden z-0 ${
+            containerClassName={`absolute left-0 w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 transform transition-transform nc-animation-spin rounded-full overflow-hidden z-0 ${
               mediaState === "playing" ? "playing" : ""
             }`}
             src={featuredImage?.node.sourceUrl || "."}
@@ -116,15 +117,15 @@ const PlayerContent: FC<PlayerContentProps> = ({
             className="object-cover w-full h-full rounded-full shadow-md"
           />
           <div className="flex-grow overflow-hidden ">
-            <h3 className="text-base truncate">{title}</h3>
+            <h3 className="text-sm sm:text-base truncate">{title}</h3>
             <span className="block text-xs text-neutral-500 dark:text-neutral-400 truncate">
               {Math.floor((durationSeconds - playedSeconds) / 60)
-                ? `${Math.floor(
-                    (durationSeconds - playedSeconds) / 60
-                  )} min left`
-                : `${Math.floor(
-                    (durationSeconds - playedSeconds) % 60
-                  )} sec left`}
+                ? `${Math.floor((durationSeconds - playedSeconds) / 60)} ${
+                    NCMAZ_TRANSLATE["min left"]
+                  }`
+                : `${Math.floor((durationSeconds - playedSeconds) % 60)} ${
+                    NCMAZ_TRANSLATE["sec left"]
+                  }`}
             </span>
           </div>
         </a>
@@ -187,7 +188,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
   const renderButtonControl = () => {
     return (
       <div
-        className="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-full text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-black/10 cursor-pointer "
+        className="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-full text-neutral-700 dark:text-neutral-200 bg-neutral-50 dark:bg-black/20 hover:bg-neutral-100 dark:hover:bg-black/30 cursor-pointer "
         onClick={handleClickToggle}
       >
         {/* LOADING */}
@@ -618,7 +619,7 @@ const PlayerContent: FC<PlayerContentProps> = ({
         </div>
       </button>
       {renderDurationTime()}
-      <div className="h-20 w-full flex justify-between">
+      <div className="h-16 sm:h-20 w-full flex justify-between">
         {/* LEFT */}
         {renderLeft()}
 
@@ -646,9 +647,9 @@ const PlayerContent: FC<PlayerContentProps> = ({
         show={isShowContentOnMobile}
         enter="duration-150"
         enterFrom="-mb-16 opacity-0 invisible"
-        enterTo="mb-0 opacity-100 visible "
+        enterTo="mb-0 opacity-100 visible"
         leave="duration-150"
-        leaveFrom="mb-0 opacity-100 visible "
+        leaveFrom="mb-0 opacity-100 visible"
         leaveTo="-mb-16 opacity-0 invisible"
       >
         <div className="flex flex-grow items-center justify-evenly text-neutral-500 dark:text-neutral-300 max-w-xs sm:max-w-sm md:max-w-md ">

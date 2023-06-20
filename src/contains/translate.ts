@@ -1,4 +1,7 @@
 let NCMAZ_TRANSLATE = {
+  "sec left": "sec left",
+  "min left": "min left",
+  // 6-3-2023
   "Are you sure you want to draft this post? You cannot undo this action.":
     "Are you sure you want to draft this post? You cannot undo this action.",
   "Are you sure you want to publish this post? You cannot undo this action.":
