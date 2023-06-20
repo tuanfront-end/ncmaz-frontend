@@ -35,7 +35,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
     if (item.href) {
       return (
         <a
-          className={`text-left flex items-center rounded-md w-full px-3 py-2 truncate ${
+          className={`text-left flex items-center rounded-md w-full px-3 py-1.5 truncate ${
             active
               ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
               : ""
@@ -43,21 +43,21 @@ const NcDropDown: FC<NcDropDownProps> = ({
           onClick={() => onClickItem && onClickItem(item)}
           href={item.href}
         >
-          {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-base`}></i>}
+          {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-lg`}></i>}
           <span className="truncate">{item.name}</span>
         </a>
       );
     }
     return (
       <button
-        className={`text-left flex items-center rounded-md w-full px-3 py-2 truncate ${
+        className={`text-left flex items-center rounded-md w-full px-3 py-1.5 truncate ${
           active
             ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             : ""
         }`}
         onClick={() => onClickItem && onClickItem(item)}
       >
-        {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-base`}></i>}
+        {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-lg`}></i>}
         <span className="truncate">{item.name}</span>
       </button>
     );
