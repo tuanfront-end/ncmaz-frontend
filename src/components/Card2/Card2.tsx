@@ -88,7 +88,7 @@ const Card2: FC<Card2Props> = ({
           readingTimeShortcode={ncPostMetaData.readingTimeShortcode}
           hoverReadingTime={false}
         />
-        <div className="flex items-center justify-between mt-auto">
+        <div className="flex rtl:flex-row-reverse items-center justify-between mt-auto">
           <PostCardLikeAndComment className="relative" postData={post} />
 
           <PostCardDropdownShare

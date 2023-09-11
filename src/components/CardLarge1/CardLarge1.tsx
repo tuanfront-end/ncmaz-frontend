@@ -70,7 +70,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
             readingTimeShortcode={ncPostMetaData.readingTimeShortcode}
           />
 
-          <div className="flex items-center justify-between mt-auto">
+          <div className="flex flex-row rtl:flex-row-reverse items-center justify-between mt-auto">
             <PostCardLikeAndComment postData={post} />
             <PostCardDropdownShare
               href={post.link}

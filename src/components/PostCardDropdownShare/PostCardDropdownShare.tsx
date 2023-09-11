@@ -96,14 +96,14 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
     if (item.id === "copyLink") {
       return (
         <button
-          className={`flex items-center rounded-md w-full px-3 py-2 truncate ${
+          className={`flex gap-1 items-center rounded-md w-full px-3 py-2 truncate ${
             active
               ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
               : ""
           }`}
           onClick={handleCopyLink}
         >
-          <i className={`${item.icon} mr-1 w-7 text-base`}></i>
+          <i className={`${item.icon} w-7 text-base`}></i>
           <span className="truncate">{item.name}</span>
         </button>
       );
@@ -119,7 +119,7 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
         <SocialShareItem
           item={item}
           href={href}
-          className="flex items-center space-x-3 !px-3 !py-2 w-full"
+          className="flex items-center gap-3 !px-3 !py-2 w-full"
           size={24}
           hasName
           image={image}

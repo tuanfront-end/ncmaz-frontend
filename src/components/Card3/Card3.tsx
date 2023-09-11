@@ -56,9 +56,9 @@ const Card3: FC<Card3Props> = ({ className = "h-full", post }) => {
 
           <PostCardMeta className="w-full" meta={{ ...post }} />
         </div>
-        <div className="hidden sm:flex items-center flex-wrap justify-between mt-auto">
+        <div className="hidden sm:flex rtl:sm:flex-row-reverse items-center flex-wrap justify-between mt-auto">
           <PostCardLikeAndComment postData={post} />
-          <div className="flex items-center space-x-2 text-xs text-neutral-700 dark:text-neutral-300 ">
+          <div className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300 ">
             <span
               dangerouslySetInnerHTML={{
                 __html: ncPostMetaData.readingTimeShortcode || "",
@@ -73,7 +73,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full", post }) => {
       </div>
 
       {standardHasFeaturedImage && (
-        <div className="block flex-shrink-0 ml-2.5 sm:ml-5 w-4/12 max-w-[120px] sm:max-w-none sm:w-44 2xl:w-56">
+        <div className="block flex-shrink-0 ms-2.5 sm:ms-5 w-4/12 max-w-[120px] sm:max-w-none sm:w-44 2xl:w-56">
           <a
             href={link}
             className="w-full block h-0 aspect-h-16 aspect-w-16 rounded-lg sm:rounded-2xl overflow-hidden z-0"

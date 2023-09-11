@@ -88,14 +88,14 @@ const Card11: FC<Card11Props> = ({
             ></a>
           ) : null}
         </h3>
-        <div className="flex items-end justify-between mt-auto">
+        <div className="flex rtl:flex-row-reverse items-end justify-between gap-2 mt-auto">
           <PostCardLikeAndComment
             onClickLike={onClickLike}
             className="relative"
             postData={post}
             hiddenCommentOnMobile={false}
           />
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-1 rtl:flex-row-reverse justify-end items-center gap-2 ">
             <PostCardDropdownShare
               href={post.link}
               image={post.featuredImage?.node.sourceUrl}

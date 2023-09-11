@@ -112,24 +112,30 @@ const PostMoreActionDropdown: FC<PostMoreActionDropdownProps> = ({
         panelMenusClass={panelMenusClass}
         onClickItem={handleClickItem}
       />
-      <ModalDeletePost
-        show={showModalDeletePost}
-        onCloseModal={() => setShowModalDeletePost(false)}
-        postDataBaseId={postDataBaseId}
-        isReloadAfterDelete={isReloadAfterDelete}
-      />
-      <ModalPublishPost
-        show={showModalPublishPost}
-        onCloseModal={() => setShowModalPublishPost(false)}
-        postDataBaseId={postDataBaseId}
-        isReloadAfterDelete={true}
-      />
-      <ModalDraftPost
-        show={showModalDraftPost}
-        onCloseModal={() => setShowModalDraftPost(false)}
-        postDataBaseId={postDataBaseId}
-        isReloadAfterDelete={true}
-      />
+      {showModalDeletePost && (
+        <ModalDeletePost
+          show={showModalDeletePost}
+          onCloseModal={() => setShowModalDeletePost(false)}
+          postDataBaseId={postDataBaseId}
+          isReloadAfterDelete={isReloadAfterDelete}
+        />
+      )}
+      {showModalPublishPost && (
+        <ModalPublishPost
+          show={showModalPublishPost}
+          onCloseModal={() => setShowModalPublishPost(false)}
+          postDataBaseId={postDataBaseId}
+          isReloadAfterDelete={true}
+        />
+      )}
+      {showModalDraftPost && (
+        <ModalDraftPost
+          show={showModalDraftPost}
+          onCloseModal={() => setShowModalDraftPost(false)}
+          postDataBaseId={postDataBaseId}
+          isReloadAfterDelete={true}
+        />
+      )}
     </>
   );
 };

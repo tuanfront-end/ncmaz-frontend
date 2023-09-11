@@ -129,7 +129,7 @@ const Card16Podcast: FC<Card16PodcastProps> = ({
               />
             )}
           </span>
-          <div className="mt-3 flex items-end justify-between sm:mt-auto">
+          <div className="mt-3 flex rtl:flex-row-reverse items-end justify-between sm:mt-auto">
             <PostCardLikeAndComment className="relative" postData={post} />
             <PostCardDropdownShare
               href={post.link}

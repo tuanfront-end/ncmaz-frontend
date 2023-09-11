@@ -26,7 +26,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
     >
       <a
         href={frontendObject.homeURL + author?.node.uri}
-        className="flex-shrink-0 relative flex items-center space-x-2 "
+        className="flex-shrink-0 relative flex items-center gap-2 "
       >
         {!hiddenAvatar && (
           <Avatar

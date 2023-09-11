@@ -5,7 +5,7 @@
  * Description:       Example block written with ESNext standard and JSX support – build step required.
  * Requires at least: 5.5
  * Requires PHP:      7.0
- * Version:           4.4.2
+ * Version:           4.4.3
  * Author:            ChisNghiax
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,7 @@
  *
  */
 
-define('_NCMAZ_FRONTEND_VERSION', '4.4.2');
+define('_NCMAZ_FRONTEND_VERSION', '4.4.3');
 define('_NCMAZ_FRONTEND_DIR_URL', plugin_dir_url(__FILE__));
 define('_NCMAZ_FRONTEND_DIR_PATH', plugin_dir_path(__FILE__));
 define('_NCMAZ_FRONTEND_PREFIX', 'ncmaz_frontend_prefix_');
