@@ -256,7 +256,7 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
     setHistoryStateParams(item, orderByState);
   };
 
-  const handleChangeFilter = (item: typeof ARCHIVE_PAGE_FILTERS[number]) => {
+  const handleChangeFilter = (item: (typeof ARCHIVE_PAGE_FILTERS)[number]) => {
     setorderByState(item.value);
     setHistoryStateParams(tabActive, item.value);
   };

@@ -19,6 +19,7 @@ try {
     _toggleNcmazModal();
     _converViewCountToThounsand(".nc-SingleMetaAction2__views__number");
     _converViewCountToThounsand(".simplefavorite-button-count");
+    _autoOpenLoginModalWhenLoginFail();
   }
 
   //   ==========================================
@@ -83,6 +84,22 @@ try {
       });
     });
   }
+
+  //  ==========================================
+  function _autoOpenLoginModalWhenLoginFail() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const loginFail = urlParams.get("login") || "";
+    // const reason = urlParams.get("reason") || "";
+
+    if (loginFail !== "failed") {
+      return;
+    }
+
+    if (loginFail === "failed") {
+      jQuery('[data-ncmaz-modal-name="ncmaz-modal-form-sign-in"]').fadeIn(200);
+    }
+  }
+
   //  ==========================================
   function _converViewCountToThounsand(
     Elclass = ".nc-SingleMetaAction2__views__number"

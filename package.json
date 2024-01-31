@@ -1,7 +1,7 @@
 {
   "name": "nc-frontend-plugin",
   "private": true,
-  "version": "4.4.3",
+  "version": "4.4.4",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -41,7 +41,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-loading-skeleton": "^3.3.1",
-    "react-player": "^2.13.0",
+    "react-player": "^2.14.1",
     "react-redux": "^8.1.2",
     "react-share": "^4.4.1",
     "react-use": "^17.4.0",
@@ -61,7 +61,7 @@
     "cssjanus": "^2.1.0",
     "postcss": "^8.4.29",
     "postcss-cssjanus": "^1.0.5",
-    "tailwindcss": "^3.3.3",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "vite": "^4.4.9"
   }
