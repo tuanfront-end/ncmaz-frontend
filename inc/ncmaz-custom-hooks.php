@@ -205,7 +205,9 @@ function ncmazFe_hook_login_failed_redirect($redirect_to, $requested_redirect_to
         if (is_array($error_types) && !empty($error_types)) {
             $error_type = $error_types[0];
         }
-        wp_redirect(get_permalink(93) . "?login=failed&reason=" . $error_type);
+        wp_redirect($redirect_to . "?login=failed&reason=" . $error_type);
+        // wp_redirect(home_url('/?login=failed&reason=' . $error_type));
+
         exit;
     } else {
         return $redirect_to;
