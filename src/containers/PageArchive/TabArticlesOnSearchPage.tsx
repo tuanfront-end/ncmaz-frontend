@@ -1,15 +1,14 @@
 import React, { FC, useEffect } from "react";
 import ButtonPrimary from "components/Button/ButtonPrimary";
-import Card11 from "components/Card11/Card11";
 import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import {
   POSTS_SECTION_BY_FILTER__string,
   POSTS_SECTION_BY_SEARCH_NO_FILTER__string,
 } from "./queryGraphql";
-import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import NCMAZ_TRANSLATE from "contains/translate";
+import ArchiveGridPost from "./ArchiveGridPost";
 
 interface Data {
   posts: ListPosts;
@@ -19,12 +18,14 @@ export interface TabArticlesOnSearchPageProps {
   searchText: string;
   orderByState: string;
   onUpdateTotal: (totalString: string) => void;
+  isSmallContainer?: boolean;
 }
 
 const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
   searchText,
   orderByState,
   onUpdateTotal,
+  isSmallContainer = false,
 }) => {
   const POST_PER_PAGE =
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
@@ -113,21 +114,16 @@ const TabArticlesOnSearchPage: FC<TabArticlesOnSearchPageProps> = ({
       />
 
       {/* LOOP ITEMS */}
-      {IS_SKELETON || POSTS.length ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8 ">
-          {IS_SKELETON &&
-            Array.from("88888888").map((_, index) => (
-              <Card11Skeleton key={index} />
-            ))}
-          {POSTS.map((post) => (
-            <Card11 key={post.node.id} post={post.node} />
-          ))}
-        </div>
-      ) : null}
+      <ArchiveGridPost
+        isSmallContainer={isSmallContainer}
+        className=""
+        is_skeleton={IS_SKELETON}
+        posts={POSTS}
+      />
 
       {/* PAGINATIONS */}
       {data?.posts.pageInfo?.hasNextPage && (
-        <div className="flex justify-center mt-12 lg:mt-16">
+        <div className="flex justify-center mt-8 sm:mt-10 xl:mt-14">
           <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
             {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>

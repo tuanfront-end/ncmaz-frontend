@@ -6,10 +6,10 @@ export interface Card3SkeletonProps {
   className?: string;
 }
 
-const Card3Skeleton: FC<Card3SkeletonProps> = ({ className = "h-full" }) => {
+const Card3Skeleton: FC<Card3SkeletonProps> = ({ className = "" }) => {
   return (
     <div
-      className={`nc-Card3Skeleton relative flex items-center rounded-[40px] group ${className}`}
+      className={`nc-Card3Skeleton relative flex items-center sm:p-5 2xl:p-5 [ nc-box-has-hover nc-dark-box-bg-has-hover ] group ${className}`}
       data-nc-id="Card3Skeleton"
     >
       <div className="flex flex-col flex-grow overflow-hidden">

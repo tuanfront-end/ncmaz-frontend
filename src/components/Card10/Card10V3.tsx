@@ -34,31 +34,39 @@ const Card10V3: FC<Card10V3Props> = ({
   const [isHover, setIsHover] = useState(false);
 
   const renderGallery2 = () => {
-    if (!galleryImgs) return null;
+    if (!galleryImgs) {
+      return null;
+    }
     return (
       <div className="w-full h-full grid grid-cols-1 grid-rows-2 gap-2">
         <div className="grid grid-cols-3 gap-2 ">
           <NcImage
             containerClassName="relative col-span-2"
             className="absolute inset-0 object-cover w-full h-full"
-            src={galleryImgs[0]}
+            src={galleryImgs[0]?.sourceUrl}
+            srcSet={galleryImgs[0]?.srcSet}
           />
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={galleryImgs[1]}
+            src={galleryImgs[1]?.sourceUrl}
+            srcSet={galleryImgs[1]?.srcSet}
+            imageSizes="MEDIUM"
           />
         </div>
         <div className="grid grid-cols-3 gap-2 ">
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={galleryImgs[2]}
+            src={galleryImgs[2]?.sourceUrl}
+            srcSet={galleryImgs[2]?.srcSet}
+            imageSizes="MEDIUM"
           />
           <NcImage
             containerClassName="relative col-span-2"
             className="absolute inset-0 object-cover w-full h-full"
-            src={galleryImgs[3]}
+            src={galleryImgs[3]?.sourceUrl}
+            srcSet={galleryImgs[3]?.srcSet}
           />
         </div>
       </div>
@@ -66,37 +74,60 @@ const Card10V3: FC<Card10V3Props> = ({
   };
 
   const renderGallery = () => {
-    if (!galleryImgs) return null;
+    if (!galleryImgs) {
+      return null;
+    }
     return (
       <div className="w-full h-full grid grid-cols-3 gap-2">
         <div className="grid ">
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={galleryImgs[0]}
+            src={galleryImgs[0]?.sourceUrl}
+            srcSet={galleryImgs[0]?.srcSet}
           />
         </div>
         <div className="grid grid-rows-2 gap-2">
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={galleryImgs[1]}
+            src={galleryImgs[1]?.sourceUrl}
+            srcSet={galleryImgs[1]?.srcSet}
+            imageSizes="MEDIUM"
           />
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={galleryImgs[2]}
+            src={galleryImgs[2]?.sourceUrl}
+            srcSet={galleryImgs[2]?.srcSet}
+            imageSizes="MEDIUM"
           />
         </div>
         <div className="grid ">
           <NcImage
             containerClassName="relative"
             className="absolute inset-0 object-cover w-full h-full"
-            src={galleryImgs[3]}
+            src={galleryImgs[3]?.sourceUrl}
+            srcSet={galleryImgs[3]?.srcSet}
           />
         </div>
       </div>
     );
+  };
+
+  const renderFeaturedImage = () => {
+    if (
+      postFormats?.edges[0]?.node.slug !== "post-format-gallery" ||
+      !galleryImgs?.length
+    ) {
+      return (
+        <div>
+          <PostFeaturedMedia post={post} isHover={isHover} />
+        </div>
+      );
+    }
+
+    return <div>{galleryType === 1 ? renderGallery() : renderGallery2()}</div>;
   };
 
   return (
@@ -106,17 +137,8 @@ const Card10V3: FC<Card10V3Props> = ({
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden z-0">
-        <div>
-          {postFormats?.edges[0]?.node.slug !== "post-format-gallery" &&
-          !!galleryImgs?.length ? (
-            <PostFeaturedMedia post={post} isHover={isHover} />
-          ) : galleryType === 1 ? (
-            renderGallery()
-          ) : (
-            renderGallery2()
-          )}
-        </div>
+      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 overflow-hidden z-0">
+        {renderFeaturedImage()}
 
         <a
           href={link}
@@ -134,9 +156,12 @@ const Card10V3: FC<Card10V3Props> = ({
 
       <div className="space-y-2.5 mt-4 px-4 flex flex-col">
         <h3 className="nc-card-title block sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 ">
-          <a href={link} className="line-clamp-1" title={title}>
-            {title}
-          </a>
+          <a
+            className="line-clamp-2"
+            href={link}
+            title={title}
+            dangerouslySetInnerHTML={{ __html: title || "" }}
+          ></a>
         </h3>
         <CardAuthor2
           className="mt-3"

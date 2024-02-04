@@ -12,7 +12,7 @@ const Card4Skeleton: FC<Card4SkeletonProps> = ({ className = "h-full" }) => {
       className={`nc-Card4Skeleton relative flex flex-col group [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="Card4Skeleton"
     >
-      <span className="block flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 rounded-t-xl overflow-hidden">
+      <span className="block flex-shrink-0 relative w-full aspect-w-16 aspect-h-10 rounded-t-xl overflow-hidden">
         <NcImage containerClassName="absolute inset-0" src={"."} />
         <div></div>
       </span>

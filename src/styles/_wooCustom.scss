@@ -155,16 +155,15 @@ p.demo_store {
 .rb-mini-cart {
   @apply relative;
   .rb-cart-link {
-    @apply relative text-2xl md:text-[28px] sm:w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 
-      sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center;
     .cart-counter {
-      @apply absolute -right-1 top-0.5 sm:right-1 sm:top-1 text-[10px] leading-none font-semibold not-italic flex w-4 h-4 bg-primary-500 
-        text-white items-center justify-center rounded-full;
+      @apply absolute -right-2 -top-1.5 xl:right-1 xl:top-1 text-[9px] xl:text-[10px] leading-none font-medium xl:font-semibold not-italic flex w-3.5 h-3.5 xl:w-4 xl:h-4 bg-primary-500 text-white items-center justify-center rounded-full;
     }
   }
   .nav-mini-cart {
-    @apply hidden lg:block absolute top-full right-0 opacity-0 transition-all invisible translate-y-2 bg-white 
-    dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl will-change-transform;
+    @apply hidden xl:block absolute top-full right-0 opacity-0 transition-all invisible translate-y-2 will-change-transform py-3 bg-transparent;
+    > .mini-cart-wrap {
+      @apply bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl;
+    }
   }
   &:hover {
     .nav-mini-cart {
@@ -173,14 +172,19 @@ p.demo_store {
   }
 
   .widget_shopping_cart_content {
-    @apply w-screen max-w-md;
+    .nc-wc_shopping_mini-cart_content {
+      @apply w-screen max-w-md;
+    }
     .woocommerce-mini-cart__empty-message {
-      @apply flex p-5;
+      @apply flex flex-col space-y-4 text-center p-5 text-sm whitespace-nowrap;
+      p {
+        @apply block;
+      }
     }
   }
 
   ul.woocommerce-mini-cart {
-    @apply max-h-[70vh] overflow-y-auto divide-y divide-neutral-200 dark:divide-neutral-700;
+    @apply max-h-[60vh] overflow-y-auto divide-y divide-neutral-200 dark:divide-neutral-700;
   }
 
   li.woocommerce-mini-cart-item {
@@ -285,7 +289,7 @@ p.demo_store {
   .nc_wc_thumbnail_product_add_to_cart_open_div {
     @apply flex justify-center absolute z-10 bottom-3.5 inset-x-3.5 opacity-0 invisible transition-all translate-y-1 will-change-transform;
     a {
-      @apply rounded-2xl;
+      @apply rounded-2xl text-center;
     }
   }
   &:hover {
@@ -294,13 +298,31 @@ p.demo_store {
     }
   }
   .add_to_cart_button {
-    @apply pointer-events-auto bg-primary-6000 py-2 px-3 font-medium text-white hover:bg-primary-500 flex-grow flex justify-center;
+    @apply relative pointer-events-auto bg-primary-6000 py-2 px-3 font-medium text-white hover:bg-primary-500 flex-1 flex justify-center whitespace-nowrap;
     &.loading {
-      @apply cursor-wait opacity-60 bg-primary-700;
+      @apply cursor-wait opacity-80 bg-primary-700;
+      font-size: 0 !important;
+
+      font-family: "Line Awesome Free";
+      font-weight: 900;
+      -webkit-font-smoothing: antialiased;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+
+      &:before {
+        content: "\f1ce";
+        @apply absolute text-lg animate-spin;
+      }
+      &:after {
+        content: "t";
+        @apply text-base opacity-0;
+      }
     }
   }
   .added_to_cart {
-    @apply ml-2;
+    @apply ml-2 flex-1;
   }
 
   .nc_wc_content_product_open_div {
@@ -314,9 +336,9 @@ p.demo_store {
 
 .price,
 .product-price {
-  @apply inline-flex py-0.5 px-2 rounded-md font-semibold space-x-2 border-2 border-green-500 text-green-600 text-sm;
+  @apply inline-flex py-0.5 px-2 rounded-md font-semibold space-x-2 border-2 border-green-500 text-green-600 dark:text-green-500 text-sm;
   del {
-    @apply text-neutral-400;
+    @apply text-neutral-400 dark:text-neutral-500;
   }
   ins {
     @apply no-underline text-red-500;
@@ -368,12 +390,19 @@ p.demo_store {
 
   form.variations_form.cart {
     @apply flex-col mt-6;
-  }
-  .variations th {
-    @apply text-left tracking-wide;
-  }
-  .variations td {
-    @apply py-2;
+    table {
+      @apply border-separate border-spacing-0 p-4 border border-neutral-200 dark:border-neutral-700 rounded-2xl text-sm;
+      select {
+        @apply text-sm dark:text-neutral-300;
+      }
+    }
+
+    .variations th {
+      @apply text-left tracking-wide;
+    }
+    .variations td {
+      @apply py-2.5 [&:nth-child(2)]:pl-2;
+    }
   }
 
   .woocommerce-variation-add-to-cart {
@@ -393,10 +422,39 @@ p.demo_store {
 
   form.cart {
     @apply flex mt-8;
+
+    &.grouped_form {
+      @apply flex-col;
+      table {
+        @apply border-collapse table-auto w-full text-sm;
+      }
+      tbody {
+        // @apply ;
+      }
+      td {
+        @apply border-t border-slate-100 dark:border-slate-700 py-3 text-slate-500 dark:text-slate-400 [&:nth-child(2)]:px-3;
+        a {
+          @apply font-medium underline text-neutral-900 dark:text-neutral-200;
+        }
+      }
+      button {
+        @apply ml-0 mt-4;
+      }
+      .woocommerce-grouped-product-list-item__price {
+        @apply text-green-600 dark:text-green-500 font-medium;
+        del {
+          @apply text-neutral-400 dark:text-neutral-500;
+        }
+        ins {
+          @apply no-underline text-red-500;
+        }
+      }
+    }
+
     .quantity {
-      @apply w-28 flex;
+      @apply w-20 sm:w-24 flex;
       input {
-        @apply w-full block rounded-xl border-gray-300 shadow-sm focus:border-indigo-300 focus:ring
+        @apply w-full block rounded-xl border-neutral-300 dark:border-neutral-500 shadow-sm focus:border-indigo-300 focus:ring
          focus:ring-indigo-200 focus:ring-opacity-50 bg-transparent text-center;
       }
     }
@@ -438,9 +496,9 @@ p.demo_store {
 }
 
 .product_meta {
-  @apply flex flex-col mt-8 pt-6 space-y-1.5 border-t border-neutral-200 dark:border-neutral-700 text-sm;
+  @apply flex flex-col mt-8 pt-6 space-y-2 border-t border-neutral-200 dark:border-neutral-700 text-sm text-neutral-700 dark:text-neutral-300;
   a {
-    @apply font-medium;
+    @apply font-medium dark:text-neutral-200;
   }
 }
 

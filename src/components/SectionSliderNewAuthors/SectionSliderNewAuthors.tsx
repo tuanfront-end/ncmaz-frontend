@@ -45,8 +45,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
 }) => {
   const sliderRef = useRef(null);
 
-  const sliderConfiguration: Glide.Options = {
-    // @ts-ignore
+  const sliderConfiguration: Partial<Glide.Options> = {
     direction:
       document.querySelector("html")?.getAttribute("dir") === "rtl"
         ? "rtl"
@@ -83,7 +82,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
         gap: 20,
       },
       500: {
-        perView: 1.2,
+        perView: 1.3,
         gap: 20,
       },
     },
@@ -91,13 +90,13 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
 
   useEffect(() => {
     if (!sliderRef.current) {
-      return;
+      return () => {};
     }
-
     const slider = new Glide(sliderRef.current, sliderConfiguration);
     slider.mount();
-    // @ts-ignore
-    return () => slider.destroy();
+    return () => {
+      slider.destroy();
+    };
   }, [
     authorNodes,
     sliderRef,
@@ -181,7 +180,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
                   <li
                     key={index}
                     className={`glide__slide ${
-                      !isLayout2 ? "pb-12 md:pb-16" : ""
+                      !isLayout2 ? "sm:pb-10 md:pb-12" : ""
                     }`}
                   >
                     {renderCardSkeleton()}
@@ -190,8 +189,8 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
               : authorNodes.map((item, index) => (
                   <li
                     key={index}
-                    className={`glide__slide ${
-                      !isLayout2 ? "pb-12 md:pb-16" : ""
+                    className={`glide__slide !h-auto ${
+                      !isLayout2 ? "sm:pb-10 md:pb-12" : ""
                     }`}
                   >
                     {renderCard(item.node)}
@@ -202,7 +201,7 @@ const SectionSliderNewAuthors: FC<SectionSliderNewAuthorsProps> = ({
         {!isLayout2 && (
           <NextPrev
             btnClassName="w-12 h-12"
-            containerClassName="justify-center"
+            containerClassName="hidden sm:flex justify-center"
           />
         )}
       </div>

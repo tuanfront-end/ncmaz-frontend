@@ -1,4 +1,4 @@
-import React, { FC, Suspense, useRef } from "react";
+import React, { FC, Suspense } from "react";
 import ReactDOM from "react-dom";
 import Heading from "components/Heading/Heading";
 import HeaderSectionFilter, {
@@ -57,34 +57,28 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
   sectionIndex,
 }) => {
   // NEU get posts by specific thi se co data graphQLData - Neu get posts by filter thi ko co data ma can request graphQLvariables
-  const { graphQLvariables, settings, graphQLData } = apiSettings;
-
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, settings, graphQLData, hasSSrInitData } =
+    apiSettings;
 
   //
   const {
     funcGqlQueryGetPosts,
-    loading,
     IS_SKELETON,
     LISTS_POSTS,
-    data,
     error,
-    fetchMore,
     setTabActiveId,
     tabActiveId,
   } = useGutenbergSectionWithGQLGetPosts({
     graphQLData,
     graphQLvariables,
+    hasSSrInitData,
   });
 
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex, tabActiveId).ref;
 
+  //
   const handleClickTab = (item: -1 | HeaderSectionFilterTabItem) => {
     if (item === -1) {
       setTabActiveId(item);
@@ -214,14 +208,14 @@ const FactoryBlockMagazine: FC<FactoryBlockMagazineProps> = ({
     return (
       <div
         className={`nc-FactoryBlockMagazine relative ${
-          isBg ? "py-16" : ""
+          isBg ? "py-14 sm:py-16" : ""
         }  ${className}`}
         ref={ref}
       >
         {isBg && <BackgroundSection />}
 
         <div className="relative">
-          {showFilterTab ? (
+          {showFilterTab && !!categories?.length ? (
             <HeaderSectionFilter
               tabActiveId={tabActiveId}
               tabs={categories}

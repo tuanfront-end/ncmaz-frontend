@@ -42,8 +42,8 @@ export const commentLikeSlice = createSlice({
 export const { addNewLikedByPostId, removeLikedByPostId } =
   commentLikeSlice.actions;
 
-export const selectCommentRecentLikeds = (state: RootState) =>
-  state.commentLikes.recentLiked;
-export const selectCommentRecentRemoveds = (state: RootState) =>
-  state.commentLikes.recentRemoved;
-export default commentLikeSlice.reducer;
+// export const selectCommentRecentLikeds = (state: RootState) =>
+//   state.commentLikes.recentLiked;
+// export const selectCommentRecentRemoveds = (state: RootState) =>
+//   state.commentLikes.recentRemoved;
+// export default commentLikeSlice.reducer;

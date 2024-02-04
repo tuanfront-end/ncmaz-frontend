@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import { GutenbergApiAttr_BlockWidgetTerms } from "data/gutenbergAttrType";
 import WidgetCategories from "components/WidgetCategories/WidgetCategories";
@@ -19,19 +19,19 @@ const FactoryBlockWidgetTerms: FC<FactoryBlockWidgetTermsProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, graphQLData, settings } = apiSettings;
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, graphQLData, settings, hasSSrInitData } =
+    apiSettings;
 
   const { IS_SKELETON, LIST_TERMS, error, funcGqlQueryGetTerms } =
-    useGutenbergSectionWithGQLGetTerms({ graphQLvariables, graphQLData });
+    useGutenbergSectionWithGQLGetTerms({
+      graphQLvariables,
+      graphQLData,
+      hasSSrInitData,
+    });
 
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetTerms, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetTerms, sectionIndex).ref;
 
   const renderContent = () => {
     return (

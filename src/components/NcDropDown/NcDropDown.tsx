@@ -1,10 +1,10 @@
-import { DotsHorizontalIcon } from "@heroicons/react/solid";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import React, { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import twFocusClass from "utils/twFocusClass";
 
-export interface NcDropDownItem {
-  id: string;
+export interface NcDropDownItem<T = string> {
+  id: T;
   name: string;
   icon: string;
   href?: string;
@@ -35,7 +35,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
     if (item.href) {
       return (
         <a
-          className={`text-left flex items-center rounded-md w-full px-3 py-2 truncate ${
+          className={`text-left flex gap-1 items-center rounded-md w-full px-3 py-2 truncate ${
             active
               ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
               : ""
@@ -43,7 +43,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
           onClick={() => onClickItem && onClickItem(item)}
           href={item.href}
         >
-          {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-base`}></i>}
+          {!!item.icon && <i className={`${item.icon} w-7 text-lg`}></i>}
           <span className="truncate">{item.name}</span>
         </a>
       );
@@ -57,7 +57,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
         }`}
         onClick={() => onClickItem && onClickItem(item)}
       >
-        {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-base`}></i>}
+        {!!item.icon && <i className={`${item.icon} mr-1 w-7 text-lg`}></i>}
         <span className="truncate">{item.name}</span>
       </button>
     );
@@ -90,7 +90,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
         {renderTrigger ? (
           renderTrigger()
         ) : (
-          <DotsHorizontalIcon
+          <EllipsisHorizontalIcon
             className={iconClass}
             aria-hidden="true"
             stroke="none"

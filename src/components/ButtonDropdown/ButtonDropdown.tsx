@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Button, { ButtonProps } from "components/Button/Button";
 
 export interface ButtonDropdownProps extends ButtonProps {}

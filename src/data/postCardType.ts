@@ -1,4 +1,5 @@
 import { PageInfo } from "containers/SingleComments/commentType";
+import { FullImageNode } from "./types";
 
 export interface ListPosts {
   edges: Post[];
@@ -9,7 +10,7 @@ export interface ListTerms {
   pageInfo?: PageInfo;
 }
 
-interface Post {
+export interface Post {
   node: PostNode;
 }
 
@@ -46,66 +47,16 @@ export interface PostNodeFullData {
   };
   ncmazGalleryImgs: {
     fieldGroupName: string;
-    image1?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image2?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image3?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image4?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image5?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image6?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image7?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image8?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image9?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
-    image10?: {
-      id: string;
-      databaseId: string;
-      altText: string;
-      sourceUrl: string;
-    };
+    image1?: FullImageNode;
+    image2?: FullImageNode;
+    image3?: FullImageNode;
+    image4?: FullImageNode;
+    image5?: FullImageNode;
+    image6?: FullImageNode;
+    image7?: FullImageNode;
+    image8?: FullImageNode;
+    image9?: FullImageNode;
+    image10?: FullImageNode;
   };
   __typename: string;
 }
@@ -139,23 +90,23 @@ export interface PostNode {
   };
   ncmazGalleryImgs: {
     fieldGroupName: string;
-    image1?: { id: string; sourceUrl: string };
-    image2?: { id: string; sourceUrl: string };
-    image3?: { id: string; sourceUrl: string };
-    image4?: { id: string; sourceUrl: string };
-    image5?: { id: string; sourceUrl: string };
-    image6?: { id: string; sourceUrl: string };
-    image7?: { id: string; sourceUrl: string };
-    image8?: { id: string; sourceUrl: string };
-    image9?: { id: string; sourceUrl: string };
-    image10?: { id: string; sourceUrl: string };
+    image1?: FullImageNode;
+    image2?: FullImageNode;
+    image3?: FullImageNode;
+    image4?: FullImageNode;
+    image5?: FullImageNode;
+    image6?: FullImageNode;
+    image7?: FullImageNode;
+    image8?: FullImageNode;
+    image9?: FullImageNode;
+    image10?: FullImageNode;
   };
   __typename: string;
 }
 
 interface Author {
   node: AuthorNode2;
-  __typename: string;
+  __typename?: string;
 }
 
 interface AuthorNode2 {
@@ -167,9 +118,7 @@ interface AuthorNode2 {
   name: string;
   slug: string;
   ncUserMeta?: {
-    featuredImage?: {
-      sourceUrl: string;
-    };
+    featuredImage?: FullImageNode;
   };
   __typename: string;
 }
@@ -194,13 +143,8 @@ export interface AuthorNode {
 export interface NcUserMeta {
   color?: string;
   ncBio?: string;
-  featuredImage?: {
-    id: string;
-    sourceUrl: string;
-  };
-  backgroundImage?: {
-    sourceUrl?: string;
-  };
+  featuredImage?: FullImageNode;
+  backgroundImage?: FullImageNode;
   //
   youtubeUrl?: string;
   facebookUrl?: string;
@@ -225,17 +169,17 @@ interface Avatar {
   size: number;
   url: string;
   width: number;
-  __typename: string;
+  __typename?: string;
 }
 
 interface Categories {
   edges: CategoriesEdge2[];
-  __typename: string;
+  __typename?: string;
 }
 
 export interface CategoriesEdge2 {
   node: CategoriesNode3;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface CategoriesNode3 {
@@ -247,15 +191,15 @@ export interface CategoriesNode3 {
   count: number;
   categoryId: number;
   ncTaxonomyMeta: NcTaxonomyMeta;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface Tags {
   edges: {
     node: TagNode3;
-    __typename: string;
+    __typename?: string;
   }[];
-  __typename: string;
+  __typename?: string;
 }
 
 export interface TagNode3 {
@@ -267,7 +211,7 @@ export interface TagNode3 {
   count: number;
   tagId: number;
   ncTaxonomyMeta: NcTaxonomyMeta;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface TermNode {
@@ -279,29 +223,17 @@ export interface TermNode {
   count: number;
   databaseId: number;
   ncTaxonomyMeta: NcTaxonomyMeta;
-  __typename: string;
+  __typename?: string;
 }
 
 export interface NcTaxonomyMeta {
   color?: string;
-  featuredImage?: {
-    id: string;
-    sourceUrl: string;
-  };
+  featuredImage?: FullImageNode;
 }
 
-interface FeaturedImage {
-  node: Node4;
-  __typename: string;
-}
-
-interface Node4 {
-  databaseId: string;
-  id: string;
-  altText: string;
-  caption: string;
-  sourceUrl: string;
-  __typename: string;
+export interface FeaturedImage {
+  node: FullImageNode;
+  __typename?: string;
 }
 
 export type PostFormatsType =

@@ -16,7 +16,63 @@ $section = array(
     'desc'       => esc_html__('General settings for Archive page', 'ncmaz-frontend'),
     'id'         => 'nc-archive-page-settings--general',
     'subsection' => true,
-    'fields'     => array(),
+    'fields'     => array(
+        [
+            'id'       => 'nc-archive-page-settings--sidebar',
+            'type'     => 'switch',
+            'title'    => __('Show/Hide Sidebar', 'ncmaz-frontend'),
+            'subtitle' => __('Show/Hide Sidebar on Archive pages (archive pages and author pages)', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
+        [
+            'id'       => 'nc-search-page-settings--post-card-type',
+            'type'     => 'select',
+            'title'    => esc_html__('Post card name', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Select the type of post-card that will be displayed on archive pages and search pages', 'ncmaz-frontend'),
+            'desc'     => esc_html__('Default is Card 11', 'ncmaz-frontend'),
+            'options' => array(
+                'card1' => 'Card 1',
+                'card2' => 'Card 2',
+                'card3' => 'Card 3',
+                'card4' => 'Card 4',
+                'card5' => 'Card 5',
+                'card6' => 'Card 6',
+                'card7' => 'Card 7',
+                'card8' => 'Card 8',
+                'card9' => 'Card 9',
+                'card10' => 'Card 10',
+                'card11' => 'Card 11',
+                'card12' => 'Card 12',
+                'card13' => 'Card 13',
+                'card14' => 'Card 14',
+                'card16Podcast' => 'Card 16',
+                'card17Podcast' => 'Card 17',
+                'card19' => 'Card 19'
+            ),
+            'default' => 'card11'
+        ],
+        [
+            'id'       => 'nc-archive-page-settings--authorPageCoverImgDefault',
+            'type'     => 'media',
+            'url'      => true,
+            'title'    => esc_html__('Cover image default author page', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('If the user\'s cover picture is not set, it will be displayed as a placeholder.', 'ncmaz-frontend'),
+            'default'  => array(
+                'url' => 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+            ),
+        ],
+        [
+            'id'       => 'nc-archive-page-settings--archivePageCoverImgDefault',
+            'type'     => 'media',
+            'url'      => true,
+            'title'    => esc_html__('Cover image default archive page', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('If the terms cover picture is not set, it will be displayed as a placeholder.', 'ncmaz-frontend'),
+            'default'  => array(
+                'url' => 'https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+            ),
+        ],
+
+    ),
 );
 Redux::set_section($opt_name, $section);
 
@@ -75,7 +131,7 @@ $section = array(
         [
             'id'       => 'nc-archive-page-settings--section-top10-categories-sub-heading',
             'type'     => 'text',
-            'title'    => __('Heading', 'ncmaz-frontend'),
+            'title'    => __('Sub heading', 'ncmaz-frontend'),
             'default'  => 'Discover over 100 topics',
         ]
 
@@ -93,13 +149,20 @@ $section = array(
     'subsection' => true,
     'fields'     => array(
         [
+            'id'       => 'nc-search-page-settings--sidebar',
+            'type'     => 'switch',
+            'title'    => __('Show/Hide Sidebar', 'ncmaz-frontend'),
+            'subtitle' => __('Show/Hide Sidebar on search pages', 'ncmaz-frontend'),
+            'default'  => false,
+        ],
+        [
             'id'            => 'nc-search-page-settings--media-background',
             'type'          => 'media',
             'url'           => true,
             'title'         => __('Header Background Image', 'ncmaz-frontend'),
             'subtitle'      => __('Upload image for header background on search page', 'ncmaz-frontend'),
             'default'       => array(
-                'url' => 'https://chisnghiax.com/ncmaz/static/media/placeholder-large.ed676656.png'
+                'url' => 'https://images.pexels.com/photos/2138922/pexels-photo-2138922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
             ),
         ],
         [

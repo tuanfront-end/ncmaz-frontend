@@ -85,14 +85,14 @@ add_action('graphql_input_fields', function ($fields, $type_name, $config) {
             'ncmazAudioUrl' => ['type' => 'String'],
             'ncmazVideoUrl' => ['type' => 'String'],
             // 
-            'ncmazGalleryImgs_1_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_2_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_3_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_4_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_5_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_6_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_7_databaseID' => ['type' => 'Int'],
-            'ncmazGalleryImgs_8_databaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs1DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs2DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs3DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs4DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs5DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs6DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs7DatabaseID' => ['type' => 'Int'],
+            'ncmazGalleryImgs8DatabaseID' => ['type' => 'Int'],
         ]);
     }
     if ($type_name === 'UpdateUserInput') {
@@ -130,29 +130,29 @@ add_action('graphql_post_object_mutation_update_additional_data', function ($pos
     if (isset($input['ncmazVideoUrl'])) {
         update_field('video_url', $input['ncmazVideoUrl'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_1_databaseID'])) {
-        update_field('image_1', $input['ncmazGalleryImgs_1_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs1DatabaseID'])) {
+        update_field('image_1', $input['ncmazGalleryImgs1DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_2_databaseID'])) {
-        update_field('image_2', $input['ncmazGalleryImgs_2_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs2DatabaseID'])) {
+        update_field('image_2', $input['ncmazGalleryImgs2DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_3_databaseID'])) {
-        update_field('image_3', $input['ncmazGalleryImgs_3_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs3DatabaseID'])) {
+        update_field('image_3', $input['ncmazGalleryImgs3DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_4_databaseID'])) {
-        update_field('image_4', $input['ncmazGalleryImgs_4_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs4DatabaseID'])) {
+        update_field('image_4', $input['ncmazGalleryImgs4DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_5_databaseID'])) {
-        update_field('image_5', $input['ncmazGalleryImgs_5_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs5DatabaseID'])) {
+        update_field('image_5', $input['ncmazGalleryImgs5DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_6_databaseID'])) {
-        update_field('image_6', $input['ncmazGalleryImgs_6_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs6DatabaseID'])) {
+        update_field('image_6', $input['ncmazGalleryImgs6DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_7_databaseID'])) {
-        update_field('image_7', $input['ncmazGalleryImgs_7_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs7DatabaseID'])) {
+        update_field('image_7', $input['ncmazGalleryImgs7DatabaseID'], $post_id);
     }
-    if (isset($input['ncmazGalleryImgs_8_databaseID'])) {
-        update_field('image_8', $input['ncmazGalleryImgs_8_databaseID'], $post_id);
+    if (isset($input['ncmazGalleryImgs8DatabaseID'])) {
+        update_field('image_8', $input['ncmazGalleryImgs8DatabaseID'], $post_id);
     }
     if (!empty($input['ncFeaturedImageDatabaseId'])) {
         set_post_thumbnail($post_id,  $input['ncFeaturedImageDatabaseId']);
@@ -209,3 +209,59 @@ add_action('graphql_user_object_mutation_update_additional_data', function ($use
         update_field('buymeacoffe_url', $input['ncmazBuymeacoffeUrl'], $user_id);
     }
 }, 10, 5);
+
+//
+add_action('graphql_register_types', function () {
+    register_graphql_object_type(
+        'NcPostMetaDataType',
+        [
+            'description' => __('Post Custom MetaData Type', 'ncmaz-frontend'),
+            'fields'      => [
+                'readingTimeShortcode' => [
+                    'type'        => 'String',
+                    'description' => __('Reading time shortcode DOM (String)', 'ncmaz-frontend'),
+                ],
+                'viewsCount'  => [
+                    'type'        => 'Int',
+                    'description' => __('View count (Int)', 'ncmaz-frontend'),
+                ],
+                'singlePageStyle'       => [
+                    'type'        => 'String',
+                    'description' => __('Single page style (String)', 'ncmaz-frontend'),
+                ],
+                'showRightSidebar'       => [
+                    'type'        => 'Bool',
+                    'description' => __('Show/Hide right-sidebar of this single', 'ncmaz-frontend'),
+                ],
+                'favoriteButtonShortcode'   => [
+                    'type'        => 'String',
+                    'description' => __('Favorite Button Shortcode DOM', 'ncmaz-frontend'),
+                ],
+                'fieldGroupName'   => [
+                    'type'        => 'String',
+                    'description' => 'fieldGroupName'
+                ],
+            ],
+        ]
+    );
+    register_graphql_field(
+        'ContentNode',
+        'ncPostMetaData',
+        [
+            'description'   => __('Return stunt performers', 'bsr'),
+            'type'          => 'NcPostMetaDataType',
+            'resolve'       => function (\WPGraphQL\Model\Post $post, $args, $context, $info) {
+                $postID = $post->databaseId;
+
+                return (object) [
+                    'readingTimeShortcode'      =>  function_exists('ncmazFe_getReadingTimeDom') ? ncmazFe_getReadingTimeDom($postID) : '',
+                    'favoriteButtonShortcode'   =>  function_exists('get_favorites_button') ? get_favorites_button($postID) : '',
+                    'fieldGroupName'            =>  'ncPostMetaData',
+                    'showRightSidebar'          =>  function_exists('get_field') ? get_field('show_right_sidebar', $postID) : null,
+                    'singlePageStyle'           =>  function_exists('get_field') ? get_field('single_page_style', $postID) : null,
+                    'viewsCount'                =>  function_exists('get_field') ? get_field('views_count', $postID) : 1,
+                ];
+            }
+        ]
+    );
+});

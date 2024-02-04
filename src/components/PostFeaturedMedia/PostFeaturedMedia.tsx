@@ -5,17 +5,20 @@ import MediaVideo from "./MediaVideo";
 import MediaAudio from "./MediaAudio";
 import { PostNode } from "data/postCardType";
 import getImgsFromNcmazGalleryImgs from "utils/getImgsFromNcmazGalleryImgs";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
 
 export interface PostFeaturedMediaProps {
   className?: string;
   post: PostNode;
   isHover?: boolean;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
 const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
   className = "w-full h-full",
   post,
   isHover = false,
+  imageSizes,
 }) => {
   const { featuredImage, postFormats, ncmazVideoUrl, ncmazGalleryImgs, link } =
     post;
@@ -27,8 +30,11 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
     if (!galleryImgs.length) {
       return (
         <NcImage
-          containerClassName="absolute inset-0"
+          containerClassName="absolute inset-0 group-hover:opacity-90 transition-opacity"
           src={featuredImage?.node.sourceUrl || "."}
+          srcSet={featuredImage?.node.srcSet}
+          alt={featuredImage?.node.altText}
+          imageSizes={imageSizes}
         />
       );
     }
@@ -68,18 +74,31 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
 
     // DEFAULT - OTHER
     return (
-      <a href={link} className="absolute inset-0">
+      <a
+        href={link}
+        className="absolute inset-0 group-hover:opacity-90 transition-opacity"
+      >
         <NcImage
           containerClassName="absolute inset-0"
           src={featuredImage?.node.sourceUrl || "."}
+          srcSet={featuredImage?.node.srcSet}
+          alt={featuredImage?.node.altText}
+          imageSizes={imageSizes}
         />
       </a>
     );
   };
 
+  const standardHasFeaturedImage =
+    postType === "Standard" && featuredImage && featuredImage.node.id;
+
   return (
     <div
-      className={`nc-PostFeaturedMedia relative ${className}`}
+      className={`nc-PostFeaturedMedia relative ${className} ${
+        standardHasFeaturedImage
+          ? "standardhasFeaturedImage"
+          : "standardnotFeaturedImage"
+      }`}
       data-nc-id="PostFeaturedMedia"
     >
       {renderContent()}

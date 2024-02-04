@@ -25,6 +25,14 @@ $section = array(
             'default'  => true,
         ],
         [
+            'id'       => 'nc-header-settings--general--toggle-mini-cart',
+            'type'     => 'switch',
+            'title'    => __('Toggle WooCommerce mini cart', 'ncmaz-frontend'),
+            'subtitle' => __('Show/Hide Mini cart on header (if use WooCommerce)', 'ncmaz-frontend'),
+            'default'  => true,
+            'disabled'  => class_exists('WooCommerce') ? false : true,
+        ],
+        [
             'id'       => 'nc-header-settings--general--fixed-notify',
             'type'     => 'textarea',
             'title'    => __('Header fixed notifycation', 'ncmaz-frontend'),
@@ -54,6 +62,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -65,6 +78,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -76,6 +94,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -87,6 +110,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -98,6 +126,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
         [
@@ -109,6 +142,11 @@ $section = array(
                 'name' => 'Name',
                 'url' => 'Url',
                 'icon' => 'Icon',
+            ),
+            'default' => array(
+                'name' => '',
+                'url' => '',
+                'icon' => '',
             )
         ],
 

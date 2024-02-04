@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import NCMAZ_TRANSLATE from "contains/translate";
 import React, { useEffect } from "react";
-import { Slide, toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { GQL_MUTATION_UPDATE_USER } from "./gqlUpdateUser";
 
 function useMutaionUpdateUser() {
@@ -15,9 +15,7 @@ function useMutaionUpdateUser() {
 
   useEffect(() => {
     if (!data) return;
-    toast.success(NCMAZ_TRANSLATE["Your account has been updated."], {
-      transition: Slide,
-    });
+    toast.success(NCMAZ_TRANSLATE["Your account has been updated."]);
 
     setTimeout(() => {
       window.location.reload();

@@ -1,13 +1,15 @@
 // COMPOnent nay muc dich chi hide/show header va action voi single header
 try {
   const HeaderSite = () => {
-    setTimeout(() => {
-      _scrollHeaderSite();
-    }, 200);
-
     const width = window.innerWidth;
     const windowSizeWidth = width || window.innerWidth;
-
+    let HAS_EVENT_SCROLL: void | null = null;
+    let OBSERVER: IntersectionObserver | null = null;
+    let OBSERVER_OPTIONS = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
     //
     const containerRef = document.querySelector<HTMLDivElement>(".nc-Header");
     const mainMenuRef = document.querySelector<HTMLDivElement>(
@@ -17,13 +19,27 @@ try {
       ".nc-Header__MainNav1 .nc-MainNav1"
     );
     let wpadminbarRef = document.querySelector<HTMLDivElement>("#wpadminbar");
+    const anchorHeaderSiteRef =
+      document.querySelector<HTMLDivElement>("#anchorHeaderSite");
     //
     if (!mainMenuRef) {
       return null;
     }
     //
+    const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
+      // entries.forEach((entry) => {
+      //   _handleSiteHeaderIsTop(entry.isIntersecting);
+      // });
+    };
+    if (!OBSERVER) {
+      OBSERVER = new IntersectionObserver(
+        intersectionCallback,
+        OBSERVER_OPTIONS
+      );
+      anchorHeaderSiteRef && OBSERVER.observe(anchorHeaderSiteRef);
+    }
 
-    const _handleIsTop = (isTop: boolean) => {
+    const _handleSiteHeaderIsTop = (isTop: boolean) => {
       if (!mainMenuChildRef) return;
 
       if (isTop && !mainMenuChildRef.classList.contains("onTop")) {
@@ -43,58 +59,55 @@ try {
       }
       //
 
-      let prevScrollpos = window.pageYOffset;
-      let mainMenuHeight = 0;
-      let wpadminbarHeight = 0;
+      let WIN_PREV_POSITION = window.pageYOffset;
+      let MAIN_MENU_HEIGHT = 0;
+      let WP_ADMIN_BAR_HEIGHT = 0;
 
       let mainMenuH = mainMenuRef.offsetHeight;
       if (!!wpadminbarRef) {
         mainMenuH = mainMenuH - wpadminbarRef.offsetHeight;
-        wpadminbarHeight = wpadminbarRef.offsetHeight;
+        WP_ADMIN_BAR_HEIGHT = wpadminbarRef.offsetHeight;
       }
-      mainMenuHeight = mainMenuH;
+      MAIN_MENU_HEIGHT = mainMenuH;
 
-      // FIRST TIME DIDMOUNT
-      let winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      if (winScroll > 0) {
-        _handleIsTop(false);
+      // FIRST
+      if (containerRef && WP_ADMIN_BAR_HEIGHT > 0) {
+        containerRef.style.top = `${WP_ADMIN_BAR_HEIGHT}px`;
       }
-      //
 
       const handleEvent = () => {
         window.requestAnimationFrame(showHideHeaderMenu);
       };
-
-      window.removeEventListener("scroll", handleEvent);
-      window.addEventListener("scroll", handleEvent);
 
       const showHideHeaderMenu = () => {
         let currentScrollPos = window.pageYOffset;
         if (!containerRef || !mainMenuRef) {
           return;
         }
-
-        // SET BG
-        if (prevScrollpos < currentScrollPos) {
-          currentScrollPos > mainMenuHeight
-            ? _handleIsTop(false)
-            : _handleIsTop(true);
-        } else {
-          currentScrollPos > 0 ? _handleIsTop(false) : _handleIsTop(true);
+        //
+        if (Math.abs(WIN_PREV_POSITION - currentScrollPos) <= 50) {
+          return;
         }
 
         // SHOW _ HIDE MAIN MENU
-        if (prevScrollpos > currentScrollPos) {
-          containerRef.style.top = `${wpadminbarHeight}px`;
+        if (WIN_PREV_POSITION > currentScrollPos) {
+          containerRef.style.top = `${WP_ADMIN_BAR_HEIGHT}px`;
         } else {
-          containerRef.style.top = `-${mainMenuHeight + 1}px`;
+          containerRef.style.top = `-${MAIN_MENU_HEIGHT + 2}px`;
         }
-        prevScrollpos = currentScrollPos;
+        WIN_PREV_POSITION = currentScrollPos;
       };
+
+      if (!HAS_EVENT_SCROLL) {
+        HAS_EVENT_SCROLL = window.addEventListener("scroll", handleEvent);
+      }
 
       return null;
     };
+
+    setTimeout(() => {
+      _scrollHeaderSite();
+    }, 500);
 
     return null;
   };

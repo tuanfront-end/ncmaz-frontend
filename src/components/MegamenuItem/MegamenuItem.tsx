@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import ReactDOM from "react-dom";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
 import { ListPosts } from "data/postCardType";
@@ -7,6 +7,8 @@ import Card18 from "components/Card18/Card18";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import Card18Skeleton from "components/Card18/Card18Skeleton";
 import useGqlQuerySection from "hooks/useGqlQuerySection";
+import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Data {
   posts: ListPosts;
@@ -83,7 +85,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     });
 
   // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, 99);
+  const { ref } = useGqlQuerySection(gqlQueryGetPosts, 999);
   // =========================================================
 
   const pageInfo = data?.posts?.pageInfo;
@@ -109,12 +111,12 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     }
 
     let btnClassName =
-      "w-10 h-10 bg-white dark:bg-neutral-900 border border-neutral-200 hover:border-neutral-300 dark:border-neutral-6000 dark:hover:border-neutral-500 rounded-full flex items-center justify-center  -- disabled:opacity-70 disabled:text-gray-500  disabled:cursor-default disabled:hover:border-neutral-200 dark:disabled:hover:border-neutral-6000";
+      "px-4 py-1.5 text-xs bg-white dark:bg-neutral-900 border border-neutral-200 hover:border-neutral-300 dark:border-neutral-6000 dark:hover:border-neutral-500 rounded-full flex items-center justify-center  -- disabled:opacity-70 disabled:text-gray-500  disabled:cursor-default disabled:hover:border-neutral-200 dark:disabled:hover:border-neutral-6000";
     return (
-      <div className="nc-NextPrev mt-8 ml-2 relative flex items-center justify-center text-neutral-900 dark:text-neutral-300 space-x-2.5 ">
+      <div className="nc-NextPrev mt-6 relative flex items-center justify-center text-neutral-900 dark:text-neutral-300 space-x-2.5 ">
         <button
           className={btnClassName}
-          disabled={!pageInfo.hasPreviousPage}
+          disabled={!pageInfo.hasPreviousPage || loading}
           onClick={() => {
             fetchMore &&
               fetchMore({
@@ -128,11 +130,12 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
               });
           }}
         >
-          <i className="las la-angle-left"></i>
+          <ArrowLeftIcon className="w-3.5 h-3.5" />
+          <span className="ml-1.5">{NCMAZ_TRANSLATE["prev"]}</span>
         </button>
         <button
           className={btnClassName}
-          disabled={!pageInfo.hasNextPage}
+          disabled={!pageInfo.hasNextPage || loading}
           onClick={() => {
             fetchMore &&
               fetchMore({
@@ -146,7 +149,8 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
               });
           }}
         >
-          <i className="las la-angle-right"></i>
+          <span className="mr-1.5">{NCMAZ_TRANSLATE["next"]}</span>
+          <ArrowRightIcon className="w-3.5 h-3.5" />
         </button>
       </div>
     );
@@ -155,29 +159,31 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   const renderLeft = () => {
     const { taxonomies } = menuItemData.ncmazMenuCustomFields;
     return (
-      <div className="w-1/5 py-8 flex-shrink-0  ">
-        <div className="flow-root">
-          <div>
-            {(taxonomies || []).map((item) => {
-              const isActive = item.categoryId === temrActiveId;
-              return (
-                <a
-                  href={item.link}
-                  className={`py-2.5 px-5 flex items-center !m-0 relative ${
-                    isActive ? "bg-neutral-100 dark:bg-neutral-800 " : ""
-                  }`}
-                  key={item.categoryId}
-                  onMouseEnter={() => handleMoutEnterTerm(item)}
-                >
-                  {isActive && (
-                    <span className="absolute left-0 w-1 h-full top-0 bg-primary-500"></span>
-                  )}
-                  {item.name}
-                </a>
-              );
-            })}
-          </div>
-        </div>
+      <div className="w-1/5 py-6 pr-4 flex-shrink-0">
+        {(taxonomies || []).map((item) => {
+          const isActive = item.categoryId === temrActiveId;
+          return (
+            <div
+              className={`group py-2.5 pl-8 flex items-center justify-between relative rounded-r-full cursor-pointer ${
+                isActive
+                  ? "bg-primary-50 dark:bg-neutral-800 text-primary-900 font-medium dark:text-primary-50"
+                  : "hover:bg-neutral-100/80 dark:hover:bg-neutral-800/50"
+              }`}
+              key={item.categoryId}
+              onClick={() => handleMoutEnterTerm(item)}
+            >
+              <span>{item.name}</span>
+              <a
+                className={`pr-5 pl-2 ${
+                  isActive ? "block" : "hidden group-hover:block"
+                }`}
+                href={item.link}
+              >
+                <ArrowRightIcon className={`w-4 h-4`} />
+              </a>
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -191,7 +197,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
             : ""
         }`}
       >
-        <div className="px-4 py-5 ">
+        <div className="p-6">
           <DataStatementBlockV2
             className="my-5"
             data={POSTS}
@@ -202,7 +208,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
           {/* LOOP ITEMS */}
           {IS_SKELETON || POSTS.length ? (
             <div
-              className={`grid gap-4 ${
+              className={`grid gap-6 ${
                 showTabFilter ? "grid-cols-4" : "grid-cols-5"
               }`}
             >
@@ -211,7 +217,11 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
                     (_, index) => <Card18Skeleton key={index} />
                   )
                 : POSTS.map((item) => (
-                    <Card18 post={item.node} key={item.node.id} />
+                    <Card18
+                      imageSizes="MEDIUM"
+                      post={item.node}
+                      key={item.node.id}
+                    />
                   ))}
             </div>
           ) : null}
@@ -224,11 +234,8 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
 
   const renderContent = () => {
     return (
-      <div
-        ref={ref}
-        className="nc-megamenu-item absolute top-full py-3 -inset-x-10"
-      >
-        <div className="w-full flex overflow-hidden rounded-2xl shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 ">
+      <div ref={ref} className="nc-megamenu-item absolute top-full inset-x-0 ">
+        <div className="w-full flex overflow-hidden rounded-xl shadow-lg ring-1 ring-black dark:ring-white ring-opacity-5 dark:ring-opacity-10 text-sm relative bg-white dark:bg-neutral-900 ">
           {showTabFilter && renderLeft()}
           {renderRight()}
         </div>

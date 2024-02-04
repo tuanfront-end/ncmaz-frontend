@@ -73,6 +73,7 @@ export const mediaRunningSlice = createSlice({
     removeMediaRunning: (state) => {
       return {
         player: initPlayer,
+        hasButtonPlayOnDOM: state.hasButtonPlayOnDOM,
       };
     },
 
@@ -97,6 +98,10 @@ export const mediaRunningSlice = createSlice({
     },
     //
     changeStateHasButtonPlayOnDOM: (state, action: PayloadAction<boolean>) => {
+      if (action.payload === state.hasButtonPlayOnDOM) {
+        return state;
+      }
+
       return {
         ...state,
         hasButtonPlayOnDOM: action.payload,

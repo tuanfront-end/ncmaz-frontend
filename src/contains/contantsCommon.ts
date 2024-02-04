@@ -27,6 +27,17 @@ const avatarColors = [
   "#E208A7",
 ];
 
+//
+const FEATURED_IMAGE_COMMONT = `
+id
+altText
+caption
+databaseId
+sizes
+sourceUrl
+srcSet
+`;
+
 // ===================== POSTS =================================================
 const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
     id
@@ -47,7 +58,7 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
         slug
         ncUserMeta {
           featuredImage {
-            sourceUrl(size: $author_ncUserMeta_featuredImage_size)
+            ${FEATURED_IMAGE_COMMONT}
           }
         }
       }
@@ -86,11 +97,7 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
     excerpt
     featuredImage {
       node {
-        id
-        databaseId
-        altText
-        caption
-        sourceUrl(size: $featuredImage_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
     }
     postFormats {
@@ -118,52 +125,28 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
     }
     ncmazGalleryImgs {
       image1 {
-        id
-        sourceUrl(size: $ncmazGalleryImgs_size)
-        databaseId
-        altText
+        ${FEATURED_IMAGE_COMMONT}
       }
       image2 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
-         databaseId
-         altText
+        ${FEATURED_IMAGE_COMMONT}
       }
       image3 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
-         databaseId
-         altText
+        ${FEATURED_IMAGE_COMMONT}
       }
       image4 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
-         databaseId
-         altText
+        ${FEATURED_IMAGE_COMMONT}
       }
       image5 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
-         databaseId
-         altText
+        ${FEATURED_IMAGE_COMMONT}
       }
       image6 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
-         databaseId
-         altText
+        ${FEATURED_IMAGE_COMMONT}
       }
       image7 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
-         databaseId
-         altText
+        ${FEATURED_IMAGE_COMMONT}
       }
       image8 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
-         databaseId
-         altText
+        ${FEATURED_IMAGE_COMMONT}
       }
     }
 `;
@@ -185,7 +168,7 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES = `
         slug
         ncUserMeta {
           featuredImage {
-            sourceUrl(size: $author_ncUserMeta_featuredImage_size)
+            ${FEATURED_IMAGE_COMMONT}
           }
         }
       }
@@ -211,11 +194,7 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES = `
     excerpt
     featuredImage {
       node {
-        id
-        databaseId
-        altText
-        caption
-        sourceUrl(size: $featuredImage_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
     }
     postFormats {
@@ -243,36 +222,28 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES = `
     }
     ncmazGalleryImgs {
       image1 {
-        id
-        sourceUrl(size: $ncmazGalleryImgs_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
       image2 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
       image3 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
       image4 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
       image5 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
       image6 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
       image7 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
       image8 {
-        id
-         sourceUrl(size: $ncmazGalleryImgs_size)
+        ${FEATURED_IMAGE_COMMONT}
       }
     }
 `;
@@ -296,11 +267,10 @@ const EDGES_USER_COMMONT_FIELDS = `edges {
 			color
 			ncBio
 			featuredImage {
-				sourceUrl(size: $author_ncUserMeta_featuredImage_size)
-				id
+        ${FEATURED_IMAGE_COMMONT}
 			}
 			backgroundImage {
-				sourceUrl(size: $author_ncUserMeta_backgroundImage_size)
+        ${FEATURED_IMAGE_COMMONT}
 			}
 		}
     posts {
@@ -323,7 +293,7 @@ const EDGES_TERMS_COMMONT_FIELDS = `edges {
         ncTaxonomyMeta {
             color                                     
             featuredImage {
-              sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
+              ${FEATURED_IMAGE_COMMONT}
             }
         }
     }
@@ -332,6 +302,7 @@ const EDGES_TERMS_COMMONT_FIELDS = `edges {
 export {
   avatarColors,
   //
+  FEATURED_IMAGE_COMMONT,
   EDGES_POST_COMMONT_FIELDS,
   EDGES_POST_COMMONT_FIELDS_NOT_EDGES,
   EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT,

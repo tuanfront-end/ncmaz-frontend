@@ -67,7 +67,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'return_format' => 'url',
+                    'return_format' => 'array',
                     'preview_size' => 'thumbnail',
                     'library' => 'all',
                     'min_width' => '',
@@ -92,7 +92,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'return_format' => 'url',
+                    'return_format' => 'array',
                     'preview_size' => 'thumbnail',
                     'library' => 'all',
                     'min_width' => '',
@@ -117,7 +117,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'return_format' => 'url',
+                    'return_format' => 'array',
                     'preview_size' => 'thumbnail',
                     'library' => 'all',
                     'min_width' => '',
@@ -142,7 +142,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'return_format' => 'url',
+                    'return_format' => 'array',
                     'preview_size' => 'thumbnail',
                     'library' => 'all',
                     'min_width' => '',
@@ -167,7 +167,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'return_format' => 'url',
+                    'return_format' => 'array',
                     'preview_size' => 'thumbnail',
                     'library' => 'all',
                     'min_width' => '',
@@ -192,7 +192,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'return_format' => 'url',
+                    'return_format' => 'array',
                     'preview_size' => 'thumbnail',
                     'library' => 'all',
                     'min_width' => '',
@@ -217,7 +217,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'return_format' => 'url',
+                    'return_format' => 'array',
                     'preview_size' => 'thumbnail',
                     'library' => 'all',
                     'min_width' => '',
@@ -242,7 +242,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'return_format' => 'url',
+                    'return_format' => 'array',
                     'preview_size' => 'thumbnail',
                     'library' => 'all',
                     'min_width' => '',
@@ -327,49 +327,8 @@ function ncmazFrontend_acf_add_local_field_groups()
             'title' => 'ncPostMetaData',
             'fields' => array(
                 array(
-                    'key' => 'field_615317bb8ab81',
-                    'label' => 'Favorite Button Shortcode',
-                    'name' => 'favorite_button_shortcode',
-                    'type' => 'wysiwyg',
-                    'instructions' => '[favorite_button]',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => 'hidden',
-                        'id' => '',
-                    ),
-                    'show_in_graphql' => 1,
-                    'default_value' => '[favorite_button]',
-                    'tabs' => 'text',
-                    'toolbar' => 'basic',
-                    'media_upload' => 0,
-                    'delay' => 0,
-                ),
-                array(
-                    'key' => 'field_615318d18ab82',
-                    'label' => 'Reading Time Shortcode',
-                    'name' => 'reading_time_shortcode',
-                    'type' => 'wysiwyg',
-                    'instructions' => '[rt_reading_time label="" postfix="minutes" postfix_singular="minute"]',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => 'hidden',
-                        'id' => '',
-                    ),
-                    'show_in_graphql' => 1,
-                    'default_value' => '[rt_reading_time label="" postfix="minutes" postfix_singular="minute"]',
-                    'tabs' => 'text',
-                    'media_upload' => 0,
-                    'toolbar' => 'basic',
-                    'delay' => 0,
-                ),
-
-                array(
                     'key' => 'field_61532afb973d2',
-                    'label' => 'single page style',
+                    'label' => 'Single page style',
                     'name' => 'single_page_style',
                     'type' => 'select',
                     'instructions' => '',
@@ -382,11 +341,12 @@ function ncmazFrontend_acf_add_local_field_groups()
                     ),
                     'show_in_graphql' => 1,
                     'choices' => array(
-                        1 => '1',
-                        2 => '2',
-                        3 => '3',
+                        'by_theme_options' => 'By theme options',
+                        1 => 'Style 1',
+                        2 => 'Style 2',
+                        3 => 'Style 3',
                     ),
-                    'default_value' => false,
+                    'default_value' => 'By theme options',
                     'allow_null' => 0,
                     'multiple' => 0,
                     'ui' => 0,
@@ -634,7 +594,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '/#',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -651,7 +611,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '/#',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -668,7 +628,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '/#',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -685,7 +645,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => '/#',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -804,7 +764,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => 'https://abc.com/me',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 [
@@ -821,7 +781,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'id' => '',
                     ),
                     'show_in_graphql' => 1,
-                    'default_value' => 'https://www.buymeacoffee.com/nghiaxchis',
+                    'default_value' => '',
                     'placeholder' => '',
                 ],
                 // 
@@ -852,7 +812,7 @@ function ncmazFrontend_acf_add_local_field_groups()
                     array(
                         'param' => 'user_form',
                         'operator' => '==',
-                        'value' => 'all',
+                        'value' => 'edit',
                     ),
                 ),
             ),
@@ -1008,29 +968,4 @@ function ncmazFrontend_acf_add_local_field_groups()
         ));
 
     endif;
-}
-
-
-//  Set ACF default values for existing posts.
-add_action('admin_init', 'ncmazFe_set_default_acf_values');
-function ncmazFe_set_default_acf_values()
-{
-    if (!is_admin()) {
-        return;
-    }
-
-    $args = [
-        'post_type'      => 'post',
-        'posts_per_page' => -1,
-        'post_status'    => 'publish'
-    ];
-    $posts = get_posts($args);
-    foreach ($posts as $post) {
-        if (empty(get_field('views_count', $post->ID))) {
-            update_field('views_count', 1, $post->ID);
-        }
-        if (empty(get_field('simplefavorites_count', $post->ID))) {
-            update_field('simplefavorites_count', 0, $post->ID);
-        }
-    }
 }

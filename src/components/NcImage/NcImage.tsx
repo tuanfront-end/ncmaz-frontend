@@ -1,77 +1,26 @@
-import React, {
-  FC,
-  ImgHTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import checkInViewIntersectionObserver from "utils/isInViewPortIntersectionObserver";
+import React, { FC, ImgHTMLAttributes } from "react";
+import getImageSizesBySizeName, {
+  NC_IMAGE_SIZES,
+} from "utils/getImageSizesBySizeName";
 import PlaceIcon from "./PlaceIcon";
 
 export interface NcImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   containerClassName?: string;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
 const NcImage: FC<NcImageProps> = ({
   containerClassName = "",
   alt = "nc-imgs",
-  src = "",
   className = "object-cover w-full h-full",
+  loading = "lazy",
+  src,
+  sizes,
+  imageSizes = window.innerWidth < 475 ? "MEDIUM" : "MEDIUM_LARGE",
   ...args
 }) => {
-  let isMounted = false;
-  const _containerRef = useRef(null);
-  let _imageEl: HTMLImageElement | null = null;
-  // const darkmodeState = useAppSelector(selectDarkmodeState);
-
-  const [__src, set__src] = useState("");
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  const _initActions = async () => {
-    _checkInViewPort();
-  };
-
-  const _checkInViewPort = () => {
-    if (!_containerRef.current) return;
-    checkInViewIntersectionObserver({
-      target: _containerRef.current as any,
-      options: {
-        root: null,
-        rootMargin: "0%",
-        threshold: 0,
-      },
-      freezeOnceVisible: true,
-      callback: _imageOnViewPort,
-    });
-  };
-
-  const _imageOnViewPort = () => {
-    if (!src) {
-      _handleImageLoaded();
-      return true;
-    }
-    _imageEl = new Image();
-    if (_imageEl) {
-      _imageEl.src = src;
-      _imageEl.addEventListener("load", _handleImageLoaded);
-    }
-    return true;
-  };
-
-  const _handleImageLoaded = () => {
-    if (!isMounted) return;
-    setImageLoaded(true);
-    set__src(src);
-  };
-
-  useEffect(() => {
-    isMounted = true;
-    _initActions();
-    return () => {
-      isMounted = false;
-    };
-  }, [src]);
-
+  let SIZES = getImageSizesBySizeName({ sizeName: imageSizes, sizes });
+  const urlMabeOk = !!src && src.includes("http");
   const renderLoadingPlaceholder = () => {
     return (
       <div
@@ -86,12 +35,21 @@ const NcImage: FC<NcImageProps> = ({
 
   return (
     <div
-      className={`nc-NcImage ${containerClassName}`}
+      className={`nc-NcImage ${containerClassName} overflow-hidden z-0 ${
+        urlMabeOk ? "mabeUrlOk" : "mabeUrlNotOk"
+      }`}
       data-nc-id="NcImage"
-      ref={_containerRef}
     >
-      {__src && imageLoaded ? (
-        <img src={__src} className={className} alt={alt} {...args} />
+      {urlMabeOk ? (
+        <img
+          src={src}
+          alt={alt}
+          className={className}
+          loading={loading}
+          {...args}
+          sizes={SIZES}
+          // srcSet="http://localhost/wordpress-1/wp-content/uploads/2022/09/1650732.jpg 960w, http://localhost/wordpress-1/wp-content/uploads/2022/09/1650732-240x300.jpg 240w, http://localhost/wordpress-1/wp-content/uploads/2022/09/1650732-819x1024.jpg 819w, http://localhost/wordpress-1/wp-content/uploads/2022/09/1650732-768x960.jpg 768w"
+        ></img>
       ) : (
         renderLoadingPlaceholder()
       )}

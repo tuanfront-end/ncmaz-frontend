@@ -53,7 +53,10 @@ const CardCategory4: FC<CardCategory4Props> = ({
       >
         <NcImage
           src={featuredImage?.sourceUrl || "."}
+          srcSet={featuredImage?.srcSet}
+          alt={name}
           className="object-cover w-full h-full rounded-2xl"
+          imageSizes="MEDIUM"
         />
         <div>
           {index && (
@@ -67,19 +70,15 @@ const CardCategory4: FC<CardCategory4Props> = ({
         <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"></span>
       </div>
 
-      <div className="flex items-center mt-5">
+      <div className="flex items-center mt-2.5 sm:mt-5">
         <div
-          className={`flex-shrink-0 w-10 h-10 ${getColorClass()} rounded-full`}
+          className={`flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-9 lg:h-9 ${getColorClass()} rounded-full`}
         ></div>
         <div className="ml-3 truncate">
-          <h3
-            className={`text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-medium truncate`}
-          >
+          <h3 className="text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-medium truncate">
             {name}
           </h3>
-          <span
-            className={`block mt-1 text-sm text-neutral-6000 dark:text-neutral-400`}
-          >
+          <span className="block sm:mt-1 text-sm text-neutral-6000 dark:text-neutral-400">
             {count} {NCMAZ_TRANSLATE["articles"]}
           </span>
         </div>

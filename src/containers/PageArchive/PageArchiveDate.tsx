@@ -1,21 +1,20 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import ModalCategories from "./ModalCategories";
 import ModalTags from "./ModalTags";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import ArchiveFilterListBox from "components/ArchiveFilterListBox/ArchiveFilterListBox";
-import Card11 from "components/Card11/Card11";
 import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
-import { ListBoxItemType } from "components/NcListBox/NcListBox";
-import Card11Skeleton from "components/Card11/Card11Skeleton";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
 import SectionTrendingCategories from "./SectionTrendingCategories";
 import {
+  ArchiveOrderBy,
   ARCHIVE_PAGE_FILTERS,
   SectionCategoriesTrendingArchivePageOption,
 } from "./PageArchive";
 import NCMAZ_TRANSLATE from "contains/translate";
+import ArchiveGridPost from "./ArchiveGridPost";
 
 interface Data {
   posts: ListPosts;
@@ -30,6 +29,7 @@ export interface PageArchiveDateProps {
   pageTitle: string;
   //
   sectionCategoriesTrending: SectionCategoriesTrendingArchivePageOption;
+  enableSidebar?: boolean;
 }
 
 // Khong de ben trong funtion. Vi de o trong se bi khoi tao lai khi re-render
@@ -41,13 +41,34 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
   day,
   monthnum,
   year,
-  sectionCategoriesTrending,
   pageTitle,
+  enableSidebar = false,
 }) => {
   const POST_PER_PAGE =
     frontendObject.allSettings?.readingSettingsPostsPerPage || 20;
 
   const [orderByState, setorderByState] = useState(FILTERS[0].value);
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const orderByParam = urlParams.get("orderBy");
+    const orderByParamCorrect: ArchiveOrderBy[] = [
+      "COMMENT_COUNT",
+      "DATE",
+      "FAVORITES_COUNT",
+      "VIEWS_COUNT",
+    ];
+
+    if (
+      !orderByParam ||
+      !orderByParamCorrect.includes(orderByParam as ArchiveOrderBy)
+    ) {
+      return;
+    }
+
+    setorderByState((orderByParam as ArchiveOrderBy) || "DATE");
+  }, []);
   //
   let variables = {};
   //
@@ -90,8 +111,11 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
     };
   };
 
-  const handleChangeFilter = (item: ListBoxItemType) => {
+  const handleChangeFilter = (item: typeof ARCHIVE_PAGE_FILTERS[number]) => {
     setorderByState(item.value);
+    let queryParams = new URLSearchParams(window.location.search);
+    queryParams.set("orderBy", item.value);
+    history.replaceState(null, "", `?${queryParams.toString()}`);
   };
 
   const handleClickLoadmore = () => {
@@ -110,71 +134,50 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
   const IS_SKELETON = loading && !POSTS.length;
 
   return (
-    <div
-      className={`nc-PageArchiveDate ${className}`}
-      data-nc-id="PageArchiveDate"
-    >
-      {/* HEADER */}
-
-      <div className="container py-16 lg:py-28 space-y-16 lg:space-y-28">
-        <div>
-          <h2
-            className="inline-block max-w-screen-2xl text-4xl font-semibold md:text-5xl"
-            dangerouslySetInnerHTML={{ __html: pageTitle }}
-          ></h2>
-          <div className="mt-14 flex flex-col sm:items-center sm:justify-between sm:flex-row">
-            <div className="flex space-x-2.5">
-              <ModalCategories />
-              <ModalTags />
-            </div>
-            <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
-            <div className="flex justify-end">
-              <ArchiveFilterListBox
-                onChangeSelect={handleChangeFilter}
-                lists={FILTERS}
-              />
-            </div>
-          </div>
-
-          {/* SECTION STATE */}
-          <DataStatementBlockV2
-            className="my-5"
-            data={POSTS}
-            error={error}
-            isSkeleton={IS_SKELETON}
-          />
-
-          {/* LOOP ITEMS */}
-          {IS_SKELETON || POSTS.length ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 2xl:gap-8 mt-8 lg:mt-10">
-              {IS_SKELETON &&
-                Array.from("88888888").map((_, index) => (
-                  <Card11Skeleton key={index} />
-                ))}
-              {POSTS.map((post) => (
-                <Card11 key={post.node.id} post={post.node} />
-              ))}
-            </div>
-          ) : null}
-
-          {/* PAGINATIONS */}
-          {data?.posts.pageInfo?.hasNextPage && (
-            <div className="flex justify-center mt-12 lg:mt-16">
-              <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
-                {NCMAZ_TRANSLATE["showMeMore"]}
-              </ButtonPrimary>
-            </div>
-          )}
+    <>
+      <h1
+        className="inline-block max-w-screen-2xl text-4xl font-semibold md:text-5xl"
+        dangerouslySetInnerHTML={{ __html: pageTitle }}
+      ></h1>
+      <div className="mt-14 flex flex-col sm:items-center sm:justify-between sm:flex-row">
+        <div className="flex space-x-2.5">
+          <ModalCategories />
+          <ModalTags />
         </div>
-
-        {sectionCategoriesTrending.enable && (
-          <SectionTrendingCategories
-            {...sectionCategoriesTrending}
-            isCategory={false}
+        <div className="block my-4 border-b w-full border-neutral-100 sm:hidden"></div>
+        <div className="flex justify-end">
+          <ArchiveFilterListBox
+            onChangeSelect={handleChangeFilter as any}
+            lists={FILTERS}
+            defaultValue={orderByState}
           />
-        )}
+        </div>
       </div>
-    </div>
+
+      {/* SECTION STATE */}
+      <DataStatementBlockV2
+        className="my-5"
+        data={POSTS}
+        error={error}
+        isSkeleton={IS_SKELETON}
+      />
+
+      {/* LOOP ITEMS */}
+      <ArchiveGridPost
+        isSmallContainer={enableSidebar}
+        is_skeleton={IS_SKELETON}
+        posts={POSTS}
+      />
+
+      {/* PAGINATIONS */}
+      {data?.posts.pageInfo?.hasNextPage && (
+        <div className="flex justify-center mt-8 sm:mt-10 xl:mt-14">
+          <ButtonPrimary onClick={handleClickLoadmore} loading={loading}>
+            {NCMAZ_TRANSLATE["showMeMore"]}
+          </ButtonPrimary>
+        </div>
+      )}
+    </>
   );
 };
 

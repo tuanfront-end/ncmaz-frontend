@@ -40,6 +40,11 @@ const PostMeta2: FC<PostMeta2Props> = ({
             author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
             author?.node.avatar?.url
           }
+          srcSet={
+            author?.node.ncUserMeta?.featuredImage?.sourceUrl
+              ? author?.node.ncUserMeta?.featuredImage?.srcSet
+              : undefined
+          }
           userName={author?.node.username}
         />
       </a>

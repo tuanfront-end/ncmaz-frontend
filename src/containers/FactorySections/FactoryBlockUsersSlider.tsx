@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import { GutenbergAttr__BlockUsersSlider } from "data/gutenbergAttrType";
@@ -20,8 +20,8 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, graphQLData, settings } = apiSettings;
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, graphQLData, settings, hasSSrInitData } =
+    apiSettings;
 
   const {
     funcGqlQueryGetUsers,
@@ -29,16 +29,16 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
     LISTS_DATA,
     error,
     DONOT_ANY_THING,
-  } = useGutenbergSectionWithGQLGetUsers({ graphQLvariables, graphQLData });
+  } = useGutenbergSectionWithGQLGetUsers({
+    graphQLvariables,
+    graphQLData,
+    hasSSrInitData,
+  });
 
   // =========================================================
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetUsers, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetUsers, sectionIndex).ref;
 
   const renderContent = () => {
     const {
@@ -59,7 +59,7 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
     return (
       <div
         className={`nc-FactoryBlockUsersSlider relative ${
-          hasBackground ? "py-16" : ""
+          hasBackground ? "py-14 sm:py-16" : ""
         }  ${className}`}
         ref={ref}
       >
@@ -67,23 +67,21 @@ const FactoryBlockUsersSlider: FC<FactoryBlockUsersSliderSliderProps> = ({
 
         <div className="relative">
           {/* ------------ */}
-          {!DONOT_ANY_THING && (
-            <SectionSliderNewAuthors
-              authorCardName={userCardName}
-              blockLayoutStyle={blockLayoutStyle}
-              authorNodes={LISTS_DATA}
-              heading={heading}
-              subHeading={subHeading}
-              isLoading={IS_SKELETON}
-              //
-              itemPerView={itemPerView}
-              sliderAnimationDuration={sliderAnimationDuration}
-              sliderAutoplayTime={sliderAutoplayTime}
-              sliderHoverpause={sliderHoverpause}
-              sliderRewind={sliderRewind}
-              sliderStartAt={sliderStartAt}
-            />
-          )}
+          <SectionSliderNewAuthors
+            authorCardName={userCardName}
+            blockLayoutStyle={blockLayoutStyle}
+            authorNodes={LISTS_DATA}
+            heading={heading}
+            subHeading={subHeading}
+            isLoading={IS_SKELETON}
+            //
+            itemPerView={itemPerView}
+            sliderAnimationDuration={sliderAnimationDuration}
+            sliderAutoplayTime={sliderAutoplayTime}
+            sliderHoverpause={sliderHoverpause}
+            sliderRewind={sliderRewind}
+            sliderStartAt={sliderStartAt}
+          />
 
           {/* ------------ */}
           <DataStatementBlockV2

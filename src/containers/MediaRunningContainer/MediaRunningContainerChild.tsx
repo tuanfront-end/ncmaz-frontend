@@ -18,8 +18,9 @@ import {
 import PlayerContent from "./PlayerContent";
 import _ from "lodash";
 import usePrevious from "react-use/lib/usePrevious";
-import ReactHtml5Player, { FilePlayerProps } from "react-player/file";
-import ReactYoutubePlayer, { YouTubePlayerProps } from "react-player/youtube";
+import ReactPlayer, { ReactPlayerProps } from "react-player";
+import ReactYoutubePlayer from "react-player/youtube";
+import arraysEqual from "utils/arraysEqual";
 
 interface MediaRunningContainerChildProps {
   className?: string;
@@ -30,15 +31,12 @@ const IS_IOS =
   /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 // SELECT YOUR MEDIA SOURCE : HTML5(MP3, MP4) OR YOUTUBE OR BOTH
-const MEDIA_SOURCE_FROM =
-  window.frontendObject.musicPlayerMediaSource || "html5";
+const MEDIA_SOURCE_FROM = frontendObject.musicPlayerMediaSource || ["html5"];
 
 const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
   className = "",
 }) => {
-  const playerRef:
-    | LegacyRef<ReactHtml5Player | ReactYoutubePlayer>
-    | undefined = useRef(null);
+  const playerRef: LegacyRef<ReactPlayer> | undefined = useRef(null);
 
   const currentAudioUrl = useAppSelector(selectCurrentAudioUrl);
   const mediaRunningState = useAppSelector(selectCurrentMediaState);
@@ -62,15 +60,11 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
   const [isFirtTimeSeekTo, setIsFirtTimeSeekTo] = useState(false);
 
   //
-
-  //
   useEffect(() => {
     // KHI LẦN ĐẦU CHẠY SAU F5 THÌ CÓ THỂ VIDEO CHƯA LOAD XONG MÀ STATE LẠI ĐANG LÀ PLAYING HOẶC PAUSED,
     // DẪN ĐẾN NGƯỜI DÙNG CÓ THỂ BẤM VÀO NÚT VÀ GÂY HOẠT ĐỘNG SAI, VÌ VẬY CẦN CHUYỂN THÀNH LOADING NGAY
     if (!newestAudioPlayerUrl && !!currentAudioUrl && !isFirtTimeSeekTo) {
-      // if (mediaRunningState === "playing") {
       dispatch(changeStateMediaRunning("paused"));
-      // }
     }
   }, [
     newestAudioPlayerUrl,
@@ -123,44 +117,45 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
     youtube: string;
     mediaSelected: "youtube" | "html5" | "none";
   } => {
-    // BOTH YOUTUBE AND HTML5 SUPPORT
-    if (MEDIA_SOURCE_FROM === "youtube-html5") {
-      if (!currentAudioUrl) {
-        return {
-          html5: "none",
-          youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
-          mediaSelected: "none",
-        };
-      }
-      if (currentAudioUrl.includes("https://www.youtube.com/")) {
-        return {
-          html5: "none",
-          youtube: currentAudioUrl,
-          mediaSelected: "youtube",
-        };
-      }
-      return {
-        html5: currentAudioUrl,
-        youtube: "https://www.youtube.com/watch?v=EoDfHzo5IlM",
-        mediaSelected: "html5",
-      };
-    }
+    const YOUTUBE_PRELOAD = "https://www.youtube.com/watch?v=KX1_jtVlBtU";
+    const HTML5_PRELOAD =
+      "https://chisnghiax.com/ncmaz_mp3/250-milliseconds-of-silence.mp3";
 
-    // ONLY HTML5 SUPPORT
-    if (MEDIA_SOURCE_FROM === "html5") {
+    if (arraysEqual(MEDIA_SOURCE_FROM, ["html5"])) {
       return {
-        html5: currentAudioUrl || "none",
+        html5: currentAudioUrl || HTML5_PRELOAD,
         youtube: "",
         mediaSelected: "html5",
       };
     }
+    if (arraysEqual(MEDIA_SOURCE_FROM, ["youtube"])) {
+      return {
+        html5: "",
+        youtube: currentAudioUrl || YOUTUBE_PRELOAD,
+        mediaSelected: "youtube",
+      };
+    }
 
-    // ONLY YOUTUBE SUPPORT
+    // BOTH SUPPORT
+    if (!currentAudioUrl) {
+      return {
+        html5: HTML5_PRELOAD,
+        youtube: YOUTUBE_PRELOAD,
+        mediaSelected: "none",
+      };
+    }
+    if (currentAudioUrl.includes("https://www.youtube.com/")) {
+      return {
+        html5: HTML5_PRELOAD,
+        youtube: currentAudioUrl,
+        mediaSelected: "youtube",
+      };
+    }
+
     return {
-      html5: "",
-      youtube:
-        currentAudioUrl || "https://www.youtube.com/watch?v=9xxxxxxxxxxx",
-      mediaSelected: "youtube",
+      html5: currentAudioUrl || HTML5_PRELOAD,
+      youtube: YOUTUBE_PRELOAD,
+      mediaSelected: "html5",
     };
   };
 
@@ -168,7 +163,6 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
     if (!currentAudioUrl) {
       return false;
     }
-
     return mediaRunningState === "loading" || mediaRunningState === "playing";
   };
 
@@ -189,7 +183,7 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
       })
     );
   };
-  const onReady = (e: FilePlayerProps | YouTubePlayerProps) => {
+  const onReady = (e: ReactPlayerProps) => {
     if (!currentAudioUrl) {
       return;
     }
@@ -199,7 +193,16 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
     // THUC HIEN KHI PLAYER CHAY NGAY SAU KHI PAGE RELOADED - CẦN SEEKING player ĐẾN ĐOẠN LOADED TRƯỚC ĐÓ
     if (!newestAudioPlayerUrl && !isFirtTimeSeekTo) {
       playerRef.current?.seekTo(played);
-      dispatch(changeStateMediaRunning("paused"));
+
+      // SAU KHI SEEKTO, NHIEU PLAYER (vidu:soundcloud) SE ONSTART/ONPLAY, VI VAY VAN PAUSED, VA NEN CHO VAO TIMEOUT DE CHAY SAU ONSTART/ONPLAY
+      setTimeout(() => {
+        dispatch(changeStateMediaRunning("paused"));
+      }, 100);
+      if (currentAudioUrl.includes("https://soundcloud.com")) {
+        setTimeout(() => {
+          dispatch(changeStateMediaRunning("paused"));
+        }, 1000);
+      }
     } else if (mediaRunningState === "loading") {
       dispatch(changeStateMediaRunning("playing"));
     }
@@ -254,41 +257,35 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
         })
       );
   };
+
   //
   const myMemoYoutubePlayer = useMemo(() => {
-    if (MEDIA_SOURCE_FROM === "html5") {
+    if (!MEDIA_SOURCE_FROM.includes("youtube")) {
       return null;
     }
 
-    const IS_ACTIVE_PLAYER = getAudioUrl().mediaSelected === "youtube";
+    const isActive = getAudioUrl().mediaSelected === "youtube";
     return (
       <ReactYoutubePlayer
         url={getAudioUrl().youtube}
         controls
-        style={{
-          opacity: 0,
-          zIndex: -1111,
-          visibility: "hidden",
-        }}
-        //SAME
+        style={{ opacity: 0, zIndex: -1111, visibility: "hidden" }}
         ref={
-          IS_ACTIVE_PLAYER
-            ? (playerRef as LegacyRef<ReactYoutubePlayer>)
-            : undefined
+          isActive ? (playerRef as LegacyRef<ReactYoutubePlayer>) : undefined
         }
-        onPause={IS_ACTIVE_PLAYER ? onPause : undefined}
-        playbackRate={IS_ACTIVE_PLAYER ? playbackRate : undefined}
-        playing={IS_ACTIVE_PLAYER ? checkIsPlaying() : undefined}
+        onPause={isActive ? onPause : undefined}
+        playbackRate={isActive ? playbackRate : undefined}
+        playing={isActive ? checkIsPlaying() : false}
         volume={volume}
-        muted={muted}
+        muted={isActive ? muted : true}
         playsinline
-        onEnded={IS_ACTIVE_PLAYER ? onEnded : undefined}
-        onReady={IS_ACTIVE_PLAYER ? onReady : undefined}
-        onStart={IS_ACTIVE_PLAYER ? onStart : undefined}
-        onPlay={IS_ACTIVE_PLAYER ? onPlay : undefined}
-        onDuration={IS_ACTIVE_PLAYER ? onDuration : undefined}
-        onError={IS_ACTIVE_PLAYER ? onError : undefined}
-        onProgress={IS_ACTIVE_PLAYER ? onProgress : undefined}
+        onEnded={isActive ? onEnded : undefined}
+        onReady={isActive ? onReady : undefined}
+        onStart={isActive ? onStart : undefined}
+        onPlay={isActive ? onPlay : undefined}
+        onDuration={isActive ? onDuration : undefined}
+        onError={isActive ? onError : undefined}
+        onProgress={isActive ? onProgress : undefined}
       />
     );
   }, [
@@ -303,39 +300,33 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
   ]);
 
   const myMemoHtml5Player = useMemo(() => {
-    if (MEDIA_SOURCE_FROM === "youtube") {
+    if (
+      !MEDIA_SOURCE_FROM.includes("html5") &&
+      !MEDIA_SOURCE_FROM.includes("other")
+    ) {
       return null;
     }
+    const isActive = getAudioUrl().mediaSelected === "html5";
 
-    const IS_ACTIVE_PLAYER = getAudioUrl().mediaSelected === "html5";
     return (
-      <ReactHtml5Player
+      <ReactPlayer
         url={getAudioUrl().html5}
         controls
-        style={{
-          opacity: 0,
-          zIndex: -1111,
-          visibility: "hidden",
-        }}
-        // SAME
-        ref={
-          IS_ACTIVE_PLAYER
-            ? (playerRef as LegacyRef<ReactHtml5Player>)
-            : undefined
-        }
-        onPause={IS_ACTIVE_PLAYER ? onPause : undefined}
-        playbackRate={IS_ACTIVE_PLAYER ? playbackRate : undefined}
-        playing={IS_ACTIVE_PLAYER ? checkIsPlaying() : undefined}
+        style={{ opacity: 0, zIndex: -1111, visibility: "hidden" }}
+        ref={isActive ? (playerRef as LegacyRef<ReactPlayer>) : undefined}
+        onPause={isActive ? onPause : undefined}
+        playbackRate={isActive ? playbackRate : undefined}
+        playing={isActive ? checkIsPlaying() : false}
         volume={volume}
-        muted={muted}
+        muted={isActive ? muted : true}
         playsinline
-        onEnded={IS_ACTIVE_PLAYER ? onEnded : undefined}
-        onReady={IS_ACTIVE_PLAYER ? onReady : undefined}
-        onStart={IS_ACTIVE_PLAYER ? onStart : undefined}
-        onPlay={IS_ACTIVE_PLAYER ? onPlay : undefined}
-        onDuration={IS_ACTIVE_PLAYER ? onDuration : undefined}
-        onError={IS_ACTIVE_PLAYER ? onError : undefined}
-        onProgress={IS_ACTIVE_PLAYER ? onProgress : undefined}
+        onEnded={isActive ? onEnded : undefined}
+        onReady={isActive ? onReady : undefined}
+        onStart={isActive ? onStart : undefined}
+        onPlay={isActive ? onPlay : undefined}
+        onDuration={isActive ? onDuration : undefined}
+        onError={isActive ? onError : undefined}
+        onProgress={isActive ? onProgress : undefined}
       />
     );
   }, [
@@ -390,7 +381,9 @@ const MediaRunningContainerChild: FC<MediaRunningContainerChildProps> = ({
 
   // HIDDEN WHEN NOT READY - isFirtTimeSeekTo
   const HIDDEN_CLASS =
-    !newestAudioPlayerUrl && !isFirtTimeSeekTo ? "opacity-0 -z-10" : "";
+    !newestAudioPlayerUrl && !isFirtTimeSeekTo
+      ? "opacity-0 -z-10 invisible"
+      : "";
 
   return (
     <div

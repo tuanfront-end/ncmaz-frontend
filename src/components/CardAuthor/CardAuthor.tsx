@@ -21,6 +21,11 @@ const CardAuthor: FC<CardAuthorProps> = ({ className = "", author }) => {
         containerClassName="flex-shrink-0 mr-4"
         radius="rounded-full"
         imgUrl={ncUserMeta?.featuredImage?.sourceUrl || avatar?.url}
+        srcSet={
+          ncUserMeta?.featuredImage?.sourceUrl
+            ? ncUserMeta?.featuredImage?.srcSet
+            : undefined
+        }
         userName={username}
       />
       <div>

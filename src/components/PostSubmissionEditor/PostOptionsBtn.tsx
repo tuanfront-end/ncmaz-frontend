@@ -1,5 +1,5 @@
 import { Listbox, Popover, Switch, Transition } from "@headlessui/react";
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
 import ButtonPrimary from "components/Button/ButtonPrimary";
 import ButtonSecondary from "components/Button/ButtonSecondary";
 import ImageUploadToServer, {
@@ -114,7 +114,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
                 {postFormatsSelected.replace(/^post-format-/g, "")}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                <SelectorIcon
+                <ChevronUpDownIcon
                   className="h-5 w-5 text-gray-400"
                   aria-hidden="true"
                 />
@@ -223,15 +223,13 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
 
   const renderInputAudio = () => {
     let sp = "mp3/mp4/Youtube";
-    if (frontendObject.musicPlayerMediaSource === "html5") {
-      sp = "mp3/mp4";
+    if (frontendObject.musicPlayerMediaSource) {
+      sp = frontendObject.musicPlayerMediaSource.join("/");
     }
-    if (frontendObject.musicPlayerMediaSource === "youtube") {
-      sp = "Youtube";
-    }
+
     return (
       <div>
-        <Label>{`Audio URL (${sp} )`}</Label>
+        <Label className="block capitalize">{`Audio URL (${sp})`}</Label>
         <Input
           onChange={(event) => {
             debounceAudioUrlChange(event.currentTarget.value);

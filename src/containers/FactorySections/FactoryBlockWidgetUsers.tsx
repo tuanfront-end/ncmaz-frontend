@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import { GutenbergApiAttr_BlockWidgetUsers } from "data/gutenbergAttrType";
 import WidgetAuthors from "components/WidgetAuthors/WidgetAuthors";
@@ -19,20 +19,20 @@ const FactoryBlockWidgetUsers: FC<FactoryBlockWidgetUsersProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, graphQLData, settings } = apiSettings;
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, graphQLData, settings, hasSSrInitData } =
+    apiSettings;
 
   const { funcGqlQueryGetUsers, IS_SKELETON, LISTS_DATA, error } =
-    useGutenbergSectionWithGQLGetUsers({ graphQLvariables, graphQLData });
+    useGutenbergSectionWithGQLGetUsers({
+      graphQLvariables,
+      graphQLData,
+      hasSSrInitData,
+    });
 
   // =========================================================
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetUsers, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetUsers, sectionIndex).ref;
 
   const renderContent = () => {
     return (

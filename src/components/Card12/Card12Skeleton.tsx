@@ -12,7 +12,7 @@ const Card12Skeleton: FC<Card12SkeletonProps> = ({ className = "h-full" }) => {
       className={`nc-Card12Skeleton group relative flex flex-col ${className}`}
       data-nc-id="Card12Skeleton"
     >
-      <div className="block flex-shrink-0 flex-grow relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden">
+      <div className="block flex-shrink-0 relative w-full h-0 aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden">
         <NcImage containerClassName="absolute inset-0" src={"."} />
       </div>
 

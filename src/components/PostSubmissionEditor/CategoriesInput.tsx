@@ -25,7 +25,7 @@ const CategoriesInput: FC<CategoriesInputProps> = ({
   defaultValue,
 }) => {
   const POST_PER_PAGE = 30;
-  const MAX_CATS_LENGTH = GLOBAL_VARIABLE.maxCategoriesLengSubmit;
+  const MAX_CATS_LENGTH = frontendObject.maxCategoriesLengSubmit || 5;
 
   const Q_LIST_CATS = gql`
     ${GET_LIST_CATEGORIES_NO_PARENT}
@@ -119,7 +119,9 @@ const CategoriesInput: FC<CategoriesInputProps> = ({
           <NcImage
             containerClassName="w-10 h-10 rounded-2xl overflow-hidden z-0"
             src={cat.node.ncTaxonomyMeta.featuredImage?.sourceUrl || "."}
+            srcSet={cat.node.ncTaxonomyMeta.featuredImage?.srcSet}
             alt={cat.node.name}
+            imageSizes="THUMBNAIL"
           />
           <span className="ml-2 text-sm"> {cat.node.name}</span>
         </div>
@@ -196,7 +198,7 @@ const CategoriesInput: FC<CategoriesInputProps> = ({
               : ""
           }`
         }
-        modalTitle={NCMAZ_TRANSLATE["Add up to 5 categories"]}
+        modalTitle={`${NCMAZ_TRANSLATE["Choose categories"]} (${categoriesSelected.length}/${MAX_CATS_LENGTH})`}
         renderContent={renderModalContent}
         modalUnmountOnClose={false}
       />
