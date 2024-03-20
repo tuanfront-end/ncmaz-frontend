@@ -196,19 +196,23 @@ add_filter('login_redirect', 'ncmazFe_hook_login_failed_redirect', 10, 3);
 function ncmazFe_hook_login_failed_redirect($redirect_to, $requested_redirect_to, $user)
 {
     if (is_wp_error($user)) {
-        //Login failed, find out why...
-        $error_types = array_keys($user->errors);
-        //Error type seems to be empty if none of the fields are filled out
-        $error_type = 'both_empty';
-        //Otherwise just get the first error (as far as I know there
-        //will only ever be one)
-        if (is_array($error_types) && !empty($error_types)) {
-            $error_type = $error_types[0];
-        }
-        wp_redirect($redirect_to . "?login=failed&reason=" . $error_type);
-        // wp_redirect(home_url('/?login=failed&reason=' . $error_type));
+        // check if the user is logging in from the frontend
+        if (is_bool(strpos($redirect_to, 'wp-admin')) !== false) {
+            //Login failed, find out why...
+            $error_types = array_keys($user->errors);
+            //Error type seems to be empty if none of the fields are filled out
+            $error_type = 'both_empty';
+            //Otherwise just get the first error (as far as I know there
+            //will only ever be one)
+            if (is_array($error_types) && !empty($error_types)) {
+                $error_type = $error_types[0];
+            }
 
-        exit;
+            wp_redirect($redirect_to . "?login=failed&reason=" . $error_type);
+            exit;
+        } else {
+            return $redirect_to;
+        }
     } else {
         return $redirect_to;
     }
