@@ -22,9 +22,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/client@npm:^3.8.3":
-  version: 3.9.0
-  resolution: "@apollo/client@npm:3.9.0"
+"@apollo/client@npm:^3.9.10":
+  version: 3.9.10
+  resolution: "@apollo/client@npm:3.9.10"
   dependencies:
     "@graphql-typed-document-node/core": ^3.1.1
     "@wry/caches": ^1.0.0
@@ -34,7 +34,7 @@ __metadata:
     hoist-non-react-statics: ^3.3.2
     optimism: ^0.18.0
     prop-types: ^15.7.2
-    rehackt: 0.0.3
+    rehackt: 0.0.6
     response-iterator: ^0.2.6
     symbol-observable: ^4.0.0
     ts-invariant: ^0.10.3
@@ -55,7 +55,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: ff9d625ca6456c91d041da49a185ce29fc06a73b5b7a068ff9dc341a89c387a18cdded373bc32e5e98645f08d507a020d610cebe767c92094a941de77d04a7f3
+  checksum: 4299d998d4a9085b67f8c0e622b14e5ba998260ecc46315a434facfe6d2e6ec68aeb1ee6420ec37f69868235c7e1c6cafc54a3d0d039d578efc58d351bcbebe1
   languageName: node
   linkType: hard
 
@@ -3409,7 +3409,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nc-frontend-plugin@workspace:."
   dependencies:
-    "@apollo/client": ^3.8.3
+    "@apollo/client": ^3.9.10
     "@glidejs/glide": ^3.6.0
     "@headlessui/react": ^1.7.17
     "@heroicons/react": ^2.0.18
@@ -4279,9 +4279,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehackt@npm:0.0.3":
-  version: 0.0.3
-  resolution: "rehackt@npm:0.0.3"
+"rehackt@npm:0.0.6":
+  version: 0.0.6
+  resolution: "rehackt@npm:0.0.6"
   peerDependencies:
     "@types/react": "*"
     react: "*"
@@ -4290,7 +4290,7 @@ __metadata:
       optional: true
     react:
       optional: true
-  checksum: 2e3674d84aca46802f38cf5b01c62bf7d0ca5e324b2749dd79156fa61723e9f84df7778c39f97d351e815a852a8a8ac9633e29b6b7b8734d18042fda86620f54
+  checksum: 25df31d4fc1198b5beba68ec3c960119f120aeba4f7a6f686b087ddbfdd45753ea74b6daf66523c8b6db844429eaed516e0f6f37f657fdcc96334e5ae9efee98
   languageName: node
   linkType: hard
 

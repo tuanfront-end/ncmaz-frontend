@@ -20,7 +20,10 @@ const NcImage: FC<NcImageProps> = ({
   ...args
 }) => {
   let SIZES = getImageSizesBySizeName({ sizeName: imageSizes, sizes });
-  const urlMabeOk = !!src && src.includes("http");
+
+  // check if src is a valid url and include correct url format
+  const urlMabeOk = src && src.includes("http");
+
   const renderLoadingPlaceholder = () => {
     return (
       <div

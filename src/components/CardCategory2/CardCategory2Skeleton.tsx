@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
-import { CategoriesNode3 } from "data/postCardType";
 import Skeleton from "react-loading-skeleton";
 
 export interface CardCategory2SkeletonProps {
@@ -12,7 +11,7 @@ const CardCategory2Skeleton: FC<CardCategory2SkeletonProps> = ({
 }) => {
   return (
     <div
-      className={`nc-CardCategory2Skeleton relative flex flex-col items-center justify-center text-center px-3 py-5 sm:p-6  [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ]  ${className}`}
+      className={`nc-CardCategory2Skeleton relative flex flex-col items-center justify-center text-center px-3 py-5 sm:p-6  [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="CardCategory2Skeleton"
     >
       <NcImage

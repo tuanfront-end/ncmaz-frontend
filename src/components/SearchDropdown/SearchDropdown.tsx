@@ -50,7 +50,7 @@ const SearchDropdown = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-slate-900/25 backdrop-blur transition-opacity opacity-100" />
+            <div className="fixed inset-0 bg-slate-900/25 dark:bg-slate-300/25 backdrop-blur transition-opacity opacity-100" />
           </Transition.Child>
 
           <div className="fixed inset-0">
@@ -68,7 +68,7 @@ const SearchDropdown = () => {
                   <form
                     role="search"
                     method="GET"
-                    className="search-d relative"
+                    className="search-d relative mb-0"
                     action={window.frontendObject?.homeURL}
                   >
                     <div className="relative">

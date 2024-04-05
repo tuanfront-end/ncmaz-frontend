@@ -7,7 +7,6 @@ import { ListPosts } from "data/postCardType";
 import { useQuery, gql } from "@apollo/client";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
 import DataStatementBlockV2 from "components/DataStatementBlock/DataStatementBlockV2";
-import SectionTrendingCategories from "./SectionTrendingCategories";
 import {
   ArchiveOrderBy,
   ARCHIVE_PAGE_FILTERS,
@@ -111,7 +110,7 @@ const PageArchiveDate: FC<PageArchiveDateProps> = ({
     };
   };
 
-  const handleChangeFilter = (item: typeof ARCHIVE_PAGE_FILTERS[number]) => {
+  const handleChangeFilter = (item: (typeof ARCHIVE_PAGE_FILTERS)[number]) => {
     setorderByState(item.value);
     let queryParams = new URLSearchParams(window.location.search);
     queryParams.set("orderBy", item.value);
