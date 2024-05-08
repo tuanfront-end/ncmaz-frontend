@@ -106,6 +106,10 @@ function ncmazFe_getCurrentUserGraphql()
                     twitchUrl
                     websiteUrl
                     buymeacoffeUrl
+                    tiktokUrl
+                    telegramUrl
+                    discordUrl
+                    whatsappUrl
                     backgroundImage {
                       id
                       altText

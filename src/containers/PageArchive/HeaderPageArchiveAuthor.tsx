@@ -265,18 +265,22 @@ const HeaderPageArchiveAuthor: FC<HeaderPageArchiveAuthorProps> = ({
 
             {userSocials.length ? (
               <nav
-                className={`nc-SocialsList flex flex-wrap text-2xl text-neutral-6000 dark:text-neutral-300 `}
+                className={`nc-SocialsList flex flex-wrap gap-x-2.5 gap-y-1.5 text-2xl text-neutral-6000 dark:text-neutral-300  mt-0.5`}
               >
                 {userSocials.map((item, i) => (
                   <a
                     key={i}
-                    className={`block w-7 h-7 mr-2.5 my-0.5`}
+                    className={`block w-7 h-7`}
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     title={item.name}
                   >
-                    <img src={item.iconPng} alt={item.name} />
+                    <img
+                      className="w-full"
+                      src={item.iconPng}
+                      alt={item.name}
+                    />
                   </a>
                 ))}
               </nav>
