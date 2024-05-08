@@ -270,14 +270,14 @@ const HeaderPageArchiveAuthor: FC<HeaderPageArchiveAuthorProps> = ({
                 {userSocials.map((item, i) => (
                   <a
                     key={i}
-                    className={`block w-7 h-7`}
+                    className={`block w-6 h-6 rounded-full overflow-hidden bg-neutral-100 dark:bg-neutral-700`}
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     title={item.name}
                   >
                     <img
-                      className="w-full"
+                      className="w-full rounded-full"
                       src={item.iconPng}
                       alt={item.name}
                     />
