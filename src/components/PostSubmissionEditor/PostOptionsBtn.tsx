@@ -23,7 +23,7 @@ let postFormats: PostFormatsType[] = [
 type GalleryImages = Record<number, ImageState>;
 
 export interface PostOptionsData {
-  postFormatsSelected: typeof postFormats[number];
+  postFormatsSelected: (typeof postFormats)[number];
   excerptText: string;
   objGalleryImgs: GalleryImages;
   videoUrl: string;
@@ -82,7 +82,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
         className="flex-shrink-0"
         sizeClass="p-2 w-12 !h-12"
         fontSize="text-base font-medium"
-        title="Post options"
+        title={NCMAZ_TRANSLATE["Post options"]}
       >
         <svg
           className="w-6 h-6"
@@ -106,7 +106,7 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
   const renderListBoxPostformat = () => {
     return (
       <div>
-        <Label>Post format</Label>
+        <Label>{NCMAZ_TRANSLATE["Post format"]}</Label>
         <Listbox value={postFormatsSelected} onChange={setPostFormatsSelected}>
           <div className="relative z-10 mt-1">
             <Listbox.Button className="focus:outline-none relative w-full cursor-default rounded-full py-2 pl-3 pr-10 text-left border border-neutral-100 dark:border-neutral-700">
@@ -208,14 +208,14 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
   const renderInputVideoUrl = () => {
     return (
       <div>
-        <Label>{`Video URL (Youtube, Vimeo, mp4 ... )`}</Label>
+        <Label>{NCMAZ_TRANSLATE["Video URL (Youtube, Vimeo, mp4 ... )"]}</Label>
         <Input
           onChange={(event) => {
             debounceVideoUrlChange(event.currentTarget.value);
           }}
           defaultValue={videoUrl}
           className="mt-1"
-          placeholder="Video url..."
+          placeholder={NCMAZ_TRANSLATE["Paste or type URL"]}
         />
       </div>
     );
@@ -229,14 +229,14 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
 
     return (
       <div>
-        <Label className="block capitalize">{`Audio URL (${sp})`}</Label>
+        <Label className="block capitalize">{`${NCMAZ_TRANSLATE["Audio URL"]} (${sp})`}</Label>
         <Input
           onChange={(event) => {
             debounceAudioUrlChange(event.currentTarget.value);
           }}
           defaultValue={audioUrl}
           className="mt-1"
-          placeholder="Audio url..."
+          placeholder={NCMAZ_TRANSLATE["Paste or type URL"]}
         />
       </div>
     );
@@ -284,7 +284,9 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
             >
               <div className="rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                 <div className="relative flex flex-col px-5 py-6 space-y-5">
-                  <h3 className="text-xl font-semibold my-0">Post options</h3>
+                  <h3 className="text-xl font-semibold my-0">
+                    {NCMAZ_TRANSLATE["Post options"]}
+                  </h3>
                   <div className="w-full border-b my-3 border-neutral-300 dark:border-neutral-700"></div>
 
                   {renderExcerptTextarea()}

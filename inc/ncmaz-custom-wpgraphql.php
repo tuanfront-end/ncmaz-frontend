@@ -112,6 +112,10 @@ add_action('graphql_input_fields', function ($fields, $type_name, $config) {
             'ncmazTwitchUrl'            => ['type' => 'String'],
             'ncmazWebsiteUrl'           => ['type' => 'String'],
             'ncmazBuymeacoffeUrl'       => ['type' => 'String'],
+            'ncmazTiktokUrl'           => ['type' => 'String'],
+            'ncmazTelegramUrl'           => ['type' => 'String'],
+            'ncmazWhatsappUrl'           => ['type' => 'String'],
+            'ncmazDiscordUrl'           => ['type' => 'String'],
         ]);
     }
     return $fields;
@@ -207,6 +211,18 @@ add_action('graphql_user_object_mutation_update_additional_data', function ($use
     }
     if (isset($input['ncmazBuymeacoffeUrl'])) {
         update_field('buymeacoffe_url', $input['ncmazBuymeacoffeUrl'], $user_id);
+    }
+    if (isset($input['ncmazTiktokUrl'])) {
+        update_field('tiktok_url', $input['ncmazTiktokUrl'], $user_id);
+    }
+    if (isset($input['ncmazTelegramUrl'])) {
+        update_field('telegram_url', $input['ncmazTelegramUrl'], $user_id);
+    }
+    if (isset($input['ncmazWhatsappUrl'])) {
+        update_field('whatsapp_url', $input['ncmazWhatsappUrl'], $user_id);
+    }
+    if (isset($input['ncmazDiscordUrl'])) {
+        update_field('discord_url', $input['ncmazDiscordUrl'], $user_id);
     }
 }, 10, 5);
 

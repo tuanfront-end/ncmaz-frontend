@@ -13,37 +13,50 @@ interface SocialsProfileFormProps {
 
 const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
   const [youtubeUrl, setYoutubeUrl] = React.useState(
-    userData.ncUserMeta.youtubeUrl || ""
+    userData?.ncUserMeta?.youtubeUrl || ""
   );
   const [facebookUrl, setFacebookUrl] = React.useState(
-    userData.ncUserMeta.facebookUrl || ""
+    userData?.ncUserMeta?.facebookUrl || ""
   );
   const [twitterUrl, setTwitterUrl] = React.useState(
-    userData.ncUserMeta.twitterUrl || ""
+    userData?.ncUserMeta?.twitterUrl || ""
   );
   const [instagramUrl, setInstagramUrl] = React.useState(
-    userData.ncUserMeta.instagramUrl || ""
+    userData?.ncUserMeta?.instagramUrl || ""
   );
   const [githubUrl, setGithubUrl] = React.useState(
-    userData.ncUserMeta.githubUrl || ""
+    userData?.ncUserMeta?.githubUrl || ""
   );
   const [linkedinUrl, setLinkedinUrl] = React.useState(
-    userData.ncUserMeta.linkedinUrl || ""
+    userData?.ncUserMeta?.linkedinUrl || ""
   );
   const [twitchUrl, setTwitchUrl] = React.useState(
-    userData.ncUserMeta.twitchUrl || ""
+    userData?.ncUserMeta?.twitchUrl || ""
   );
   const [mediumUrl, setMediumUrl] = React.useState(
-    userData.ncUserMeta.mediumUrl || ""
+    userData?.ncUserMeta?.mediumUrl || ""
   );
   const [pinterestUrl, setPinterestUrl] = React.useState(
-    userData.ncUserMeta.pinterestUrl || ""
+    userData?.ncUserMeta?.pinterestUrl || ""
   );
   const [buymeacoffeeUrl, setBuymeacoffeeUrl] = React.useState(
-    userData.ncUserMeta.buymeacoffeUrl || ""
+    userData?.ncUserMeta?.buymeacoffeUrl || ""
   );
   const [vimeoUrl, setVimeoUrl] = React.useState(
-    userData.ncUserMeta.vimeoUrl || ""
+    userData?.ncUserMeta?.vimeoUrl || ""
+  );
+  //
+  const [tiktokUrl, setTiktokUrl] = React.useState(
+    userData?.ncUserMeta?.tiktokUrl || ""
+  );
+  const [telegramUrl, settelegramUrl] = React.useState(
+    userData?.ncUserMeta?.telegramUrl || ""
+  );
+  const [whatsappUrl, setwhatsappUrl] = React.useState(
+    userData?.ncUserMeta?.whatsappUrl || ""
+  );
+  const [discordUrl, setDiscordUrl] = React.useState(
+    userData?.ncUserMeta?.discordUrl || ""
   );
 
   //
@@ -67,6 +80,14 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
         ncmazPinterestUrl: pinterestUrl,
         ncmazVimeoUrl: vimeoUrl,
         ncmazBuymeacoffeUrl: buymeacoffeeUrl,
+        // tiktok
+        ncmazTiktokUrl: tiktokUrl,
+        // whatsapp
+        ncmazWhatsappUrl: whatsappUrl,
+        // telegram
+        ncmazTelegramUrl: telegramUrl,
+        // discordUrl
+        ncmazDiscordUrl: discordUrl,
       },
     });
   };
@@ -91,7 +112,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
       <div className="SocialsProfileForm__fieldsWrap grid grid-cols-1 sm:grid-cols-2 gap-5 ">
         {/* ---- Youtube */}
         <div className="SocialsProfileForm__Youtube">
-          <Label>Youtube</Label>
+          <Label>{NCMAZ_TRANSLATE.Youtube}</Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-youtube"></i>
@@ -108,7 +129,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ----Facebook */}
         <div className="SocialsProfileForm__Facebook">
-          <Label>Facebook</Label>
+          <Label>{NCMAZ_TRANSLATE.Facebook}</Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-facebook-f"></i>
@@ -125,7 +146,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Medium */}
         <div className="SocialsProfileForm__Medium">
-          <Label>Medium</Label>
+          <Label>{NCMAZ_TRANSLATE.Medium}</Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-medium"></i>
@@ -142,7 +163,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Github */}
         <div className="SocialsProfileForm__Github">
-          <Label>Github </Label>
+          <Label>{NCMAZ_TRANSLATE.Github} </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-github"></i>
@@ -159,7 +180,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Vimeo */}
         <div className="SocialsProfileForm__Vimeo">
-          <Label>Vimeo </Label>
+          <Label>{NCMAZ_TRANSLATE.Vimeo} </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-vimeo"></i>
@@ -176,7 +197,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Twitter*/}
         <div className="SocialsProfileForm__Twitter">
-          <Label>Twitter</Label>
+          <Label>{NCMAZ_TRANSLATE.Twitter}</Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-twitter"></i>
@@ -193,7 +214,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Instagram */}
         <div className="SocialsProfileForm__Instagram">
-          <Label>Instagram </Label>
+          <Label>{NCMAZ_TRANSLATE.Instagram} </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-instagram"></i>
@@ -210,7 +231,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Linkedin  */}
         <div className="SocialsProfileForm__Linkedin">
-          <Label>Linkedin </Label>
+          <Label>{NCMAZ_TRANSLATE.Linkedin} </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-linkedin"></i>
@@ -227,7 +248,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Pinterest   */}
         <div className="SocialsProfileForm__Pinterest">
-          <Label>Pinterest </Label>
+          <Label>{NCMAZ_TRANSLATE.Pinterest} </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-pinterest"></i>
@@ -244,7 +265,7 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
 
         {/* ---- Twitch    */}
         <div className="SocialsProfileForm__Twitch">
-          <Label>Twitch </Label>
+          <Label>{NCMAZ_TRANSLATE.Twitch} </Label>
           <div className="mt-1.5 flex">
             <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
               <i className="text-2xl lab la-twitch"></i>
@@ -255,6 +276,80 @@ const SocialsProfileForm: FC<SocialsProfileFormProps> = ({ userData }) => {
               placeholder="https://twitch.com/yourname"
               defaultValue={twitchUrl}
               onChange={(e) => setTwitchUrl(e.currentTarget.value)}
+            />
+          </div>
+        </div>
+
+        {/* ---- Tiktok    */}
+        <div className="SocialsProfileForm__Tiktok">
+          <Label>{NCMAZ_TRANSLATE.Tiktok} </Label>
+          <div className="mt-1.5 flex">
+            <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+              <svg
+                className="w-5 h-5 opacity-50 dark:opacity-100"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+              >
+                <path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z" />
+              </svg>
+            </span>
+            <Input
+              className="!rounded-l-none"
+              sizeClass="h-11 px-4 pl-2 pr-3"
+              placeholder="https://tiktok.com/yourname"
+              defaultValue={tiktokUrl}
+              onChange={(e) => setTiktokUrl(e.currentTarget.value)}
+            />
+          </div>
+        </div>
+
+        {/* ---- Telegram    */}
+        <div className="SocialsProfileForm__Telegram">
+          <Label>{NCMAZ_TRANSLATE.Telegram} </Label>
+          <div className="mt-1.5 flex">
+            <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+              <i className="text-2xl lab la-telegram"></i>
+            </span>
+            <Input
+              className="!rounded-l-none"
+              sizeClass="h-11 px-4 pl-2 pr-3"
+              placeholder="https://telegram.com/yourname"
+              defaultValue={telegramUrl}
+              onChange={(e) => settelegramUrl(e.currentTarget.value)}
+            />
+          </div>
+        </div>
+
+        {/* ---- Whatsapp    */}
+        <div className="SocialsProfileForm__Whatsapp">
+          <Label>{NCMAZ_TRANSLATE.Whatsapp} </Label>
+          <div className="mt-1.5 flex">
+            <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+              <i className="text-2xl lab la-whatsapp"></i>
+            </span>
+            <Input
+              className="!rounded-l-none"
+              sizeClass="h-11 px-4 pl-2 pr-3"
+              placeholder="https://whatsapp.com/yourname"
+              defaultValue={whatsappUrl}
+              onChange={(e) => setwhatsappUrl(e.currentTarget.value)}
+            />
+          </div>
+        </div>
+
+        {/* ---- Discord    */}
+        <div className="SocialsProfileForm__Discord">
+          <Label>{NCMAZ_TRANSLATE.Discord} </Label>
+          <div className="mt-1.5 flex">
+            <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+              <i className="text-2xl lab la-discord"></i>
+            </span>
+            <Input
+              className="!rounded-l-none"
+              sizeClass="h-11 px-4 pl-2 pr-3"
+              placeholder="https://discord.com/yourname"
+              defaultValue={discordUrl}
+              onChange={(e) => setDiscordUrl(e.currentTarget.value)}
             />
           </div>
         </div>

@@ -14,6 +14,11 @@ import twitterpng from "images/IntegrationIcons/twitter.png";
 import vimeopng from "images/IntegrationIcons/vimeo.png";
 import youtubepng from "images/IntegrationIcons/youtube.png";
 import ButtonSecondary from "components/Button/ButtonSecondary";
+//
+import tiktokpng from "images/IntegrationIcons/tiktok.png";
+import telegrampng from "images/IntegrationIcons/telegram.png";
+import whatsapppng from "images/IntegrationIcons/whatsapp.png";
+import discordpng from "images/IntegrationIcons/discord.png";
 
 export interface AuthorSocialType {
   id: keyof AuthorNode["ncUserMeta"];
@@ -45,63 +50,88 @@ const HeaderPageArchiveAuthor: FC<HeaderPageArchiveAuthorProps> = ({
   let userSocials: AuthorSocialType[] = [
     {
       id: "youtubeUrl",
-      name: "Youtube",
+      name: NCMAZ_TRANSLATE["Youtube"],
       iconPng: youtubepng,
       href: ncUserMeta.youtubeUrl || "",
     },
     {
       id: "facebookUrl",
-      name: "Facebook",
+      name: NCMAZ_TRANSLATE["Facebook"],
       iconPng: Facebookpng,
       href: ncUserMeta.facebookUrl || "",
     },
     {
       id: "mediumUrl",
-      name: "Medium",
+      name: NCMAZ_TRANSLATE.Medium,
       iconPng: mediumpng,
       href: ncUserMeta.mediumUrl || "",
     },
     {
       id: "githubUrl",
-      name: "Github",
+      name: NCMAZ_TRANSLATE.Github,
       iconPng: githubpng,
       href: ncUserMeta.githubUrl || "",
     },
     {
       id: "vimeoUrl",
-      name: "Vimeo",
+      name: NCMAZ_TRANSLATE.Vimeo,
       iconPng: vimeopng,
       href: ncUserMeta.vimeoUrl || "",
     },
     {
       id: "twitterUrl",
-      name: "Twitter",
+      name: NCMAZ_TRANSLATE.Twitter,
       iconPng: twitterpng,
       href: ncUserMeta.twitterUrl || "",
     },
     {
       id: "instagramUrl",
-      name: "Instagram",
+      name: NCMAZ_TRANSLATE.Instagram,
       iconPng: instagrampng,
       href: ncUserMeta.instagramUrl || "",
     },
     {
       id: "linkedinUrl",
-      name: "LinkedIn",
+      name: NCMAZ_TRANSLATE.Linkedin,
       iconPng: linkedinpng,
       href: ncUserMeta.linkedinUrl || "",
     },
     {
       id: "pinterestUrl",
-      name: "Pinterest",
+      name: NCMAZ_TRANSLATE.Pinterest,
       iconPng: pinterestpng,
       href: ncUserMeta.pinterestUrl || "",
     },
     {
       id: "twitchUrl",
-      name: "Twitch",
+      name: NCMAZ_TRANSLATE.Twitch,
       iconPng: twitchpng,
       href: ncUserMeta.twitchUrl || "",
+    },
+    //  more socials
+    {
+      id: "tiktokUrl",
+      name: NCMAZ_TRANSLATE.Tiktok,
+      iconPng: tiktokpng,
+      href: ncUserMeta.tiktokUrl || "",
+    },
+    {
+      id: "telegramUrl",
+      name: NCMAZ_TRANSLATE.Telegram,
+      iconPng: telegrampng,
+      href: ncUserMeta.telegramUrl || "",
+    },
+    {
+      id: "whatsappUrl",
+      name: NCMAZ_TRANSLATE.Whatsapp,
+      iconPng: whatsapppng,
+      href: ncUserMeta.whatsappUrl || "",
+    },
+    {
+      id: "discordUrl",
+      name: NCMAZ_TRANSLATE.Discord,
+      iconPng: discordpng,
+      href: ncUserMeta.discordUrl || "",
     },
   ];
   userSocials = userSocials.filter((item) => !!item.href);

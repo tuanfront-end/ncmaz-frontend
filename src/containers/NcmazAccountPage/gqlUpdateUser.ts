@@ -10,12 +10,16 @@ const GQL_MUTATION_UPDATE_USER = `mutation MUTAION_UPDATE_PROFILE(
   $ncmazTwitterUrl: String = null, 
   $ncmazTwitchUrl: String = null, 
   $ncmazPinterestUrl: String = null,
-   $ncmazMediumUrl: String = null, 
+  $ncmazMediumUrl: String = null, 
   $ncmazLinkedinUrl: String = null, 
   $ncmazInstagramUrl: String = null, 
   $ncmazGithubUrl: String = null, 
   $ncmazFeaturedImage: Int = null, 
-  $ncmazFacebookUrl: String = null, 
+  $ncmazFacebookUrl: String = null,
+  $ncmazTiktokUrl: String = null, 
+  $ncmazTelegramUrl: String = null, 
+  $ncmazWhatsappUrl: String = null, 
+  $ncmazDiscordUrl: String = null, 
   $ncmazBuymeacoffeUrl: String = null, 
   $ncmazBio: String = null, 
   $ncmazBackgroundImage: Int = null, 
@@ -38,19 +42,23 @@ const GQL_MUTATION_UPDATE_USER = `mutation MUTAION_UPDATE_PROFILE(
         ncmazBuymeacoffeUrl: $ncmazBuymeacoffeUrl, 
         ncmazFacebookUrl: $ncmazFacebookUrl, 
         ncmazFeaturedImage: $ncmazFeaturedImage,
-         ncmazGithubUrl: $ncmazGithubUrl,
-          ncmazInstagramUrl: $ncmazInstagramUrl,
-           ncmazLinkedinUrl: $ncmazLinkedinUrl, 
-           ncmazMediumUrl: $ncmazMediumUrl, 
-           ncmazPinterestUrl: $ncmazPinterestUrl, 
-           ncmazTwitchUrl: $ncmazTwitchUrl,
-            ncmazTwitterUrl: $ncmazTwitterUrl, 
-            ncmazVimeoUrl: $ncmazVimeoUrl, 
-            ncmazWebsiteUrl: $ncmazWebsiteUrl,
-             nicename: $nicename, 
-             nickname: $nickname, 
-             websiteUrl: $websiteUrl, 
-             ncmazYoutubeUrl: $ncmazYoutubeUrl,
+        ncmazGithubUrl: $ncmazGithubUrl,
+        ncmazInstagramUrl: $ncmazInstagramUrl,
+        ncmazLinkedinUrl: $ncmazLinkedinUrl, 
+        ncmazMediumUrl: $ncmazMediumUrl, 
+        ncmazPinterestUrl: $ncmazPinterestUrl, 
+        ncmazTwitchUrl: $ncmazTwitchUrl,
+        ncmazTwitterUrl: $ncmazTwitterUrl, 
+        ncmazVimeoUrl: $ncmazVimeoUrl, 
+        ncmazWebsiteUrl: $ncmazWebsiteUrl,
+        ncmazWhatsappUrl: $ncmazWhatsappUrl,
+        ncmazTiktokUrl: $ncmazTiktokUrl, 
+        ncmazTelegramUrl: $ncmazTelegramUrl, 
+        ncmazDiscordUrl: $ncmazDiscordUrl,
+        nicename: $nicename, 
+        nickname: $nickname, 
+        websiteUrl: $websiteUrl, 
+        ncmazYoutubeUrl: $ncmazYoutubeUrl,
         description: $description
       }
     ) {
@@ -77,6 +85,10 @@ const GQL_MUTATION_UPDATE_USER = `mutation MUTAION_UPDATE_PROFILE(
           vimeoUrl
           websiteUrl
           youtubeUrl
+          tiktokUrl
+          telegramUrl
+          whatsappUrl
+          discordUrl
           featuredImage {
             id
             databaseId
@@ -120,6 +132,10 @@ const GQL_QUERY_FULL_USER_DATA = `query MyQuery($id: ID = "", $idType: UserNodeI
         vimeoUrl
         websiteUrl
         youtubeUrl
+        tiktokUrl
+        telegramUrl
+        whatsappUrl
+        discordUrl
         featuredImage {
           altText
           id

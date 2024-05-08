@@ -1,4 +1,4 @@
-import { FeaturedImage } from "./postCardType";
+import { FeaturedImage, NcUserMeta as NcUserMetaP } from "./postCardType";
 
 export type TwMainColor =
   | "pink"
@@ -90,23 +90,7 @@ export interface UserFullData {
   nickname: string;
 }
 
-export interface NcUserMeta {
-  buymeacoffeUrl: string;
-  facebookUrl: string;
-  backgroundImage?: FullImageNode;
-  githubUrl: string;
-  instagramUrl: string;
-  linkedinUrl: any;
-  mediumUrl: string;
-  ncBio: string;
-  pinterestUrl: any;
-  twitchUrl: any;
-  twitterUrl: string;
-  vimeoUrl: any;
-  websiteUrl: string;
-  youtubeUrl: string;
-  featuredImage?: FullImageNode;
-}
+export interface NcUserMeta extends NcUserMetaP {}
 
 export interface OjbImage {
   altText: string;

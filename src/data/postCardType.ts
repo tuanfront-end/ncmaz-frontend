@@ -158,6 +158,11 @@ export interface NcUserMeta {
   twitchUrl?: string;
   websiteUrl?: string;
   buymeacoffeUrl?: string;
+  //
+  tiktokUrl?: string;
+  whatsappUrl?: string;
+  telegramUrl?: string;
+  discordUrl?: string;
 }
 
 interface Avatar {

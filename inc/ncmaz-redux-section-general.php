@@ -575,18 +575,13 @@ $section = array(
             'id'       => 'nc-general-Frontend-translate__lang--default',
             'type'     => 'ace_editor',
             'title'    => esc_html__('Default Language code', 'ncmaz-frontend'),
-            'subtitle' => esc_html__('Please replace the values on the right (after colons and inside quotes) with your language.', 'ncmaz-frontend'),
+            'subtitle' => esc_html__('Please replace the values on the right (after colons and inside quotes) with your language. Note, the last translated sentence does not include a comma at the end of the line.', 'ncmaz-frontend'),
             'mode'     => 'javascript',
             'theme'    => 'monokai',
-            'desc'     => 'Possible modes can be found at https://ace.c9.io/.',
+            'desc'     => esc_html__('Note, the last translated sentence does not include a comma at the end of the line.', 'ncmaz-frontend'),
             'default'  => $JS_LOCALE_DEFAULT
         ],
         // WHEN ENABLE POLYLANG
-        [
-            'id'   => 'nc-general-Frontend-translate__divider_1',
-            'desc' => esc_html__('Only settings the fields below when you need multi-language, Up to 4 different languages. If you need more than 4 languages, open 1 ticket and the theme author will help you set up - https://help.chisnghiax.com', 'ncmaz-frontend'),
-            'type' => 'divide',
-        ],
         [
             'id'        => 'nc-general-Frontend-translate__lang_names',
             'type'      => 'text',

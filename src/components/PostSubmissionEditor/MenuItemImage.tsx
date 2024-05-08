@@ -78,7 +78,7 @@ const MenuItemImage: FC<MenuItemImageProps> = ({ action, children }) => {
             className="mt-1"
             rounded="rounded-xl"
             type={"text"}
-            placeholder="Paste or type URL"
+            placeholder={NCMAZ_TRANSLATE["Paste or type URL"]}
             onChange={(e) => setUrlState(e.target.value)}
             defaultValue={urlState}
           />
