@@ -6,9 +6,7 @@ const postFields = ` edges {
     link
     date
     featuredImage {
-      node {
         ${FEATURED_IMAGE_COMMONT}
-      } 
     }
     postFormats {
       edges {

@@ -1,5 +1,5 @@
 <?php
-add_action('acf/init', 'ncmazFrontend_acf_add_local_field_groups');
+add_action('acf/include_fields', 'ncmazFrontend_acf_add_local_field_groups');
 function ncmazFrontend_acf_add_local_field_groups()
 {
     if (function_exists('acf_add_local_field_group')) :
@@ -10,7 +10,7 @@ function ncmazFrontend_acf_add_local_field_groups()
             'fields' => array(
                 array(
                     'key' => 'field_615317803e567',
-                    'label' => 'audio Url',
+                    'label' => 'Audio Url',
                     'name' => 'audio_url',
                     'type' => 'url',
                     'instructions' => '',
@@ -32,6 +32,11 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'param' => 'post_format',
                         'operator' => '==',
                         'value' => 'audio',
+                    ),
+                    array(
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'post',
                     ),
                 ),
             ),
@@ -261,6 +266,11 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'operator' => '==',
                         'value' => 'gallery',
                     ),
+                    array(
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'post',
+                    ),
                 ),
             ),
             'menu_order' => 0,
@@ -283,7 +293,7 @@ function ncmazFrontend_acf_add_local_field_groups()
             'fields' => array(
                 array(
                     'key' => 'field_6153174a5583d',
-                    'label' => 'video Url',
+                    'label' => 'Video Url',
                     'name' => 'video_url',
                     'type' => 'url',
                     'instructions' => '',
@@ -305,6 +315,11 @@ function ncmazFrontend_acf_add_local_field_groups()
                         'param' => 'post_format',
                         'operator' => '==',
                         'value' => 'video',
+                    ),
+                    array(
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'post',
                     ),
                 ),
             ),
@@ -399,6 +414,11 @@ function ncmazFrontend_acf_add_local_field_groups()
             ),
             'location' => array(
                 array(
+                    array(
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'post',
+                    ),
                     array(
                         'param' => 'post_type',
                         'operator' => '==',

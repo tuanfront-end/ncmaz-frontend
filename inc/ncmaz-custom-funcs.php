@@ -111,22 +111,26 @@ function ncmazFe_getCurrentUserGraphql()
                     discordUrl
                     whatsappUrl
                     backgroundImage {
-                      id
-                      altText
-                      caption
-                      databaseId
-                      sizes
-                      sourceUrl
-                      srcSet
+                      node {
+                        id
+                        altText
+                        caption
+                        databaseId
+                        sizes
+                        sourceUrl
+                        srcSet
+                      }
                     }
                     featuredImage {
-                      id
-                      altText
-                      caption
-                      databaseId
-                      sizes
-                      sourceUrl
-                      srcSet
+                      node {
+                        id
+                        altText
+                        caption
+                        databaseId
+                        sizes
+                        sourceUrl
+                        srcSet
+                      }
                     }
                   }
                 slug

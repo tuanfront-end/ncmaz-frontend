@@ -29,13 +29,14 @@ const avatarColors = [
 
 //
 const FEATURED_IMAGE_COMMONT = `
+node {
 id
 altText
 caption
 databaseId
 sizes
 sourceUrl
-srcSet
+srcSet}
 `;
 
 // ===================== POSTS =================================================
@@ -96,9 +97,7 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES_HAS_CONTENT = `
     date
     excerpt
     featuredImage {
-      node {
         ${FEATURED_IMAGE_COMMONT}
-      }
     }
     postFormats {
       edges {
@@ -193,9 +192,7 @@ const EDGES_POST_COMMONT_FIELDS_NOT_EDGES = `
     date
     excerpt
     featuredImage {
-      node {
         ${FEATURED_IMAGE_COMMONT}
-      }
     }
     postFormats {
       edges {

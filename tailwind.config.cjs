@@ -74,6 +74,11 @@ module.exports = {
     "../../themes/ncmaz/*.php",
     "../../themes/ncmaz/inc/**/*.php",
     "../../themes/ncmaz/template-parts/**/*.php",
+    // THEME -----
+    "../../themes/ncmaz-wordpress-theme/assets/**/*.{js,jsx,ts,tsx}",
+    "../../themes/ncmaz-wordpress-theme/*.php",
+    "../../themes/ncmaz-wordpress-theme/inc/**/*.php",
+    "../../themes/ncmaz-wordpress-theme/template-parts/**/*.php",
   ],
   safelist,
   darkMode: "class", // or 'media' or 'class',

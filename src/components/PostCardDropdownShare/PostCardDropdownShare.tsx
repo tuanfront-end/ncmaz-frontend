@@ -1,7 +1,6 @@
 import NcDropDown, { NcDropDownItem } from "components/NcDropDown/NcDropDown";
 import SocialShareItem from "components/SocialShareItem";
 import NCMAZ_TRANSLATE from "contains/translate";
-import React from "react";
 import { FC } from "react";
 import toast from "react-hot-toast";
 
@@ -36,16 +35,10 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
   className = "nc-PostCardDropdownShare relative rounded-full flex items-center justify-center focus:outline-none bg-neutral-50 hover:bg-blue-50 hover:text-blue-700 dark:hover:text-blue-700 dark:text-neutral-100 dark:bg-neutral-800 dark:hover:bg-blue-100 transition-colors duration-300 h-7 w-7 sm:h-8 sm:w-8",
   image = "",
 }) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-
   const handleCopyLink = () => {
-    if (!inputRef.current) return;
-    /* Select the text field */
-    inputRef.current.select();
-    inputRef.current.setSelectionRange(0, 99999); /* For mobile devices */
+    // Copy the text inside the text field
+    navigator?.clipboard?.writeText(href);
 
-    /* Copy the text inside the text field */
-    navigator.clipboard.writeText(inputRef.current.value);
     toast.success(NCMAZ_TRANSLATE["Link copied"], {
       id: "PostCardDropdownShare-clipboard",
       style: {
@@ -81,13 +74,6 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
             d="M8.75 8.25L12 4.75L15.25 8.25"
           ></path>
         </svg>
-        <input
-          ref={inputRef}
-          type="text"
-          hidden
-          className="hidden"
-          defaultValue={href}
-        />
       </div>
     );
   };
@@ -129,15 +115,17 @@ const PostCardDropdownShare: FC<PostCardDropdownShareProps> = ({
   };
 
   return (
-    <NcDropDown
-      className={className}
-      panelMenusClass={`${panelMenusClass} max-h-80 overflow-y-auto`}
-      title="Share with"
-      renderTrigger={renderButton}
-      renderItem={renderItem}
-      data={SOCIALS_SHARE}
-      onClickItem={() => {}}
-    />
+    <>
+      <NcDropDown
+        className={className}
+        panelMenusClass={`${panelMenusClass} max-h-80 overflow-y-auto`}
+        title="Share with"
+        renderTrigger={renderButton}
+        renderItem={renderItem}
+        data={SOCIALS_SHARE}
+        onClickItem={() => {}}
+      />
+    </>
   );
 };
 

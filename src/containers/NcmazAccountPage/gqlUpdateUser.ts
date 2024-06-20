@@ -90,14 +90,18 @@ const GQL_MUTATION_UPDATE_USER = `mutation MUTAION_UPDATE_PROFILE(
           whatsappUrl
           discordUrl
           featuredImage {
-            id
-            databaseId
-            sourceUrl
+            node {
+              id
+              databaseId
+              sourceUrl
+            }
           }
           backgroundImage {
-            id
-            sourceUrl
-            databaseId
+            node {
+              id
+              sourceUrl
+              databaseId
+            }
           }
         }
       }
@@ -116,10 +120,12 @@ const GQL_QUERY_FULL_USER_DATA = `query MyQuery($id: ID = "", $idType: UserNodeI
         buymeacoffeUrl
         facebookUrl
         backgroundImage {
-          altText
-          id
-          sourceUrl
-          databaseId
+          node {
+            altText
+            id
+            sourceUrl
+            databaseId
+          }
         }
         githubUrl
         instagramUrl
@@ -137,10 +143,12 @@ const GQL_QUERY_FULL_USER_DATA = `query MyQuery($id: ID = "", $idType: UserNodeI
         whatsappUrl
         discordUrl
         featuredImage {
-          altText
-          id
-          databaseId
-          sourceUrl
+          node {
+            altText
+            id
+            databaseId
+            sourceUrl
+          }
         }
       }
       email
