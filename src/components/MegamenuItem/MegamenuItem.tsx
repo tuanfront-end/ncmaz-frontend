@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
 import ReactDOM from "react-dom";
 import { POSTS_SECTION_BY_FILTER__string } from "./queryGraphql";
@@ -15,7 +15,7 @@ interface Data {
 }
 
 interface MegaMenuItemTerm {
-  categoryId: number;
+  databaseId: number;
   link: string;
   name: string;
   slug: string;
@@ -36,7 +36,9 @@ interface MegaMenuItemData {
     order: string;
     orderBy: string;
     showTabFilter: boolean;
-    taxonomies?: MegaMenuItemTerm[];
+    taxonomies?: {
+      nodes: MegaMenuItemTerm[];
+    };
   };
 }
 
@@ -49,7 +51,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   // =================== QUERY GRAPHQL ===================
   const { ncmazMenuCustomFields } = menuItemData;
   const [temrActiveId, setTemrActiveId] = useState(
-    ncmazMenuCustomFields?.taxonomies?.[0]?.categoryId
+    ncmazMenuCustomFields?.taxonomies?.nodes?.[0]?.databaseId
   );
 
   const { taxonomies, numberOfPosts, order, orderBy, showTabFilter } =
@@ -63,7 +65,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   if (showTabFilter) {
     categoryIn = [temrActiveId];
   } else {
-    categoryIn = taxonomies?.map((item) => item.categoryId) || [];
+    categoryIn = taxonomies?.nodes?.map((item) => item.databaseId) || [];
   }
 
   // HIEN TAI GRAPHQL CHUA HO TRO PAGINATION CHO CAC FILTER orderBy
@@ -93,7 +95,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
   const IS_SKELETON = loading;
 
   const handleMoutEnterTerm = (term: MegaMenuItemTerm) => {
-    setTemrActiveId(term.categoryId);
+    setTemrActiveId(term.databaseId);
   };
 
   const updateQuery = (
@@ -160,8 +162,8 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
     const { taxonomies } = menuItemData.ncmazMenuCustomFields;
     return (
       <div className="w-1/5 py-6 pr-4 flex-shrink-0">
-        {(taxonomies || []).map((item) => {
-          const isActive = item.categoryId === temrActiveId;
+        {(taxonomies?.nodes || []).map((item) => {
+          const isActive = item.databaseId === temrActiveId;
           return (
             <div
               className={`group py-2.5 pl-8 flex items-center justify-between relative rounded-r-full cursor-pointer ${
@@ -169,7 +171,7 @@ const MegamenuItem: FC<MegamenuItemProps> = ({ domNode, menuItemData }) => {
                   ? "bg-primary-50 dark:bg-neutral-800 text-primary-900 font-medium dark:text-primary-50"
                   : "hover:bg-neutral-100/80 dark:hover:bg-neutral-800/50"
               }`}
-              key={item.categoryId}
+              key={item.databaseId}
               onClick={() => handleMoutEnterTerm(item)}
             >
               <span>{item.name}</span>
