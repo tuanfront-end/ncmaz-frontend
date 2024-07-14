@@ -37,12 +37,12 @@ const PostMeta2: FC<PostMeta2Props> = ({
               : "h-10 w-10 sm:h-11 sm:w-11 text-xl"
           }
           imgUrl={
-            author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
+            author?.node.ncUserMeta?.featuredImage?.node?.sourceUrl ||
             author?.node.avatar?.url
           }
           srcSet={
-            author?.node.ncUserMeta?.featuredImage?.sourceUrl
-              ? author?.node.ncUserMeta?.featuredImage?.srcSet
+            author?.node.ncUserMeta?.featuredImage?.node?.sourceUrl
+              ? author?.node.ncUserMeta?.featuredImage?.node?.srcSet
               : undefined
           }
           userName={author?.node.username}

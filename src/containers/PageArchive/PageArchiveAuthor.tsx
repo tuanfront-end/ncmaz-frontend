@@ -226,6 +226,8 @@ const PageArchiveAuthor: FC<PageArchiveAuthorProps> = ({
 
   const POSTS = data?.posts.edges || [];
 
+  console.log(333, { POSTS });
+
   // Function to update the query with the new results
   const updateQuery = (
     previousResult: Data,

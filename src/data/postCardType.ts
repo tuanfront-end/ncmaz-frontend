@@ -118,7 +118,9 @@ interface AuthorNode2 {
   name: string;
   slug: string;
   ncUserMeta?: {
-    featuredImage?: FullImageNode;
+    featuredImage?: {
+      node?: FullImageNode;
+    };
   };
   __typename: string;
 }
@@ -143,8 +145,12 @@ export interface AuthorNode {
 export interface NcUserMeta {
   color?: string;
   ncBio?: string;
-  featuredImage?: FullImageNode;
-  backgroundImage?: FullImageNode;
+  featuredImage?: {
+    node?: FullImageNode;
+  };
+  backgroundImage?: {
+    node?: FullImageNode;
+  };
   //
   youtubeUrl?: string;
   facebookUrl?: string;

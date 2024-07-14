@@ -33,10 +33,12 @@ const SectionMagazine6: FC<SectionMagazine6Props> = ({
           sizeClass="h-10 w-10 text-base"
           containerClassName="flex-shrink-0 mr-3 ring-1 ring-white/50"
           radius="rounded-full"
-          imgUrl={node.ncUserMeta?.featuredImage?.sourceUrl || node.avatar?.url}
+          imgUrl={
+            node.ncUserMeta?.featuredImage?.node?.sourceUrl || node.avatar?.url
+          }
           srcSet={
-            node.ncUserMeta?.featuredImage?.sourceUrl
-              ? node.ncUserMeta?.featuredImage?.srcSet
+            node.ncUserMeta?.featuredImage?.node?.sourceUrl
+              ? node.ncUserMeta?.featuredImage?.node?.srcSet
               : undefined
           }
           userName={node.username}

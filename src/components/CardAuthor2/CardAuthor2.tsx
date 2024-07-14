@@ -30,10 +30,12 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
         sizeClass="h-8 w-8 sm:h-9 sm:w-9 text-base"
         containerClassName="flex-shrink-0 mr-3"
         radius="rounded-full"
-        imgUrl={node.ncUserMeta?.featuredImage?.sourceUrl || node.avatar?.url}
+        imgUrl={
+          node.ncUserMeta?.featuredImage?.node?.sourceUrl || node.avatar?.url
+        }
         srcSet={
-          node.ncUserMeta?.featuredImage?.sourceUrl
-            ? node.ncUserMeta?.featuredImage?.srcSet
+          node.ncUserMeta?.featuredImage?.node?.sourceUrl
+            ? node.ncUserMeta?.featuredImage?.node?.srcSet
             : undefined
         }
         userName={node.username}

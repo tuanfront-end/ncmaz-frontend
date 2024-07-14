@@ -26,12 +26,12 @@ const Card1: FC<Card1Props> = ({ className = "h-full", post }) => {
         <Avatar
           radius="rounded-full"
           imgUrl={
-            author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
+            author?.node.ncUserMeta?.featuredImage?.node?.sourceUrl ||
             author?.node.avatar?.url
           }
           srcSet={
-            author?.node.ncUserMeta?.featuredImage?.sourceUrl
-              ? author?.node.ncUserMeta?.featuredImage?.srcSet
+            author?.node.ncUserMeta?.featuredImage?.node?.sourceUrl
+              ? author?.node.ncUserMeta?.featuredImage?.node?.srcSet
               : undefined
           }
           userName={author?.node.username}

@@ -21,11 +21,11 @@ const NavAccountDropdown: FC<NavAccountDropdownProps> = ({
   const { currentUser, homeURL } = frontendObject;
 
   const AVATAR =
-    currentUser?.ncUserMeta?.featuredImage?.sourceUrl ||
+    currentUser?.ncUserMeta?.featuredImage?.node?.sourceUrl ||
     currentUser?.avatar?.url ||
     "";
-  const SRCSET = currentUser?.ncUserMeta?.featuredImage?.sourceUrl
-    ? currentUser?.ncUserMeta?.featuredImage?.srcSet
+  const SRCSET = currentUser?.ncUserMeta?.featuredImage?.node?.sourceUrl
+    ? currentUser?.ncUserMeta?.featuredImage?.node?.srcSet
     : undefined;
 
   const renderAvatar = () => {

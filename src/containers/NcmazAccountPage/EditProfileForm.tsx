@@ -37,14 +37,15 @@ const EditProfileForm: FC<EditProfileFormProps> = ({ userData }) => {
   );
 
   const [avatarImage, setAvatarImage] = React.useState<ImageState>({
-    id: userData.ncUserMeta?.featuredImage?.databaseId || "",
-    sourceUrl: userData.ncUserMeta?.featuredImage?.sourceUrl || "",
-    altText: userData.ncUserMeta?.featuredImage?.altText || "",
+    id: userData.ncUserMeta?.featuredImage?.node?.databaseId || "",
+    sourceUrl: userData.ncUserMeta?.featuredImage?.node?.sourceUrl || "",
+    altText: userData.ncUserMeta?.featuredImage?.node?.altText || "",
   });
+
   const [coverImage, setCoverImage] = React.useState<ImageState>({
-    id: userData.ncUserMeta?.backgroundImage?.databaseId || "",
-    sourceUrl: userData.ncUserMeta?.backgroundImage?.sourceUrl || "",
-    altText: userData.ncUserMeta?.backgroundImage?.altText || "",
+    id: userData.ncUserMeta?.backgroundImage?.node?.databaseId || "",
+    sourceUrl: userData.ncUserMeta?.backgroundImage?.node?.sourceUrl || "",
+    altText: userData.ncUserMeta?.backgroundImage?.node?.altText || "",
   });
 
   //

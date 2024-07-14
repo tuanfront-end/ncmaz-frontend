@@ -102,7 +102,11 @@ const SocialShareItem: FC<SocialShareItemProps> = ({
         );
       case "Pinterest":
         return (
-          <PinterestShareButton media={image} className={CLASSES} url={href}>
+          <PinterestShareButton
+            media={image || ""}
+            className={CLASSES}
+            url={href}
+          >
             <PinterestIcon round size={size} />
             {hasName && <span>{item.name}</span>}
           </PinterestShareButton>

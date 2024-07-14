@@ -20,10 +20,10 @@ const CardAuthorBox: FC<CardAuthorBoxProps> = ({ className = "", author }) => {
       <Avatar
         sizeClass="w-12 h-12 sm:w-20 sm:h-20 text-lg sm:text-2xl"
         radius="rounded-full"
-        imgUrl={ncUserMeta?.featuredImage?.sourceUrl || avatar?.url}
+        imgUrl={ncUserMeta?.featuredImage?.node?.sourceUrl || avatar?.url}
         srcSet={
-          ncUserMeta?.featuredImage?.sourceUrl
-            ? ncUserMeta?.featuredImage?.srcSet
+          ncUserMeta?.featuredImage?.node?.sourceUrl
+            ? ncUserMeta?.featuredImage?.node?.srcSet
             : undefined
         }
         userName={username}

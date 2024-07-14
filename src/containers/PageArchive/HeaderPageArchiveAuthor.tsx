@@ -145,11 +145,11 @@ const HeaderPageArchiveAuthor: FC<HeaderPageArchiveAuthorProps> = ({
         <NcImage
           containerClassName="absolute inset-0"
           src={
-            ncUserMeta?.backgroundImage?.sourceUrl ||
+            ncUserMeta?.backgroundImage?.node?.sourceUrl ||
             frontendObject.authorPageCoverImgDefault ||
             "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
           }
-          srcSet={ncUserMeta.backgroundImage?.srcSet}
+          srcSet={ncUserMeta.backgroundImage?.node?.srcSet}
           imageSizes="_1536X1536"
           className="object-cover w-full h-full"
           loading="eager"
@@ -163,10 +163,10 @@ const HeaderPageArchiveAuthor: FC<HeaderPageArchiveAuthorProps> = ({
           <div className="flex-shrink-0 ">
             <Avatar
               containerClassName="ring-4 ring-white dark:ring-0 shadow-xl"
-              imgUrl={ncUserMeta.featuredImage?.sourceUrl || avatar?.url}
+              imgUrl={ncUserMeta.featuredImage?.node?.sourceUrl || avatar?.url}
               srcSet={
-                ncUserMeta.featuredImage?.sourceUrl
-                  ? ncUserMeta.featuredImage?.srcSet
+                ncUserMeta.featuredImage?.node?.sourceUrl
+                  ? ncUserMeta.featuredImage?.node?.srcSet
                   : undefined
               }
               loading="eager"

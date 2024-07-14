@@ -74,12 +74,12 @@ const Card14: FC<Card14Props> = ({
               containerClassName="ring-2 ring-white"
               sizeClass="h-7 w-7 text-sm"
               imgUrl={
-                author?.node.ncUserMeta?.featuredImage?.sourceUrl ||
+                author?.node.ncUserMeta?.featuredImage?.node?.sourceUrl ||
                 author?.node.avatar?.url
               }
               srcSet={
-                author?.node.ncUserMeta?.featuredImage?.sourceUrl
-                  ? author?.node.ncUserMeta?.featuredImage?.srcSet
+                author?.node.ncUserMeta?.featuredImage?.node?.sourceUrl
+                  ? author?.node.ncUserMeta?.featuredImage?.node?.srcSet
                   : undefined
               }
               userName={author?.node.username}
