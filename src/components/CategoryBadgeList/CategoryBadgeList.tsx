@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Badge from "components/Badge/Badge";
 import { PostNode } from "data/postCardType";
 import { TwMainColor } from "data/types";
@@ -36,7 +36,7 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
               key={index}
               name={item.node.name}
               href={item.node.link}
-              color={item.node?.ncTaxonomyMeta?.color as TwMainColor}
+              color={item.node?.ncTaxonomyMeta?.color?.[0] as TwMainColor}
             />
           );
         })}

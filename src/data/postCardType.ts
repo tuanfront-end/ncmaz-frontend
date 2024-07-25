@@ -238,8 +238,8 @@ export interface TermNode {
 }
 
 export interface NcTaxonomyMeta {
-  color?: string;
-  featuredImage?: FullImageNode;
+  color?: string[];
+  featuredImage?: FeaturedImage;
 }
 
 export interface FeaturedImage {

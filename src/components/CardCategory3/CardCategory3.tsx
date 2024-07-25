@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import { CategoriesNode3 } from "data/postCardType";
 import NCMAZ_TRANSLATE from "contains/translate";
@@ -25,8 +25,8 @@ const CardCategory3: FC<CardCategory3Props> = ({
         className={`flex-shrink-0 relative w-full aspect-w-5 aspect-h-4 sm:aspect-h-5 h-0 rounded-2xl overflow-hidden z-0 group`}
       >
         <NcImage
-          src={featuredImage?.sourceUrl || "."}
-          srcSet={featuredImage?.srcSet}
+          src={featuredImage?.node?.sourceUrl || "."}
+          srcSet={featuredImage?.node?.srcSet}
           imageSizes="MEDIUM"
           alt={name}
           className="object-cover w-full h-full rounded-2xl"

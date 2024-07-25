@@ -93,6 +93,7 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
   };
 
   const IS_SKELETON = loading && !data?.categories.edges.length;
+  console.log(1, data?.categories.edges);
 
   return (
     <div className="mt-8 lg:mt-10">

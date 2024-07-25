@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import NcModal from "components/NcModal/NcModal";
 import { useLazyQuery, gql } from "@apollo/client";
 import ButtonPrimary from "components/Button/ButtonPrimary";
@@ -118,8 +118,8 @@ const CategoriesInput: FC<CategoriesInputProps> = ({
         <div className="flex items-center">
           <NcImage
             containerClassName="w-10 h-10 rounded-2xl overflow-hidden z-0"
-            src={cat.node.ncTaxonomyMeta.featuredImage?.sourceUrl || "."}
-            srcSet={cat.node.ncTaxonomyMeta.featuredImage?.srcSet}
+            src={cat.node.ncTaxonomyMeta.featuredImage?.node?.sourceUrl || "."}
+            srcSet={cat.node.ncTaxonomyMeta.featuredImage?.node?.srcSet}
             alt={cat.node.name}
             imageSizes="THUMBNAIL"
           />

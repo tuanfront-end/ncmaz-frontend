@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import { TwMainColor } from "data/types";
 import Badge from "components/Badge/Badge";
@@ -20,7 +20,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
   const { color, featuredImage } = ncTaxonomyMeta;
 
   const getColorClass = () => {
-    switch (color) {
+    switch (color?.[0]) {
       case "pink":
         return "bg-pink-500";
       case "red":
@@ -52,8 +52,8 @@ const CardCategory4: FC<CardCategory4Props> = ({
         className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-3xl overflow-hidden z-0 group`}
       >
         <NcImage
-          src={featuredImage?.sourceUrl || "."}
-          srcSet={featuredImage?.srcSet}
+          src={featuredImage?.node?.sourceUrl || "."}
+          srcSet={featuredImage?.node?.srcSet}
           alt={name}
           className="object-cover w-full h-full rounded-2xl"
           imageSizes="MEDIUM"
@@ -61,7 +61,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
         <div>
           {index && (
             <Badge
-              color={color as TwMainColor}
+              color={color?.[0] as TwMainColor}
               name={index}
               className="absolute top-3 left-3"
             />

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import { TwMainColor } from "data/types";
 import Badge from "components/Badge/Badge";
@@ -26,8 +26,8 @@ const CardCategory5: FC<CardCategory5Props> = ({
         className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-2xl sm:rounded-3xl overflow-hidden z-0 group`}
       >
         <NcImage
-          src={featuredImage?.sourceUrl || "."}
-          srcSet={featuredImage?.srcSet}
+          src={featuredImage?.node?.sourceUrl || "."}
+          srcSet={featuredImage?.node?.srcSet}
           alt={name}
           className="object-cover w-full h-full rounded-2xl"
         />
@@ -35,7 +35,7 @@ const CardCategory5: FC<CardCategory5Props> = ({
       </div>
       <Badge
         className="hidden sm:block absolute top-3 right-3"
-        color={color as TwMainColor}
+        color={color?.[0] as TwMainColor}
         name={
           <div>
             {count}

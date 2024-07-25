@@ -1,9 +1,8 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import { nanoid } from "@reduxjs/toolkit";
 import CircleLoading from "components/Loading/CircleLoading";
-import GLOBAL_VARIABLE from "contains/globalVariable";
 import NCMAZ_TRANSLATE from "contains/translate";
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 interface Data {
   tags: Tags;
@@ -163,13 +162,18 @@ const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
               }
               onFocus={openPopover}
               onKeyDown={(e) => {
-                if (e.code !== "Enter") {
+                if (
+                  e.code !== "Enter" &&
+                  e.key !== "Enter" &&
+                  e.key !== "Tab" &&
+                  e.key !== " "
+                ) {
                   return;
                 }
                 setNewTags({
                   id: `${Date.now()}-${nanoid()}`,
                   name: e.currentTarget.value,
-                  tagId: Math.random(),
+                  tagId: Date.now(),
                 });
               }}
             />

@@ -1,0 +1,1 @@
+import{j as a}from"./main-631d9ad8.js";import{B as o}from"./Button-1c4ed67d.js";const i=({className:t="",...r})=>a.jsx(o,{className:`ttnc-ButtonPrimary disabled:bg-opacity-70 bg-primary-6000 hover:bg-primary-700 text-neutral-50 ${t}`,...r});export{i as B};
