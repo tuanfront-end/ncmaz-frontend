@@ -42,8 +42,8 @@ export const bookmarkSlice = createSlice({
 export const { addNewSavedByPostId, removeSavedByPostId } =
   bookmarkSlice.actions;
 
-export const selectRecentSaveds = (state: RootState) =>
-  state.bookmark.recentSaved;
-export const selectRecentRemoveds = (state: RootState) =>
-  state.bookmark.recentRemoved;
-export default bookmarkSlice.reducer;
+// export const selectRecentSaveds = (state: RootState) =>
+//   state.bookmark.recentSaved;
+// export const selectRecentRemoveds = (state: RootState) =>
+//   state.bookmark.recentRemoved;
+// export default bookmarkSlice.reducer;

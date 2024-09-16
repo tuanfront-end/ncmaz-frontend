@@ -23,7 +23,7 @@ const MediaAudio: FC<MediaAudioProps> = ({ post }) => {
 
     return (
       <ButtonPlayMusicRunningContainer
-        className="absolute bg-neutral-900 bg-opacity-30 flex items-center justify-center inset-0"
+        className="absolute bg-neutral-900/20 flex items-center justify-center inset-0"
         post={post}
       />
     );
@@ -33,10 +33,15 @@ const MediaAudio: FC<MediaAudioProps> = ({ post }) => {
     <div>
       {renderContent()}
 
-      <a className="block absolute inset-0" href={post.link}>
+      <a
+        className="block absolute inset-0 group-hover:opacity-90 transition-opacity"
+        href={post.link}
+      >
         <NcImage
           containerClassName="absolute inset-0"
           src={post.featuredImage?.node.sourceUrl || "."}
+          srcSet={post.featuredImage?.node.srcSet}
+          alt={post.featuredImage?.node.altText}
         />
       </a>
     </div>

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
 import { PostFormatsType, PostNode } from "data/postCardType";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card17PodcastProps {
   className?: string;
@@ -75,26 +76,35 @@ const Card17Podcast: FC<Card17PodcastProps> = ({ className = "", post }) => {
       </span>
     );
   };
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
 
   return (
     <div
-      className={`nc-Card17Podcast relative flex items-center justify-between p-2.5 space-x-5 rounded-full bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-30 hover:shadow-xl transition-shadow ${className}`}
+      className={`nc-Card17Podcast relative flex items-center justify-between p-2.5 gap-5 rounded-full bg-neutral-100 dark:bg-neutral-800 dark:bg-opacity-30 hover:shadow-lg transition-shadow ${className}`}
       data-nc-id="Card17Podcast"
     >
-      <a href={link} className="flex  items-center space-x-4">
-        <div className="block flex-shrink-0 w-11 h-11 sm:w-16 sm:h-16 relative rounded-full overflow-hidden shadow-lg">
-          <NcImage
-            containerClassName="absolute inset-0"
-            className="object-cover w-full h-full "
-            src={featuredImage?.node.sourceUrl || "."}
-            alt={title}
-          />
-        </div>
-        <div className="flex flex-col flex-grow">
-          <h3 className={`block font-semibold text-sm sm:text-lg`}>
-            <span className="line-clamp-1" title={title}>
-              {title}
-            </span>
+      <a href={link} className="flex items-center gap-4 overflow-hidden">
+        {standardHasFeaturedImage && (
+          <div className="block flex-shrink-0 w-11 h-11 sm:w-16 sm:h-16 relative rounded-full overflow-hidden shadow-lg">
+            <NcImage
+              containerClassName="absolute inset-0"
+              className="object-cover w-full h-full "
+              src={featuredImage?.node.sourceUrl || "."}
+              srcSet={featuredImage?.node.srcSet}
+              alt={title}
+              imageSizes="THUMBNAIL"
+            />
+          </div>
+        )}
+        <div className="flex flex-col flex-1 ">
+          <h3
+            className={`nc-card-title block font-semibold text-sm sm:text-lg`}
+          >
+            <span
+              className="line-clamp-2"
+              title={title}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
+            ></span>
           </h3>
           {excerpt ? (
             <span className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 ">

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import Badge from "components/Badge/Badge";
 import { CategoriesNode3 } from "data/postCardType";
@@ -21,7 +21,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
   return (
     <a
       href={link}
-      className={`nc-CardCategory2 relative flex flex-col items-center justify-center text-center px-3 py-5 sm:p-6  [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ]  ${className}`}
+      className={`nc-CardCategory2 relative flex flex-col items-center justify-center text-center px-3 py-5 sm:p-6  [ nc-box-has-hover nc-dark-box-bg-has-hover ] ${className}`}
       data-nc-id="CardCategory2"
     >
       {index && (
@@ -32,8 +32,10 @@ const CardCategory2: FC<CardCategory2Props> = ({
         />
       )}
       <NcImage
-        containerClassName={`flex-shrink-0 w-20 h-20 rounded-full overflow-hidden z-0`}
-        src={featuredImage?.sourceUrl || "."}
+        containerClassName={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden z-0`}
+        src={featuredImage?.node?.sourceUrl || "."}
+        srcSet={featuredImage?.node?.srcSet}
+        alt={name}
       />
       <div className="mt-3 ">
         <h4 className={`text-base sm:text-lg font-semibold `}>

@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect } from "react";
+import React, { FC } from "react";
 import ButtonPlayMusicRunningContainer from "containers/ButtonPlayMusicRunningContainer/ButtonPlayMusicRunningContainer";
 import LoadingVideo from "components/LoadingVideo/LoadingVideo";
 import iconPlaying from "images/icon-playing.gif";
@@ -7,13 +7,11 @@ import { PostNode } from "data/postCardType";
 
 export interface HeaderSingleAudioProps {
   className?: string;
-  featuredImage?: string;
   postData: PostNode;
 }
 
 const HeaderSingleAudio: FC<HeaderSingleAudioProps> = ({
   className = "",
-  featuredImage,
   postData,
 }) => {
   const renderIcon = (state?: MediaRunningState["state"]) => {
@@ -41,22 +39,26 @@ const HeaderSingleAudio: FC<HeaderSingleAudioProps> = ({
     isCurrentRunning: boolean,
     state?: MediaRunningState["state"]
   ) => {
+    const { featuredImage, title } = postData;
+
+    //
     let newState = state;
     if (!isCurrentRunning) {
       newState = null;
     }
+    //
 
     return (
-      <div
-        className={`aspect-w-1 aspect-h-1 rounded-full overflow-hidden z-0 shadow-2xl group cursor-pointer `}
-      >
-        {featuredImage ? (
+      <div className="aspect-w-1 aspect-h-1 rounded-full overflow-hidden z-0 shadow-2xl group cursor-pointer">
+        {featuredImage && featuredImage.node ? (
           <img
             className={`w-full h-full object-cover group-hover:scale-105 transform transition-transform nc-animation-spin ${
               newState === "playing" ? "playing" : ""
             }`}
-            src={featuredImage}
-            alt="audio"
+            src={featuredImage.node.sourceUrl || "."}
+            srcSet={featuredImage.node.srcSet}
+            alt={title}
+            sizes="300px"
           />
         ) : (
           <div
@@ -77,12 +79,11 @@ const HeaderSingleAudio: FC<HeaderSingleAudioProps> = ({
   };
 
   return (
-    <>
-      <ButtonPlayMusicRunningContainer
-        renderChildren={renderButtonPlay}
-        post={postData}
-      />
-    </>
+    <ButtonPlayMusicRunningContainer
+      className={className}
+      renderChildren={renderButtonPlay}
+      post={postData}
+    />
   );
 };
 

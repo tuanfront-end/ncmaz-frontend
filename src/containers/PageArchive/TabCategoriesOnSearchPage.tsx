@@ -93,6 +93,7 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
   };
 
   const IS_SKELETON = loading && !data?.categories.edges.length;
+  console.log(1, data?.categories.edges);
 
   return (
     <div className="mt-8 lg:mt-10">
@@ -103,7 +104,7 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
         error={error}
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 2xl:gap-8 ">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8 ">
         {IS_SKELETON &&
           Array.from("iiiiiiiiiiiiiiiiiiii").map((_, i) => (
             <CardCategory2Skeleton key={i} />
@@ -115,7 +116,7 @@ const TabCategoriesOnSearchPage: FC<TabCategoriesOnSearchPageProps> = ({
       </div>
 
       {data?.categories.pageInfo.hasNextPage && (
-        <div className="flex justify-center mt-12 lg:mt-16">
+        <div className="flex justify-center mt-8 sm:mt-10 xl:mt-14">
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
             {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>

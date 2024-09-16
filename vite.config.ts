@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
-const overwiteFile = require("./rollupPlugin");
+const overwiteFile = require("./rollupPlugin.cjs");
 
 export default ({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
@@ -17,6 +17,7 @@ export default ({ mode }) => {
     // t7 = `${ncmazFrontendVariables.pluginDir}dist/`
     base: basePublicPath,
     build: {
+      cssCodeSplit: process.env.VITE_LRT_OR_RTL === "ltr",
       manifest: true,
       rollupOptions: {
         input: "/src/main.tsx",

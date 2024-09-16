@@ -1,0 +1,1 @@
+import{j as o}from"./main-631d9ad8.js";import{B as e}from"./Button-1c4ed67d.js";const n=({className:r="",...t})=>o.jsx(e,{className:`ttnc-ButtonPrimaryDanger disabled:cursor-not-allowed disabled:bg-opacity-60 bg-red-600 hover:bg-red-700 text-red-50 ${r}`,...t});export{n as B};

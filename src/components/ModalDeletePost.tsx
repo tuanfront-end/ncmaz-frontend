@@ -2,7 +2,8 @@ import { useAppDispatch } from "app/hooks";
 import { addNewDeletedByPostId } from "app/postsDeleted/postsDeleted";
 import NCMAZ_TRANSLATE from "contains/translate";
 import React, { FC } from "react";
-import { Slide, toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 import ButtonPrimaryDanger from "components/Button/ButtonPrimaryDanger";
 import ButtonSecondary from "components/Button/ButtonSecondary";
 import NcModal from "components/NcModal/NcModal";
@@ -12,6 +13,7 @@ interface Props {
   onCloseModal: () => void;
   postDataBaseId: number;
   isReloadAfterDelete?: boolean;
+  linkReloadAfterDelete?: string;
 }
 
 const ModalDeletePost: FC<Props> = ({
@@ -19,6 +21,7 @@ const ModalDeletePost: FC<Props> = ({
   onCloseModal,
   postDataBaseId,
   isReloadAfterDelete = false,
+  linkReloadAfterDelete = window.frontendObject.homeURL,
 }) => {
   const [loading, setLoading] = React.useState(false);
 
@@ -40,16 +43,13 @@ const ModalDeletePost: FC<Props> = ({
         },
       })
       .done(function (response: any) {
-        toast(NCMAZ_TRANSLATE["Post deleted successfully."], {
-          type: "success",
-          transition: Slide,
-        });
+        toast.success(NCMAZ_TRANSLATE["Post deleted successfully."]);
         //   DISPACTH TO POSTS DELETED
         dispatch(addNewDeletedByPostId(postDataBaseId));
         //   RELOAD PAGE
         if (isReloadAfterDelete) {
           setTimeout(() => {
-            window.location.reload();
+            window.location.replace(linkReloadAfterDelete);
           }, 800);
         }
       })
@@ -57,11 +57,7 @@ const ModalDeletePost: FC<Props> = ({
         const errorMess =
           response.responseJSON?.message ||
           NCMAZ_TRANSLATE["somethingWentWrong"];
-        toast(errorMess, {
-          type: "error",
-          transition: Slide,
-          autoClose: 4000,
-        });
+        toast.error(errorMess);
       })
       .always(function () {
         onCloseModal();

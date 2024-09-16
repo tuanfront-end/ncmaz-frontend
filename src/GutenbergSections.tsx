@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
-
 import ErrorBoundary from "ErrorBoundary";
+
 import FactoryBlockMagazine from "containers/FactorySections/FactoryBlockMagazine";
 
 const FactoryBlockPostsGridLazy = React.lazy(
@@ -40,195 +40,175 @@ const gutenbergDomNodes = document.querySelectorAll(
 );
 
 const GutenbergSections = () => {
-  // DECLARE INIT NUMBER SECTION
-  let sectionIndex = 0;
-  return (
-    <>
-      {Array.from(gutenbergDomNodes).map((domNode, index) => {
-        const apiAttrStr = domNode.getAttribute(
-          "data-nc-gutenberg-section-api"
+  const renderSwichBlocks = (domNode: Element, index: number) => {
+    const sectionIndex = index;
+    const apiAttrStr = domNode.getAttribute("data-nc-gutenberg-section-api");
+
+    if (!apiAttrStr) {
+      return null;
+    }
+    const apiAttr: any = JSON.parse(apiAttrStr);
+
+    const attrSectionType =
+      domNode.getAttribute("data-nc-gutenberg-section-type") || "";
+
+    switch (attrSectionType) {
+      case "block-magazine":
+        return (
+          <ErrorBoundary key={index}>
+            <FactoryBlockMagazine
+              sectionIndex={sectionIndex}
+              domNode={domNode}
+              apiSettings={apiAttr}
+            />
+          </ErrorBoundary>
         );
-        if (!apiAttrStr) return null;
-        const apiAttr: any = JSON.parse(apiAttrStr);
 
-        const attrSectionType =
-          domNode.getAttribute("data-nc-gutenberg-section-type") || "";
-
-        // ===========================================
-        if (attrSectionType === "block-magazine") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <FactoryBlockMagazine
+      case "block-posts-slider":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockPostsSliderLazy
                 sectionIndex={sectionIndex}
+                key={index}
                 domNode={domNode}
                 apiSettings={apiAttr}
               />
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-posts-slider") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockPostsSliderLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-posts-grid") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockPostsGridLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-terms-slider") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockTermsSliderLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-terms-grid") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockTermsGridLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-users-slider") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockUsersSliderLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-users-grid") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockUsersGridLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-videos") {
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockVideosLazy
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-widget-posts") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockWidgetPostsLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-widget-users") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockWidgetUsersLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
-        // ===========================================
-        if (attrSectionType === "block-widget-terms") {
-          sectionIndex += 1;
-          return (
-            <ErrorBoundary key={index}>
-              <Suspense key={index} fallback={<div />}>
-                <FactoryBlockWidgetTermsLazy
-                  sectionIndex={sectionIndex}
-                  key={index}
-                  domNode={domNode}
-                  apiSettings={apiAttr}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          );
-        }
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-posts-grid":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockPostsGridLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-terms-slider":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockTermsSliderLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-terms-grid":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockTermsGridLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-users-slider":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockUsersSliderLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-users-grid":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockUsersGridLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-videos":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockVideosLazy
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-widget-posts":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockWidgetPostsLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-widget-users":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockWidgetUsersLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      case "block-widget-terms":
+        return (
+          <ErrorBoundary key={index}>
+            <Suspense key={index} fallback={<div />}>
+              <FactoryBlockWidgetTermsLazy
+                sectionIndex={sectionIndex}
+                key={index}
+                domNode={domNode}
+                apiSettings={apiAttr}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        );
+
+      default:
         return null;
-      })}
-    </>
-  );
+    }
+  };
+
+  return <>{Array.from(gutenbergDomNodes).map(renderSwichBlocks)}</>;
 };
 
 export default GutenbergSections;

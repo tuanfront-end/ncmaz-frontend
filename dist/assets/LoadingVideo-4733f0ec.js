@@ -1,0 +1,1 @@
+import{j as s}from"./main-631d9ad8.js";const a=({className:d="",childClassName:i="bg-neutral-100"})=>s.jsxs("div",{className:`nc-LoadingVideo lds-ellipsis lds-ellipsis-video ${d}`,"data-nc-id":"LoadingVideo",children:[s.jsx("div",{className:i}),s.jsx("div",{className:i}),s.jsx("div",{className:i}),s.jsx("div",{className:i})]});export{a as L};

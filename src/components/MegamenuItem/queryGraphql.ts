@@ -1,33 +1,12 @@
+import { FEATURED_IMAGE_COMMONT } from "contains/contantsCommon";
+
 const postFields = ` edges {
   node {
     id
     link
-    categories {
-      edges {
-        node {
-          id
-          link
-          name
-          uri
-          slug
-          count
-          categoryId
-          ncTaxonomyMeta {
-            color 
-          } 
-        } 
-      } 
-    }
-    commentCount
     date
-    excerpt
     featuredImage {
-      node {
-        id
-        altText
-        caption
-        sourceUrl(size: $featuredImage_size) 
-      } 
+        ${FEATURED_IMAGE_COMMONT}
     }
     postFormats {
       edges {
@@ -54,7 +33,6 @@ const POSTS_SECTION_BY_FILTER__string = `
     $first: Int = 10
     $before: String = null
     $after: String = null
-    $featuredImage_size: MediaItemSizeEnum = MEDIUM
   ) {
     posts(
       where: {
@@ -82,7 +60,6 @@ const POSTS_SECTION_BY_FILTER__string = `
 const POSTS_SECTION_SPECIFIC__string = `
   query Megamenu_Specific(
     $nameIn: [String] = ""
-    $featuredImage_size: MediaItemSizeEnum = MEDIUM
     ) {
     posts(where: { nameIn: $nameIn, orderby: {field: NAME_IN, order: ASC} }) {
       ${postFields}

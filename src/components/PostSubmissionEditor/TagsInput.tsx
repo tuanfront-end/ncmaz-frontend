@@ -1,9 +1,8 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import { nanoid } from "@reduxjs/toolkit";
 import CircleLoading from "components/Loading/CircleLoading";
-import GLOBAL_VARIABLE from "contains/globalVariable";
 import NCMAZ_TRANSLATE from "contains/translate";
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 interface Data {
   tags: Tags;
@@ -29,7 +28,7 @@ interface TagsInputProps {
 }
 
 const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
-  const MAX_TAGS_LENGTH = GLOBAL_VARIABLE.maxTagsLengSubmit;
+  const MAX_TAGS_LENGTH = frontendObject.maxTagsLengSubmit || 5;
 
   // GET MOST USED TAGS
   const Q_LIST_TAGS = gql`
@@ -158,18 +157,23 @@ const TagsInput: FC<TagsInputProps> = ({ onChange, defaultValue }) => {
               type="text"
               placeholder={
                 !tags.length
-                  ? `${NCMAZ_TRANSLATE["Add up to 5 tags"]}...`
+                  ? `${NCMAZ_TRANSLATE["Add tags"]} (${tags.length}/${MAX_TAGS_LENGTH})...`
                   : `${NCMAZ_TRANSLATE["Add another"]}...`
               }
               onFocus={openPopover}
               onKeyDown={(e) => {
-                if (e.code !== "Enter") {
+                if (
+                  e.code !== "Enter" &&
+                  e.key !== "Enter" &&
+                  e.key !== "Tab" &&
+                  e.key !== " "
+                ) {
                   return;
                 }
                 setNewTags({
                   id: `${Date.now()}-${nanoid()}`,
                   name: e.currentTarget.value,
-                  tagId: Math.random(),
+                  tagId: Date.now(),
                 });
               }}
             />

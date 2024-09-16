@@ -9,7 +9,7 @@ export interface Card6SkeletonProps {
 const Card6Skeleton: FC<Card6SkeletonProps> = ({ className = "h-full" }) => {
   return (
     <div
-      className={`nc-Card6Skeleton relative flex group flex-row items-center p-0 sm:p-4 mb-2.5 sm:mb-0 [ sm:nc-box-has-hover ] [ sm:nc-dark-box-bg-has-hover ] ${className}`}
+      className={`nc-Card6 relative flex group flex-row items-center p-3 sm:p-4 [ nc-box-has-hover nc-dark-box-bg-has-hover ] !rounded-md sm:!rounded-2xl ${className}`}
       data-nc-id="Card6Skeleton"
     >
       <div className="flex flex-col flex-grow">

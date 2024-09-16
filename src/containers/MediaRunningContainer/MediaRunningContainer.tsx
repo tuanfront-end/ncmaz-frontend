@@ -10,7 +10,7 @@ const MediaRunningContainerChildLazy = React.lazy(
   () => import("containers/MediaRunningContainer/MediaRunningContainerChild")
 );
 
-function MediaRunningContainer() {
+const MediaRunningContainer = () => {
   if (!frontendObject.musicPlayerMode) {
     return null;
   }
@@ -18,7 +18,6 @@ function MediaRunningContainer() {
   const currentMediaPostData = useAppSelector(selectCurrentMediaPostData);
   const hasButtonPlayOnDOM = useAppSelector(selectHasButtonPlayOnDOM);
 
-  // !newestAudioPlayerUrl: CHƯA CLICK VÀO PLAY NÀO
   // currentMediaPostData: redux ĐANG KHÔNG LƯU MEDIA NÀO
   // hasButtonPlayOnDOM: CO POST CARD AUDIO TRONG DOM
   if (!currentMediaPostData && !hasButtonPlayOnDOM) {
@@ -32,6 +31,6 @@ function MediaRunningContainer() {
       </Suspense>
     </ErrorBoundary>
   );
-}
+};
 
 export default MediaRunningContainer;

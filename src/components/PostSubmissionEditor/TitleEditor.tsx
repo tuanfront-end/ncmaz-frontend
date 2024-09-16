@@ -20,7 +20,7 @@ const TitleEditor: FC<Props> = ({ onUpdate, defaultTitle = "" }) => {
     editorProps: {
       attributes: {
         class:
-          "focus:outline-none max-w-screen-md mx-auto text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-5xl dark:text-neutral-100",
+          "focus:outline-none max-w-screen-md mx-auto text-neutral-900 font-semibold text-2xl sm:text-3xl md:text-4xl md:!leading-[120%] lg:text-5xl dark:text-neutral-100",
       },
     },
     content: defaultTitle,

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Badge from "components/Badge/Badge";
 import { PostNode } from "data/postCardType";
 import { TwMainColor } from "data/types";
@@ -15,7 +15,7 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
   className = "",
   itemClass = "",
   categories,
-  numberCategoriesWillShow = 4,
+  numberCategoriesWillShow = 3,
 }) => {
   return (
     <div
@@ -32,11 +32,11 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
           }
           return (
             <Badge
-              className={`relative my-1 ${itemClass}`}
+              className={`relative my-1 text-[10px] sm:text-xs ${itemClass}`}
               key={index}
               name={item.node.name}
               href={item.node.link}
-              color={item.node?.ncTaxonomyMeta?.color as TwMainColor}
+              color={item.node?.ncTaxonomyMeta?.color?.[0] as TwMainColor}
             />
           );
         })}

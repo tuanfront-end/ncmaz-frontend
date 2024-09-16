@@ -1,14 +1,25 @@
 import React, { Suspense } from "react";
-import GutenbergSections from "GutenbergSections";
 import HeaderFactory from "HeaderFactory";
 import FactoryComponents from "containers/FactoryComponents/FactoryComponents";
+import ReactDOM from "react-dom";
 import ErrorBoundary from "ErrorBoundary";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 import MediaRunningContainer from "containers/MediaRunningContainer/MediaRunningContainer";
-
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+  from,
+} from "@apollo/client";
+import { RetryLink } from "@apollo/client/link/retry";
 //
 const ScrollTopLazy = React.lazy(() => import("components/ScrollTop"));
+const BuyNowForDemoPageLazy = React.lazy(
+  () => import("components/BuyNowForDemoPage")
+);
 //
+const GutenbergSectionsLazy = React.lazy(() => import("./GutenbergSections"));
 const LazyCssRTLLazy = React.lazy(() => import("./LazyCssRTL"));
 const LazyCssCommentsLazy = React.lazy(() => import("./LazyCssComments"));
 const LazyCssSingleProseLazy = React.lazy(() => import("./LazyCssSingleProse"));
@@ -16,46 +27,97 @@ const LazyCssWUFPluginLazy = React.lazy(() => import("./LazyCssWUFPlugin"));
 const LazyCssWoocommerceLazy = React.lazy(() => import("./LazyCssWoocommerce"));
 //
 
+const cache = new InMemoryCache({
+  // typePolicies: {
+  //   Post: {
+  //     keyFields: [
+  //       "ncmazVideoUrl",
+  //       "ncmazAudioUrl",
+  //       "ncPostMetaData",
+  //       "ncmazGalleryImgs",
+  //     ],
+  //   },
+  //   // VI TRONG 1 Trang thuong chi co 1 section user
+  //   User: {
+  //     keyFields: ["ncUserMeta"],
+  //   },
+  //   Category: {
+  //     keyFields: ["ncTaxonomyMeta"],
+  //   },
+  //   Tag: {
+  //     keyFields: ["ncTaxonomyMeta"],
+  //   },
+  // },
+});
+
+const link = new RetryLink();
+
+const httpLink = new HttpLink({
+  uri: window.frontendObject.graphQLBasePath,
+});
+
+const client = new ApolloClient({
+  uri: window.frontendObject.graphQLBasePath,
+  cache,
+  link: from([link, httpLink]),
+});
+
 function App() {
+  // CHECK FOR GRAPHQL
+  if (!window.frontendObject?.graphQLBasePath) {
+    return null;
+  }
+
+  const renderFooterFixedContent = () => {
+    return (
+      <>
+        {frontendObject.enableScrollToTop && (
+          <Suspense fallback={<div />}>
+            <ScrollTopLazy />
+          </Suspense>
+        )}
+
+        <MediaRunningContainer />
+      </>
+    );
+  };
+
+  const renderFooterFixed = () => {
+    const domNode = document.getElementById("nc-footer-fixed-area");
+    if (!domNode) {
+      return null;
+    }
+
+    return ReactDOM.createPortal(renderFooterFixedContent(), domNode);
+  };
+
   return (
-    <>
+    <ApolloProvider client={client}>
       <ErrorBoundary>
         <HeaderFactory />
       </ErrorBoundary>
 
       {/* ------- */}
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop={false}
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover={false}
-        theme="dark"
-        style={{
-          top: (document.getElementById("wpadminbar")?.clientHeight || 0) + 6,
+      <Toaster
+        containerStyle={{
+          top: 40,
+          left: 40,
+          bottom: 40,
+          right: 40,
+          zIndex: 9999999,
         }}
-        toastClassName={"toast-container-class"}
       />
 
       {/* ------- */}
       <FactoryComponents />
 
       {/* ------- */}
-      <GutenbergSections />
+      <Suspense fallback={<div />}>
+        <GutenbergSectionsLazy />
+      </Suspense>
 
       {/* ---------- */}
-
-      <div className="fixed bottom-0 inset-x-0 flex flex-col items-end z-30">
-        <Suspense fallback={<div />}>
-          <ScrollTopLazy />
-        </Suspense>
-
-        {/* ---------- */}
-        <MediaRunningContainer />
-      </div>
+      {renderFooterFixed()}
 
       {/* ---------- */}
       {/* LOAD RTL CSS WHEN RTL MODE ENABLE */}
@@ -77,6 +139,12 @@ function App() {
         </Suspense>
       )}
 
+      {!!document.querySelector("[data-is-ncmaz-demo-site='yes']") && (
+        <Suspense fallback={<div />}>
+          <BuyNowForDemoPageLazy />
+        </Suspense>
+      )}
+
       {import.meta.env.DEV && (
         <Suspense fallback={<div />}>
           <LazyCssWoocommerceLazy />
@@ -90,7 +158,7 @@ function App() {
           <LazyCssWUFPluginLazy />
         </Suspense>
       )}
-    </>
+    </ApolloProvider>
   );
 }
 

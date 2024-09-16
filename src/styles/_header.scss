@@ -1,19 +1,27 @@
 .nc-MainNav1 {
-  &.notOnTop {
-    @apply bg-white/70 dark:bg-neutral-900/60 backdrop-blur-2xl shadow-sm dark:border-b dark:border-neutral-700;
-  }
+  @apply bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700;
+  //@apply bg-white/70 dark:bg-neutral-900/60 backdrop-blur-2xl border-b border-transparent;
+  //&.notOnTop {
+  // @apply border-neutral-200 dark:border-neutral-700;
+  //}
 }
 
 //
 .site-logo {
   img {
     max-width: 80px;
-    max-height: 40px;
+    max-height: 32px;
   }
   @screen sm {
     img {
       max-width: 90px;
-      max-height: 48px;
+      max-height: 36px;
+    }
+  }
+  @screen xl {
+    img {
+      max-width: 90px;
+      max-height: 44px;
     }
   }
 }

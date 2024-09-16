@@ -17,7 +17,7 @@ import TiptapEditor from "./TiptapEditor";
 import { Editor } from "@tiptap/react";
 import { gql, useMutation } from "@apollo/client";
 import Alert from "components/Alert/Alert";
-import { Slide, toast } from "react-toastify";
+import toast from "react-hot-toast";
 import ModalDraftPost from "./ModalDraftPost";
 import { handleBeforeunload } from "./CreateNewPostEditor";
 
@@ -154,16 +154,16 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
           excerpt: $excerpt
           ncFeaturedImageDatabaseId: $ncFeaturedImageDatabaseId
           ncmazAudioUrl: $ncmazAudioUrl
-          ncmazGalleryImgs_1_databaseID: $ncmazGalleryImgs_1_databaseID
-          ncmazGalleryImgs_2_databaseID: $ncmazGalleryImgs_2_databaseID
-          ncmazGalleryImgs_3_databaseID: $ncmazGalleryImgs_3_databaseID
-          ncmazGalleryImgs_4_databaseID: $ncmazGalleryImgs_4_databaseID
-          ncmazGalleryImgs_5_databaseID: $ncmazGalleryImgs_5_databaseID
-          ncmazGalleryImgs_6_databaseID: $ncmazGalleryImgs_6_databaseID
-          ncmazGalleryImgs_7_databaseID: $ncmazGalleryImgs_7_databaseID
-          ncmazGalleryImgs_8_databaseID: $ncmazGalleryImgs_8_databaseID
+          ncmazGalleryImgs1DatabaseID: $ncmazGalleryImgs_1_databaseID
+          ncmazGalleryImgs2DatabaseID: $ncmazGalleryImgs_2_databaseID
+          ncmazGalleryImgs3DatabaseID: $ncmazGalleryImgs_3_databaseID
+          ncmazGalleryImgs4DatabaseID: $ncmazGalleryImgs_4_databaseID
+          ncmazGalleryImgs5DatabaseID: $ncmazGalleryImgs_5_databaseID
+          ncmazGalleryImgs6DatabaseID: $ncmazGalleryImgs_6_databaseID
+          ncmazGalleryImgs7DatabaseID: $ncmazGalleryImgs_7_databaseID
+          ncmazGalleryImgs8DatabaseID: $ncmazGalleryImgs_8_databaseID
           content: $content
-          categories: { nodes: $categoryNodes }
+          categories: { append: false, nodes: $categoryNodes }
           ncTags: $ncTags
           ncmazVideoUrl: $ncmazVideoUrl
           postFormats: {
@@ -206,9 +206,7 @@ const UpdatePostEditor: FC<Props> = ({ postNode }) => {
       return;
     }
     window.removeEventListener("beforeunload", handleBeforeunload, true);
-    toast.success(NCMAZ_TRANSLATE["Post successful"] + "!", {
-      transition: Slide,
-    });
+    toast.success(NCMAZ_TRANSLATE["Post successful"] + "!");
     setTimeout(() => {
       window.location.href = data?.updatePost.post.link;
     }, 500);

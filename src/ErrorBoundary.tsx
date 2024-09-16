@@ -28,7 +28,7 @@ class ErrorBoundary extends React.Component<MyProps, MyState> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex">
+        <div className="container py-10 flex">
           <Alert
             type="error"
             children={NCMAZ_TRANSLATE["somethingWentWrong"]}

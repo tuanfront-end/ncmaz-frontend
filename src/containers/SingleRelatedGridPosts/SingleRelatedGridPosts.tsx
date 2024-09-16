@@ -17,6 +17,7 @@ export interface SingleRelatedGridPostsProps {
   orderBy?: string;
   numberOfPosts?: number;
   categoriesId: number[];
+  currentPostDatabaseId?: number;
 }
 
 const SingleRelatedGridPosts: FC<SingleRelatedGridPostsProps> = ({
@@ -24,6 +25,7 @@ const SingleRelatedGridPosts: FC<SingleRelatedGridPostsProps> = ({
   order,
   orderBy,
   categoriesId,
+  currentPostDatabaseId,
 }) => {
   //
   let GQL_QUERY__string = "";
@@ -38,6 +40,7 @@ const SingleRelatedGridPosts: FC<SingleRelatedGridPostsProps> = ({
     orderBy,
     first: Number(numberOfPosts),
     categoryIn: categoriesId,
+    notIn: currentPostDatabaseId ? [currentPostDatabaseId] : [],
   };
 
   const gqlQuery = gql`
@@ -52,7 +55,7 @@ const SingleRelatedGridPosts: FC<SingleRelatedGridPostsProps> = ({
   );
 
   // =========================================================
-  const { ref } = useGqlQuerySection(gqlQueryGetPosts, 99, {
+  const { ref } = useGqlQuerySection(gqlQueryGetPosts, 99, undefined, {
     freezeOnceVisible: true,
     rootMargin: "1000px",
   });

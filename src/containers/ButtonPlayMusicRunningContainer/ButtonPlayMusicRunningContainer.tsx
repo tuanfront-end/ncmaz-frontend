@@ -124,7 +124,7 @@ const ButtonPlayMusicRunningContainer: FC<
     }
     return (
       <PostTypeFeaturedIcon
-        className="z-20 hover:scale-105 transform cursor-pointer transition-transform "
+        className="hover:scale-105 transform cursor-pointer transition-transform z-30 relative"
         postType="post-format-audio"
       />
     );
@@ -155,7 +155,7 @@ const ButtonPlayMusicRunningContainer: FC<
     }
 
     return (
-      <span className="z-10 bg-neutral-900 bg-opacity-60 rounded-full flex  items-center justify-center text-xl text-white border border-white w-11 h-11 cursor-pointer">
+      <span className="z-10 bg-neutral-900/60 rounded-full flex  items-center justify-center text-xl text-white border border-white w-11 h-11 cursor-pointer">
         <img className="w-5" src={iconPlaying} alt="paused" />
       </span>
     );

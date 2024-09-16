@@ -1,4 +1,4 @@
-import { ImageState } from "components/ImageUploadToServer";
+import { FeaturedImage, NcUserMeta as NcUserMetaP } from "./postCardType";
 
 export type TwMainColor =
   | "pink"
@@ -25,6 +25,17 @@ export interface GraphQlPageInfo {
   startCursor: string;
 }
 
+export interface FullImageNode {
+  databaseId?: string;
+  id?: string;
+  altText?: string;
+  caption?: string;
+  sourceUrl: string;
+  sizes?: string;
+  srcSet?: string;
+  __typename?: string;
+}
+
 //
 export interface UserViewer {
   avatar?: {
@@ -34,13 +45,7 @@ export interface UserViewer {
   databaseId: number;
   email?: string;
   name?: string;
-  ncUserMeta?: {
-    color: string;
-    ncBio: string;
-    featuredImage?: {
-      sourceUrl: string;
-    };
-  };
+  ncUserMeta?: NcUserMeta;
   slug: string;
   uri: string;
   url: string;
@@ -85,23 +90,7 @@ export interface UserFullData {
   nickname: string;
 }
 
-export interface NcUserMeta {
-  buymeacoffeUrl: string;
-  facebookUrl: string;
-  backgroundImage?: OjbImage;
-  githubUrl: string;
-  instagramUrl: string;
-  linkedinUrl: any;
-  mediumUrl: string;
-  ncBio: string;
-  pinterestUrl: any;
-  twitchUrl: any;
-  twitterUrl: string;
-  vimeoUrl: any;
-  websiteUrl: string;
-  youtubeUrl: string;
-  featuredImage?: OjbImage;
-}
+export interface NcUserMeta extends NcUserMetaP {}
 
 export interface OjbImage {
   altText: string;

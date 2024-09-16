@@ -69,7 +69,7 @@ $args = array(
     'customizer'                => true,
 
     // Order where the menu appears in the admin area. If there is any conflict, something will not show. Warning.
-    'page_priority'             => null,
+    'page_priority'             => 90,
 
     // For a full list of options, visit: @link http://codex.wordpress.org/Function_Reference/add_submenu_page#Parameters.
     'page_parent'               => 'themes.php',
@@ -160,19 +160,19 @@ $args = array(
 $args['admin_bar_links'][] = array(
     'id'    => 'redux-docs',
     'href'  => '//devs.redux.io/',
-    'title' => esc_html__('Documentation', 'your-textdomain-here'),
+    'title' => esc_html__('Documentation', 'ncmaz-frontend'),
 );
 
 $args['admin_bar_links'][] = array(
     'id'    => 'redux-support',
     'href'  => '//github.com/ReduxFramework/redux-framework/issues',
-    'title' => esc_html__('Support', 'your-textdomain-here'),
+    'title' => esc_html__('Support', 'ncmaz-frontend'),
 );
 
 $args['admin_bar_links'][] = array(
     'id'    => 'redux-extensions',
     'href'  => 'redux.io/extensions',
-    'title' => esc_html__('Extensions', 'your-textdomain-here'),
+    'title' => esc_html__('Extensions', 'ncmaz-frontend'),
 );
 
 // SOCIAL ICONS -> Setup custom links in the footer for quick links in your panel footer icons.
@@ -183,17 +183,17 @@ $args['share_icons'][] = array(
 );
 $args['share_icons'][] = array(
     'url'   => '//www.facebook.com/pages/Redux-Framework/243141545850368',
-    'title' => esc_html__('Like us on Facebook', 'your-textdomain-here'),
+    'title' => esc_html__('Like us on Facebook', 'ncmaz-frontend'),
     'icon'  => 'el el-facebook',
 );
 $args['share_icons'][] = array(
     'url'   => '//twitter.com/reduxframework',
-    'title' => esc_html__('Follow us on Twitter', 'your-textdomain-here'),
+    'title' => esc_html__('Follow us on Twitter', 'ncmaz-frontend'),
     'icon'  => 'el el-twitter',
 );
 $args['share_icons'][] = array(
     'url'   => '//www.linkedin.com/company/redux-framework',
-    'title' => esc_html__('FInd us on LinkedIn', 'your-textdomain-here'),
+    'title' => esc_html__('FInd us on LinkedIn', 'ncmaz-frontend'),
     'icon'  => 'el el-linkedin',
 );
 
@@ -204,13 +204,13 @@ if (!isset($args['global_variable']) || false !== $args['global_variable']) {
     } else {
         $v = str_replace('-', '_', $args['opt_name']);
     }
-    $args['intro_text'] = '<p>' . sprintf(__('Did you know that Redux sets a global variable for you? To access any of your saved options from within your code you can use your global variable: $s', 'your-textdomain-here') . '</p>', '<strong>' . $v . '</strong>');
+    $args['intro_text'] = '<p>' . sprintf(__('Did you know that Redux sets a global variable for you? To access any of your saved options from within your code you can use your global variable: $s', 'ncmaz-frontend') . '</p>', '<strong>' . $v . '</strong>');
 } else {
-    $args['intro_text'] = '<p>' . esc_html__('This text is displayed above the options panel. It isn\'t required, but more info is always better! The intro_text field accepts all HTML.', 'your-textdomain-here') . '</p>';
+    $args['intro_text'] = '<p>' . esc_html__('This text is displayed above the options panel. It isn\'t required, but more info is always better! The intro_text field accepts all HTML.', 'ncmaz-frontend') . '</p>';
 }
 
 // Add content after the form.
-$args['footer_text'] = '<p>' . esc_html__('This text is displayed below the options panel. It isn\'t required, but more info is always better! The footer_text field accepts all HTML.', 'your-textdomain-here') . '</p>';
+$args['footer_text'] = '<p>' . esc_html__('This text is displayed below the options panel. It isn\'t required, but more info is always better! The footer_text field accepts all HTML.', 'ncmaz-frontend') . '</p>';
 
 Redux::set_args($opt_name, $args);
 

@@ -14,7 +14,7 @@ const Card10V2Skeleton: FC<Card10V2SkeletonProps> = ({
       className={`nc-Card10V2Skeleton relative flex flex-col ${className}`}
       data-nc-id="Card10V2Skeleton"
     >
-      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-12 sm:aspect-h-9 overflow-hidden">
+      <div className="block group rounded-3xl flex-shrink-0 relative w-full aspect-w-16 aspect-h-9 overflow-hidden">
         <NcImage src="." />x
       </div>
       <div className="absolute top-3 inset-x-3 flex justify-between items-start space-x-4">

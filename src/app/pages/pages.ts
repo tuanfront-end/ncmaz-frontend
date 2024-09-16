@@ -34,7 +34,7 @@ export const currentPageSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { changeCurrentPage } = currentPageSlice.actions;
 
-export const selectCurrentPageData = (state: RootState) =>
-  state.pages.currentPage;
+// export const selectCurrentPageData = (state: RootState) =>
+//   state.pages.currentPage;
 
 export default currentPageSlice.reducer;

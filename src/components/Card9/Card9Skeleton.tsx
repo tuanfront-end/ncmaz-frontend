@@ -10,7 +10,7 @@ export interface Card9SkeletonProps {
 
 const Card9Skeleton: FC<Card9SkeletonProps> = ({
   className = "h-full",
-  ratio = "aspect-w-6 aspect-h-5 sm:aspect-w-3 sm:aspect-h-4",
+  ratio = "aspect-w-4 aspect-h-3 sm:aspect-w-5 sm:aspect-h-6",
   hoverClass = "",
 }) => {
   return (

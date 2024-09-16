@@ -1,7 +1,70 @@
 let NCMAZ_TRANSLATE = {
+  Undo: "Undo",
+  Redo: "Redo",
+  Bold: "Bold",
+  Italic: "Italic",
+  Link: "Link",
+  "Bullet List": "Bullet List",
+  Heading: "Heading",
+  Blockquote: "Blockquote",
+  Code: "Code",
+  "Code Block": "Code Block",
+  "Ordered List": "Ordered List",
+  "Align right": "Align right",
+  "Align left": "Align left",
+  "Align center": "Align center",
+  Underline: "Underline",
+  Strike: "Strike",
+  Highlight: "Highlight",
+  iframe: "iframe",
+  "Horizontal Rule": "Horizontal Rule",
+  "Clear Format": "Clear Format",
+  "Hard Break": "Hard Break",
+  "Paste or type URL": "Paste or type URL",
+  "Heading 1": "Heading 1",
+  "Heading 2": "Heading 2",
+  "Heading 3": "Heading 3",
+  "Heading 4": "Heading 4",
+  "Heading 5": "Heading 5",
+  "Heading 6": "Heading 6",
+  "Post options": "Post options",
+  "Post format": "Post format",
+  "Video URL (Youtube, Vimeo, mp4 ... )":
+    "Video URL (Youtube, Vimeo, mp4 ... )",
+  "Audio URL": "Audio URL",
+  Youtube: "Youtube",
+  Vimeo: "Vimeo",
+  Twitter: "Twitter",
+  Facebook: "Facebook",
+  Instagram: "Instagram",
+  Medium: "Medium",
+  Linkedin: "Linkedin",
+  Pinterest: "Pinterest",
+  Github: "Github",
+  Twitch: "Twitch",
+  Tiktok: "Tiktok",
+  Telegram: "Telegram",
+  Whatsapp: "Whatsapp",
+  Discord: "Discord",
+  // 8-5-2024
+  "sec left": "sec left",
+  "min left": "min left",
+  // 6-3-2023
+  "Are you sure you want to draft this post? You cannot undo this action.":
+    "Are you sure you want to draft this post? You cannot undo this action.",
+  "Are you sure you want to publish this post? You cannot undo this action.":
+    "Are you sure you want to publish this post? You cannot undo this action.",
+  "Draft post": "Draft post",
+  "Publish post": "Publish post",
+  // 20-12-2022
+  // 22-9-2022
+  "Comment this post": "Comment this post",
+  "Edit post": "Edit post",
+  // OLD
+  "Add tags": "Add tags",
+  "Go to search page": "Go to search page",
   "Now playing": "Now playing",
   "Listen now": "Listen now",
-  //
   "Type the URL of the iframe you want to embed":
     "Type the URL of the iframe you want to embed",
   Buymeacoffe: "Buymeacoffe",
@@ -12,7 +75,6 @@ let NCMAZ_TRANSLATE = {
   "Short Bio": "Short Bio",
   "Upload a file": "Upload a file",
   "Click to change": "Click to change",
-  //
   socials: "socials",
   profile: "profile",
   general: "general",
@@ -92,7 +154,6 @@ let NCMAZ_TRANSLATE = {
   "Paste or type a link": "Paste or type a link",
   "Alt text (alternative text)": "Alt text (alternative text)",
   Image: "Image",
-  //
   nothingWeFound: "Nothing we found!",
   author: "author",
   authors: "authors",
@@ -127,45 +188,81 @@ let NCMAZ_TRANSLATE = {
   discoverOtherCategories: "Discover other categories",
 };
 
-//
-// try {
-//   if (
-//     frontendObject.frontendTranslate &&
-//     typeof frontendObject.frontendTranslate === "string"
-//   ) {
-//     const jsF = JSON.parse(frontendObject.frontendTranslate);
-
-//     if (jsF && typeof jsF === "object") {
-//       NCMAZ_TRANSLATE = {
-//         ...NCMAZ_TRANSLATE,
-//         ...jsF,
-//       };
-//     }
-//   }
-// } catch (error) {
-//   console.warn("----translate frontend file error ----", error);
-// }
+// LẤY DỮ LIỆU TỪ JSON TỪ REDUX - TRẢ VỀ QUA BIẾN frontendObject
 try {
-  //
-  if (!!window.locales && !!window.locales["DEFAULT"]) {
+  _handleFrontendTranslationsFromtendObject();
+} catch (error) {
+  console.warn("---- Redux translate frontend file error format ----", error);
+}
+
+function _handleFrontendTranslationsFromtendObject() {
+  const {
+    frontendTranslations,
+    pll_themeoption_actived,
+    pll_current_language_correct_code,
+  } = frontendObject;
+  if (!frontendTranslations) {
+    return;
+  }
+
+  const LANG_DEFAULT = frontendTranslations.filter(
+    (item) => item.language === "default"
+  )?.[0];
+
+  if (LANG_DEFAULT && !!LANG_DEFAULT.jsCode) {
+    const defaultJsCode = JSON.parse(LANG_DEFAULT.jsCode);
+    if (defaultJsCode && typeof defaultJsCode === "object") {
+      NCMAZ_TRANSLATE = {
+        ...NCMAZ_TRANSLATE,
+        ...defaultJsCode,
+      };
+    }
+  }
+  // MULTI LANGUAGE
+  if (!pll_themeoption_actived || !pll_current_language_correct_code) {
+    return;
+  }
+  const LANG_CURRENT = frontendTranslations.filter(
+    (item) => item.language === pll_current_language_correct_code
+  )?.[0];
+  if (LANG_CURRENT && !!LANG_CURRENT.jsCode) {
+    const currentJsCode = JSON.parse(LANG_CURRENT.jsCode);
+    if (currentJsCode && typeof currentJsCode === "object") {
+      NCMAZ_TRANSLATE = {
+        ...NCMAZ_TRANSLATE,
+        ...currentJsCode,
+      };
+    }
+  }
+}
+
+// PHẦN NÀY CŨ - LẤY CODEJS TỪ CÁC FILE JS TRONG THƯ MỤC LOCALES Ở THEME
+// TRONG BẢN CẬP NHẬT MỚI, THƯ MỤC NÀY ĐÃ BỊ XOÁ, VÀ ĐƯỢC THAY THẾ BẰNG DỮ LIỆU TỪ REDUX -
+try {
+  _handleFrontendTranslationsFromLocalesFiles();
+} catch (error) {
+  console.warn("---- translate: locales files error format ----", error);
+}
+
+function _handleFrontendTranslationsFromLocalesFiles() {
+  if (!window.locales) {
+    return;
+  }
+  if (!!window.locales["DEFAULT"]) {
     NCMAZ_TRANSLATE = {
       ...NCMAZ_TRANSLATE,
       ...(window.locales["DEFAULT"] as any),
     };
   }
-
-  //
-
-  if (!!window.locales && !!window.frontendObject.pll_current_language) {
-    if (window.locales[window.frontendObject.pll_current_language]) {
+  // MULTI LANGUAGE
+  if (!!frontendObject.pll_current_language) {
+    if (window.locales[frontendObject.pll_current_language]) {
       NCMAZ_TRANSLATE = {
         ...NCMAZ_TRANSLATE,
-        ...(window.locales[window.frontendObject.pll_current_language] as any),
+        ...(window.locales[frontendObject.pll_current_language] as any),
       };
     }
   }
-} catch (error) {
-  console.warn("----translate: locales files error format ----", error);
 }
 
 export default NCMAZ_TRANSLATE;

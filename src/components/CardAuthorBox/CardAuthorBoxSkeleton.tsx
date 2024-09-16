@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ArrowRightIcon } from "@heroicons/react/solid";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import Avatar from "components/Avatar/Avatar";
 import Skeleton from "react-loading-skeleton";
 

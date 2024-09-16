@@ -3,13 +3,6 @@ import _ from "lodash";
 // FUNCTIONS nay muc dich chi hide/show header va action voi single header
 try {
   const HeaderSingle = () => {
-    setTimeout(() => {
-      window.addEventListener("scroll", function () {
-        window.requestAnimationFrame(handleProgressIndicator);
-      });
-      window.addEventListener("scroll", _.debounce(handleHeaderShowing, 100));
-    }, 100);
-
     const headerSinglePage = document.querySelector<HTMLElement>(
       ".nc-SingleHeaderMenu"
     );
@@ -60,6 +53,13 @@ try {
 
       progressBarRef.style.width = scrolled + "%";
     };
+
+    setTimeout(() => {
+      window.addEventListener("scroll", function () {
+        window.requestAnimationFrame(handleProgressIndicator);
+      });
+      window.addEventListener("scroll", _.debounce(handleHeaderShowing, 100));
+    }, 100);
 
     return null;
   };

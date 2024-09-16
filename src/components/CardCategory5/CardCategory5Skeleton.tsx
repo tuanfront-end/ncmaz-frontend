@@ -16,7 +16,7 @@ const CardCategory5Skeleton: FC<CardCategory5SkeletonProps> = ({
       data-nc-id="CardCategory5Skeleton"
     >
       <div
-        className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-7 sm:aspect-h-5 h-0 rounded-2xl sm:rounded-3xl overflow-hidden group`}
+        className={`flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-2xl sm:rounded-3xl overflow-hidden group`}
       >
         <NcImage src={"."} className="object-cover w-full h-full rounded-2xl" />
         <span className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity"></span>

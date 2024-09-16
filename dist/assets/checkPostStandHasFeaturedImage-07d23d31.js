@@ -1,0 +1,1 @@
+const u=(s,d=!1)=>{var o,r;if(!d&&frontendObject.isPlaceholderPostNotFeatured)return!0;const{featuredImage:a,postFormats:e}=s,t=(r=(o=e==null?void 0:e.edges[0])==null?void 0:o.node)==null?void 0:r.slug;return t!=="post-format-audio"&&t!=="post-format-video"&&t!=="post-format-gallery"&&a&&a.node.sourceUrl};export{u as c};

@@ -6,7 +6,7 @@ interface DarkModeState {
 }
 
 const initialState: DarkModeState = {
-  isDarkMode: false,
+  isDarkMode: localStorage.theme === "dark",
 };
 
 export const darkmodeSlice = createSlice({
@@ -22,7 +22,7 @@ export const darkmodeSlice = createSlice({
 export const { toogleDarkMode, enableDarkMode, disableDarkMode } =
   darkmodeSlice.actions;
 
-export const selectDarkmodeState = (state: RootState) =>
-  state.darkmode.isDarkMode;
+// export const selectDarkmodeState = (state: RootState) =>
+//   state.darkmode.isDarkMode;
 
 export default darkmodeSlice.reducer;

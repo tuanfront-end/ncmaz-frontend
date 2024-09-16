@@ -18,7 +18,7 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full", post }) => {
     >
       <a href={link} className=" absolute inset-0" title={title}></a>
       <div className="grid grid-cols-1 relative space-y-2 overflow-hidden flex-grow">
-        <PostCardMeta className="w-full" meta={{ ...post }} />
+        <PostCardMeta meta={{ ...post }} />
         <h3 className="nc-card-title block text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100">
           <a
             href={link}
@@ -32,16 +32,15 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full", post }) => {
       <a
         href={link}
         title={title}
-        className={`block w-20 flex-shrink-0 relative rounded-lg overflow-hidden ml-4 group z-0`}
+        className={`block w-16 sm:w-20 flex-shrink-0 relative ml-4 `}
       >
-        <div className={`w-full h-0 aspect-w-16 aspect-h-16`}>
-          <NcImage
-            containerClassName="absolute inset-0"
-            className="object-cover w-full h-full group-hover:scale-110 transform transition-transform duration-300"
-            src={featuredImage?.node.sourceUrl || "."}
-            title={title}
-          />
-        </div>
+        <NcImage
+          containerClassName=""
+          className="object-cover aspect-1 rounded-lg hover:opacity-90 transition-opacity"
+          src={featuredImage?.node.sourceUrl || "."}
+          srcSet={featuredImage?.node.srcSet}
+          alt={title}
+        />
       </a>
     </div>
   );

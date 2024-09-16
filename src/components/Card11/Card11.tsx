@@ -9,6 +9,8 @@ import PostMoreActionDropdown from "components/PostMoreActionDropdown";
 import checkCurrentUserCanEditPostById from "utils/checkCurrentUserCanEditPostById";
 import { useAppSelector } from "app/hooks";
 import { selectRecentPostsDeleted } from "app/postsDeleted/postsDeleted";
+import { NC_IMAGE_SIZES } from "utils/getImageSizesBySizeName";
+import checkPostStandHasFeaturedImage from "utils/checkPostStandHasFeaturedImage";
 
 export interface Card11Props {
   className?: string;
@@ -16,16 +18,19 @@ export interface Card11Props {
   ratio?: string;
   hiddenAuthor?: boolean;
   onClickLike?: (id: number) => void;
+  imageSizes?: NC_IMAGE_SIZES;
 }
 
 const Card11: FC<Card11Props> = ({
   className = "h-full",
   post,
   hiddenAuthor = false,
-  ratio = "aspect-w-4 aspect-h-3",
+  ratio = "aspect-w-8 aspect-h-5 sm:aspect-w-4 sm:aspect-h-3",
   onClickLike,
+  imageSizes,
 }) => {
-  const { title, link, categories, date, author } = post;
+  const { title, link, categories, date, author, featuredImage, postFormats } =
+    post;
 
   const recentPostsDeleted = useAppSelector(selectRecentPostsDeleted);
 
@@ -36,6 +41,8 @@ const Card11: FC<Card11Props> = ({
     return null;
   }
 
+  const standardHasFeaturedImage = checkPostStandHasFeaturedImage(post);
+
   return (
     <div
       className={`nc-Card11 relative flex flex-col group [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ] ${className}`}
@@ -44,16 +51,26 @@ const Card11: FC<Card11Props> = ({
       onMouseLeave={() => setIsHover(false)}
     >
       <a href={link} className="block absolute inset-0"></a>
-      <div
-        className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden z-0 ${ratio}`}
-      >
-        <div>
-          <PostFeaturedMedia post={post} isHover={isHover} />
+      {standardHasFeaturedImage && (
+        <div
+          className={`block flex-shrink-0 relative w-full rounded-t-xl overflow-hidden z-0 ${ratio}`}
+        >
+          <div>
+            <PostFeaturedMedia
+              imageSizes={imageSizes}
+              post={post}
+              isHover={isHover}
+            />
+          </div>
         </div>
-      </div>
-      <span className="absolute top-3 inset-x-3 z-10">
+      )}
+      <div
+        className={`top-3 inset-x-3 z-10 ${
+          standardHasFeaturedImage ? "absolute" : "m-3"
+        }`}
+      >
         <CategoryBadgeList categories={categories} />
-      </span>
+      </div>
 
       <div className="p-4 h-full flex flex-col flex-grow">
         {!hiddenAuthor ? (
@@ -66,19 +83,19 @@ const Card11: FC<Card11Props> = ({
             <a
               href={link}
               className="line-clamp-2"
-              dangerouslySetInnerHTML={{ __html: title }}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
               title={title}
             ></a>
           ) : null}
         </h3>
-        <div className="flex items-end justify-between mt-auto">
+        <div className="flex rtl:flex-row-reverse items-end justify-between gap-2 mt-auto">
           <PostCardLikeAndComment
             onClickLike={onClickLike}
             className="relative"
             postData={post}
             hiddenCommentOnMobile={false}
           />
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-1 rtl:flex-row-reverse justify-end items-center gap-2 ">
             <PostCardDropdownShare
               href={post.link}
               image={post.featuredImage?.node.sourceUrl}

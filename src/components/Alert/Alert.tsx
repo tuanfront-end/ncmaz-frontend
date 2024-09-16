@@ -1,6 +1,6 @@
 import React from "react";
 import ButtonClose from "components/ButtonClose/ButtonClose";
-import { InformationCircleIcon } from "@heroicons/react/solid";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
 export interface AlertProps {
   containerClassName?: string;

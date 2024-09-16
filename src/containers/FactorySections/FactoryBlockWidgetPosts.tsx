@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import { GutenbergApiAttr_BlockWidgetPots } from "data/gutenbergAttrType";
 import WidgetPosts from "components/WidgetPosts/WidgetPosts";
@@ -18,8 +18,8 @@ const FactoryBlockWidgetPosts: FC<FactoryBlockWidgetPostsProps> = ({
   apiSettings,
   sectionIndex,
 }) => {
-  const { graphQLvariables, settings, graphQLData } = apiSettings;
-  const IS_SPECIFIC_DATA = !graphQLvariables && !!graphQLData;
+  const { graphQLvariables, settings, graphQLData, hasSSrInitData } =
+    apiSettings;
 
   const {
     funcGqlQueryGetPosts,
@@ -34,15 +34,12 @@ const FactoryBlockWidgetPosts: FC<FactoryBlockWidgetPostsProps> = ({
   } = useGutenbergSectionWithGQLGetPosts({
     graphQLData,
     graphQLvariables,
+    hasSSrInitData,
   });
 
   //
   let ref: React.RefObject<HTMLDivElement> | null = null;
-  if (IS_SPECIFIC_DATA) {
-    ref = useRef<HTMLDivElement>(null);
-  } else {
-    ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
-  }
+  ref = useGqlQuerySection(funcGqlQueryGetPosts, sectionIndex).ref;
 
   // =========================================================
 

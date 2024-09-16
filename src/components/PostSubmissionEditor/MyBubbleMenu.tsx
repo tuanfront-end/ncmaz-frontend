@@ -31,7 +31,7 @@ const MyBubbleMenu: FC<MyBubbleMenuProps> = ({ editor }) => {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 sm:w-6 sm:h-6"><path fill="none" d="M0 0h24v24H0z"/><path d="M17 17h5v2h-3v3h-2v-5zM7 7H2V5h3V2h2v5zm11.364 8.536L16.95 14.12l1.414-1.414a5 5 0 1 0-7.071-7.071L9.879 7.05 8.464 5.636 9.88 4.222a7 7 0 0 1 9.9 9.9l-1.415 1.414zm-2.828 2.828l-1.415 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 1 0 7.071 7.071l1.414-1.414 1.415 1.414zm-.708-10.607l1.415 1.415-7.071 7.07-1.415-1.414 7.071-7.07z"/></svg>`,
       title: "Unlink",
       action: () => editor.chain().focus().unsetLink().run(),
-      isActive: () => editor.isActive("link"),
+      isActive: () => editor.isActive("unlink"),
     },
 
     {
@@ -74,7 +74,7 @@ const MyBubbleMenu: FC<MyBubbleMenuProps> = ({ editor }) => {
   const renderItem = (item: TiptapBarItem) => {
     return (
       <button
-        className={`px-1.5 ${
+        className={`px-1.5 hover:text-green-500 ${
           item.isActive && item.isActive() ? " is-active text-green-500" : ""
         }`}
         onClick={item.action}
@@ -89,17 +89,29 @@ const MyBubbleMenu: FC<MyBubbleMenuProps> = ({ editor }) => {
   };
 
   return (
-    //   @ts-ignore
     <BubbleMenu
-      className="p-3 bg-neutral-800 dark:bg-neutral-200 text-neutral-200 dark:text-neutral-900 flex justify-center rounded-xl"
       editor={editor}
       tippyOptions={{ duration: 100 }}
+      shouldShow={({ editor, view, state, oldState, from, to }) => {
+        // show if the selection is not empty
+        if (from == to) {
+          return false;
+        }
+        // only show the bubble menu for images and links
+        return !editor.isActive("image");
+      }}
     >
-      {menuItems.map((item, index) => (
-        <Fragment key={item.title}>
-          {renderItem(item as TiptapBarItem)}
-        </Fragment>
-      ))}
+      <div
+        className={`p-3 bg-neutral-800 dark:bg-neutral-200 text-neutral-200 dark:text-neutral-900 flex justify-center rounded-xl ${
+          isOpenSetLinkModal ? "invisible -z-50 opacity-0" : ""
+        }`}
+      >
+        {menuItems.map((item, index) => (
+          <Fragment key={item.title}>
+            {renderItem(item as TiptapBarItem)}
+          </Fragment>
+        ))}
+      </div>
       <ModalGetLink
         onCloseModal={() => setIsOpenSetLinkModal(false)}
         isOpen={isOpenSetLinkModal}

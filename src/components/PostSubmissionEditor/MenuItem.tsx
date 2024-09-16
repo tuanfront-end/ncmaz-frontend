@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import MenuItemImage from "./MenuItemImage";
 import "./MenuItem.scss";
+import NCMAZ_TRANSLATE from "contains/translate";
 
 interface Props {
   icon: string;
@@ -17,7 +18,7 @@ const MenuItem: FC<Props> = ({
   isActive,
   className = "flex-shrink-0 mr-2",
 }) => {
-  if (title === "image") {
+  if (title === NCMAZ_TRANSLATE["Image"]) {
     return (
       <MenuItemImage action={action}>
         <button

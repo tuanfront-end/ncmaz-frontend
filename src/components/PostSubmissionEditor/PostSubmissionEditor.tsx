@@ -4,10 +4,12 @@ import CircleLoading from "components/Loading/CircleLoading";
 import { GQL_QUERY_GET_POST_BY_DATABASE_ID } from "contains/contants";
 import NCMAZ_TRANSLATE from "contains/translate";
 import { PostNodeFullData } from "data/postCardType";
-import React, { FC, useEffect } from "react";
-import CreateNewPostEditor from "./CreateNewPostEditor";
-import UpdatePostEditor from "./UpdatePostEditor";
+import React, { FC, Suspense, useEffect } from "react";
 
+const CreateNewPostEditorLazy = React.lazy(
+  () => import("./CreateNewPostEditor")
+);
+const UpdatePostEditorLazy = React.lazy(() => import("./UpdatePostEditor"));
 interface Data {
   post: PostNodeFullData;
 }
@@ -60,11 +62,19 @@ const PostSubmissionEditor: FC<Props> = ({
     if (!data) {
       return <Alert>{NCMAZ_TRANSLATE["somethingWentWrong"]}</Alert>;
     }
-    return <UpdatePostEditor postNode={data.post} />;
+    return (
+      <Suspense fallback={<div />}>
+        <UpdatePostEditorLazy postNode={data.post} />
+      </Suspense>
+    );
   }
 
   if (action === "create") {
-    return <CreateNewPostEditor />;
+    return (
+      <Suspense fallback={<div />}>
+        <CreateNewPostEditorLazy />
+      </Suspense>
+    );
   }
 
   return null;

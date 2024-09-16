@@ -121,7 +121,7 @@ const TabTagsOnSearchPage: FC<TabTagsOnSearchPageProps> = ({
       </div>
 
       {data?.tags.pageInfo.hasNextPage && (
-        <div className="flex justify-center mt-12 lg:mt-16">
+        <div className="flex justify-center mt-8 sm:mt-10 xl:mt-14">
           <ButtonPrimary loading={loading} onClick={handleClickLoadmore}>
             {NCMAZ_TRANSLATE["showMeMore"]}
           </ButtonPrimary>

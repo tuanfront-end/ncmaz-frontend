@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import NcImage from "components/NcImage/NcImage";
 import { CategoriesNode3 } from "data/postCardType";
 import NCMAZ_TRANSLATE from "contains/translate";
@@ -27,7 +27,11 @@ const CardCategory1: FC<CardCategory1Props> = ({
         containerClassName={`flex-shrink-0 ${
           size === "large" ? "w-20 h-20" : "w-12 h-12"
         } rounded-lg mr-4 overflow-hidden z-0`}
-        src={featuredImage?.sourceUrl || "."}
+        src={featuredImage?.node?.sourceUrl || "."}
+        srcSet={featuredImage?.node?.srcSet}
+        alt={name}
+        imageSizes="IS_SIZES"
+        sizes="100px"
       />
       <div>
         <h4

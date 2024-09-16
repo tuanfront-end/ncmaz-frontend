@@ -1,18 +1,49 @@
+import React, { FC, useState, useEffect } from "react";
 import CardLarge1 from "components/CardLarge1/CardLarge1";
 import CardLarge1Skeleton from "components/CardLarge1/CardLarge1Skeleton";
 import { ListPosts } from "data/postCardType";
-import React, { FC, useState } from "react";
+import useInterval from "react-use/lib/useInterval";
+import useBoolean from "react-use/lib/useBoolean";
 
 export interface SectionLargeSliderProps {
   listPosts: ListPosts["edges"];
   isLoading?: boolean;
 }
 
+let TIME_OUT: NodeJS.Timeout | null = null;
+
 const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
   listPosts,
   isLoading,
 }) => {
+  //
   const [indexActive, setIndexActive] = useState(0);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const [isRunning, toggleIsRunning] = useBoolean(true);
+
+  useEffect(() => {
+    setIndexActive(0);
+    handleAfterClick();
+  }, [listPosts]);
+
+  useInterval(
+    () => {
+      handleAutoNext();
+    },
+    isRunning ? 5000 : null
+  );
+  //
+
+  const handleAutoNext = () => {
+    setIndexActive((state) => {
+      if (state >= listPosts.length - 1) {
+        return 0;
+      }
+      return state + 1;
+    });
+    setIsClicked(true);
+  };
 
   const handleClickNext = () => {
     setIndexActive((state) => {
@@ -21,6 +52,7 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
       }
       return state + 1;
     });
+    handleAfterClick();
   };
 
   const handleClickPrev = () => {
@@ -30,10 +62,22 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
       }
       return state - 1;
     });
+    handleAfterClick();
+  };
+
+  const handleAfterClick = () => {
+    setIsClicked(true);
+    toggleIsRunning(false);
+    if (TIME_OUT) {
+      clearTimeout(TIME_OUT);
+    }
+    TIME_OUT = setTimeout(() => {
+      toggleIsRunning(true);
+    }, 1000);
   };
 
   return (
-    <div>
+    <div className="ncSectionLargeSlider">
       {isLoading ? (
         <CardLarge1Skeleton />
       ) : (
@@ -43,6 +87,9 @@ const SectionLargeSlider: FC<SectionLargeSliderProps> = ({
           }
           return (
             <CardLarge1
+              postsLength={[...Array(listPosts.length).keys()]}
+              indexActive={indexActive}
+              hasAnimation={isClicked}
               key={index}
               onClickNext={
                 document.querySelector("html")?.getAttribute("dir") === "rtl"

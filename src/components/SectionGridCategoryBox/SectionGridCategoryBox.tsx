@@ -82,7 +82,7 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
       <Heading desc={subHeading} isCenter={headingCenter}>
         {heading}
       </Heading>
-      <div className={`grid ${gridClass} gap-6 2xl:gap-8`}>
+      <div className={`grid ${gridClass} gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8`}>
         {isLoadingSkeleton
           ? isLoadingSkeletonArr.map(renderCardSkeleton)
           : categories.map(renderCard)}

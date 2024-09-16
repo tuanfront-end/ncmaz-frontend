@@ -2,6 +2,7 @@ import {
   EDGES_POST_COMMONT_FIELDS,
   EDGES_USER_COMMONT_FIELDS,
 } from "contains/contants";
+import { FEATURED_IMAGE_COMMONT } from "contains/contantsCommon";
 
 let POSTS_SECTION_BY_SEARCH_NO_FILTER__string = `
   query MyQueryPostsOnArchivePageNoFilter(
@@ -11,13 +12,7 @@ let POSTS_SECTION_BY_SEARCH_NO_FILTER__string = `
     $notIn: [ID] = null,
     $after: String = null,
     $search: String = null
-    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
-    $featuredImage_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
-    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
+    
   ) {
     posts(
       where: {
@@ -59,13 +54,7 @@ let POSTS_SECTION_BY_FILTER__string = `
     $month: Int = null,
     $day: Int = null,
     $search: String = null
-    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
-    $featuredImage_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
-    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
+    
   ) {
     posts(
       where: {
@@ -106,9 +95,7 @@ let GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
   $parent: Int = null,
   $search: String = null,
   $exclude: [ID] = "",
-  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
-    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-  }
+ 
   ) {
   categories(
     after: $after,
@@ -132,7 +119,7 @@ let GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
         ncTaxonomyMeta {
           color
           featuredImage {
-            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
+            ${FEATURED_IMAGE_COMMONT}
           }
         }
       }
@@ -158,9 +145,7 @@ let GET_LIST_CATEGORIES_NO_PARENT = `query GET_LIST_CATEGORIES_NO_PARENT(
   $orderby: TermObjectsConnectionOrderbyEnum = NAME,
   $search: String = null,
   $exclude: [ID] = "",
-  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
-    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-  }
+  
   ) {
   categories(
     after: $after,
@@ -190,7 +175,7 @@ let GET_LIST_CATEGORIES_NO_PARENT = `query GET_LIST_CATEGORIES_NO_PARENT(
         ncTaxonomyMeta {
           color
           featuredImage {
-            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
+            ${FEATURED_IMAGE_COMMONT}
           }
         }
       }
@@ -213,9 +198,7 @@ let GET_LIST_TAGS = `query GET_LIST_TAGS(
   $last: Int = null,
   $search: String = null,
   $exclude: [ID] = "",
-  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
-    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-  }
+  
   ) {
   tags(
     after: $after,
@@ -238,7 +221,7 @@ let GET_LIST_TAGS = `query GET_LIST_TAGS(
         ncTaxonomyMeta {
           color
           featuredImage {
-            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
+            ${FEATURED_IMAGE_COMMONT}
           }
         }
       }
@@ -263,22 +246,14 @@ let IS_ENABLE_PLL =
 if (IS_ENABLE_PLL) {
   POSTS_SECTION_BY_SEARCH_NO_FILTER__string = `
   query MyQueryPostsOnArchivePageNoFilter(
-    $language: LanguageCodeFilterEnum = ${
-      window.frontendObject.pll_current_language
-    },
+    $language: LanguageCodeFilterEnum = ${window.frontendObject.pll_current_language},
     $last: Int = null,
     $first: Int = 10,
     $before: String = null,
     $notIn: [ID] = null,
     $after: String = null,
     $search: String = null
-    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
-    $featuredImage_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
-    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
+     
   ) {
     posts(
       where: {
@@ -305,9 +280,7 @@ if (IS_ENABLE_PLL) {
 
   POSTS_SECTION_BY_FILTER__string = `
   query MyQueryPostsOnArchivePage(
-    $language: LanguageCodeFilterEnum = ${
-      window.frontendObject.pll_current_language
-    },
+    $language: LanguageCodeFilterEnum = ${window.frontendObject.pll_current_language},
     $field: PostObjectsConnectionOrderbyEnum = AUTHOR,
     $order: OrderEnum = ASC,
     $in: [ID] = null,
@@ -323,13 +296,7 @@ if (IS_ENABLE_PLL) {
     $month: Int = null,
     $day: Int = null,
     $search: String = null
-    $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL
-    $featuredImage_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
-    $ncmazGalleryImgs_size: MediaItemSizeEnum = ${
-      window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-    }
+     
   ) {
     posts(
       where: {
@@ -362,9 +329,7 @@ if (IS_ENABLE_PLL) {
 
   // ===================================== TERMS =================================
   GET_LIST_CATEGORIES = `query GET_LIST_CATEGORIES(
-  $language: LanguageCodeFilterEnum = ${
-    window.frontendObject.pll_current_language
-  },
+  $language: LanguageCodeFilterEnum = ${window.frontendObject.pll_current_language},
   $after: String = "",
   $before: String = "",
   $first: Int = 30,
@@ -373,9 +338,7 @@ if (IS_ENABLE_PLL) {
   $parent: Int = null,
   $search: String = null,
   $exclude: [ID] = "",
-  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
-    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-  }
+   
   ) {
   categories(
     after: $after,
@@ -402,7 +365,7 @@ if (IS_ENABLE_PLL) {
         ncTaxonomyMeta {
           color
           featuredImage {
-            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
+            ${FEATURED_IMAGE_COMMONT}
           }
         }
       }
@@ -419,9 +382,7 @@ if (IS_ENABLE_PLL) {
 `;
 
   GET_LIST_CATEGORIES_NO_PARENT = `query GET_LIST_CATEGORIES_NO_PARENT(
-  $language: LanguageCodeFilterEnum = ${
-    window.frontendObject.pll_current_language
-  },
+  $language: LanguageCodeFilterEnum = ${window.frontendObject.pll_current_language},
   $after: String = "",
   $before: String = "",
   $first: Int = 30,
@@ -429,9 +390,7 @@ if (IS_ENABLE_PLL) {
   $orderby: TermObjectsConnectionOrderbyEnum = NAME,
   $search: String = null,
   $exclude: [ID] = "",
-  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
-    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-  }
+   
   ) {
   categories(
     after: $after,
@@ -458,7 +417,7 @@ if (IS_ENABLE_PLL) {
         ncTaxonomyMeta {
           color
           featuredImage {
-            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
+            ${FEATURED_IMAGE_COMMONT}
           }
         }
       }
@@ -475,18 +434,14 @@ if (IS_ENABLE_PLL) {
 `;
 
   GET_LIST_TAGS = `query GET_LIST_TAGS(
-  $language: LanguageCodeFilterEnum = ${
-    window.frontendObject.pll_current_language
-  }
+  $language: LanguageCodeFilterEnum = ${window.frontendObject.pll_current_language}
   $after: String = "",
   $before: String = "",
   $first: Int = 30,
   $last: Int = null,
   $search: String = null,
   $exclude: [ID] = "",
-  $ncTaxonomyMeta_featuredImage_size: MediaItemSizeEnum = ${
-    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-  }
+   
   ) {
   tags(
     after: $after,
@@ -513,7 +468,7 @@ if (IS_ENABLE_PLL) {
         ncTaxonomyMeta {
           color
           featuredImage {
-            sourceUrl(size: $ncTaxonomyMeta_featuredImage_size)
+            ${FEATURED_IMAGE_COMMONT}
           }
         }
       }
@@ -542,10 +497,7 @@ const USERS_QUERY_FILTER__string = `query GET_USERS_QUERY_FILTER(
 	$roleIn: [UserRoleEnum] = [],
   $search: String = null,
   $exclude: [Int] = null,
-  $author_ncUserMeta_featuredImage_size: MediaItemSizeEnum = THUMBNAIL,
-  $author_ncUserMeta_backgroundImage_size: MediaItemSizeEnum = ${
-    window.innerWidth < 500 ? "MEDIUM" : "MEDIUM_LARGE"
-  }
+   
 ) {
 	users(
 		where: {
